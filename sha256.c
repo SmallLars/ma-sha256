@@ -31,9 +31,19 @@ void sha_processchunk(uint32_t *state, uint32_t *chunk) {
 		w[n] = w[n-16] + s0 + w[n-7] + s1;
 	}
 
+	for (n = 0; n < 64; n++) {
+        w[n] += sha_k[n];
+	}
+
 	// Initialize hash value for this chunk:
-	a = *(state+0); b = *(state+1); c = *(state+2); d = *(state+3);
-	e = *(state+4); f = *(state+5); g = *(state+6); h = *(state+7);
+	a = 0x6A09E667;
+    b = 0xBB67AE85;
+    c = 0x3C6EF372;
+    d = 0xA54FF53A;
+	e = 0x510E527F;
+    f = 0x9B05688C;
+    g = 0x1F83D9AB;
+    h = 0x5BE0CD19;
 
 	// Main loop:
 	for (n = 0; n < 64; n++) {
@@ -42,15 +52,21 @@ void sha_processchunk(uint32_t *state, uint32_t *chunk) {
 		t2 = S0 + maj;
 		S1 = (e >> 6 | e << (32-6)) ^ (e >> 11 | e << (32-11)) ^ (e >> 25 | e << (32-25));
 		ch = (e & f) ^ ((~e) & g);
-		t1 = h + S1 + ch + sha_k[n] + w[n];
+		t1 = h + S1 + ch + w[n];
 
 		h = g; g = f; f = e; e = d + t1;
 		d = c; c = b; b = a; a = t1 + t2;
 	}
 
 	// Add this chunk's hash to result so far:
-	*(state+0) += a; *(state+1) += b; *(state+2) += c; *(state+3) += d;
-	*(state+4) += e; *(state+5) += f; *(state+6) += g; *(state+7) += h;
+	state[0] = (a + 0x6A09E667);
+    state[1] = (b + 0xBB67AE85);
+    state[2] = (c + 0x3C6EF372);
+    state[3] = (d + 0xA54FF53A);
+	state[4] = (e + 0x510E527F);
+    state[5] = (f + 0x9B05688C);
+    state[6] = (g + 0x1F83D9AB);
+    state[7] = (h + 0x5BE0CD19);
 }
 // SHA STUFF END -------------------------------------------------------------------
 
@@ -74,31 +90,31 @@ int main(int argc, void* argv[]) {
   block[12] = nondet_uint();
 #endif
 
-    uint32_t state[8] = {0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19};
+    uint32_t result[8];
 
 	// Process it.
-	sha_processchunk(state, block);
+	sha_processchunk(result, block);
 
 #ifdef CBMC
   assert(
-    state[0] != 0x6A09E667 &&
-    state[1] != 0xBB67AE85 &&
-    state[2] != 0x3C6EF372 &&
-    state[3] != 0xA54FF53A &&
-    state[4] != 0x510E527F &&
-    state[5] != 0x9B05688C &&
-    state[6] != 0x1F83D9AB &&
-    state[7] != 0x5BE0CD19
+    result[0] != 0x6A09E667 &&
+    result[1] != 0xBB67AE85 &&
+    result[2] != 0x3C6EF372 &&
+    result[3] != 0xA54FF53A &&
+    result[4] != 0x510E527F &&
+    result[5] != 0x9B05688C &&
+    result[6] != 0x1F83D9AB &&
+    result[7] != 0x5BE0CD19
   );
 #endif
 
 	// Printing in reverse, because the hash is a big retarded big endian number in bitcoin.
     int n;
 	for (n = 7; n >= 0; n--) {
-		printf("%02x", state[n] & 0xff);
-		printf("%02x", (state[n] >> 8) & 0xff);
-		printf("%02x", (state[n] >> 16) & 0xff);
-		printf("%02x", (state[n] >> 24) & 0xff);
+		printf("%02x", result[n] & 0xff);
+		printf("%02x", (result[n] >> 8) & 0xff);
+		printf("%02x", (result[n] >> 16) & 0xff);
+		printf("%02x", (result[n] >> 24) & 0xff);
 	}
 	printf("\n");
 
