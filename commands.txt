@@ -1,0 +1,1 @@
+cbmc --slice-formula --32 --dimacs --outfile sha256.dimacs -DCBMC sha256.c
