@@ -36,14 +36,14 @@ void sha_processchunk(uint32_t *state, uint32_t *chunk) {
 	}
 
 	// Initialize hash value for this chunk:
-	a = 0x6A09E667;
-    b = 0xBB67AE85;
-    c = 0x3C6EF372;
-    d = 0xA54FF53A;
-	e = 0x510E527F;
-    f = 0x9B05688C;
-    g = 0x1F83D9AB;
-    h = 0x5BE0CD19;
+	a = state[0];
+    b = state[1];
+    c = state[2];
+    d = state[3];
+	e = state[4];
+    f = state[5];
+    g = state[6];
+    h = state[7];
 
 	// Main loop:
 	for (n = 0; n < 64; n++) {
@@ -59,14 +59,14 @@ void sha_processchunk(uint32_t *state, uint32_t *chunk) {
 	}
 
 	// Add this chunk's hash to result so far:
-	state[0] = (a + 0x6A09E667);
-    state[1] = (b + 0xBB67AE85);
-    state[2] = (c + 0x3C6EF372);
-    state[3] = (d + 0xA54FF53A);
-	state[4] = (e + 0x510E527F);
-    state[5] = (f + 0x9B05688C);
-    state[6] = (g + 0x1F83D9AB);
-    state[7] = (h + 0x5BE0CD19);
+	state[0] += a;
+    state[1] += b;
+    state[2] += c;
+    state[3] += d;
+	state[4] += e;
+    state[5] += f;
+    state[6] += g;
+    state[7] += h;
 }
 // SHA STUFF END -------------------------------------------------------------------
 
@@ -90,7 +90,7 @@ int main(int argc, void* argv[]) {
   block[12] = nondet_uint();
 #endif
 
-    uint32_t result[8];
+    uint32_t result[8] = {0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19};
 
 	// Process it.
 	sha_processchunk(result, block);

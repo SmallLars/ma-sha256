@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+     version="1.1" baseProfile="full"
+     width="1006" height="120" viewBox="-10 -10 1006 120">
+
+  <title>Message Extension - 512 Bit -> 2048 Bit</title>
+
+  <rect x="0" y="0" width="986" height="58" style="fill:white;stroke-width:2;stroke:black" />
+  <rect x="58" y="1" width="58" height="56" style="fill: gray;" />
+  <rect x="812" y="1" width="58" height="56" style="fill: gray;" />
+  <rect x="928" y="1" width="57" height="56" style="fill: lightblue;" />
+  <line x1="58" y1="0" x2="58" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="116" y1="0" x2="116" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="174" y1="0" x2="174" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="232" y1="0" x2="232" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="290" y1="0" x2="290" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="348" y1="0" x2="348" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="406" y1="0" x2="406" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="464" y1="0" x2="464" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="522" y1="0" x2="522" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="580" y1="0" x2="580" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="638" y1="0" x2="638" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="696" y1="0" x2="696" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="754" y1="0" x2="754" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="812" y1="0" x2="812" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="870" y1="0" x2="870" y2="58" style="stroke:black;stroke-width:2" />
+  <line x1="928" y1="0" x2="928" y2="58" style="stroke:black;stroke-width:2" />
+
+  <text x="29" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">t-16</text>
+  <text x="87" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">t-15</text>
+  <text x="551" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">t-7</text>
+  <text x="841" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">t-2</text>
+  <text x="957" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">t</text>
+
+  <text x="87" y="100" text-anchor="middle" style="font-family: Arial; font-size: 20px;">+</text>
+  <text x="551" y="100" text-anchor="middle" style="font-family: Arial; font-size: 20px;">+</text>
+  <text x="841" y="100" text-anchor="middle" style="font-family: Arial; font-size: 20px;">+</text>
+
+  <line x1="29" y1="58" x2="29" y2="93" style="stroke:black;stroke-width:2" />
+  <line x1="87" y1="58" x2="87" y2="80" style="stroke:black;stroke-width:2" />
+  <line x1="551" y1="58" x2="551" y2="80" style="stroke:black;stroke-width:2" />
+  <line x1="841" y1="58" x2="841" y2="80" style="stroke:black;stroke-width:2" />
+  <line x1="957" y1="58" x2="957" y2="93" style="stroke:black;stroke-width:2" />
+
+  <line x1="28" y1="93" x2="72" y2="93" style="stroke:black;stroke-width:2" />
+  <line x1="102" y1="93" x2="536" y2="93" style="stroke:black;stroke-width:2" />
+  <line x1="566" y1="93" x2="828" y2="93" style="stroke:black;stroke-width:2" />
+  <line x1="858" y1="93" x2="958" y2="93" style="stroke:black;stroke-width:2" />
+
+  <polygon points="957,58 947,78 967,78" style="fill: black;" />
+</svg>

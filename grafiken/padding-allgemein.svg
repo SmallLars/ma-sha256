@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+     version="1.1" baseProfile="full"
+     width="1020" height="120" viewBox="-10 -10 1020 120">
+
+  <title>Padding Allgemein</title>
+
+  <rect x="0" y="0" width="1000" height="100" style="fill:white;stroke-width:2;stroke:black" />
+  <rect x="1" y="1" width="500" height="98" style="fill: gray;" />
+  <line x1="500" y1="0" x2="500" y2="100" style="stroke:black;stroke-width:2" />
+  <line x1="550" y1="0" x2="550" y2="100" style="stroke:black;stroke-width:2" />
+  <line x1="750" y1="0" x2="750" y2="100" style="stroke:black;stroke-width:2" />
+
+  <text x="250" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">440 Bit</text>
+  <text x="250" y="70" text-anchor="middle" style="font-family: Arial; font-size: 20px;">Eingabe</text>
+  <text x="525" y="70" text-anchor="middle" style="font-family: Arial; font-size: 20px;">1</text>
+  <text x="650" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">7 Bit</text>
+  <text x="650" y="70" text-anchor="middle" style="font-family: Arial; font-size: 20px;">0 ... 0</text>
+  <text x="875" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">64 Bit</text>
+  <text x="875" y="70" text-anchor="middle" style="font-family: Arial; font-size: 20px;">Länge 440</text>
+</svg>

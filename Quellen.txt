@@ -16,3 +16,6 @@ https://blockchain.info/de/block-height/0
 http://research.microsoft.com/en-us/projects/psatfpga/
 
 http://minisat.se/downloads/synth_in_sat.pdf
+
+
+https://www.google.de/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0CCUQFjAA&url=https%3A%2F%2Fwww.aaai.org%2Focs%2Findex.php%2FFLAIRS%2FFLAIRS13%2Fpaper%2Fdownload%2F5875%2F6048&ei=a1FLVYG0BIapsgGN84G4BA&usg=AFQjCNHC6Yv8kC7Y4K0BMpfdiiYB3Uy9tw&bvm=bv.92765956,d.bGg
