@@ -4,7 +4,7 @@
 <svg xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
      version="1.1" baseProfile="full"
-     width="1006" height="120" viewBox="-10 -10 1006 120">
+     width="1006" height="159" viewBox="-10 -10 1006 159">
 
   <title>Message Extension - 512 Bit -> 2048 Bit</title>
 
@@ -29,26 +29,34 @@
   <line x1="870" y1="0" x2="870" y2="58" style="stroke:black;stroke-width:2" />
   <line x1="928" y1="0" x2="928" y2="58" style="stroke:black;stroke-width:2" />
 
+  <rect x="52" y="74" width="70" height="29" style="fill:white;stroke-width:2;stroke:black" />
+  <rect x="806" y="74" width="70" height="29" style="fill:white;stroke-width:2;stroke:black" />
+
   <text x="29" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">t-16</text>
   <text x="87" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">t-15</text>
   <text x="551" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">t-7</text>
   <text x="841" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">t-2</text>
   <text x="957" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px;">t</text>
 
-  <text x="87" y="100" text-anchor="middle" style="font-family: Arial; font-size: 20px;">+</text>
-  <text x="551" y="100" text-anchor="middle" style="font-family: Arial; font-size: 20px;">+</text>
-  <text x="841" y="100" text-anchor="middle" style="font-family: Arial; font-size: 20px;">+</text>
+  <text x="87" y="96" text-anchor="middle" style="font-family: Arial; font-size: 20px;">SSIG0</text>
+  <text x="841" y="96" text-anchor="middle" style="font-family: Arial; font-size: 20px;">SSIG1</text>
 
-  <line x1="29" y1="58" x2="29" y2="93" style="stroke:black;stroke-width:2" />
-  <line x1="87" y1="58" x2="87" y2="80" style="stroke:black;stroke-width:2" />
-  <line x1="551" y1="58" x2="551" y2="80" style="stroke:black;stroke-width:2" />
-  <line x1="841" y1="58" x2="841" y2="80" style="stroke:black;stroke-width:2" />
-  <line x1="957" y1="58" x2="957" y2="93" style="stroke:black;stroke-width:2" />
+  <text x="87" y="139" text-anchor="middle" style="font-family: Arial; font-size: 20px;">+</text>
+  <text x="551" y="139" text-anchor="middle" style="font-family: Arial; font-size: 20px;">+</text>
+  <text x="841" y="139" text-anchor="middle" style="font-family: Arial; font-size: 20px;">+</text>
 
-  <line x1="28" y1="93" x2="72" y2="93" style="stroke:black;stroke-width:2" />
-  <line x1="102" y1="93" x2="536" y2="93" style="stroke:black;stroke-width:2" />
-  <line x1="566" y1="93" x2="828" y2="93" style="stroke:black;stroke-width:2" />
-  <line x1="858" y1="93" x2="958" y2="93" style="stroke:black;stroke-width:2" />
+  <line x1="29" y1="58" x2="29" y2="132" style="stroke:black;stroke-width:2" />
+  <line x1="87" y1="58" x2="87" y2="74" style="stroke:black;stroke-width:2" />
+  <line x1="87" y1="103" x2="87" y2="119" style="stroke:black;stroke-width:2" />
+  <line x1="551" y1="58" x2="551" y2="119" style="stroke:black;stroke-width:2" />
+  <line x1="841" y1="58" x2="841" y2="74" style="stroke:black;stroke-width:2" />
+  <line x1="841" y1="103" x2="841" y2="119" style="stroke:black;stroke-width:2" />
+  <line x1="957" y1="58" x2="957" y2="132" style="stroke:black;stroke-width:2" />
+
+  <line x1="28" y1="132" x2="72" y2="132" style="stroke:black;stroke-width:2" />
+  <line x1="102" y1="132" x2="536" y2="132" style="stroke:black;stroke-width:2" />
+  <line x1="566" y1="132" x2="828" y2="132" style="stroke:black;stroke-width:2" />
+  <line x1="858" y1="132" x2="958" y2="132" style="stroke:black;stroke-width:2" />
 
   <polygon points="957,58 947,78 967,78" style="fill: black;" />
 </svg>
