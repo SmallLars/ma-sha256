@@ -2,7 +2,7 @@ CH( x, y, z) = (x AND y) XOR ( (NOT x) AND z)
 https://www.wolframalpha.com/input/?i=c+%3C%3D%3E+%28x+AND+y%29+XOR+%28+%28NOT+x%29+AND+z%29
 
 MAJ( x, y, z) = (x AND y) XOR (x AND z) XOR (y AND z)
-https://www.wolframalpha.com/input/?i=M+%3C%3D%3E+%28x+AND+y%29+XOR+%28x+AND+z%29+XOR+%28y+AND+z%29
+https://www.wolframalpha.com/input/?i=m+%3C%3D%3E+%28x+AND+y%29+XOR+%28x+AND+z%29+XOR+%28y+AND+z%29
 
 BSIG0(x) = ROTR^2(x) XOR ROTR^13(x) XOR ROTR^22(x)
 

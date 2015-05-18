@@ -5,15 +5,36 @@
 \usepackage[ngerman]{babel}
 \usepackage{ngerman}
  
-\title{Komponenten von SHA256}
+\title{Hashverfahren}
 \author{Lars Schmertmann}
 \date{\today}
  
 \begin{document}
 \maketitle
 \frame{\tableofcontents[currentsection]}
- 
-\section{Komponenten}
+
+\section{Eigenschaften}
+  \begin{frame}
+    \frametitle{Eigenschaften}
+    Ein guter kryptographischer Hash zeichnet sich aus durch:\\
+    ~\\
+    \begin{itemize}
+      \setlength{\itemsep}{20pt}
+      \item Kollisionsresistent:
+      \begin{itemize}
+        \item schwer, $ x \neq y $ zu finden mit $ h(x) = h(y) $
+      \end{itemize}
+      \item Urbildresistent:
+      \begin{itemize}
+        \item schwer, zu einem $ a $ ein $ y $ zu finden mit $ a = h(y) $
+      \end{itemize}
+    \end{itemize}
+    ~\\
+    Geling es die Urbildresistenz zu umgehen,\\
+    ist die Kollisionsresistenz ebenfalls umgangen.
+  \end{frame}
+
+\section{Komponenten von SHA256}
 \subsection{Padding}
   \begin{frame}
     \frametitle{Padding}
@@ -47,6 +68,43 @@
         \end{itemize}
     \end{itemize}
   \end{frame}
+\subsubsection{CH}
+  \begin{frame}
+    \frametitle{CH}
+    $ CH( x, y, z) = (x~AND~y)~XOR~( (NOT~x)~AND~z) $\\
+    ~\\
+    $ c \Leftrightarrow (x \wedge y) \veebar ( \neg x \wedge z) $\\
+    ~\\
+    \includegraphics[scale=0.5]{ch.png}\\
+    ~\\
+    $ (\neg c \vee \neg x \vee y) \wedge (\neg c \vee x \vee z) \wedge (c \vee \neg x \vee \neg y) \wedge (c \vee x \vee \neg z) $
+  \end{frame}
+\subsubsection{MAJ}
+  \begin{frame}
+    \frametitle{MAJ}
+    $ MAJ( x, y, z) = (x~AND~y)~XOR~(x~AND~z)~XOR~(y~AND~z) $\\
+    ~\\
+    $ m \Leftrightarrow (x \wedge y) \veebar (x \wedge z) \veebar (y \wedge z) $\\
+    ~\\
+    \includegraphics[scale=0.5]{maj.png}\\
+    ~\\
+    $ (\neg m \vee x \vee y) \wedge  (\neg m \vee x \vee z) \wedge (\neg m \vee y \vee z) \wedge $\\
+    $ (m \vee \neg x \vee \neg y) \wedge (m \vee \neg x \vee \neg z) \wedge (m \vee \neg y \vee \neg z) $
+    \end{frame}
+\subsubsection{*SIG*}
+  \begin{frame}
+    \frametitle{*SIG*}
+    $ *SIG*(a, b, c) = a~XOR~b~XOR~c $\\
+    ~\\
+    $ s \Leftrightarrow a \veebar b \veebar c $\\
+    ~\\
+    \includegraphics[scale=0.5]{sig.png}\\
+    ~\\
+    $ (\neg a \vee \neg b \vee \neg c \vee s) \wedge (\neg a \vee \neg b \vee c \vee \neg s) \wedge $\\
+    $ (\neg a \vee b \vee \neg c \vee \neg s) \wedge (\neg a \vee b \vee c \vee s) \wedge $\\
+    $ (a \vee \neg b \vee \neg c \vee \neg s) \wedge (a \vee \neg b \vee c \vee s) \wedge $\\
+    $ (a \vee b \vee \neg c \vee s) \wedge (a \vee b \vee c \vee \neg s) $
+  \end{frame}
 \subsection{Expansion}
   \begin{frame}
     \frametitle{Expansion}
@@ -56,11 +114,21 @@
     \includegraphics[width=300pt]{extend.pdf}
   \end{frame}
 \subsection{Computation}
+\subsubsection{Verfahren}
   \begin{frame}
-    \frametitle{Computation}
+    \frametitle{Verfahren}
+    \includegraphics[width=300pt]{verfahren.pdf}
+  \end{frame}
+\subsubsection{Mischen}
+  \begin{frame}
+    \frametitle{Mischen}
     \includegraphics[width=300pt]{sha256.pdf}
   \end{frame}
-
+\subsubsection{Kern}
+  \begin{frame}
+    \frametitle{Kern}
+    \includegraphics[width=300pt]{kern.pdf}
+  \end{frame}
 \section{Bitcoin}
 \subsection{Aufgabe}
   \begin{frame}
