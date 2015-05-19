@@ -6,10 +6,12 @@ https://www.duo.uio.no/handle/10852/34912
 https://tools.ietf.org/html/rfc4634
 
 https://en.bitcoin.it/wiki/Block_hashing_algorithm
-
 https://blockchain.info/de/block-height/0
 
 
+
+http://www.msoos.org/cryptominisat4/
+http://www.msoos.org/xor-clauses/
 
 
 
