@@ -9,10 +9,10 @@ https://en.bitcoin.it/wiki/Block_hashing_algorithm
 https://blockchain.info/de/block-height/0
 
 
-
 http://www.msoos.org/cryptominisat4/
 http://www.msoos.org/xor-clauses/
-
+http://www.msoos.org/2012/06/how-to-use-cryptominisat-2-9-as-a-library/
+http://www.msoos.org/2012/06/visualizing-sat-solving/
 
 
 http://research.microsoft.com/en-us/projects/psatfpga/
