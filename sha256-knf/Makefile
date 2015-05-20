@@ -1,4 +1,6 @@
-CFLAGS = -Wall -g -Wl,-rpath,/home/lars/Dokumente/Masterarbeit/sha256-knf/cryptominisat/lib -I/home/lars/Dokumente/Masterarbeit/sha256-knf/cryptominisat/include -L/home/lars/Dokumente/Masterarbeit/sha256-knf/cryptominisat/lib -lcryptominisat4
+CFLAGS = -Wall -g -Icryptominisat/include
+LFLAGS = -Wl,-rpath=./cryptominisat/lib -Lcryptominisat/lib
+LIBS = -lcryptominisat4
 
 all: cryptominisat/lib/libcryptominisat4.so sha256
 
@@ -8,8 +10,8 @@ all: cryptominisat/lib/libcryptominisat4.so sha256
 %.o: %.cpp
 	g++ -c $(CFLAGS) -o $@ $<
 
-sha256: sha256.o cryptominisat/lib/libcryptominisat4.so
-	g++ $(CFLAGS) -o $@ $^
+sha256: sha256.o
+	g++ $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
 	-rm sha256 *.o
