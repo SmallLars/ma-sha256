@@ -15,9 +15,23 @@ int main()
     //Let's use 4 threads
     solver.set_num_threads(4);
 
-    //We need 3 variables
-    solver.new_vars(6);
 
+
+    //  BSIG0(x) = ROTR^2(x) XOR ROTR^13(x) XOR ROTR^22(x)
+
+    // 32 Eingangsvariablen (0 bis 31) + 32 Ausgangsvariablen (32 bis 63)
+    solver.new_vars(64);
+
+    for (unsigned i = 0; i < 32; i++) {
+        x_clause.clear();
+        x_clause.push_back(32 + i);
+        x_clause.push_back((i +  2) % 32);
+        x_clause.push_back((i + 13) % 32);
+        x_clause.push_back((i + 22) % 32);
+        solver.add_xor_clause(x_clause, false);
+    }
+
+/*
     //adds "1 0"
     clause.push_back(Lit(0, false));
     solver.add_clause(clause);
@@ -40,6 +54,7 @@ int main()
     x_clause.push_back(4);
     x_clause.push_back(5);
     solver.add_xor_clause(x_clause, true);
+*/
 
     lbool ret = solver.solve();
 /*
