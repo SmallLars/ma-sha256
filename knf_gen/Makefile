@@ -2,7 +2,7 @@ CFLAGS = -Wall -g -Icryptominisat/include
 LFLAGS = -Wl,-rpath=./cryptominisat/lib -Lcryptominisat/lib
 LIBS = -lcryptominisat4
 
-all: cryptominisat/lib/libcryptominisat4.so sha256
+all: cryptominisat/lib/libcryptominisat4.so knf_gen
 
 %.o: %.c
 	gcc -c $(CFLAGS) -o $@ $<
@@ -10,11 +10,11 @@ all: cryptominisat/lib/libcryptominisat4.so sha256
 %.o: %.cpp
 	g++ -c $(CFLAGS) -o $@ $<
 
-sha256: sha256.o
+knf_gen: knf_gen.o
 	g++ $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	-rm sha256 *.o
+	-rm knf_gen *.o
 
 clobber: clean
 	-rm -r cryptominisat
