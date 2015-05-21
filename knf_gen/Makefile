@@ -30,6 +30,6 @@ startsql:
 	mysql -u root -p cmsat < cmsat_tablestructure.sql
 
 depend:
-	sudo apt-get install cmake libboost-program-options-dev zlib1g-dev mysql-server libmysql++-dev libm4ri-dev
+	sudo apt-get install cmake libboost-program-options-dev zlib1g-dev mysql-server libmysql++-dev libm4ri-dev libtbb-dev
 
 .PHONY: all clean clobber depend startsql
