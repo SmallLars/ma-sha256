@@ -1,6 +1,7 @@
 #include <cryptominisat4/cryptominisat.h>
 #include <assert.h>
 #include <vector>
+#include <stdio.h>
 
 #include "bsig0.h"
 
@@ -38,14 +39,11 @@ int main()
     b = (a >> 2 | a << (32-2)) ^ (a >> 13 | a << (32-13)) ^ (a >> 22 | a << (32-22));
     for (unsigned i = 32; i > 0; i--) std::cout << ((b >> (i - 1) & 1)); std::cout << std::endl;
 
-    for (unsigned i = 0; i < 32; i++) {
-        x_clause.clear();
-        x_clause.push_back(32 + i);
-        x_clause.push_back((i +  2) % 32);
-        x_clause.push_back((i + 13) % 32);
-        x_clause.push_back((i + 22) % 32);
-        solver.add_xor_clause(x_clause, false);
-    }
+    Lit l = Lit(2, true);
+    printf("%d\n", l.toInt());
+
+    Bsig0 bsig0;
+    bsig0.append(&solver);
 
 /*
     //adds "1 0"
@@ -88,10 +86,6 @@ int main()
     << ", " << solver.get_model()[2]
     << std::endl;
 */
-
-    Bsig0 test;
-    test.append("Laber");
-    test.append(solver);
 
     return 0;
 }
