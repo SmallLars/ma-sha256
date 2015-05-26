@@ -1,17 +1,19 @@
 CFLAGS = -Wall -g -Icryptominisat/include
 LFLAGS = -Wl,-rpath=./cryptominisat/lib -Lcryptominisat/lib
 LIBS = -lcryptominisat4
+COMP = g++
+#COMP = clang++-3.5
 
 all: cryptominisat/lib/libcryptominisat4.so knf_gen
 
-%.o: %.c
-	gcc -c $(CFLAGS) -o $@ $<
+#%.o: %.c
+#	gcc -c $(CFLAGS) -o $@ $<
 
 %.o: %.cpp
-	g++ -c $(CFLAGS) -o $@ $<
+	$(COMP) -c $(CFLAGS) -o $@ $<
 
-knf_gen: knf_gen.o
-	g++ $(LFLAGS) -o $@ $^ $(LIBS)
+knf_gen: knf_gen.o modul.o bsig0.o
+	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
 	-rm knf_gen *.o

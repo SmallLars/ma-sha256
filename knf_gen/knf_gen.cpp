@@ -1,6 +1,9 @@
 #include <cryptominisat4/cryptominisat.h>
 #include <assert.h>
 #include <vector>
+
+#include "bsig0.h"
+
 using std::vector;
 using namespace CMSat;
 
@@ -85,6 +88,10 @@ int main()
     << ", " << solver.get_model()[2]
     << std::endl;
 */
+
+    Bsig0 test;
+    test.append("Laber");
+    test.append(solver);
 
     return 0;
 }
