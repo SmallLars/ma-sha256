@@ -19,7 +19,7 @@ knf_gen_test: knf_gen_test.o modul.o const.o bsig0.o
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	-rm knf_gen *.o
+	-rm knf_gen knf_gen_test *.o
 
 clobber: clean
 	-rm -r cryptominisat
