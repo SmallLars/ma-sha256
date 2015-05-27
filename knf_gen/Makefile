@@ -4,7 +4,7 @@ LIBS = -lcryptominisat4
 COMP = g++
 #COMP = clang++-3.5
 
-all: cryptominisat/lib/libcryptominisat4.so knf_gen
+all: cryptominisat/lib/libcryptominisat4.so knf_gen knf_gen_test
 
 #%.o: %.c
 #	gcc -c $(CFLAGS) -o $@ $<
@@ -12,7 +12,10 @@ all: cryptominisat/lib/libcryptominisat4.so knf_gen
 %.o: %.cpp
 	$(COMP) -c $(CFLAGS) -o $@ $<
 
-knf_gen: knf_gen.o modul.o bsig0.o
+knf_gen: knf_gen.o modul.o const.o bsig0.o
+	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
+
+knf_gen_test: knf_gen_test.o modul.o const.o bsig0.o
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:

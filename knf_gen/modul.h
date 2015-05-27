@@ -16,13 +16,13 @@ class Modul {
         unsigned append(std::string filename);
         unsigned append(CMSat::SATSolver* solver);
     protected:
-        virtual void create(void (Modul::*createX) (bool, const std::vector<signed>&)) = 0;
+        virtual void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&)) = 0;
     private:
         unsigned start;
         std::vector<unsigned> inputs;
         CMSat::SATSolver* solver;
-        void createF(bool xOR, const std::vector<signed>& vars);
-        void createC(bool xOR, const std::vector<signed>& vars);
+        void createF(bool xOR, const std::vector<CMSat::Lit>& vars);
+        void createC(bool xOR, const std::vector<CMSat::Lit>& vars);
 };
 
 #endif //__MODUL_H__

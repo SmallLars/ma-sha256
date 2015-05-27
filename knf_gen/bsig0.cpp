@@ -1,12 +1,12 @@
 #include "bsig0.h"
 
-void Bsig0::create(void (Modul::*createX) (bool, const std::vector<signed>&)) {
+void Bsig0::create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&)) {
     for (unsigned i = 0; i < 32; i++) {
-        std::vector<signed> clause;
-        clause.push_back(32 + i);
-        clause.push_back((i +  2) % 32);
-        clause.push_back((i + 13) % 32);
-        clause.push_back((i + 22) % 32);
+        std::vector<CMSat::Lit> clause;
+        clause.push_back(CMSat::Lit(32 + i, true));
+        clause.push_back(CMSat::Lit((i +  2) % 32, true));
+        clause.push_back(CMSat::Lit((i + 13) % 32, true));
+        clause.push_back(CMSat::Lit((i + 22) % 32, true));
         (this->*createX)(true, clause);
     }
 }

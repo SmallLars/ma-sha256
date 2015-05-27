@@ -26,25 +26,26 @@ unsigned Modul::append(CMSat::SATSolver* solver) {
     return 0;
 }
 
-void Modul::createF(bool xOR, const std::vector<signed>& vars) {
+void Modul::createF(bool xOR, const std::vector<CMSat::Lit>& vars) {
     if (xOR) {
         fprintf(stdout, "x-");
-        for (unsigned i = 0; i < vars.size(); i++) fprintf(stdout, "%d ", abs(vars[i]));
+        for (unsigned i = 0; i < vars.size(); i++) fprintf(stdout, "%d ", vars[i].var());
         fprintf(stdout, "0\n");
     } else {
-        for (unsigned i = 0; i < vars.size(); i++) fprintf(stdout, "%d ", vars[i]);
+        for (unsigned i = 0; i < vars.size(); i++) {
+            if (vars[i].sign()) fprintf(stdout, "-");
+            fprintf(stdout, "%d ", vars[i].var());
+        }
         fprintf(stdout, "0\n");
     }
 }
 
-void Modul::createC(bool xOR, const std::vector<signed>& vars) {
+void Modul::createC(bool xOR, const std::vector<CMSat::Lit>& clause) {
     if (xOR) {
         std::vector<unsigned> lits;
-        for (unsigned i = 0; i < vars.size(); i++) lits.push_back(abs(vars[i]));
+        for (unsigned i = 0; i < clause.size(); i++) lits.push_back(clause[i].var());
         solver->add_xor_clause(lits, false);
     } else {
-        std::vector<CMSat::Lit> clause;
-        for (unsigned i = 0; i < vars.size(); i++) clause.push_back(CMSat::Lit(abs(vars[i]), vars[i] > 0));
         solver->add_clause(clause);
     }
 }

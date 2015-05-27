@@ -5,7 +5,7 @@
 
 class Bsig0 : public Modul {
     protected:
-        void create(void (Modul::*createX) (bool, const std::vector<signed>&));
+        void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&));
 };
 
 #endif //__BSIG0_H__
