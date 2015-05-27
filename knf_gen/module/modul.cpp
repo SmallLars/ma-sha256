@@ -1,5 +1,6 @@
 #include "modul.h"
 #include <stdio.h>
+#include <assert.h>
 
 using std::vector;
 using std::string;
@@ -16,6 +17,7 @@ void Modul::setStart(unsigned start) {
 }
 
 void Modul::setInputs(const vector<unsigned>& inputs) {
+    assert(inputs.size() == getInputCount());
     this->inputs = inputs;
 }
 

@@ -7,6 +7,10 @@ class Const : public Modul {
     public:
         Const(uint32_t value);
         ~Const();
+
+        unsigned getInputCount();
+
+        void setValue(uint32_t);
     protected:
         void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&));
     private:
