@@ -1,6 +1,10 @@
 #include "modul.h"
 #include <stdio.h>
 
+using std::vector;
+using std::string;
+using namespace CMSat;
+
 Modul::Modul() {
 }
 
@@ -11,22 +15,22 @@ void Modul::setStart(unsigned start) {
     this->start = start;
 }
 
-void Modul::setInputs(const std::vector<unsigned>& inputs) {
+void Modul::setInputs(const vector<unsigned>& inputs) {
     this->inputs = inputs;
 }
 
-unsigned Modul::append(std::string filename) {
+unsigned Modul::append(string filename) {
     create(&Modul::createF);
     return 0;
 }
 
-unsigned Modul::append(CMSat::SATSolver* solver) {
+unsigned Modul::append(SATSolver* solver) {
     this->solver = solver;
     create(&Modul::createC);
     return 0;
 }
 
-void Modul::createF(bool xOR, const std::vector<CMSat::Lit>& vars) {
+void Modul::createF(bool xOR, const vector<Lit>& vars) {
     if (xOR) {
         fprintf(stdout, "x-");
         for (unsigned i = 0; i < vars.size(); i++) fprintf(stdout, "%d ", vars[i].var());
@@ -40,9 +44,9 @@ void Modul::createF(bool xOR, const std::vector<CMSat::Lit>& vars) {
     }
 }
 
-void Modul::createC(bool xOR, const std::vector<CMSat::Lit>& clause) {
+void Modul::createC(bool xOR, const vector<Lit>& clause) {
     if (xOR) {
-        std::vector<unsigned> lits;
+        vector<unsigned> lits;
         for (unsigned i = 0; i < clause.size(); i++) lits.push_back(clause[i].var());
         solver->add_xor_clause(lits, false);
     } else {

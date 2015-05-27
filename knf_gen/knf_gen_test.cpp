@@ -3,14 +3,14 @@
 #include <vector>
 #include <stdio.h>
 
-#include "const.h"
-#include "bsig0.h"
+#include "module/const.h"
+#include "module/bsig0.h"
 
 using std::vector;
 using namespace CMSat;
 
 int main() {
-    #include "bsig0_test.cpp"
+    #include "module/bsig0_test.h"
 
     return 0;
 }
