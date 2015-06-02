@@ -15,6 +15,10 @@ unsigned Const::getAdditionalVarCount() {
     return 32;
 }
 
+unsigned Const::getClauseCount() {
+    return 32;
+}
+
 void Const::setValue(uint32_t value) {
     this->value = value;
 }

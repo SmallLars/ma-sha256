@@ -9,6 +9,7 @@ class Maj : public Modul {
         ~Maj();
 
         unsigned getAdditionalVarCount();
+        unsigned getClauseCount();
     protected:
         void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&));
 };

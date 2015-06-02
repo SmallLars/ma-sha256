@@ -25,6 +25,10 @@ unsigned Maj::getAdditionalVarCount() {
     return 32;
 }
 
+unsigned Maj::getClauseCount() {
+    return 192;
+}
+
 void Maj::create(void (Modul::*createX) (bool, const vector<Lit>&)) {
     vector<Lit> clause;
     for (unsigned i = 0; i < 32; i++) {

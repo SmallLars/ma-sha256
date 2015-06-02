@@ -1,8 +1,8 @@
-#include <cryptominisat4/cryptominisat.h>
 #include <assert.h>
 #include <vector>
 #include <stdio.h>
 
+#include "cryptominisat4/cryptominisat.h"
 #include "module/const.h"
 #include "module/bsig0.h"
 
@@ -21,9 +21,13 @@ int main()
 
     Const ca(a);
     ca.append(&solver);
+    ca.appendDimacs("example.dimacs");
+    ca.appendTT("example.tt");
 
     Bsig0 bsig0;
     bsig0.append(&solver);
+    bsig0.appendDimacs("example.dimacs");
+    bsig0.appendTT("example.tt");
 
     lbool ret = solver.solve();
     assert(ret == l_True);

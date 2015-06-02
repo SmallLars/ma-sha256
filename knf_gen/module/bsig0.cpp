@@ -15,6 +15,10 @@ unsigned Bsig0::getAdditionalVarCount() {
     return 32;
 }
 
+unsigned Bsig0::getClauseCount() {
+    return 1;
+}
+
 void Bsig0::create(void (Modul::*createX) (bool, const vector<Lit>&)) {
     for (unsigned i = 0; i < 32; i++) {
         vector<Lit> clause;

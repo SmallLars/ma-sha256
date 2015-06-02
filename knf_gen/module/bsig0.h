@@ -9,6 +9,7 @@ class Bsig0 : public Modul {
         ~Bsig0();
 
         unsigned getAdditionalVarCount();
+        unsigned getClauseCount();
     protected:
         void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&));
 };

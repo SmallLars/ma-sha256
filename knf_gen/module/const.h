@@ -9,6 +9,7 @@ class Const : public Modul {
         ~Const();
 
         unsigned getAdditionalVarCount();
+        unsigned getClauseCount();
 
         void setValue(uint32_t);
     protected:
