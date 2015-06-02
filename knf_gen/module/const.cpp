@@ -3,7 +3,7 @@
 using std::vector;
 using namespace CMSat;
 
-Const::Const(uint32_t value) {
+Const::Const(uint32_t value) : Modul(0) {
     this->value = value;
     start = 0;
 }
@@ -11,8 +11,8 @@ Const::Const(uint32_t value) {
 Const::~Const() {
 }
 
-unsigned Const::getInputCount() {
-    return 0;
+unsigned Const::getAdditionalVarCount() {
+    return 32;
 }
 
 void Const::setValue(uint32_t value) {

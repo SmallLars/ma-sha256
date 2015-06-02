@@ -3,7 +3,7 @@
 using std::vector;
 using namespace CMSat;
 
-Bsig0::Bsig0() {
+Bsig0::Bsig0() : Modul(1) {
     start = 32;
     inputs.push_back(0);
 }
@@ -11,8 +11,8 @@ Bsig0::Bsig0() {
 Bsig0::~Bsig0() {
 }
 
-unsigned Bsig0::getInputCount() {
-    return 1;
+unsigned Bsig0::getAdditionalVarCount() {
+    return 32;
 }
 
 void Bsig0::create(void (Modul::*createX) (bool, const vector<Lit>&)) {

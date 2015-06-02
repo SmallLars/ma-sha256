@@ -7,10 +7,11 @@
 
 class Modul {
     public:
-        Modul();
+        Modul(unsigned inputCount);
         ~Modul();
 
-        virtual unsigned getInputCount() = 0;
+        unsigned getVarCount();
+        virtual unsigned getAdditionalVarCount() = 0;
 
         void setStart(unsigned start);
         void setInputs(const std::vector<unsigned>& inputs);
@@ -23,6 +24,8 @@ class Modul {
 
         virtual void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&)) = 0;
     private:
+        unsigned inputCount;
+
         CMSat::SATSolver* solver;
         void createF(bool xOR, const std::vector<CMSat::Lit>& vars);
         void createC(bool xOR, const std::vector<CMSat::Lit>& vars);

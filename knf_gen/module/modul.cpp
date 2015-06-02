@@ -6,10 +6,15 @@ using std::vector;
 using std::string;
 using namespace CMSat;
 
-Modul::Modul() {
+Modul::Modul(unsigned inputCount) {
+    this->inputCount = inputCount;
 }
 
 Modul::~Modul() {
+}
+
+unsigned Modul::getVarCount() {
+    return 32 * inputCount + getAdditionalVarCount();
 }
 
 void Modul::setStart(unsigned start) {
@@ -17,7 +22,7 @@ void Modul::setStart(unsigned start) {
 }
 
 void Modul::setInputs(const vector<unsigned>& inputs) {
-    assert(inputs.size() == getInputCount());
+    assert(inputs.size() == inputCount);
     this->inputs = inputs;
 }
 

@@ -8,7 +8,7 @@ class Maj : public Modul {
         Maj();
         ~Maj();
 
-        unsigned getInputCount();
+        unsigned getAdditionalVarCount();
     protected:
         void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&));
 };

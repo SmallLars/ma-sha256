@@ -8,7 +8,7 @@ class Const : public Modul {
         Const(uint32_t value);
         ~Const();
 
-        unsigned getInputCount();
+        unsigned getAdditionalVarCount();
 
         void setValue(uint32_t);
     protected:

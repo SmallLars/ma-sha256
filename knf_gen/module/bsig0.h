@@ -8,7 +8,7 @@ class Bsig0 : public Modul {
         Bsig0();
         ~Bsig0();
 
-        unsigned getInputCount();
+        unsigned getAdditionalVarCount();
     protected:
         void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&));
 };

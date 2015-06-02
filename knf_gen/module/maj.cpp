@@ -11,7 +11,7 @@ using namespace CMSat;
 // z = 64 -  95
 // m = 96 - 127
 
-Maj::Maj() {
+Maj::Maj() : Modul(3) {
     start = 96;
     inputs.push_back(0);
     inputs.push_back(32);
@@ -21,8 +21,8 @@ Maj::Maj() {
 Maj::~Maj() {
 }
 
-unsigned Maj::getInputCount() {
-    return 3;
+unsigned Maj::getAdditionalVarCount() {
+    return 32;
 }
 
 void Maj::create(void (Modul::*createX) (bool, const vector<Lit>&)) {
