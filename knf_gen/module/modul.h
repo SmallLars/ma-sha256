@@ -18,8 +18,8 @@ class Modul {
         void setInputs(const std::vector<unsigned>& inputs);
 
         unsigned append(CMSat::SATSolver* solver);
-        unsigned appendDimacs(const char* filename);
-        unsigned appendTT(const char* filename);
+        unsigned writeDimacs(const char* filename);
+        unsigned writeTT(const char* filename);
 
         virtual void create(Printer* printer) = 0;
     protected:

@@ -36,13 +36,13 @@ unsigned Modul::append(SATSolver* solver) {
     return 0;
 }
 
-unsigned Modul::appendDimacs(const char* filename) {
+unsigned Modul::writeDimacs(const char* filename) {
     DimacsFilePrinter printer(filename, getVarCount(), getClauseCount());
     create(&printer);
     return 0;
 }
 
-unsigned Modul::appendTT(const char* filename) {
+unsigned Modul::writeTT(const char* filename) {
     TTFilePrinter printer(filename, getVarCount());
     create(&printer);
     return 0;

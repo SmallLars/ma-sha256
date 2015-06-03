@@ -13,21 +13,22 @@ TTFilePrinter::~TTFilePrinter() {
 }
 
 void TTFilePrinter::create(bool xOR, const vector<Lit>& vars) {
-    //TODO
-    getStream() << varCount << "\n";
-/*
     if (xOR) {
-        getStream() << "x-";
-        for (unsigned i = 0; i < vars.size(); i++) getStream() << vars[i].var() << " ";
-        getStream() << "0\n";
-    } else {
+       // TODO
+    } else { 
+        vector<char> values(varCount, -1);
         for (unsigned i = 0; i < vars.size(); i++) {
-            if (vars[i].sign()) getStream() << "-";
-            getStream() << vars[i].var() << " ";
+            values[vars[i].var()] = (vars[i].sign() ? 1 : 0);
         }
-        getStream() << "0\n";
+        for (unsigned i = 0; i < varCount; i++) {
+            switch (values[i]) {
+                case 0: getStream() << "0"; break;
+                case 1: getStream() << "1"; break;
+                default: getStream() << "-";
+            }
+        }
+        getStream() << "|0\n";
     }
-*/
 }
 
 void TTFilePrinter::printHeader() {

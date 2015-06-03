@@ -3,8 +3,6 @@
 
 #include "printer.h"
 
-#include "cryptominisat4/cryptominisat.h"
-
 class SolverPrinter : public Printer {
     public:
         SolverPrinter(CMSat::SATSolver* solver);

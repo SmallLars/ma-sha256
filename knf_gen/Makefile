@@ -22,11 +22,11 @@ knf_gen_test: knf_gen_test.o $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	-rm knf_gen knf_gen_test *.o module/*.o printer/*.o log_test.txt
+	-rm -f knf_gen knf_gen_test *.o module/*.o printer/*.o log_test.txt
 
 clobber: clean
-	-rm -r cryptominisat
-	-rm -r cryptominisat4-4.2.0
+	-rm -rf cryptominisat
+	-rm -rf cryptominisat4-4.2.0
 
 cryptominisat/lib/libcryptominisat4.so:
 	tar xjf cryptominisat-4.2.0.tar.bz2
