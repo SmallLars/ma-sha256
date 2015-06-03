@@ -5,6 +5,7 @@ COMP = g++
 #COMP = clang++-3.5
 
 MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")
+PRINTER = $(shell find printer/*.cpp -type f | sed "s/.cpp/.o/g")
 
 all: cryptominisat/lib/libcryptominisat4.so knf_gen knf_gen_test
 
@@ -14,14 +15,14 @@ all: cryptominisat/lib/libcryptominisat4.so knf_gen knf_gen_test
 %.o: %.cpp
 	$(COMP) -c $(CFLAGS) -o $@ $<
 
-knf_gen: knf_gen.o $(MODULE)
+knf_gen: knf_gen.o $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
-knf_gen_test: knf_gen_test.o $(MODULE)
+knf_gen_test: knf_gen_test.o $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	-rm knf_gen knf_gen_test *.o module/*.o log_test.txt
+	-rm knf_gen knf_gen_test *.o module/*.o printer/*.o log_test.txt
 
 clobber: clean
 	-rm -r cryptominisat

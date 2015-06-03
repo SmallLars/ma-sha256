@@ -16,16 +16,16 @@ unsigned Bsig0::getAdditionalVarCount() {
 }
 
 unsigned Bsig0::getClauseCount() {
-    return 1;
+    return 32;
 }
 
-void Bsig0::create(void (Modul::*createX) (bool, const vector<Lit>&)) {
+void Bsig0::create(Printer* printer) {
     for (unsigned i = 0; i < 32; i++) {
         vector<Lit> clause;
         clause.push_back(Lit(start + i, true));
         clause.push_back(Lit(inputs[0] + ((i +  2) % 32), true));
         clause.push_back(Lit(inputs[0] + ((i + 13) % 32), true));
         clause.push_back(Lit(inputs[0] + ((i + 22) % 32), true));
-        (this->*createX)(true, clause);
+        printer->create(true, clause);
     }
 }

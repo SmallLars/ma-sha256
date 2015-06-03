@@ -12,8 +12,10 @@ class Const : public Modul {
         unsigned getClauseCount();
 
         void setValue(uint32_t);
+
+        void create(Printer* printer);
     protected:
-        void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&));
+
     private:
         uint32_t value;
 };

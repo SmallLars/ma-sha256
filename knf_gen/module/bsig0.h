@@ -10,8 +10,9 @@ class Bsig0 : public Modul {
 
         unsigned getAdditionalVarCount();
         unsigned getClauseCount();
+
+        void create(Printer* printer);
     protected:
-        void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&));
 };
 
 #endif //__BSIG0_H__

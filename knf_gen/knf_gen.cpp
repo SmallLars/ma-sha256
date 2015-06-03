@@ -5,12 +5,17 @@
 #include "cryptominisat4/cryptominisat.h"
 #include "module/const.h"
 #include "module/bsig0.h"
+#include "module/bsig1.h"
 
 using std::vector;
 using namespace CMSat;
 
 int main()
 {
+    Bsig1 bsig1;
+    bsig1.appendDimacs("example.dimacs");
+    bsig1.appendTT("example.tt");
+/*
     SATSolver solver;
     solver.log_to_file("mylog.txt");
     solver.set_num_threads(4);
@@ -33,6 +38,6 @@ int main()
     assert(ret == l_True);
 
     for (unsigned i = 63; i >=32; i--) std::cout << (solver.get_model()[i] == l_True? 1 : 0); std::cout << std::endl;
-
+*/
     return 0;
 }

@@ -29,7 +29,7 @@ unsigned Maj::getClauseCount() {
     return 192;
 }
 
-void Maj::create(void (Modul::*createX) (bool, const vector<Lit>&)) {
+void Maj::create(Printer* printer) {
     vector<Lit> clause;
     for (unsigned i = 0; i < 32; i++) {
         // (!m | x | y)
@@ -37,41 +37,41 @@ void Maj::create(void (Modul::*createX) (bool, const vector<Lit>&)) {
         clause.push_back(Lit(i + start, true));
         clause.push_back(Lit(i + inputs[0], false));
         clause.push_back(Lit(i + inputs[1], false));
-        (this->*createX)(false, clause);
+        printer->create(false, clause);
 
         // (!m | x | z)
         clause.clear();
         clause.push_back(Lit(i + start, true));
         clause.push_back(Lit(i + inputs[0], false));
         clause.push_back(Lit(i + inputs[2], false));
-        (this->*createX)(false, clause);
+        printer->create(false, clause);
 
         // (!m | y | z)
         clause.clear();
         clause.push_back(Lit(i + start, true));
         clause.push_back(Lit(i + inputs[1], false));
         clause.push_back(Lit(i + inputs[2], false));
-        (this->*createX)(false, clause);
+        printer->create(false, clause);
 
         // (m | !x | !y)
         clause.clear();
         clause.push_back(Lit(i + start, false));
         clause.push_back(Lit(i + inputs[0], true));
         clause.push_back(Lit(i + inputs[1], true));
-        (this->*createX)(false, clause);
+        printer->create(false, clause);
 
         // (m | !x | !z)
         clause.clear();
         clause.push_back(Lit(i + start, false));
         clause.push_back(Lit(i + inputs[0], true));
         clause.push_back(Lit(i + inputs[2], true));
-        (this->*createX)(false, clause);
+        printer->create(false, clause);
 
         // (m | !y | !z)
         clause.clear();
         clause.push_back(Lit(i + start, false));
         clause.push_back(Lit(i + inputs[1], true));
         clause.push_back(Lit(i + inputs[2], true));
-        (this->*createX)(false, clause);
+        printer->create(false, clause);
     }
 }

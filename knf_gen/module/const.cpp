@@ -23,10 +23,10 @@ void Const::setValue(uint32_t value) {
     this->value = value;
 }
 
-void Const::create(void (Modul::*createX) (bool, const vector<Lit>&)) {
+void Const::create(Printer* printer) {
     for (unsigned i = 32; i > 0; i--) {
         vector<Lit> clause;
         clause.push_back(Lit(start + i - 1, !(value >> (i - 1) & 1)));
-        (this->*createX)(false, clause);
+        printer->create(false, clause);
     }
 }

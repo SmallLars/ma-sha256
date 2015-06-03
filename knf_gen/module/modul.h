@@ -2,9 +2,8 @@
 #define __MODUL_H__
 
 #include <vector>
-#include <fstream>
 
-#include "cryptominisat4/cryptominisat.h"
+#include "../printer/printer.h"
 
 class Modul {
     public:
@@ -21,19 +20,13 @@ class Modul {
         unsigned append(CMSat::SATSolver* solver);
         unsigned appendDimacs(const char* filename);
         unsigned appendTT(const char* filename);
+
+        virtual void create(Printer* printer) = 0;
     protected:
         unsigned start;
         std::vector<unsigned> inputs;
-
-        virtual void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&)) = 0;
     private:
         unsigned inputCount;
-        std::ofstream outputFile;
-
-        CMSat::SATSolver* solver;
-        void createSolver(bool xOR, const std::vector<CMSat::Lit>& vars);
-        void createDimacs(bool xOR, const std::vector<CMSat::Lit>& vars);
-        void createTT(bool xOR, const std::vector<CMSat::Lit>& vars);
 };
 
 #endif //__MODUL_H__

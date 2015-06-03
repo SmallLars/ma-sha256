@@ -10,8 +10,10 @@ class Maj : public Modul {
 
         unsigned getAdditionalVarCount();
         unsigned getClauseCount();
+
+        void create(Printer* printer);
     protected:
-        void create(void (Modul::*createX) (bool, const std::vector<CMSat::Lit>&));
+
 };
 
 #endif //__MAJ_H__
