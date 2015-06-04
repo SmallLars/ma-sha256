@@ -21,8 +21,9 @@ class Modul {
         virtual unsigned getAdditionalVarCount() = 0;
         virtual unsigned getClauseCount() = 0;
 
-        void setStart(unsigned start);
         void setInputs(const std::vector<unsigned>& inputs);
+        void setStart(unsigned start);
+        void setOutput(unsigned output);
 
         unsigned append(CMSat::SATSolver* solver);
         unsigned writeDimacs(const char* filename);
@@ -30,8 +31,9 @@ class Modul {
 
         virtual void create(Printer* printer) = 0;
     protected:
-        unsigned start;
         std::vector<unsigned> inputs;
+        unsigned start;
+        unsigned output;
     private:
         unsigned inputCount;
 };

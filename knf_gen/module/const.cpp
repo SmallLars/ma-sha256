@@ -5,7 +5,7 @@ using namespace CMSat;
 
 Const::Const(uint32_t value) : Modul(0) {
     this->value = value;
-    start = 0;
+    output = 0;
 }
 
 Const::~Const() {
@@ -26,7 +26,7 @@ void Const::setValue(uint32_t value) {
 void Const::create(Printer* printer) {
     for (unsigned i = 32; i > 0; i--) {
         vector<Lit> clause;
-        clause.push_back(Lit(start + i - 1, !(value >> (i - 1) & 1)));
+        clause.push_back(Lit(output + i - 1, !(value >> (i - 1) & 1)));
         printer->create(false, clause);
     }
 }

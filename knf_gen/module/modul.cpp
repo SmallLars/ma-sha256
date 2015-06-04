@@ -18,16 +18,20 @@ Modul::~Modul() {
 }
 
 unsigned Modul::getVarCount() {
-    return 32 * inputCount + getAdditionalVarCount();
+    return inputCount + getAdditionalVarCount();
+}
+
+void Modul::setInputs(const vector<unsigned>& inputs) {
+    assert(inputs.size() == inputCount);
+    this->inputs = inputs;
 }
 
 void Modul::setStart(unsigned start) {
     this->start = start;
 }
 
-void Modul::setInputs(const vector<unsigned>& inputs) {
-    assert(inputs.size() == inputCount);
-    this->inputs = inputs;
+void Modul::setOutput(unsigned output) {
+    this->output = output;
 }
 
 unsigned Modul::append(SATSolver* solver) {

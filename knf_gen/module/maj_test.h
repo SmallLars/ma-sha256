@@ -14,15 +14,15 @@
     uint32_t result = 0;
 
     Const ca(eingabe[0]);
-    ca.setStart(0);
+    ca.setOutput(0);
     ca.append(&solver);
 
     ca.setValue(eingabe[1]);
-    ca.setStart(32);
+    ca.setOutput(32);
     ca.append(&solver);
 
     ca.setValue(eingabe[2]);
-    ca.setStart(64);
+    ca.setOutput(64);
     ca.append(&solver);
 
     Maj maj;
