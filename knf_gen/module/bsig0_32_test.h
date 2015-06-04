@@ -13,10 +13,10 @@
     uint32_t ausgabe = (eingabe >> 2 | eingabe << (32-2)) ^ (eingabe >> 13 | eingabe << (32-13)) ^ (eingabe >> 22 | eingabe << (32-22));
     uint32_t result = 0;
 
-    Const ca(eingabe);
+    Const_32 ca(eingabe);
     ca.append(&solver);
 
-    Bsig0 bsig0;
+    Bsig0_32 bsig0;
     bsig0.append(&solver);
 
     lbool ret = solver.solve();

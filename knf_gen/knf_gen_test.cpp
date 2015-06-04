@@ -3,16 +3,16 @@
 #include <vector>
 #include <stdio.h>
 
-#include "module/const.h"
-#include "module/bsig0.h"
-#include "module/maj.h"
+#include "module/const_32.h"
+#include "module/bsig0_32.h"
+#include "module/maj_32.h"
 
 using std::vector;
 using namespace CMSat;
 
 int main() {
-    #include "module/bsig0_test.h"
-    #include "module/maj_test.h"
+    #include "module/bsig0_32_test.h"
+    #include "module/maj_32_test.h"
 
     return 0;
 }

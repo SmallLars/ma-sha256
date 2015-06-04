@@ -1,4 +1,4 @@
-#include "maj.h"
+#include "maj_32.h"
 
 using std::vector;
 using namespace CMSat;
@@ -11,25 +11,25 @@ using namespace CMSat;
 // z = 64 -  95
 // m = 96 - 127
 
-Maj::Maj() : Modul(96) {
+Maj_32::Maj_32() : Modul(3) {
     inputs.push_back(0);
     inputs.push_back(32);
     inputs.push_back(64);
     output = 96;
 }
 
-Maj::~Maj() {
+Maj_32::~Maj_32() {
 }
 
-unsigned Maj::getAdditionalVarCount() {
+unsigned Maj_32::getAdditionalVarCount() {
     return 32;
 }
 
-unsigned Maj::getClauseCount() {
+unsigned Maj_32::getClauseCount() {
     return 192;
 }
 
-void Maj::create(Printer* printer) {
+void Maj_32::create(Printer* printer) {
     vector<Lit> clause;
     for (unsigned i = 0; i < 32; i++) {
         // (!m | x | y)

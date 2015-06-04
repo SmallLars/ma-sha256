@@ -1,25 +1,25 @@
-#include "bsig0.h"
+#include "bsig0_32.h"
 
 using std::vector;
 using namespace CMSat;
 
-Bsig0::Bsig0() : Modul(32) {
+Bsig0_32::Bsig0_32() : Modul(1) {
     inputs.push_back(0);
     output = 32;
 }
 
-Bsig0::~Bsig0() {
+Bsig0_32::~Bsig0_32() {
 }
 
-unsigned Bsig0::getAdditionalVarCount() {
+unsigned Bsig0_32::getAdditionalVarCount() {
     return 32;
 }
 
-unsigned Bsig0::getClauseCount() {
+unsigned Bsig0_32::getClauseCount() {
     return 32 * XOR_CLAUSE_COUNT(4);
 }
 
-void Bsig0::create(Printer* printer) {
+void Bsig0_32::create(Printer* printer) {
     for (unsigned i = 0; i < 32; i++) {
         vector<Lit> clause;
         clause.push_back(Lit(output + i, true));

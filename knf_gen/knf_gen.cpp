@@ -3,9 +3,9 @@
 #include <stdio.h>
 
 #include "cryptominisat4/cryptominisat.h"
-#include "module/const.h"
-#include "module/bsig0.h"
-#include "module/maj.h"
+#include "module/const_32.h"
+#include "module/bsig0_32.h"
+#include "module/maj_32.h"
 
 using std::vector;
 using namespace CMSat;
@@ -18,14 +18,14 @@ int main()
 
     solver.new_vars(128);
 
-    Bsig0 bsig0;
-    bsig0.writeDimacs("bsig0.dimacs");
-    bsig0.writeTT("bsig0.tt");
+    Bsig0_32 bsig0;
+    bsig0.writeDimacs("bsig0_32.dimacs");
+    bsig0.writeTT("bsig0_32.tt");
 
-    Maj maj;
+    Maj_32 maj;
     maj.append(&solver);
-    maj.writeDimacs("maj.dimacs");
-    maj.writeTT("maj.tt");
+    maj.writeDimacs("maj_32.dimacs");
+    maj.writeTT("maj_32.tt");
 
     lbool ret = solver.solve();
     assert(ret == l_True);

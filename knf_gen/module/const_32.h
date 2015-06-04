@@ -1,12 +1,12 @@
-#ifndef __CONST_H__
-#define __CONST_H__
+#ifndef __CONST_32_H__
+#define __CONST_32_H__
 
 #include "modul.h"
 
-class Const : public Modul {
+class Const_32 : public Modul {
     public:
-        Const(uint32_t value);
-        ~Const();
+        Const_32(uint32_t value);
+        ~Const_32();
 
         unsigned getAdditionalVarCount();
         unsigned getClauseCount();
@@ -20,4 +20,4 @@ class Const : public Modul {
         uint32_t value;
 };
 
-#endif //__CONST_H__
+#endif //__CONST_32_H__

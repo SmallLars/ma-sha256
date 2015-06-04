@@ -1,19 +1,18 @@
-#ifndef __MAJ_H__
-#define __MAJ_H__
+#ifndef __BSIG0_32_H__
+#define __BSIG0_32_H__
 
 #include "modul.h"
 
-class Maj : public Modul {
+class Bsig0_32 : public Modul {
     public:
-        Maj();
-        ~Maj();
+        Bsig0_32();
+        ~Bsig0_32();
 
         unsigned getAdditionalVarCount();
         unsigned getClauseCount();
 
         void create(Printer* printer);
     protected:
-
 };
 
-#endif //__MAJ_H__
+#endif //__BSIG0_32_H__

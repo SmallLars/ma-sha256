@@ -13,7 +13,7 @@
     uint32_t ausgabe = (eingabe[0] & eingabe[1]) ^ (eingabe[0] & eingabe[2]) ^ (eingabe[1] & eingabe[2]);
     uint32_t result = 0;
 
-    Const ca(eingabe[0]);
+    Const_32 ca(eingabe[0]);
     ca.setOutput(0);
     ca.append(&solver);
 
@@ -25,7 +25,7 @@
     ca.setOutput(64);
     ca.append(&solver);
 
-    Maj maj;
+    Maj_32 maj;
     maj.append(&solver);
 
     lbool ret = solver.solve();
