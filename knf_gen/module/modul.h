@@ -14,12 +14,12 @@
 
 class Modul {
     public:
-        Modul(unsigned inputCount);
+        Modul(unsigned inputCount, unsigned inputBitWidth);
         ~Modul();
 
         unsigned getVarCount();
-        virtual unsigned getAdditionalVarCount() = 0;
-        virtual unsigned getClauseCount() = 0;
+        unsigned getAdditionalVarCount();
+        unsigned getClauseCount();
 
         void setInputs(const std::vector<unsigned>& inputs);
         void setStart(unsigned start);
@@ -36,6 +36,7 @@ class Modul {
         unsigned output;
     private:
         unsigned inputCount;
+        unsigned inputBitWidth;
 };
 
 #endif //__MODUL_H__

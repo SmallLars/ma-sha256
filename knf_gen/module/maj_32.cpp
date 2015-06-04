@@ -11,7 +11,7 @@ using namespace CMSat;
 // z = 64 -  95
 // m = 96 - 127
 
-Maj_32::Maj_32() : Modul(3) {
+Maj_32::Maj_32() : Modul(3, 32) {
     inputs.push_back(0);
     inputs.push_back(32);
     inputs.push_back(64);
@@ -19,14 +19,6 @@ Maj_32::Maj_32() : Modul(3) {
 }
 
 Maj_32::~Maj_32() {
-}
-
-unsigned Maj_32::getAdditionalVarCount() {
-    return 32;
-}
-
-unsigned Maj_32::getClauseCount() {
-    return 192;
 }
 
 void Maj_32::create(Printer* printer) {

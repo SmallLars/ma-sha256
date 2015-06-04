@@ -6,19 +6,35 @@
 #include "../printer/solverprinter.h"
 #include "../printer/dimacsfileprinter.h"
 #include "../printer/ttfileprinter.h"
+#include "../printer/counter.h"
 
 using std::vector;
 using namespace CMSat;
 
-Modul::Modul(unsigned inputCount) {
+Modul::Modul(unsigned inputCount, unsigned inputBitWidth) {
     this->inputCount = inputCount;
+    this->inputBitWidth = inputBitWidth;
 }
 
 Modul::~Modul() {
 }
 
 unsigned Modul::getVarCount() {
-    return inputCount + getAdditionalVarCount();
+    Counter counter;
+    create(&counter);
+    return counter.getVarCount();
+}
+
+unsigned Modul::getAdditionalVarCount() {
+    Counter counter;
+    create(&counter);
+    return counter.getVarCount() - (inputCount * inputBitWidth);
+}
+
+unsigned Modul::getClauseCount() {
+    Counter counter;
+    create(&counter);
+    return counter.getClauseCount();
 }
 
 void Modul::setInputs(const vector<unsigned>& inputs) {

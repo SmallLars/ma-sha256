@@ -3,20 +3,12 @@
 using std::vector;
 using namespace CMSat;
 
-Const_32::Const_32(uint32_t value) : Modul(0) {
+Const_32::Const_32(uint32_t value) : Modul(0, 32) {
     this->value = value;
     output = 0;
 }
 
 Const_32::~Const_32() {
-}
-
-unsigned Const_32::getAdditionalVarCount() {
-    return 32;
-}
-
-unsigned Const_32::getClauseCount() {
-    return 32;
 }
 
 void Const_32::setValue(uint32_t value) {

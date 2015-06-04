@@ -3,20 +3,12 @@
 using std::vector;
 using namespace CMSat;
 
-Bsig0_32::Bsig0_32() : Modul(1) {
+Bsig0_32::Bsig0_32() : Modul(1, 32) {
     inputs.push_back(0);
     output = 32;
 }
 
 Bsig0_32::~Bsig0_32() {
-}
-
-unsigned Bsig0_32::getAdditionalVarCount() {
-    return 32;
-}
-
-unsigned Bsig0_32::getClauseCount() {
-    return 32 * XOR_CLAUSE_COUNT(4);
 }
 
 void Bsig0_32::create(Printer* printer) {
