@@ -17,7 +17,7 @@ void DimacsFilePrinter::create(bool xOR, const vector<Lit>& vars) {
     if (xOR) {
 #ifdef XOR_SUPPORT
         getStream() << "x-";
-        for (unsigned i = 0; i < vars.size(); i++) getStream() << vars[i].var() << " ";
+        for (unsigned i = 0; i < vars.size(); i++) getStream() << (vars[i].var() + 1) << " ";
         getStream() << "0\n";
 #else
         vector< vector<Lit> > clauses = convertXOR(vars);
@@ -28,7 +28,7 @@ void DimacsFilePrinter::create(bool xOR, const vector<Lit>& vars) {
     } else {
         for (unsigned i = 0; i < vars.size(); i++) {
             if (vars[i].sign()) getStream() << "-";
-            getStream() << vars[i].var() << " ";
+            getStream() << (vars[i].var() + 1) << " ";
         }
         getStream() << "0\n";
     }
