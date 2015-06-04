@@ -15,9 +15,16 @@ DimacsFilePrinter::~DimacsFilePrinter() {
 
 void DimacsFilePrinter::create(bool xOR, const vector<Lit>& vars) {
     if (xOR) {
+#ifdef XOR_SUPPORT
         getStream() << "x-";
         for (unsigned i = 0; i < vars.size(); i++) getStream() << vars[i].var() << " ";
         getStream() << "0\n";
+#else
+        vector< vector<Lit> > clauses = convertXOR(vars);
+        for (unsigned i = 0; i < clauses.size(); i++) {
+             create(false, clauses[i]);
+        }
+#endif
     } else {
         for (unsigned i = 0; i < vars.size(); i++) {
             if (vars[i].sign()) getStream() << "-";

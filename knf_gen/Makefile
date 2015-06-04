@@ -1,4 +1,4 @@
-CFLAGS = -Wall -g -Icryptominisat/include
+CFLAGS = -Wall -g -Icryptominisat/include -DXOR_SUPPORT
 LFLAGS = -Wl,-rpath=./cryptominisat/lib -Lcryptominisat/lib
 LIBS = -lcryptominisat4
 COMP = g++
@@ -22,11 +22,12 @@ knf_gen_test: knf_gen_test.o $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	-rm -f knf_gen knf_gen_test *.o module/*.o printer/*.o log_test.txt
+	-rm -f knf_gen knf_gen_test *.o module/*.o printer/*.o
 
 clobber: clean
 	-rm -rf cryptominisat
 	-rm -rf cryptominisat4-4.2.0
+	-rm -f *.tt *.dimacs *.log
 
 cryptominisat/lib/libcryptominisat4.so:
 	tar xjf cryptominisat-4.2.0.tar.bz2

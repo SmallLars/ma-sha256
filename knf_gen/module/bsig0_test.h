@@ -3,7 +3,7 @@
 
     SATSolver solver;
     vector<Lit> clause;
-    solver.log_to_file("log_test.txt");
+    solver.log_to_file("test.log");
     solver.set_num_threads(4);
 
     // 32 Eingangsvariablen (0 bis 31) + 32 Ausgangsvariablen (32 bis 63)

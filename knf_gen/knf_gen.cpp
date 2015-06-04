@@ -13,7 +13,7 @@ using namespace CMSat;
 int main()
 {
     SATSolver solver;
-    solver.log_to_file("mylog.txt");
+    solver.log_to_file("solver.log");
     solver.set_num_threads(4);
 
     solver.new_vars(128);

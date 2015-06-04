@@ -16,7 +16,7 @@ unsigned Bsig0::getAdditionalVarCount() {
 }
 
 unsigned Bsig0::getClauseCount() {
-    return 32;
+    return 32 * XOR_CLAUSE_COUNT(4);
 }
 
 void Bsig0::create(Printer* printer) {

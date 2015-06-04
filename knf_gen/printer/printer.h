@@ -12,7 +12,7 @@ class Printer {
 
         virtual void create(bool xOR, const std::vector<CMSat::Lit>& vars) = 0;
     protected:
-
+        std::vector< std::vector<CMSat::Lit> > convertXOR(const std::vector<CMSat::Lit>& vars);
     private:
 
 };
