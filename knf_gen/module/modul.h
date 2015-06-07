@@ -2,15 +2,8 @@
 #define __MODUL_H__
 
 #include <vector>
-#include <cmath>
 
 #include "../printer/printer.h"
-
-#ifdef XOR_SUPPORT
-    #define XOR_CLAUSE_COUNT(n) 1
-#else
-    #define XOR_CLAUSE_COUNT(n) pow(2, n-1)
-#endif
 
 class Modul {
     public:
