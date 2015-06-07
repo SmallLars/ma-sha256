@@ -3,11 +3,14 @@
 
 #include "printer.h"
 
+#include <set>
+
 class Counter : public Printer {
     public:
         Counter();
         ~Counter();
 
+        unsigned getMaxVar();
         unsigned getVarCount();
         unsigned getClauseCount();
 
@@ -15,8 +18,9 @@ class Counter : public Printer {
     protected:
 
     private:
-        unsigned varCount;
+        std::set<unsigned> varSet;
         unsigned clauseCount;
+        
 };
 
 #endif //__COUNTER_H__

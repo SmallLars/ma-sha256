@@ -6,9 +6,6 @@
     solver.log_to_file("test.log");
     solver.set_num_threads(4);
 
-    // 32 Eingangsvariablen (0 bis 31) + 32 Ausgangsvariablen (32 bis 63)
-    solver.new_vars(64);
-
     uint32_t eingabe = 0xabcdef98;
     uint32_t ausgabe = (eingabe >> 2 | eingabe << (32-2)) ^ (eingabe >> 13 | eingabe << (32-13)) ^ (eingabe >> 22 | eingabe << (32-22));
     uint32_t result = 0;

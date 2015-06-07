@@ -1,18 +1,22 @@
 #include "counter.h"
 
 using std::vector;
+using std::set;
 using namespace CMSat;
 
 Counter::Counter() {
-    varCount = 0;
     clauseCount = 0;
 }
 
 Counter::~Counter() {
 }
 
+unsigned Counter::getMaxVar() {
+    return *(varSet.rbegin());
+}
+
 unsigned Counter::getVarCount() {
-    return varCount + 1;
+    return varSet.size();
 }
 
 unsigned Counter::getClauseCount() {
@@ -21,7 +25,7 @@ unsigned Counter::getClauseCount() {
 
 void Counter::create(bool xOR, const vector<Lit>& vars) {
     for (unsigned i = 0; i < vars.size(); i++) {
-        if (vars[i].var() > varCount) varCount = vars[i].var();
+        varSet.insert(vars[i].var());
     }
     clauseCount++;
 }

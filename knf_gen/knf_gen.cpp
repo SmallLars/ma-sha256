@@ -16,8 +16,6 @@ int main()
     solver.log_to_file("solver.log");
     solver.set_num_threads(4);
 
-    solver.new_vars(128);
-
     Bsig0_32 bsig0;
     bsig0.writeDimacs("bsig0_32.dimacs");
     bsig0.writeTT("bsig0_32.tt");

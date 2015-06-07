@@ -19,6 +19,12 @@ Modul::Modul(unsigned inputCount, unsigned inputBitWidth) {
 Modul::~Modul() {
 }
 
+unsigned Modul::getMaxVar() {
+    Counter counter;
+    create(&counter);
+    return counter.getMaxVar();
+}
+
 unsigned Modul::getVarCount() {
     Counter counter;
     create(&counter);
@@ -51,6 +57,11 @@ void Modul::setOutput(unsigned output) {
 }
 
 unsigned Modul::append(SATSolver* solver) {
+    unsigned maxVar = getMaxVar();
+    if (maxVar >= solver->nVars()) {
+        //std::cout << "Added: " << (maxVar - solver->nVars() + 1) << "\n";
+        solver->new_vars(maxVar - solver->nVars() + 1);
+    }
     SolverPrinter printer(solver);
     create(&printer);
     return 0;

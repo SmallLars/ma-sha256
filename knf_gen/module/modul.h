@@ -17,6 +17,7 @@ class Modul {
         Modul(unsigned inputCount, unsigned inputBitWidth);
         ~Modul();
 
+        unsigned getMaxVar();
         unsigned getVarCount();
         unsigned getAdditionalVarCount();
         unsigned getClauseCount();
