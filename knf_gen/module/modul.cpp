@@ -78,3 +78,56 @@ unsigned Modul::writeTT(const char* filename) {
     create(&printer);
     return 0;
 }
+
+void Modul::createAND(Printer* printer, unsigned out, unsigned in1, unsigned in2) {
+    vector<Lit> clause;
+    clause.push_back(Lit(out, false));
+    clause.push_back(Lit(in1, true));
+    clause.push_back(Lit(in2, true));
+    printer->create(false, clause);
+
+    clause.clear();
+    clause.push_back(Lit(out, true));
+    clause.push_back(Lit(in1, false));
+    printer->create(false, clause);
+
+    clause.clear();
+    clause.push_back(Lit(out, true));
+    clause.push_back(Lit(in2, false));
+    printer->create(false, clause);
+}
+
+void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2) {
+    vector<Lit> clause;
+    clause.push_back(Lit(out, true));
+    clause.push_back(Lit(in1, true));
+    clause.push_back(Lit(in2, true));
+    printer->create(true, clause);
+}
+
+void Modul::createOR(Printer* printer, unsigned out, unsigned in1, unsigned in2) {
+    vector<Lit> clause;
+    clause.push_back(Lit(out, true));
+    clause.push_back(Lit(in1, false));
+    clause.push_back(Lit(in2, false));
+    printer->create(false, clause);
+
+    clause.clear();
+    clause.push_back(Lit(out, false));
+    clause.push_back(Lit(in1, true));
+    printer->create(false, clause);
+
+    clause.clear();
+    clause.push_back(Lit(out, false));
+    clause.push_back(Lit(in2, true));
+    printer->create(false, clause);
+}
+
+void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3) {
+    vector<Lit> clause;
+    clause.push_back(Lit(out, true));
+    clause.push_back(Lit(in1, true));
+    clause.push_back(Lit(in2, true));
+    clause.push_back(Lit(in3, true));
+    printer->create(true, clause);
+}

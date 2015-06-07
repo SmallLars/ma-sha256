@@ -28,6 +28,12 @@ class Modul {
         std::vector<unsigned> inputs;
         unsigned start;
         unsigned output;
+
+        void createAND(Printer* printer, unsigned out, unsigned in1, unsigned in2);
+        void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2);
+        void createOR(Printer* printer, unsigned out, unsigned in1, unsigned in2);
+
+        void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3);
     private:
         unsigned inputCount;
         unsigned inputBitWidth;
