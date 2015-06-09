@@ -15,29 +15,30 @@ Adder_32::~Adder_32() {
 
 void Adder_32::create(Printer* printer) {
     vector<Lit> clause;
+
     // Half adder
 #ifdef XOR_SUPPORT
-        // (u | !a | !b)
-        clause.clear();
-        clause.push_back(Lit(start, false));
-        clause.push_back(Lit(inputs[0], true));
-        clause.push_back(Lit(inputs[1], true));
-        printer->create(false, clause);
+    // (u | !a | !b)
+    clause.clear();
+    clause.push_back(Lit(start, false));
+    clause.push_back(Lit(inputs[0], true));
+    clause.push_back(Lit(inputs[1], true));
+    printer->create(false, clause);
 
-        // (!u | a)
-        clause.clear();
-        clause.push_back(Lit(start, true));
-        clause.push_back(Lit(inputs[0], false));
-        printer->create(false, clause);
+    // (!u | a)
+    clause.clear();
+    clause.push_back(Lit(start, true));
+    clause.push_back(Lit(inputs[0], false));
+    printer->create(false, clause);
 
-        // (!u | b)
-        clause.clear();
-        clause.push_back(Lit(start, true));
-        clause.push_back(Lit(inputs[1], false));
-        printer->create(false, clause);
+    // (!u | b)
+    clause.clear();
+    clause.push_back(Lit(start, true));
+    clause.push_back(Lit(inputs[1], false));
+    printer->create(false, clause);
 
-        // XOR -> !s a b
-        createXOR(printer, output, inputs[0], inputs[1]);
+    // XOR -> !s a b
+    createXOR(printer, output, inputs[0], inputs[1]);
 #else
 !a !b  s
 !a     s  u

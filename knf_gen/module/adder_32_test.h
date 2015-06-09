@@ -23,7 +23,7 @@
     assert(ret == l_True);
 
     for (unsigned i = 126; i >=95; i--) {
-        result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - 96));
+        result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - 95));
     }
 
     assert(ausgabe == result);
