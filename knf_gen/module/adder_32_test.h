@@ -4,7 +4,7 @@
     solver.log_to_file("test.log");
     solver.set_num_threads(4);
 
-    uint32_t eingabe[2] = {1234, 1234};
+    uint32_t eingabe[2] = {1234, 1235};
     uint32_t ausgabe = eingabe[0] + eingabe[1];
     uint32_t result = 0;
 

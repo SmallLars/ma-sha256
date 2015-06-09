@@ -1,5 +1,7 @@
 #include "adder_32.h"
 
+#include "clausecreator.h"
+
 using std::vector;
 using namespace CMSat;
 
@@ -18,24 +20,14 @@ void Adder_32::create(Printer* printer) {
 
     // Half adder
 #ifdef XOR_SUPPORT
+    ClauseCreator cc(printer);
+    cc.setLiterals(3, start, inputs[0], inputs[1]);
     // (u | !a | !b)
-    clause.clear();
-    clause.push_back(Lit(start, false));
-    clause.push_back(Lit(inputs[0], true));
-    clause.push_back(Lit(inputs[1], true));
-    printer->create(false, clause);
-
+    cc.printClause(3, 1, 0, 0);
     // (!u | a)
-    clause.clear();
-    clause.push_back(Lit(start, true));
-    clause.push_back(Lit(inputs[0], false));
-    printer->create(false, clause);
-
+    cc.printClause(3, 0, 1, 2);
     // (!u | b)
-    clause.clear();
-    clause.push_back(Lit(start, true));
-    clause.push_back(Lit(inputs[1], false));
-    printer->create(false, clause);
+    cc.printClause(3, 0, 2, 1);
 
     // XOR -> !s a b
     createXOR(printer, output, inputs[0], inputs[1]);
