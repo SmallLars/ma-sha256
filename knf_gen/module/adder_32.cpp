@@ -40,14 +40,46 @@ void Adder_32::create(Printer* printer) {
     // XOR -> !s a b
     createXOR(printer, output, inputs[0], inputs[1]);
 #else
-!a !b  s
-!a     s  u
- a !b  s
- a  b !s
- a       !u
-    b    !u
-#endif
+    // (s | !a | !b)
+    clause.clear();
+    clause.push_back(Lit(output, false));
+    clause.push_back(Lit(inputs[0], true));
+    clause.push_back(Lit(inputs[1], true));
+    printer->create(false, clause);
 
+    // (s | u | !a)
+    clause.clear();
+    clause.push_back(Lit(output, false));
+    clause.push_back(Lit(start, false));
+    clause.push_back(Lit(inputs[0], true));
+    printer->create(false, clause);
+
+    // (s | a | !b)
+    clause.clear();
+    clause.push_back(Lit(output, false));
+    clause.push_back(Lit(inputs[0], false));
+    clause.push_back(Lit(inputs[1], true));
+    printer->create(false, clause);
+
+    // (!s | a | b)
+    clause.clear();
+    clause.push_back(Lit(output, true));
+    clause.push_back(Lit(inputs[0], false));
+    clause.push_back(Lit(inputs[1], false));
+    printer->create(false, clause);
+
+    // (!u | a)
+    clause.clear();
+    clause.push_back(Lit(start, true));
+    clause.push_back(Lit(inputs[0], false));
+    printer->create(false, clause);
+
+    // (!u | b)
+    clause.clear();
+    clause.push_back(Lit(start, true));
+    clause.push_back(Lit(inputs[1], false));
+    printer->create(false, clause);
+#endif
 
     // Full adder x30
     for (unsigned i = 1; i < 31; i++) {
@@ -97,16 +129,81 @@ void Adder_32::create(Printer* printer) {
         // XOR -> !s a b c
         createXOR(printer, output + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
 #else
-!a !b !c  s
-!a !b        u    x
-!a  b !c !s
-!a  b  c  s
- a !b !c !s
- a !b  c  s
- a  b  c !s
- a  b       !u    x
-      !c  s  u
-       c !s !u
+        // (s | !a | !b | !c)
+        clause.clear();
+        clause.push_back(Lit(output + i, false));
+        clause.push_back(Lit(inputs[0] + i, true));
+        clause.push_back(Lit(inputs[1] + i, true));
+        clause.push_back(Lit(start - 1 + i, true));
+        printer->create(false, clause);
+
+        // (u | !a | !b)
+        clause.clear();
+        clause.push_back(Lit(start + i, false));
+        clause.push_back(Lit(inputs[0] + i, true));
+        clause.push_back(Lit(inputs[1] + i, true));
+        printer->create(false, clause);
+
+        // (!s | !a | b | !c)
+        clause.clear();
+        clause.push_back(Lit(output + i, true));
+        clause.push_back(Lit(inputs[0] + i, true));
+        clause.push_back(Lit(inputs[1] + i, false));
+        clause.push_back(Lit(start - 1 + i, true));
+        printer->create(false, clause);
+
+        // (s | !a | b | c)
+        clause.clear();
+        clause.push_back(Lit(output + i, false));
+        clause.push_back(Lit(inputs[0] + i, true));
+        clause.push_back(Lit(inputs[1] + i, false));
+        clause.push_back(Lit(start - 1 + i, false));
+        printer->create(false, clause);
+
+        // (!s | a | !b | !c)
+        clause.clear();
+        clause.push_back(Lit(output + i, true));
+        clause.push_back(Lit(inputs[0] + i, false));
+        clause.push_back(Lit(inputs[1] + i, true));
+        clause.push_back(Lit(start - 1 + i, true));
+        printer->create(false, clause);
+
+        // (s | a | !b | c)
+        clause.clear();
+        clause.push_back(Lit(output + i, false));
+        clause.push_back(Lit(inputs[0] + i, false));
+        clause.push_back(Lit(inputs[1] + i, true));
+        clause.push_back(Lit(start - 1 + i, false));
+        printer->create(false, clause);
+
+        // (!s | a | b | c)
+        clause.clear();
+        clause.push_back(Lit(output + i, true));
+        clause.push_back(Lit(inputs[0] + i, false));
+        clause.push_back(Lit(inputs[1] + i, false));
+        clause.push_back(Lit(start - 1 + i, false));
+        printer->create(false, clause);
+
+        // (!u | a | b)
+        clause.clear();
+        clause.push_back(Lit(start + i, true));
+        clause.push_back(Lit(inputs[0] + i, false));
+        clause.push_back(Lit(inputs[1] + i, false));
+        printer->create(false, clause);
+
+        // (s | u | !c)
+        clause.clear();
+        clause.push_back(Lit(output + i, false));
+        clause.push_back(Lit(start + i, false));
+        clause.push_back(Lit(start - 1 + i, true));
+        printer->create(false, clause);
+
+        // (!s | !u | c)
+        clause.clear();
+        clause.push_back(Lit(output + i, true));
+        clause.push_back(Lit(start + i, true));
+        clause.push_back(Lit(start - 1 + i, false));
+        printer->create(false, clause);
 #endif
     }
 
