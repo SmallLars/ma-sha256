@@ -8,9 +8,6 @@ class Const_32 : public Modul {
         Const_32(uint32_t value);
         ~Const_32();
 
-        unsigned getAdditionalVarCount();
-        unsigned getClauseCount();
-
         void setValue(uint32_t);
 
         void create(Printer* printer);

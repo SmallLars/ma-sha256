@@ -8,9 +8,6 @@ class Bsig0_32 : public Modul {
         Bsig0_32();
         ~Bsig0_32();
 
-        unsigned getAdditionalVarCount();
-        unsigned getClauseCount();
-
         void create(Printer* printer);
     protected:
 };

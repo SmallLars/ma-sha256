@@ -6,6 +6,7 @@
 #include "module/const_32.h"
 #include "module/bsig0_32.h"
 #include "module/maj_32.h"
+#include "module/adder_32.h"
 
 using std::vector;
 using namespace CMSat;
@@ -13,6 +14,7 @@ using namespace CMSat;
 int main() {
     #include "module/bsig0_32_test.h"
     #include "module/maj_32_test.h"
+    #include "module/adder_32_test.h"
 
     return 0;
 }

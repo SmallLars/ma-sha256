@@ -6,6 +6,7 @@
 #include "module/const_32.h"
 #include "module/bsig0_32.h"
 #include "module/maj_32.h"
+#include "module/adder_32.h"
 
 using std::vector;
 using namespace CMSat;
@@ -24,6 +25,10 @@ int main()
     maj.append(&solver);
     maj.writeDimacs("maj_32.dimacs");
     maj.writeTT("maj_32.tt");
+
+    Adder_32 adder;
+    adder.writeDimacs("adder_32.dimacs");
+    adder.writeTT("adder_32.tt");
 
     lbool ret = solver.solve();
     assert(ret == l_True);

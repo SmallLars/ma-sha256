@@ -8,9 +8,6 @@ class Maj_32 : public Modul {
         Maj_32();
         ~Maj_32();
 
-        unsigned getAdditionalVarCount();
-        unsigned getClauseCount();
-
         void create(Printer* printer);
     protected:
 
