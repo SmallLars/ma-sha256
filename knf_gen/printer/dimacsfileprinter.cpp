@@ -14,17 +14,20 @@ DimacsFilePrinter::~DimacsFilePrinter() {
 }
 
 void DimacsFilePrinter::create(bool xOR, const vector<Lit>& vars) {
+#ifndef XOR_SUPPORT
     if (xOR) {
-#ifdef XOR_SUPPORT
-        getStream() << "x-";
-        for (unsigned i = 0; i < vars.size(); i++) getStream() << (vars[i].var() + 1) << " ";
-        getStream() << "0\n";
-#else
         vector< vector<Lit> > clauses = convertXOR(vars);
         for (unsigned i = 0; i < clauses.size(); i++) {
              create(false, clauses[i]);
         }
+        return;
+    }
 #endif
+
+    if (xOR) {
+        getStream() << "x-";
+        for (unsigned i = 0; i < vars.size(); i++) getStream() << (vars[i].var() + 1) << " ";
+        getStream() << "0\n";
         return;
     }
 

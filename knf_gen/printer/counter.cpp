@@ -33,6 +33,7 @@ void Counter::create(bool xOR, const vector<Lit>& vars) {
         return;
     }
 #endif
+
     for (unsigned i = 0; i < vars.size(); i++) {
         varSet.insert(vars[i].var());
     }
