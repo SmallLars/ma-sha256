@@ -20,20 +20,21 @@ void TTFilePrinter::create(bool xOR, const vector<Lit>& vars) {
         for (unsigned i = 0; i < clauses.size(); i++) {
              create(false, clauses[i]);
         }
-    } else {
-        vector<char> values(varCount, -1);
-        for (unsigned i = 0; i < vars.size(); i++) {
-            values[vars[i].var()] = (vars[i].sign() ? 1 : 0);
-        }
-        for (unsigned i = 0; i < varCount; i++) {
-            switch (values[i]) {
-                case 0: getStream() << "0"; break;
-                case 1: getStream() << "1"; break;
-                default: getStream() << "-";
-            }
-        }
-        getStream() << "|0\n";
+        return;
     }
+
+    vector<char> values(varCount, -1);
+    for (unsigned i = 0; i < vars.size(); i++) {
+        values[vars[i].var()] = (vars[i].sign() ? 1 : 0);
+    }
+    for (unsigned i = 0; i < varCount; i++) {
+        switch (values[i]) {
+            case 0: getStream() << "0"; break;
+            case 1: getStream() << "1"; break;
+            default: getStream() << "-";
+        }
+    }
+    getStream() << "|0\n";
 }
 
 void TTFilePrinter::printHeader() {

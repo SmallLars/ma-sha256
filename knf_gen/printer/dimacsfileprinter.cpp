@@ -25,13 +25,14 @@ void DimacsFilePrinter::create(bool xOR, const vector<Lit>& vars) {
              create(false, clauses[i]);
         }
 #endif
-    } else {
-        for (unsigned i = 0; i < vars.size(); i++) {
-            if (vars[i].sign()) getStream() << "-";
-            getStream() << (vars[i].var() + 1) << " ";
-        }
-        getStream() << "0\n";
+        return;
     }
+
+    for (unsigned i = 0; i < vars.size(); i++) {
+        if (vars[i].sign()) getStream() << "-";
+        getStream() << (vars[i].var() + 1) << " ";
+    }
+    getStream() << "0\n";
 }
 
 void DimacsFilePrinter::printHeader() {

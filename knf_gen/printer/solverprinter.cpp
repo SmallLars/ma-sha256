@@ -22,7 +22,8 @@ void SolverPrinter::create(bool xOR, const vector<Lit>& vars) {
              create(false, clauses[i]);
         }
 #endif
-    } else {
-        solver->add_clause(vars);
+        return;
     }
+
+    solver->add_clause(vars);
 }
