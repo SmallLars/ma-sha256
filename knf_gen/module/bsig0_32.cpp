@@ -1,8 +1,5 @@
 #include "bsig0_32.h"
 
-using std::vector;
-using namespace CMSat;
-
 Bsig0_32::Bsig0_32() : Modul(1, 32) {
     inputs.push_back(0);
     output = 32;

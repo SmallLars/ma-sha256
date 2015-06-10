@@ -9,7 +9,6 @@ class Adder_32 : public Modul {
         ~Adder_32();
 
         void create(Printer* printer);
-    protected:
 };
 
 #endif //__ADDER_32_H__

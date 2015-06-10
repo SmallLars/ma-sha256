@@ -9,10 +9,7 @@ class Const_32 : public Modul {
         ~Const_32();
 
         void setValue(uint32_t);
-
         void create(Printer* printer);
-    protected:
-
     private:
         uint32_t value;
 };

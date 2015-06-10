@@ -9,8 +9,6 @@ class Maj_32 : public Modul {
         ~Maj_32();
 
         void create(Printer* printer);
-    protected:
-
 };
 
 #endif //__MAJ_32_H__

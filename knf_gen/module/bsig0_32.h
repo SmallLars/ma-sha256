@@ -9,7 +9,6 @@ class Bsig0_32 : public Modul {
         ~Bsig0_32();
 
         void create(Printer* printer);
-    protected:
 };
 
 #endif //__BSIG0_32_H__

@@ -2,9 +2,6 @@
 
 #include "clausecreator.h"
 
-using std::vector;
-using namespace CMSat;
-
 Adder_32::Adder_32() : Modul(2, 32) {
     inputs.push_back(0);
     inputs.push_back(32);
@@ -16,189 +13,60 @@ Adder_32::~Adder_32() {
 }
 
 void Adder_32::create(Printer* printer) {
-    vector<Lit> clause;
+    ClauseCreator cc(printer);
 
     // Half adder
 #ifdef XOR_SUPPORT
-    ClauseCreator cc(printer);
+    //                c_out       a_in       b_in
     cc.setLiterals(3, start, inputs[0], inputs[1]);
-    // (u | !a | !b)
-    cc.printClause(3, 1, 0, 0);
-    // (!u | a)
-    cc.printClause(3, 0, 1, 2);
-    // (!u | b)
-    cc.printClause(3, 0, 2, 1);
+    cc.printClause(3,     1,         0,         0);
+    cc.printClause(3,     0,         1,     CC_DC);
+    cc.printClause(3,     0,     CC_DC,         1);
 
-    // XOR -> !s a b
+    // XOR ->          !s_out       a_in       b_in
     createXOR(printer, output, inputs[0], inputs[1]);
 #else
-    // (s | !a | !b)
-    clause.clear();
-    clause.push_back(Lit(output, false));
-    clause.push_back(Lit(inputs[0], true));
-    clause.push_back(Lit(inputs[1], true));
-    printer->create(false, clause);
-
-    // (s | u | !a)
-    clause.clear();
-    clause.push_back(Lit(output, false));
-    clause.push_back(Lit(start, false));
-    clause.push_back(Lit(inputs[0], true));
-    printer->create(false, clause);
-
-    // (s | a | !b)
-    clause.clear();
-    clause.push_back(Lit(output, false));
-    clause.push_back(Lit(inputs[0], false));
-    clause.push_back(Lit(inputs[1], true));
-    printer->create(false, clause);
-
-    // (!s | a | b)
-    clause.clear();
-    clause.push_back(Lit(output, true));
-    clause.push_back(Lit(inputs[0], false));
-    clause.push_back(Lit(inputs[1], false));
-    printer->create(false, clause);
-
-    // (!u | a)
-    clause.clear();
-    clause.push_back(Lit(start, true));
-    clause.push_back(Lit(inputs[0], false));
-    printer->create(false, clause);
-
-    // (!u | b)
-    clause.clear();
-    clause.push_back(Lit(start, true));
-    clause.push_back(Lit(inputs[1], false));
-    printer->create(false, clause);
+    //                 s_out  c_out       a_in       b_in
+    cc.setLiterals(4, output, start, inputs[0], inputs[1]);
+    cc.printClause(4,      1, CC_DC,         0,         0);
+    cc.printClause(4,      1,     1,         0,     CC_DC);
+    cc.printClause(4,      1, CC_DC,         1,         0);
+    cc.printClause(4,      0, CC_DC,         1,         1);
+    cc.printClause(4,  CC_DC,     0,         1,     CC_DC);
+    cc.printClause(4,  CC_DC,     0,     CC_DC,         1);
 #endif
 
     // Full adder x30
     for (unsigned i = 1; i < 31; i++) {
 #ifdef XOR_SUPPORT
-        // (u | !a | !b)
-        clause.clear();
-        clause.push_back(Lit(start + i, false));
-        clause.push_back(Lit(inputs[0] + i, true));
-        clause.push_back(Lit(inputs[1] + i, true));
-        printer->create(false, clause);
+        //                    c_out           a_in           b_in           c_in
+        cc.setLiterals(4, start + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
+        cc.printClause(4,         1,             0,             0,         CC_DC);
+        cc.printClause(4,         1,             0,         CC_DC,             0);
+        cc.printClause(4,         0,             1,             1,         CC_DC);
+        cc.printClause(4,         0,             1,         CC_DC,             1);
+        cc.printClause(4,         1,         CC_DC,             0,             0);
+        cc.printClause(4,         0,         CC_DC,             1,             1);
 
-        // (u | !a | !c)
-        clause.clear();
-        clause.push_back(Lit(start + i, false));
-        clause.push_back(Lit(inputs[0] + i, true));
-        clause.push_back(Lit(start - 1 + i, true));
-        printer->create(false, clause);
-
-        // (!u | a | b)
-        clause.clear();
-        clause.push_back(Lit(start + i, true));
-        clause.push_back(Lit(inputs[0] + i, false));
-        clause.push_back(Lit(inputs[1] + i, false));
-        printer->create(false, clause);
-
-        // (!u | a | c)
-        clause.clear();
-        clause.push_back(Lit(start + i, true));
-        clause.push_back(Lit(inputs[0] + i, false));
-        clause.push_back(Lit(start - 1 + i, false));
-        printer->create(false, clause);
-
-        // (u | !b | !c)
-        clause.clear();
-        clause.push_back(Lit(start + i, false));
-        clause.push_back(Lit(inputs[1] + i, true));
-        clause.push_back(Lit(start - 1 + i, true));
-        printer->create(false, clause);
-
-        // (!u | b | c)
-        clause.clear();
-        clause.push_back(Lit(start + i, true));
-        clause.push_back(Lit(inputs[1] + i, false));
-        clause.push_back(Lit(start - 1 + i, false));
-        printer->create(false, clause);
-
-        // XOR -> !s a b c
+        // XOR ->              !s_out           a_in           b_in           c_in
         createXOR(printer, output + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
 #else
-        // (s | !a | !b | !c)
-        clause.clear();
-        clause.push_back(Lit(output + i, false));
-        clause.push_back(Lit(inputs[0] + i, true));
-        clause.push_back(Lit(inputs[1] + i, true));
-        clause.push_back(Lit(start - 1 + i, true));
-        printer->create(false, clause);
-
-        // (u | !a | !b)
-        clause.clear();
-        clause.push_back(Lit(start + i, false));
-        clause.push_back(Lit(inputs[0] + i, true));
-        clause.push_back(Lit(inputs[1] + i, true));
-        printer->create(false, clause);
-
-        // (!s | !a | b | !c)
-        clause.clear();
-        clause.push_back(Lit(output + i, true));
-        clause.push_back(Lit(inputs[0] + i, true));
-        clause.push_back(Lit(inputs[1] + i, false));
-        clause.push_back(Lit(start - 1 + i, true));
-        printer->create(false, clause);
-
-        // (s | !a | b | c)
-        clause.clear();
-        clause.push_back(Lit(output + i, false));
-        clause.push_back(Lit(inputs[0] + i, true));
-        clause.push_back(Lit(inputs[1] + i, false));
-        clause.push_back(Lit(start - 1 + i, false));
-        printer->create(false, clause);
-
-        // (!s | a | !b | !c)
-        clause.clear();
-        clause.push_back(Lit(output + i, true));
-        clause.push_back(Lit(inputs[0] + i, false));
-        clause.push_back(Lit(inputs[1] + i, true));
-        clause.push_back(Lit(start - 1 + i, true));
-        printer->create(false, clause);
-
-        // (s | a | !b | c)
-        clause.clear();
-        clause.push_back(Lit(output + i, false));
-        clause.push_back(Lit(inputs[0] + i, false));
-        clause.push_back(Lit(inputs[1] + i, true));
-        clause.push_back(Lit(start - 1 + i, false));
-        printer->create(false, clause);
-
-        // (!s | a | b | c)
-        clause.clear();
-        clause.push_back(Lit(output + i, true));
-        clause.push_back(Lit(inputs[0] + i, false));
-        clause.push_back(Lit(inputs[1] + i, false));
-        clause.push_back(Lit(start - 1 + i, false));
-        printer->create(false, clause);
-
-        // (!u | a | b)
-        clause.clear();
-        clause.push_back(Lit(start + i, true));
-        clause.push_back(Lit(inputs[0] + i, false));
-        clause.push_back(Lit(inputs[1] + i, false));
-        printer->create(false, clause);
-
-        // (s | u | !c)
-        clause.clear();
-        clause.push_back(Lit(output + i, false));
-        clause.push_back(Lit(start + i, false));
-        clause.push_back(Lit(start - 1 + i, true));
-        printer->create(false, clause);
-
-        // (!s | !u | c)
-        clause.clear();
-        clause.push_back(Lit(output + i, true));
-        clause.push_back(Lit(start + i, true));
-        clause.push_back(Lit(start - 1 + i, false));
-        printer->create(false, clause);
+        //                     s_out      c_out           a_in           b_in           c_in
+        cc.setLiterals(5, output + i, start + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
+        cc.printClause(5,          1,     CC_DC,             0,             0,             0);
+        cc.printClause(5,      CC_DC,         1,             0,             0,         CC_DC);
+        cc.printClause(5,          0,     CC_DC,             0,             1,             0);
+        cc.printClause(5,          1,     CC_DC,             0,             1,             1);
+        cc.printClause(5,          0,     CC_DC,             1,             0,             0);
+        cc.printClause(5,          1,     CC_DC,             1,             0,             1);
+        cc.printClause(5,          0,     CC_DC,             1,             1,             1);
+        cc.printClause(5,      CC_DC,         0,             1,             1,         CC_DC);
+        cc.printClause(5,          1,         1,         CC_DC,         CC_DC,             0);
+        cc.printClause(5,          0,         0,         CC_DC,         CC_DC,             1);
 #endif
     }
 
     // Final adder (without carry calculation)
+    // XOR ->               !s_out            a_in            b_in        c_in
     createXOR(printer, output + 31, inputs[0] + 31, inputs[1] + 31, start + 30);
 }

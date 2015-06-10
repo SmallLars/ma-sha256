@@ -5,6 +5,8 @@
 
 #include "../printer/printer.h"
 
+#define CC_DC 2
+
 class ClauseCreator {
     public:
         ClauseCreator(Printer* printer);
