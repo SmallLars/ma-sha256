@@ -15,11 +15,11 @@ all: cryptominisat/lib/libcryptominisat4.so knf_gen knf_gen_test
 %.o: %.cpp
 	$(COMP) -c $(CFLAGS) -o $@ $<
 
-knf_gen: knf_gen.o $(MODULE) $(PRINTER)
+knf_gen: knf_gen.o minunit.o $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
-knf_gen_test: knf_gen_test.o $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
+knf_gen_test: knf_gen_test.o minunit.o $(MODULE) $(PRINTER)
+	$(COMP) $(LFLAGS) -lrt -lm -o $@ $^ $(LIBS)
 
 clean:
 	-rm -f knf_gen knf_gen_test *.o module/*.o printer/*.o

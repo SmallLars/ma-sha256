@@ -2,15 +2,26 @@
 #include <assert.h>
 #include <stdio.h>
 
+#include "minunit.h"
+#include "module/adder_32.h"
+
 #include "module/bsig0_32_test.h"
 #include "module/bsig1_32_test.h"
 #include "module/ssig0_32_test.h"
 #include "module/ssig1_32_test.h"
 #include "module/maj_32_test.h"
 #include "module/ch_32_test.h"
-#include "module/adder_32_test.h"
+
+MU_TEST_SUITE(test_suite) {
+	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
+
+	MU_RUN_TEST(Adder_32::test);
+}
 
 int main() {
+	MU_RUN_SUITE(test_suite);
+	MU_REPORT();
+/*
     Bsig0_32_Test bsig0Test;
     bsig0Test.test();
 
@@ -31,6 +42,6 @@ int main() {
 
     Adder_32_Test addTest;
     addTest.test();
-
+*/
     return 0;
 }
