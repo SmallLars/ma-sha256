@@ -15,44 +15,10 @@ SSIG0(x) = ROTR^7(x) XOR ROTR^18(x) XOR SHR^3(x)
 
 SSIG1(x) = ROTR^17(x) XOR ROTR^19(x) XOR SHR^10(x)
 
-Volladdierer
-https://www.wolframalpha.com/input/?i=%28u+%3C%3D%3E+%28a+AND+b%29+OR+%28c+AND+%28a+XOR+b%29%29%29+AND+%28s+%3C%3D%3E+c+XOR+%28a+XOR+b%29%29
-
-Korrekte KNF
-!a !b !c  s
-!a !b        u    x
-!a  b !c !s
-!a  b  c  s
- a !b !c !s
- a !b  c  s
- a  b  c !s
- a  b       !u    x
-      !c  s  u
-       c !s !u
-
-CNF mit XOR
-!a !b     u
-!a    !c  u
- a  b    !u
- a     c !u
-   !b !c  u
-    b  c !u
--x    !s a b c
-
 
 Halbaddierer
 https://www.wolframalpha.com/input/?i=%28u+%3C%3D%3E+%28a+AND+b%29%29+AND+%28s+%3C%3D%3E+%28a+XOR+b%29%29
 
-Korrekte KNF
-!a !b  s
-!a     s  u
- a !b  s
- a  b !s
- a       !u
-    b    !u
+Volladdierer
+https://www.wolframalpha.com/input/?i=%28u+%3C%3D%3E+%28a+AND+b%29+OR+%28c+AND+%28a+XOR+b%29%29%29+AND+%28s+%3C%3D%3E+c+XOR+%28a+XOR+b%29%29
 
-CNF mit XOR
-!a !b     u
- a       !u
- b       !u
--x    !s a b
