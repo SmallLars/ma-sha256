@@ -2,6 +2,7 @@
 #define __SSIG0_32_H__
 
 #include "modul.h"
+#include "../minunit.h"
 
 class Ssig0_32 : public Modul {
     public:
@@ -9,6 +10,7 @@ class Ssig0_32 : public Modul {
         ~Ssig0_32();
 
         void create(Printer* printer);
+        MU_TEST(test);
 };
 
 #endif //__SSIG0_32_H__

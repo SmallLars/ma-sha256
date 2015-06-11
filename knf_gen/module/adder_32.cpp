@@ -98,15 +98,12 @@ void Adder_32::test() {
         adder.append(&solver);
 
         lbool ret = solver.solve();
-        //assert(ret == l_True);
+        mu_assert(ret == l_True, "Adder UNSAT");
 
         for (unsigned i = 126; i >=95; i--) {
             result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - 95));
         }
 
-        mu_assert(ausgabe == result, "Addition failed");
-
-        //if (ausgabe != result) cout << "Adder fail with (" << a << "," << b << ")" << endl;
-        //return ausgabe == result;
+        mu_assert(ausgabe == result, "Adder failed");
     }
 }
