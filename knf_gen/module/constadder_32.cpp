@@ -82,10 +82,10 @@ void ConstAdder_32::create(Printer* printer) {
 }
 
 MU_TEST_C(ConstAdder_32::test) {
-    unsigned a[] = {1234, 5, 0x80000000, 1};
-    unsigned b[] = {1235, 6, 1, 0x80000000};
+    unsigned a[] = {1234, 5, 0x80000000, 1, 0xFFFFFFFF, 0x2, 0xFFFFFFFF, 0x1, 0xFFFFFFFF, 0x0};
+    unsigned b[] = {1235, 6, 1, 0x80000000, 0x2, 0xFFFFFFFF, 0x1, 0xFFFFFFFF, 0x0, 0xFFFFFFFF};
 
-    for (unsigned t = 0; t < 4; t++) {
+    for (unsigned t = 0; t < 10; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
         solver.set_num_threads(4);
