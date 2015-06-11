@@ -23,7 +23,7 @@ void ConstAdder_32::create(Printer* printer) {
     ClauseCreator cc(printer);
 
     // Half adder
-    if (value & 1 == 0) {
+    if ((value & 1) == 0) {
         createFalse(printer, start);
         createEQ(printer, output, inputs[0]);
     } else {
@@ -33,7 +33,7 @@ void ConstAdder_32::create(Printer* printer) {
 
     // Full adder x30
     for (unsigned i = 1; i < 31; i++) {
-        if ((value >> i) & 1 == 0) {
+        if (((value >> i) & 1) == 0) {
             // Half adder
 #ifdef XOR_SUPPORT
             // AND ->              c_out           a_in           c_in
@@ -53,9 +53,11 @@ void ConstAdder_32::create(Printer* printer) {
 #endif
         } else {
 #ifdef XOR_SUPPORT
-            //                    c_out           a_in           c_in
+            // OR ->              c_out           a_in           c_in
             createOR(printer, start + i, inputs[0] + i, start - 1 + i);
-            // TODO XOR SPEZIAL
+
+            // XOR ->               s_out           a_in           c_in
+            createXOR(printer, output + i, inputs[0] + i, start - 1 + i, true);
 #else
             //                     s_out      c_out           a_in           c_in
             cc.setLiterals(4, output + i, start + i, inputs[0] + i, start - 1 + i);
@@ -70,19 +72,20 @@ void ConstAdder_32::create(Printer* printer) {
     }
 
     // Final adder (without carry calculation)
-    if ((value >> 31) & 1 == 0) {
+    if (((value >> 31) & 1) == 0) {
         // XOR ->               !s_out            a_in        c_in
         createXOR(printer, output + 31, inputs[0] + 31, start + 30);
     } else {
-        // TODO
+        // XOR ->               !s_out            a_in        c_in
+        createXOR(printer, output + 31, inputs[0] + 31, start + 30, true);
     }
 }
 
 MU_TEST_C(ConstAdder_32::test) {
-    unsigned a[] = {1234, 5};
-    unsigned b[] = {1235, 6};
+    unsigned a[] = {1234, 5, 0x80000000, 1};
+    unsigned b[] = {1235, 6, 1, 0x80000000};
 
-    for (unsigned t = 0; t < 2; t++) {
+    for (unsigned t = 0; t < 4; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
         solver.set_num_threads(4);

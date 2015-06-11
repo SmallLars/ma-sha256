@@ -133,11 +133,11 @@ void Modul::createAND(Printer* printer, unsigned out, unsigned in1, unsigned in2
     printer->create(false, clause);
 }
 
-void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2) {
+void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, bool invert) {
     vector<Lit> clause;
-    clause.push_back(Lit(out, true));
-    clause.push_back(Lit(in1, true));
-    clause.push_back(Lit(in2, true));
+    clause.push_back(Lit(out, invert));
+    clause.push_back(Lit(in1, false));
+    clause.push_back(Lit(in2, false));
     printer->create(true, clause);
 }
 
@@ -159,11 +159,11 @@ void Modul::createOR(Printer* printer, unsigned out, unsigned in1, unsigned in2)
     printer->create(false, clause);
 }
 
-void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3) {
+void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert) {
     vector<Lit> clause;
-    clause.push_back(Lit(out, true));
-    clause.push_back(Lit(in1, true));
-    clause.push_back(Lit(in2, true));
-    clause.push_back(Lit(in3, true));
+    clause.push_back(Lit(out, invert));
+    clause.push_back(Lit(in1, false));
+    clause.push_back(Lit(in2, false));
+    clause.push_back(Lit(in3, false));
     printer->create(true, clause);
 }

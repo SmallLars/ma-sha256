@@ -35,10 +35,10 @@ class Modul {
         void createNEQ(Printer* printer, unsigned out, unsigned in);
 
         void createAND(Printer* printer, unsigned out, unsigned in1, unsigned in2);
-        void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2);
+        void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, bool invert = false);
         void createOR(Printer* printer, unsigned out, unsigned in1, unsigned in2);
 
-        void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3);
+        void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert = false);
     private:
         unsigned inputCount;
         unsigned inputBitWidth;

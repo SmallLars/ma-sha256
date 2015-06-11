@@ -11,6 +11,7 @@
 #include "module/maj_32.h"
 #include "module/ch_32.h"
 #include "module/adder_32.h"
+#include "module/constadder_32.h"
 
 MU_TEST_SUITE(test_suite) {
 	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
@@ -22,6 +23,7 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(Maj_32::test);
     MU_RUN_TEST(Ch_32::test);
 	MU_RUN_TEST(Adder_32::test);
+	MU_RUN_TEST(ConstAdder_32::test);
 }
 
 int main() {
