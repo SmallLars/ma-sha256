@@ -37,7 +37,7 @@ void Maj_32::create(Printer* printer) {
     }
 }
 
-void Maj_32::test() {
+MU_TEST_C(Maj_32::test) {
     unsigned a[] = {0xabcdef98};
     unsigned b[] = {0x651d8fa1};
     unsigned c[] = {0x456af012};

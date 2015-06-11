@@ -10,7 +10,7 @@ class Ch_32 : public Modul {
         ~Ch_32();
 
         void create(Printer* printer);
-        MU_TEST(test);
+        MU_TEST_H(test);
 };
 
 #endif //__CH_32_H__

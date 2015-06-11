@@ -22,7 +22,7 @@ void Bsig0_32::create(Printer* printer) {
     }
 }
 
-void Bsig0_32::test() {
+MU_TEST_C(Bsig0_32::test) {
     unsigned a[] = {0xabcdef98};
 
     for (unsigned t = 0; t < 1; t++) {

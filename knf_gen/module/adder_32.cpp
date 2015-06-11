@@ -74,7 +74,7 @@ void Adder_32::create(Printer* printer) {
     createXOR(printer, output + 31, inputs[0] + 31, inputs[1] + 31, start + 30);
 }
 
-void Adder_32::test() {
+MU_TEST_C(Adder_32::test) {
     unsigned a[] = {1234, 5};
     unsigned b[] = {1235, 6};
 

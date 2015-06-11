@@ -10,7 +10,7 @@ class Maj_32 : public Modul {
         ~Maj_32();
 
         void create(Printer* printer);
-        MU_TEST(test);
+        MU_TEST_H(test);
 };
 
 #endif //__MAJ_32_H__

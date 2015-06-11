@@ -79,7 +79,8 @@ extern void (*minunit_setup)(void);
 extern void (*minunit_teardown)(void);
 
 /*  Definitions */
-#define MU_TEST(method_name) static void method_name()
+#define MU_TEST_H(method_name) static void method_name()
+#define MU_TEST_C(method_name) void method_name()
 #define MU_TEST_SUITE(suite_name) static void suite_name()
 
 #define MU__SAFE_BLOCK(block) do {\

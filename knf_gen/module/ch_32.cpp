@@ -35,7 +35,7 @@ void Ch_32::create(Printer* printer) {
     }
 }
 
-void Ch_32::test() {
+MU_TEST_C(Ch_32::test) {
     unsigned a[] = {0xabcdef98};
     unsigned b[] = {0x651d8fa1};
     unsigned c[] = {0x456af012};
