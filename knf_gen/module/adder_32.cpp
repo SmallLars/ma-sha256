@@ -20,11 +20,15 @@ void Adder_32::create(Printer* printer) {
 
     // Half adder
 #ifdef XOR_SUPPORT
+    /*
     //                c_out       a_in       b_in
     cc.setLiterals(3, start, inputs[0], inputs[1]);
     cc.printClause(3,     1,         0,         0);
     cc.printClause(3,     0,         1,     CC_DC);
     cc.printClause(3,     0,     CC_DC,         1);
+    */
+    // AND ->          c_out       a_in       b_in
+    createAND(printer, start, inputs[0], inputs[1]);
 
     // XOR ->          !s_out       a_in       b_in
     createXOR(printer, output, inputs[0], inputs[1]);

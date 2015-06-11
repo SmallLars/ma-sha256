@@ -22,3 +22,5 @@ https://www.wolframalpha.com/input/?i=%28u+%3C%3D%3E+%28a+AND+b%29%29+AND+%28s+%
 Volladdierer
 https://www.wolframalpha.com/input/?i=%28u+%3C%3D%3E+%28a+AND+b%29+OR+%28c+AND+%28a+XOR+b%29%29%29+AND+%28s+%3C%3D%3E+c+XOR+%28a+XOR+b%29%29
 
+Volladdierer mit const b = 1
+https://www.wolframalpha.com/input/?i=%28u+%3C%3D%3E+a+OR+%28!a+AND+c%29%29+AND+%28s+%3C%3D%3E+c+XOR+%28!a%29%29

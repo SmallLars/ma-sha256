@@ -8,7 +8,7 @@ class Const_32 : public Modul {
         Const_32(uint32_t value);
         ~Const_32();
 
-        void setValue(uint32_t);
+        void setValue(uint32_t value);
         void create(Printer* printer);
     private:
         uint32_t value;

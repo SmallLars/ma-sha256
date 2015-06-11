@@ -29,6 +29,11 @@ class Modul {
         unsigned start;
         unsigned output;
 
+        void createTrue(Printer* printer, unsigned out);
+        void createFalse(Printer* printer, unsigned out);
+        void createEQ(Printer* printer, unsigned out, unsigned in);
+        void createNEQ(Printer* printer, unsigned out, unsigned in);
+
         void createAND(Printer* printer, unsigned out, unsigned in1, unsigned in2);
         void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2);
         void createOR(Printer* printer, unsigned out, unsigned in1, unsigned in2);

@@ -79,6 +79,42 @@ unsigned Modul::writeTT(const char* filename) {
     return 0;
 }
 
+void Modul::createTrue(Printer* printer, unsigned out) {
+    vector<Lit> clause;
+    clause.push_back(Lit(out, false));
+    printer->create(false, clause);
+}
+
+void Modul::createFalse(Printer* printer, unsigned out) {
+    vector<Lit> clause;
+    clause.push_back(Lit(out, true));
+    printer->create(false, clause);
+}
+
+void Modul::createEQ(Printer* printer, unsigned out, unsigned in) {
+    vector<Lit> clause;
+    clause.push_back(Lit(out, true));
+    clause.push_back(Lit(in, false));
+    printer->create(false, clause);
+
+    clause.clear();
+    clause.push_back(Lit(out, false));
+    clause.push_back(Lit(in, true));
+    printer->create(false, clause);
+}
+
+void Modul::createNEQ(Printer* printer, unsigned out, unsigned in) {
+    vector<Lit> clause;
+    clause.push_back(Lit(out, false));
+    clause.push_back(Lit(in, false));
+    printer->create(false, clause);
+
+    clause.clear();
+    clause.push_back(Lit(out, true));
+    clause.push_back(Lit(in, true));
+    printer->create(false, clause);
+}
+
 void Modul::createAND(Printer* printer, unsigned out, unsigned in1, unsigned in2) {
     vector<Lit> clause;
     clause.push_back(Lit(out, false));
