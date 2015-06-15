@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <assert.h>
+#include <algorithm>
 
 #include "../printer/solverprinter.h"
 #include "../printer/dimacsfileprinter.h"
@@ -11,9 +12,10 @@
 using std::vector;
 using namespace CMSat;
 
-Modul::Modul(unsigned inputCount, unsigned inputBitWidth) {
+Modul::Modul(unsigned bitWidth, unsigned inputCount, unsigned outputCount) {
+    this->bitWidth = bitWidth;
     this->inputCount = inputCount;
-    this->inputBitWidth = inputBitWidth;
+    this->outputCount = outputCount;
 }
 
 Modul::~Modul() {
@@ -34,7 +36,7 @@ unsigned Modul::getVarCount() {
 unsigned Modul::getAdditionalVarCount() {
     Counter counter;
     create(&counter);
-    return counter.getVarCount() - (inputCount * inputBitWidth);
+    return counter.getVarCount() - (inputCount * bitWidth);
 }
 
 unsigned Modul::getClauseCount() {
@@ -46,14 +48,21 @@ unsigned Modul::getClauseCount() {
 void Modul::setInputs(const vector<unsigned>& inputs) {
     assert(inputs.size() == inputCount);
     this->inputs = inputs;
+    setStart(*std::max_element(inputs.begin(), inputs.end()) + bitWidth);
 }
 
 void Modul::setStart(unsigned start) {
     this->start = start;
+    this->output = 0xFFFFFFFF - (outputCount * bitWidth); // TODO EVIL HACK
+    this->output = start + getAdditionalVarCount() - (outputCount * bitWidth);
 }
 
 void Modul::setOutput(unsigned output) {
     this->output = output;
+}
+
+unsigned Modul::getOutput() {
+    return this->output;
 }
 
 unsigned Modul::append(SATSolver* solver) {

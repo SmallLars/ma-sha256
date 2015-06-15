@@ -3,7 +3,7 @@
 #include "const_32.h"
 using namespace CMSat;
 
-Ssig1_32::Ssig1_32() : Modul(1, 32) {
+Ssig1_32::Ssig1_32() : Modul(32, 1, 1) {
     inputs.push_back(0);
     output = 32;
 }

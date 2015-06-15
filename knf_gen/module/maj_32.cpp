@@ -13,7 +13,7 @@ using namespace CMSat;
 // c = 64 -  95
 // m = 96 - 127
 
-Maj_32::Maj_32() : Modul(3, 32) {
+Maj_32::Maj_32() : Modul(32, 3, 1) {
     inputs.push_back(0);
     inputs.push_back(32);
     inputs.push_back(64);

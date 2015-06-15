@@ -3,7 +3,7 @@
 using std::vector;
 using namespace CMSat;
 
-Const_32::Const_32(uint32_t value) : Modul(0, 32) {
+Const_32::Const_32(uint32_t value) : Modul(32, 0, 1) {
     this->value = value;
     output = 0;
 }

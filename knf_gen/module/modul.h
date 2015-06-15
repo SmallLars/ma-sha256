@@ -7,7 +7,7 @@
 
 class Modul {
     public:
-        Modul(unsigned inputCount, unsigned inputBitWidth);
+        Modul(unsigned bitWidth, unsigned inputCount, unsigned outputCount);
         ~Modul();
 
         unsigned getMaxVar();
@@ -18,6 +18,8 @@ class Modul {
         void setInputs(const std::vector<unsigned>& inputs);
         void setStart(unsigned start);
         void setOutput(unsigned output);
+
+        unsigned getOutput();
 
         unsigned append(CMSat::SATSolver* solver);
         unsigned writeDimacs(const char* filename);
@@ -40,8 +42,9 @@ class Modul {
 
         void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert = false);
     private:
+        unsigned bitWidth;
         unsigned inputCount;
-        unsigned inputBitWidth;
+        unsigned outputCount;
 };
 
 #endif //__MODUL_H__

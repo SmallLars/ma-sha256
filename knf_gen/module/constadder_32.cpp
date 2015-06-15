@@ -5,7 +5,7 @@
 #include "const_32.h"
 using namespace CMSat;
 
-ConstAdder_32::ConstAdder_32(uint32_t value) : Modul(1, 32) {
+ConstAdder_32::ConstAdder_32(uint32_t value) : Modul(32, 1, 1) {
     this->value = value;
     inputs.push_back(0);
     start = 32;
