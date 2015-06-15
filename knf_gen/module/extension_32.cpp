@@ -1,9 +1,8 @@
 #include "extension_32.h"
 
 #include "const_32.h"
-#include "ssig0_32.h"
-#include "ssig1_32.h"
 #include "adder_32.h"
+#include "adder_ssig_32.h"
 
 using std::vector;
 using namespace CMSat;
@@ -16,10 +15,9 @@ Extension_32::Extension_32() : Modul(32, 4, 1) {
     
     start = 128;
 
-    Ssig0_32 ssig0;
-    Ssig1_32 ssig1;
     Adder_32 adder;
-    output = start + ssig0.getAdditionalVarCount() + ssig1.getAdditionalVarCount() + 3 * adder.getAdditionalVarCount() - 32;
+    Adder_Ssig_32 adderSsig;
+    output = start + adderSsig.getAdditionalVarCount() + 2 * adder.getAdditionalVarCount() - 32;
 }
 
 Extension_32::~Extension_32() {
@@ -31,24 +29,8 @@ void Extension_32::create(Printer* printer) {
 
     subinputs.clear();
     subinputs.push_back(inputs[1]);
-    Ssig0_32 ssig0;
-    ssig0.setInputs(subinputs);
-    ssig0.setStart(start + newvars);
-    ssig0.create(printer);
-    newvars += ssig0.getAdditionalVarCount();
-
-    subinputs.clear();
     subinputs.push_back(inputs[3]);
-    Ssig1_32 ssig1;
-    ssig1.setInputs(subinputs);
-    ssig1.setStart(start + newvars);
-    ssig1.create(printer);
-    newvars += ssig1.getAdditionalVarCount();
-
-    subinputs.clear();
-    subinputs.push_back(ssig0.getOutput());
-    subinputs.push_back(ssig1.getOutput());
-    Adder_32 adder1;
+    Adder_Ssig_32 adder1;
     adder1.setInputs(subinputs);
     adder1.setStart(start + newvars);
     adder1.create(printer);
