@@ -9,12 +9,47 @@
 #include "module/adder_32.h"
 #include "module/constadder_32.h"
 #include "module/ssig0_32.h"
+#include "module/extension_32.h"
 
 using std::vector;
 using namespace CMSat;
 
 int main()
 {
+    Extension_32 ex;
+    unsigned out = ex.getOutput();
+
+    for (unsigned i1 = 0; i1 < 128; i1++) {
+        for (unsigned i2 = 0; i2 < 128; i2++) {
+            if (i1 == i2) continue;
+            for (unsigned o = out; o < out + 32; o++) {
+                for (unsigned s = 0; s < 8; s++) {
+                    SATSolver solver;
+                    solver.log_to_file("solver.log");
+
+                    ex.append(&solver);
+                    vector<Lit> clause(1);
+
+                    clause[0] = Lit(i1, s & 1);
+                    solver.add_clause(clause);
+
+                    clause[0] = Lit(i2, (s >> 1) & 1);
+                    solver.add_clause(clause);
+
+                    clause[0] = Lit(o, (s >> 2) & 1);
+                    solver.add_clause(clause);
+
+                    lbool ret = solver.solve();
+                    if (ret == l_False) std::cout << " Hurra\n";
+
+                    std::cout << "\r" << i1 * 32768 + i2 * 256 + (o - out) * 8 + s + 1 << " / " << 128 * 128 * 32 * 8;
+                    std::cout << std::flush;
+                }
+            }
+        }
+    }
+    std::cout << "\n";
+/*
     SATSolver solver;
     solver.log_to_file("solver.log");
     solver.set_num_threads(4);
@@ -47,6 +82,6 @@ int main()
     assert(ret == l_True);
 
     //for (unsigned i = 63; i >=32; i--) std::cout << (solver.get_model()[i] == l_True? 1 : 0); std::cout << std::endl;
-
+*/
     return 0;
 }
