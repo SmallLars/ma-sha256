@@ -46,11 +46,11 @@ void Adder_Ssig_32::create(Printer* printer) {
     subinputs.clear();
     subinputs.push_back(ssig0.getOutput());
     subinputs.push_back(ssig1.getOutput());
-    Adder_32 adder1;
-    adder1.setInputs(subinputs);
-    adder1.setStart(start + newvars);
-    adder1.create(printer);
-    newvars += adder1.getAdditionalVarCount();
+    Adder_32 adder;
+    adder.setInputs(subinputs);
+    adder.setStart(start + newvars);
+    adder.create(printer);
+    newvars += adder.getAdditionalVarCount();
 }
 
 MU_TEST_C(Adder_Ssig_32::test) {
