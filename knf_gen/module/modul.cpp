@@ -68,6 +68,7 @@ unsigned Modul::getOutput() {
 }
 
 unsigned Modul::append(SATSolver* solver) {
+    //std::cout << "Start: " << start << " | Output: " << output << "\n";
     unsigned maxVar = getMaxVar();
     if (maxVar >= solver->nVars()) {
         //std::cout << "Added: " << (maxVar - solver->nVars() + 1) << "\n";
