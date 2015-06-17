@@ -9,15 +9,57 @@
 #include "module/adder_32.h"
 #include "module/constadder_32.h"
 #include "module/ssig0_32.h"
-#include "module/extension_32.h"
+#include "module/adder_ssig_32.h"
+#include "module/adder_prepare_32.h"
 
 using std::vector;
 using namespace CMSat;
 
 int main()
 {
-    Extension_32 ex;
-    unsigned out = ex.getOutput();
+    Adder_Ssig_32 adder;
+    unsigned out = adder.getOutput();
+
+    for (unsigned i1 = 0; i1 < 64; i1++) {
+        for (unsigned i2 = i1 + 1; i2 < 64; i2++) {
+            for (unsigned o = out; o < out + 32; o++) {
+                for (unsigned s = 0; s < 8; s++) {
+                    SATSolver solver;
+                    solver.log_to_file("solver.log");
+
+                    adder.append(&solver);
+                    vector<Lit> clause(1);
+
+                    clause[0] = Lit(i1, s & 1);
+                    solver.add_clause(clause);
+
+                    clause[0] = Lit(i2, (s >> 1) & 1);
+                    solver.add_clause(clause);
+
+                    clause[0] = Lit(o, (s >> 2) & 1);
+                    solver.add_clause(clause);
+
+                    lbool ret = solver.solve();
+                    if (ret == l_False) {
+                        std::cout << " Hurra: ";
+                        std::cout << " i1: " << i1 << " s: " << !(s & 1);
+                        std::cout << " i2: " << i2 << " s: " << !((s >> 1) & 1);
+                        std::cout << "  o: " <<  o << " s: " << !((s >> 2) & 1) << "\n";
+                    }
+
+                    std::cout << "\r" << i1 * 16384 + i2 * 256 + (o - out) * 8 + s + 1 << " / " << 64 * 64 * 32 * 8;
+                    std::cout << std::flush;
+                }
+            }
+        }
+    }
+    std::cout << "\n";
+
+    
+    
+/*
+    Adder_Prepare_32 ap;
+    unsigned out = ap.getOutput();
 
     for (unsigned i1 = 0; i1 < 128; i1++) {
         for (unsigned i2 = 0; i2 < 128; i2++) {
@@ -27,7 +69,7 @@ int main()
                     SATSolver solver;
                     solver.log_to_file("solver.log");
 
-                    ex.append(&solver);
+                    ap.append(&solver);
                     vector<Lit> clause(1);
 
                     clause[0] = Lit(i1, s & 1);
@@ -49,6 +91,7 @@ int main()
         }
     }
     std::cout << "\n";
+*/
 /*
     SATSolver solver;
     solver.log_to_file("solver.log");

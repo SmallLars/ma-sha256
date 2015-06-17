@@ -13,9 +13,10 @@
 #include "module/adder_32.h"
 #include "module/constadder_32.h"
 #include "module/adder_ssig_32.h"
-#include "module/extension_32.h"
+#include "module/adder_prepare_32.h"
 #include "module/adder_b0maj_32.h"
 #include "module/adder_b1ch_32.h"
+#include "module/prepare_32.h"
 #include "module/shacore_32.h"
 
 MU_TEST_SUITE(test_suite) {
@@ -30,10 +31,11 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(Adder_32::test);
 	MU_RUN_TEST(ConstAdder_32::test);
 	MU_RUN_TEST(Adder_Ssig_32::test);
-	MU_RUN_TEST(Extension_32::test);
+	MU_RUN_TEST(Adder_Prepare_32::test);
 	MU_RUN_TEST(Adder_B0Maj_32::test);
 	MU_RUN_TEST(Adder_B1Ch_32::test);
-	MU_RUN_TEST(ShaCore_32::test);
+	MU_RUN_TEST(Prepare_32::test);
+//	MU_RUN_TEST(ShaCore_32::test);
 }
 
 int main() {

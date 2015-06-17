@@ -114,7 +114,9 @@ extern void (*minunit_teardown)(void);
 		minunit_fail++;\
 		printf("F");\
 		printf("\n%s\n", minunit_last_message);\
-	}\
+	} else {\
+        printf("\n");\
+    }\
 	fflush(stdout);\
 	if (minunit_teardown) (*minunit_teardown)();\
 )

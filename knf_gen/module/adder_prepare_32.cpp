@@ -1,4 +1,4 @@
-#include "extension_32.h"
+#include "adder_prepare_32.h"
 
 #include "const_32.h"
 #include "adder_32.h"
@@ -7,7 +7,7 @@
 using std::vector;
 using namespace CMSat;
 
-Extension_32::Extension_32() : Modul(32, 4, 1) {
+Adder_Prepare_32::Adder_Prepare_32() : Modul(32, 4, 1) {
     inputs.push_back(0);
     inputs.push_back(32);
     inputs.push_back(64);
@@ -20,10 +20,10 @@ Extension_32::Extension_32() : Modul(32, 4, 1) {
     output = start + adderSsig.getAdditionalVarCount() + 2 * adder.getAdditionalVarCount() - 32;
 }
 
-Extension_32::~Extension_32() {
+Adder_Prepare_32::~Adder_Prepare_32() {
 }
 
-void Extension_32::create(Printer* printer) {
+void Adder_Prepare_32::create(Printer* printer) {
     unsigned newvars = 0;
     vector<unsigned> subinputs;
 
@@ -55,7 +55,7 @@ void Extension_32::create(Printer* printer) {
     newvars += adder3.getAdditionalVarCount();
 }
 
-MU_TEST_C(Extension_32::test) {
+MU_TEST_C(Adder_Prepare_32::test) {
     unsigned a[] = {0xabcdef98};
     unsigned b[] = {0x651d8fa1};
     unsigned c[] = {0x456af012};
@@ -87,17 +87,17 @@ MU_TEST_C(Extension_32::test) {
         cd.setOutput(96);
         cd.append(&solver);
 
-        Extension_32 extension;
-        extension.append(&solver);
+        Adder_Prepare_32 adderPrepare;
+        adderPrepare.append(&solver);
 
         lbool ret = solver.solve();
-        mu_assert(ret == l_True, "EXTENSION UNSAT");
+        mu_assert(ret == l_True, "ADDER_PREPARE UNSAT");
 
-        unsigned output = extension.getOutput();
+        unsigned output = adderPrepare.getOutput();
         for (unsigned i = output + 31; i >= output; i--) {
             result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - output));
         }
 
-        mu_assert(ausgabe == result, "EXTENSION failed");
+        mu_assert(ausgabe == result, "ADDER_PREPARE failed");
     }
 }

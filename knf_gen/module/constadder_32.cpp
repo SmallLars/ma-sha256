@@ -44,7 +44,7 @@ void ConstAdder_32::create(Printer* printer) {
 #else
             //                     s_out      c_out           a_in           c_in
             cc.setLiterals(4, output + i, start + i, inputs[0] + i, start - 1 + i);
-            cc.printClause(4,          1,     CC_DC,             0,             0);
+            cc.printClause(4,          0,     CC_DC,             0,             0);
             cc.printClause(4,          1,         1,             0,         CC_DC);
             cc.printClause(4,          1,     CC_DC,             1,             0);
             cc.printClause(4,          0,     CC_DC,             1,             1);
