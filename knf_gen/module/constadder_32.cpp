@@ -3,6 +3,7 @@
 #include "clausecreator.h"
 
 #include "const_32.h"
+
 using namespace CMSat;
 
 ConstAdder_32::ConstAdder_32(uint32_t value) : Modul(32, 1, 1) {

@@ -3,6 +3,7 @@
 #include "clausecreator.h"
 
 #include "const_32.h"
+
 using namespace CMSat;
 
 // CH(a; b; c) = (a AND b) XOR ( (NOT a) AND c)

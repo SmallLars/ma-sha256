@@ -1,6 +1,7 @@
 #include "bsig1_32.h"
 
 #include "const_32.h"
+
 using namespace CMSat;
 
 Bsig1_32::Bsig1_32() : Modul(32, 1, 1) {

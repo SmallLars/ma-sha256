@@ -4,6 +4,8 @@
 #include <assert.h>
 #include <algorithm>
 
+#include "clausecreator.h"
+
 #include "../printer/solverprinter.h"
 #include "../printer/dimacsfileprinter.h"
 #include "../printer/ttfileprinter.h"
@@ -102,44 +104,24 @@ void Modul::createFalse(Printer* printer, unsigned out) {
 
 void Modul::createEQ(Printer* printer, unsigned out, unsigned in) {
     vector<Lit> clause;
-    clause.push_back(Lit(out, true));
-    clause.push_back(Lit(in, false));
-    printer->create(false, clause);
-
-    clause.clear();
     clause.push_back(Lit(out, false));
-    clause.push_back(Lit(in, true));
-    printer->create(false, clause);
+    clause.push_back(Lit(in, false));
+    printer->create(true, clause);
 }
 
 void Modul::createNEQ(Printer* printer, unsigned out, unsigned in) {
     vector<Lit> clause;
-    clause.push_back(Lit(out, false));
-    clause.push_back(Lit(in, false));
-    printer->create(false, clause);
-
-    clause.clear();
     clause.push_back(Lit(out, true));
-    clause.push_back(Lit(in, true));
-    printer->create(false, clause);
+    clause.push_back(Lit(in, false));
+    printer->create(true, clause);
 }
 
 void Modul::createAND(Printer* printer, unsigned out, unsigned in1, unsigned in2) {
-    vector<Lit> clause;
-    clause.push_back(Lit(out, false));
-    clause.push_back(Lit(in1, true));
-    clause.push_back(Lit(in2, true));
-    printer->create(false, clause);
-
-    clause.clear();
-    clause.push_back(Lit(out, true));
-    clause.push_back(Lit(in1, false));
-    printer->create(false, clause);
-
-    clause.clear();
-    clause.push_back(Lit(out, true));
-    clause.push_back(Lit(in2, false));
-    printer->create(false, clause);
+    ClauseCreator cc(printer);
+    cc.setLiterals(3,   out,   in1,   in2);
+    cc.printClause(3,     1,     0,     0);
+    cc.printClause(3,     0,     1, CC_DC);
+    cc.printClause(3,     0, CC_DC,     1);
 }
 
 void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, bool invert) {
@@ -151,21 +133,11 @@ void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2
 }
 
 void Modul::createOR(Printer* printer, unsigned out, unsigned in1, unsigned in2) {
-    vector<Lit> clause;
-    clause.push_back(Lit(out, true));
-    clause.push_back(Lit(in1, false));
-    clause.push_back(Lit(in2, false));
-    printer->create(false, clause);
-
-    clause.clear();
-    clause.push_back(Lit(out, false));
-    clause.push_back(Lit(in1, true));
-    printer->create(false, clause);
-
-    clause.clear();
-    clause.push_back(Lit(out, false));
-    clause.push_back(Lit(in2, true));
-    printer->create(false, clause);
+    ClauseCreator cc(printer);
+    cc.setLiterals(3,   out,   in1,   in2);
+    cc.printClause(3,     0,     1,     1);
+    cc.printClause(3,     1,     0, CC_DC);
+    cc.printClause(3,     1, CC_DC,     0);
 }
 
 void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert) {

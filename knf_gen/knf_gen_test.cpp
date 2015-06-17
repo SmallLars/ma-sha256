@@ -35,7 +35,7 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(Adder_B0Maj_32::test);
 	MU_RUN_TEST(Adder_B1Ch_32::test);
 	MU_RUN_TEST(Prepare_32::test);
-//	MU_RUN_TEST(ShaCore_32::test);
+	MU_RUN_TEST(ShaCore_32::test);
 }
 
 int main() {

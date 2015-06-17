@@ -3,6 +3,7 @@
 #include "clausecreator.h"
 
 #include "const_32.h"
+
 using namespace CMSat;
 
 // MAJ(x; y; z) = (a AND b) XOR (a AND c) XOR (b AND c)

@@ -13,7 +13,7 @@ Printer::~Printer() {
 
 vector< vector<Lit> > Printer::convertXOR(const vector<Lit>& vars) {
     vector< vector<Lit> > clauses;
-    if (vars.size() < 3) return clauses;
+    if (vars.size() < 2) return clauses;
 
     for (unsigned i = 0; i < pow(2, vars.size()); i++) {
         unsigned result = 0;
