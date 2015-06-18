@@ -71,7 +71,7 @@ void sha_processchunk(uint32_t *state, uint32_t *chunk) {
 // SHA STUFF END -------------------------------------------------------------------
 
 int main(int argc, void* argv[]) {
-    uint32_t block[16] = {0x80000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    uint32_t block[16] = {0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
                           0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80000000, 0x00000000, 0x000001A0};
 
 #ifdef CBMC
@@ -110,13 +110,16 @@ int main(int argc, void* argv[]) {
 
 	// Printing in reverse, because the hash is a big retarded big endian number in bitcoin.
     int n;
+    /*
 	for (n = 7; n >= 0; n--) {
 		printf("%02x", result[n] & 0xff);
 		printf("%02x", (result[n] >> 8) & 0xff);
 		printf("%02x", (result[n] >> 16) & 0xff);
 		printf("%02x", (result[n] >> 24) & 0xff);
 	}
-	printf("\n");
+    */
+	for (n = 0; n < 8; n++) printf("%08x ", result[n]);
+    printf("\n");
 
     return 0;
 }

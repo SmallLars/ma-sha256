@@ -10,22 +10,48 @@ using std::cout;
 using std::vector;
 using namespace CMSat;
 
+void padding(uint32_t* target, const char* input) {
+    unsigned i;
+    for (i = 0; i < 16; i++) target[i] = 0;
+
+    char* t = (char*) target;
+    for (i = 0; input[i] != '\0' ; i++) {
+        t[(i / 4) * 4 + 3 - (i % 4)] = input[i];
+    }
+    t[(i / 4) * 4 + 3 - (i % 4)] = 0x80;
+    target[15] = i * 8;
+
+    //for (i = 0; i < 16; i++) printf("%08x ", target[i]);
+}
+
 int main() {
-    uint32_t input[16] = {0x80000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-                          0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80000000, 0x00000000, 0x00000000};
+    uint32_t input[16] = {0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+                          0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80000000, 0x00000000, 0x000001A0};
+/*
+    uint32_t input[16] = {0x61626364, 0x65800000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+                          0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000028};
+*/
+/*
+    uint32_t input[16];
+    padding(input, "abcde");
+*/
 
     uint32_t state[8] = {0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19};
 
     unsigned varCount = 0;
 
-    SATSolver solver;
-    solver.log_to_file("solver.log");
+    SolverConf config;
+    config.verbosity = 2;
+    config.printFullStats = 1;
+
+    SATSolver solver(config);
+//    solver.log_to_file("solver.log");
     solver.set_num_threads(4);
 
     for (unsigned i = 0; i < 16; i++) {
         Const_32 c(input[i]);
         c.setStart(i * 32);
-        c.append(&solver);
+        if (i != 11) c.append(&solver);
         varCount += c.getAdditionalVarCount();
     }
 
@@ -69,6 +95,14 @@ int main() {
     }
     cout << "\n";
 
+    // START - Erste 32 Bit vom Ergebnis auf 0 setzen
+    /*
+    Const_32 c(0x95F61999);
+    c.setStart(vars[0]);
+    c.append(&solver);
+    */
+    // ENDE
+
     lbool ret = solver.solve();
     if (ret == l_False) {
         cout << "Nicht lösbar.\n";
@@ -76,21 +110,28 @@ int main() {
     }
 
     cout << "Lösung gefunden\n";
-    // for (unsigned i = 0; i < 8; i++) cout << vars[i] << " ";
-    // cout << "\n";
 
+    cout << "Eingabe: ";
+    for (unsigned i = 0; i < 16; i++) {
+        if (i == 8) cout << "\n         ";
+        uint32_t result = 0;
+        for (unsigned b = i * 32; b < (i + 1) * 32; b++) {
+            result |= ((solver.get_model()[b] == l_True? 1 : 0) << (b - i * 32));
+        }
+        printf("%08x ", result);
+    }
+
+    cout << "\nAusgabe: ";
     for (unsigned i = 0; i < 8; i++) {
         uint32_t result = 0;
-        for (unsigned b = vars[i] + 31; b >= vars[i]; b--) {
+        for (unsigned b = vars[i]; b < vars[i] + 32; b++) {
             result |= ((solver.get_model()[b] == l_True? 1 : 0) << (b - vars[i]));
         }
         state[i] += result;
 
-        printf("%0x ", state[i]);
+        printf("%08x ", state[i]);
     }
     cout << "\n";
-
-    // e3b0c442 98fc1c14 9afbf4c8 996fb924 27ae41e4 649b934c a495991b 7852b855
 
     return 0;
 }
