@@ -1,6 +1,9 @@
 #include <assert.h>
 #include <vector>
 #include <stdio.h>
+#include <thread>
+
+#include "producer.h"
 
 #include "cryptominisat4/cryptominisat.h"
 #include "module/const_32.h"
@@ -13,10 +16,57 @@
 #include "module/adder_prepare_32.h"
 
 using std::vector;
+using std::thread;
 using namespace CMSat;
 
-int main()
-{
+void calculate(Producer* producer) {
+    vector<unsigned> v;
+    while (producer->getWork(v)) {
+
+        for (unsigned s = 0; s < (1u << v.size()); s++) {
+            SATSolver solver;
+            solver.log_to_file("solver.log");
+
+            Adder_Ssig_32 adder;
+            adder.append(&solver);
+
+            vector<Lit> clause(1);
+            for (unsigned i = 0; i < v.size(); i++) {
+                clause[0] = Lit(v[i], (s >> i) & 1);
+                solver.add_clause(clause);
+            }
+
+            lbool ret = solver.solve();
+            if (ret == l_False) {
+                std::cout << " Hurra: ";
+                for (unsigned i = 0; i < v.size(); i++) {
+                    std::cout << ((s >> i) & 1 ? "-" : "") << v[i] << " ";
+                }
+                std::cout << "\n";
+            }
+        }
+    }
+}
+
+int main() {
+    Adder_Ssig_32 adder;
+    unsigned out = adder.getOutput();
+
+    Producer producer(3);
+    for (unsigned i = 0; i < 64; i++) producer.addVar(i);
+    for (unsigned i = out; i < out + 32; i++) producer.addVar(i);
+
+    thread first(calculate, &producer);
+    thread second(calculate, &producer);
+    thread third(calculate, &producer);
+    thread fourth(calculate, &producer);
+
+    first.join();
+    second.join();
+    third.join();
+    fourth.join();
+    
+/*
     Adder_Ssig_32 adder;
     unsigned out = adder.getOutput();
 
@@ -54,9 +104,7 @@ int main()
         }
     }
     std::cout << "\n";
-
-    
-    
+*/
 /*
     Adder_Prepare_32 ap;
     unsigned out = ap.getOutput();
