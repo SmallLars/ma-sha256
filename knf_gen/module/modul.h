@@ -19,7 +19,9 @@ class Modul {
         void setStart(unsigned start);
         void setOutput(unsigned output);
 
+        unsigned getInputNum();
         unsigned getOutput();
+        unsigned getOutputNum();
 
         unsigned append(CMSat::SATSolver* solver);
         unsigned writeDimacs(const char* filename);

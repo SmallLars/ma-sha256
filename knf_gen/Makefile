@@ -1,6 +1,6 @@
-CFLAGS = -Wall -g -std=c++11 -Icryptominisat/include -DXOR_SUPPORT
+CFLAGS = -Wall -g -Icryptominisat/include -DXOR_SUPPORT
 LFLAGS = -Wl,-rpath=./cryptominisat/lib -Lcryptominisat/lib
-LIBS = -lcryptominisat4
+LIBS = -lcryptominisat4 -lpthread
 COMP = g++
 #COMP = clang++-3.5
 
@@ -8,7 +8,7 @@ MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")
 PRINTER = $(shell find printer/*.cpp -type f | sed "s/.cpp/.o/g")
 FUNCTIONS = minunit.o producer.o
 
-all: cryptominisat/lib/libcryptominisat4.so knf_gen knf_gen_test sha256
+all: cryptominisat/lib/libcryptominisat4.so cc_miner knf_gen_test sha256
 
 #%.o: %.c
 #	gcc -c $(CFLAGS) -o $@ $<
@@ -16,7 +16,7 @@ all: cryptominisat/lib/libcryptominisat4.so knf_gen knf_gen_test sha256
 %.o: %.cpp
 	$(COMP) -c $(CFLAGS) -o $@ $<
 
-knf_gen: knf_gen.o $(FUNCTIONS) $(MODULE) $(PRINTER)
+cc_miner: cc_miner.o $(FUNCTIONS) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 knf_gen_test: knf_gen_test.o $(FUNCTIONS) $(MODULE) $(PRINTER)
@@ -26,7 +26,7 @@ sha256: sha256.o $(FUNCTIONS) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	-rm -f knf_gen knf_gen_test *.o module/*.o printer/*.o
+	-rm -f cc_miner knf_gen_test sha256 *.o module/*.o printer/*.o
 
 clobber: clean
 	-rm -rf cryptominisat

@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "cryptominisat4/cryptominisat.h"
+#include "module/const_16.h"
 #include "module/const_32.h"
 #include "module/prepare_32.h"
 #include "module/shacore_32.h"
@@ -43,16 +44,28 @@ int main() {
     SolverConf config;
     config.verbosity = 2;
     config.printFullStats = 1;
+    config.doSQL = false;
 
     SATSolver solver(config);
 //    solver.log_to_file("solver.log");
     solver.set_num_threads(4);
 
     for (unsigned i = 0; i < 16; i++) {
-        Const_32 c(input[i]);
-        c.setStart(i * 32);
-        if (i != 11) c.append(&solver);
-        varCount += c.getAdditionalVarCount();
+        if (i != 11) {
+            Const_32 c(input[i]);
+            c.setStart(i * 32);
+            c.append(&solver);
+            varCount += c.getAdditionalVarCount();
+        } else {
+            Const_16 c(input[i]);
+            c.setStart(i * 32);
+            c.append(&solver);
+
+            c.setStart(i * 32 + 2);
+            c.append(&solver);
+
+            varCount += 32;
+        }
     }
 
     cout << "1 / 4: Eingabe gesetzt.\n";
@@ -96,11 +109,15 @@ int main() {
     cout << "\n";
 
     // START - Erste 32 Bit vom Ergebnis auf 0 setzen
-    /*
-    Const_32 c(0x95F61999);
-    c.setStart(vars[0]);
-    c.append(&solver);
-    */
+    Const_32 c1(0x95F61999);
+    c1.setStart(vars[0]);
+    c1.append(&solver);
+    // ENDE
+
+    // START - Zweite 32 Bit vom Ergebnis auf 0 setzen
+    Const_32 c2(0x4498517B);
+    c2.setStart(vars[1]);
+    c2.append(&solver);
     // ENDE
 
     lbool ret = solver.solve();

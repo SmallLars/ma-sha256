@@ -63,8 +63,16 @@ void Modul::setOutput(unsigned output) {
     this->output = output;
 }
 
+unsigned Modul::getInputNum() {
+    return this->bitWidth * this->inputCount;
+}
+
 unsigned Modul::getOutput() {
     return this->output;
+}
+
+unsigned Modul::getOutputNum() {
+    return this->bitWidth * this->outputCount;
 }
 
 unsigned Modul::append(SATSolver* solver) {

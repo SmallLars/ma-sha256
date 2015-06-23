@@ -73,6 +73,7 @@ int Producer::getWork(std::vector<unsigned>& task) {
 
    progress++;
    printf("\r%u / %u", progress, work_amount);
+   fflush(stdout);
 
    counter[taskLength - 1]++;
    for (unsigned i = taskLength - 1; i > 0; i--) {
