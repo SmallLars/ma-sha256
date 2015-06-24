@@ -1,6 +1,6 @@
 #include "adder_prepare_32.h"
 
-#include "const_32.h"
+#include "const.h"
 #include "adder_32.h"
 #include "adder_ssig_32.h"
 
@@ -71,21 +71,21 @@ MU_TEST_C(Adder_Prepare_32::test) {
 		uint32_t ausgabe = a[t] + s0 + c[t] + s1;
         uint32_t result = 0;
 
-        Const_32 ca(a[t]);
-        ca.setOutput(0);
-        ca.append(&solver);
+        Const con(32, a[t]);
+        con.setOutput(0);
+        con.append(&solver);
 
-        Const_32 cb(b[t]);
-        cb.setOutput(32);
-        cb.append(&solver);
+        con.setValue(b[t]);
+        con.setOutput(32);
+        con.append(&solver);
 
-        Const_32 cc(c[t]);
-        cc.setOutput(64);
-        cc.append(&solver);
+        con.setValue(c[t]);
+        con.setOutput(64);
+        con.append(&solver);
 
-        Const_32 cd(d[t]);
-        cd.setOutput(96);
-        cd.append(&solver);
+        con.setValue(d[t]);
+        con.setOutput(96);
+        con.append(&solver);
 
         Adder_Prepare_32 adderPrepare;
         adderPrepare.append(&solver);

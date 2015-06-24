@@ -2,7 +2,7 @@
 
 #include "clausecreator.h"
 
-#include "const_32.h"
+#include "const.h"
 
 using namespace CMSat;
 
@@ -84,13 +84,13 @@ MU_TEST_C(Adder_32::test) {
         uint32_t ausgabe = a[t] + b[t];
         uint32_t result = 0;
 
-        Const_32 ca(a[t]);
-        ca.setOutput(0);
-        ca.append(&solver);
+        Const con(32, a[t]);
+        con.setOutput(0);
+        con.append(&solver);
 
-        ca.setValue(b[t]);
-        ca.setOutput(32);
-        ca.append(&solver);
+        con.setValue(b[t]);
+        con.setOutput(32);
+        con.append(&solver);
 
         Adder_32 adder;
         adder.append(&solver);

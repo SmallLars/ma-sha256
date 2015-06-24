@@ -6,7 +6,7 @@
 #include "producer.h"
 
 #include "cryptominisat4/cryptominisat.h"
-#include "module/const_32.h"
+#include "module/const.h"
 #include "module/bsig0_32.h"
 #include "module/maj_32.h"
 #include "module/adder_32.h"

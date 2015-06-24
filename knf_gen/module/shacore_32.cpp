@@ -1,6 +1,6 @@
 #include "shacore_32.h"
 
-#include "const_32.h"
+#include "const.h"
 #include "adder_32.h"
 #include "adder_b0maj_32.h"
 #include "adder_b1ch_32.h"
@@ -117,41 +117,41 @@ MU_TEST_C(ShaCore_32::test) {
 		uint32_t ausgabe[2] = {t1 + t2, d[t] + t1};
         uint32_t result[2] = {0, 0};
 
-        Const_32 ca(a[t]);
-        ca.setOutput(0);
-        ca.append(&solver);
+        Const con(32, a[t]);
+        con.setOutput(0);
+        con.append(&solver);
 
-        Const_32 cb(b[t]);
-        cb.setOutput(32);
-        cb.append(&solver);
+        con.setValue(b[t]);
+        con.setOutput(32);
+        con.append(&solver);
 
-        Const_32 cc(c[t]);
-        cc.setOutput(64);
-        cc.append(&solver);
+        con.setValue(c[t]);
+        con.setOutput(64);
+        con.append(&solver);
 
-        Const_32 cd(d[t]);
-        cd.setOutput(96);
-        cd.append(&solver);
+        con.setValue(d[t]);
+        con.setOutput(96);
+        con.append(&solver);
 
-        Const_32 ce(e[t]);
-        ce.setOutput(128);
-        ce.append(&solver);
+        con.setValue(e[t]);
+        con.setOutput(128);
+        con.append(&solver);
 
-        Const_32 cf(f[t]);
-        cf.setOutput(160);
-        cf.append(&solver);
+        con.setValue(f[t]);
+        con.setOutput(160);
+        con.append(&solver);
 
-        Const_32 cg(g[t]);
-        cg.setOutput(192);
-        cg.append(&solver);
+        con.setValue(g[t]);
+        con.setOutput(192);
+        con.append(&solver);
 
-        Const_32 ch(h[t]);
-        ch.setOutput(224);
-        ch.append(&solver);
+        con.setValue(h[t]);
+        con.setOutput(224);
+        con.append(&solver);
 
-        Const_32 ci(i[t]);
-        ci.setOutput(256);
-        ci.append(&solver);
+        con.setValue(i[t]);
+        con.setOutput(256);
+        con.append(&solver);
 
         ShaCore_32 shaCore;
         shaCore.append(&solver);

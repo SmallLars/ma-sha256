@@ -1,6 +1,6 @@
 #include "adder_ssig_32.h"
 
-#include "const_32.h"
+#include "const.h"
 #include "ssig0_32.h"
 #include "ssig1_32.h"
 #include "adder_32.h"
@@ -67,13 +67,13 @@ MU_TEST_C(Adder_Ssig_32::test) {
 		uint32_t ausgabe = s0 + s1;
         uint32_t result = 0;
 
-        Const_32 ca(a[t]);
-        ca.setOutput(0);
-        ca.append(&solver);
+        Const con(32, a[t]);
+        con.setOutput(0);
+        con.append(&solver);
 
-        Const_32 cb(b[t]);
-        cb.setOutput(32);
-        cb.append(&solver);
+        con.setValue(b[t]);
+        con.setOutput(32);
+        con.append(&solver);
 
         Adder_Ssig_32 adderSsig;
         adderSsig.append(&solver);

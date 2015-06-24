@@ -1,6 +1,6 @@
 #include "prepare_32.h"
 
-#include "const_32.h"
+#include "const.h"
 #include "adder_prepare_32.h"
 #include "constadder_32.h"
 
@@ -100,10 +100,11 @@ MU_TEST_C(Prepare_32::test) {
             ausgabe[i] += sha_k[i];
 	    }
 
+        Const con(32, 0);
         for (unsigned i = 0; i < 16; i++) {
-            Const_32 c(values[i][t]);
-            c.setOutput(i * 32);
-            c.append(&solver);
+            con.setValue(values[i][t]);
+            con.setOutput(i * 32);
+            con.append(&solver);
         }
 
         Prepare_32 prepare;

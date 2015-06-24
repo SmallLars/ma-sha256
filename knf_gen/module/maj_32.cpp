@@ -2,7 +2,7 @@
 
 #include "clausecreator.h"
 
-#include "const_32.h"
+#include "const.h"
 
 using namespace CMSat;
 
@@ -51,17 +51,17 @@ MU_TEST_C(Maj_32::test) {
         uint32_t ausgabe = (a[t] & b[t]) ^ (a[t] & c[t]) ^ (b[t] & c[t]);
         uint32_t result = 0;
 
-        Const_32 ca(a[t]);
-        ca.setOutput(0);
-        ca.append(&solver);
+        Const con(32, a[t]);
+        con.setOutput(0);
+        con.append(&solver);
 
-        ca.setValue(b[t]);
-        ca.setOutput(32);
-        ca.append(&solver);
+        con.setValue(b[t]);
+        con.setOutput(32);
+        con.append(&solver);
 
-        ca.setValue(c[t]);
-        ca.setOutput(64);
-        ca.append(&solver);
+        con.setValue(c[t]);
+        con.setOutput(64);
+        con.append(&solver);
 
         Maj_32 maj;
         maj.append(&solver);

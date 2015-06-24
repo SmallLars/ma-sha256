@@ -1,6 +1,6 @@
 #include "bsig1_32.h"
 
-#include "const_32.h"
+#include "const.h"
 
 using namespace CMSat;
 
@@ -34,8 +34,8 @@ MU_TEST_C(Bsig1_32::test) {
         uint32_t ausgabe = (a[t] >> 6 | a[t] << (32-6)) ^ (a[t] >> 11 | a[t] << (32-11)) ^ (a[t] >> 25 | a[t] << (32-25));
         uint32_t result = 0;
 
-        Const_32 ca(a[t]);
-        ca.append(&solver);
+        Const con(32, a[t]);
+        con.append(&solver);
 
         Bsig1_32 bsig1;
         bsig1.append(&solver);

@@ -2,8 +2,7 @@
 #include <stdio.h>
 
 #include "cryptominisat4/cryptominisat.h"
-#include "module/const_16.h"
-#include "module/const_32.h"
+#include "module/const.h"
 #include "module/prepare_32.h"
 #include "module/shacore_32.h"
 
@@ -52,18 +51,14 @@ int main() {
 
     for (unsigned i = 0; i < 16; i++) {
         if (i != 11) {
-            Const_32 c(input[i]);
+            Const c(32, input[i]);
             c.setStart(i * 32);
             c.append(&solver);
             varCount += c.getAdditionalVarCount();
         } else {
-            Const_16 c(input[i]);
+            Const c(16, input[i]);
             c.setStart(i * 32);
             c.append(&solver);
-
-            c.setStart(i * 32 + 2);
-            c.append(&solver);
-
             varCount += 32;
         }
     }
@@ -79,7 +74,7 @@ int main() {
 
     unsigned vars[8];
     for (unsigned i = 0; i < 8; i++) {
-        Const_32 c(state[i]);
+        Const c(32, state[i]);
         c.setStart(varCount);
         c.append(&solver);
         varCount += c.getAdditionalVarCount();
@@ -109,13 +104,13 @@ int main() {
     cout << "\n";
 
     // START - Erste 32 Bit vom Ergebnis auf 0 setzen
-    Const_32 c1(0x95F61999);
+    Const c1(32, 0x95F61999);
     c1.setStart(vars[0]);
     c1.append(&solver);
     // ENDE
 
     // START - Zweite 32 Bit vom Ergebnis auf 0 setzen
-    Const_32 c2(0x4498517B);
+    Const c2(32, 0x4498517B);
     c2.setStart(vars[1]);
     c2.append(&solver);
     // ENDE

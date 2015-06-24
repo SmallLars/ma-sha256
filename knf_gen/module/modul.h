@@ -19,8 +19,9 @@ class Modul {
         void setStart(unsigned start);
         void setOutput(unsigned output);
 
-        unsigned getInputNum();
+        unsigned getBitWidth();
         unsigned getOutput();
+        unsigned getInputNum();
         unsigned getOutputNum();
 
         unsigned append(CMSat::SATSolver* solver);
