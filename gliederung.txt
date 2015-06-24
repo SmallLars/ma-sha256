@@ -1,0 +1,46 @@
+Reihenfolge der Klauseln
+Nummerierung der Literale
+XOR-Support
+Addierer
+ - Carry-Ripple-Addierer      (Standard)
+ - Carry-Skip                 (Übertrag BLockweise vorausberechnen)
+ - Carry-Look-Ahead           (Übertrag für jedes Bit vorausberechnen)
+ - Conditional Sum Addition   (Teile und Herrsche -> Immer mit und ohne Übertrag berechnen -> MUX ermittelt korrektes Ergebnis)
+ - Carry-Select-Addierer
+ - Fazit aber: Addierer egal, wenn KNF ohne Zusätzliche Variablen -> Spiegelt Carry-Look_ahead wieder ?
+
+Vergleich zu CBMC (C Bounded Model Checking)
+
+Bedeutung ->     B^256 -> B^64       ->   Jeweils 2^(192) -> Gleiche Lösung
+                 B^64 -> B^256       ->   2^(192) ausgaben sind nicht erreichbar
+
+Konfliktklausel Mining
+Espresso
+KNF -> Wahrheitstabelle
+
+Bitcoin SAT-Instanz
+
+SHA256
+   BSIG0
+   BSIG1
+   SSIG0
+   SSIG1
+   CH
+   MAJ
+
+SAT-Solver
+   Cryptominisat
+
+ --------------------------------------------------------------------------------------
+Titel: 
+
+1  Einleitung
+
+X  Fazit
+
+   Akronyme
+   Glossar
+   Literaturverzeichnis
+   Abbildungsverzeichnis
+
+A  CD und Inhalt
