@@ -25,16 +25,16 @@ void padding(uint32_t* target, const char* input) {
 }
 
 int main() {
+/*
     uint32_t input[16] = {0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
                           0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80000000, 0x00000000, 0x000001A0};
-/*
+
     uint32_t input[16] = {0x61626364, 0x65800000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
                           0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000028};
 */
-/*
     uint32_t input[16];
     padding(input, "abcde");
-*/
+    // 36bbe50e d96841d1 0443bcb6 70d6554f 0a34b761 be67ec9c 4a8ad2c0 c44ca42c
 
     uint32_t state[8] = {0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19};
 
@@ -50,17 +50,17 @@ int main() {
     solver.set_num_threads(4);
 
     for (unsigned i = 0; i < 16; i++) {
-        if (i != 11) {
+//        if (i != 11) {
             Const c(32, input[i]);
             c.setStart(i * 32);
             c.append(&solver);
             varCount += c.getAdditionalVarCount();
-        } else {
+/*        } else {
             Const c(16, input[i]);
             c.setStart(i * 32);
             c.append(&solver);
             varCount += 32;
-        }
+        }*/
     }
 
     cout << "1 / 4: Eingabe gesetzt.\n";
@@ -103,6 +103,7 @@ int main() {
     }
     cout << "\n";
 
+/*
     // START - Erste 32 Bit vom Ergebnis auf 0 setzen
     Const c1(32, 0x95F61999);
     c1.setStart(vars[0]);
@@ -114,6 +115,7 @@ int main() {
     c2.setStart(vars[1]);
     c2.append(&solver);
     // ENDE
+*/
 
     lbool ret = solver.solve();
     if (ret == l_False) {
