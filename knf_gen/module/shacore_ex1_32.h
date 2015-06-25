@@ -9,6 +9,7 @@ class ShaCore_Ex1_32 : public Modul {
         ShaCore_Ex1_32(uint32_t value);
         ~ShaCore_Ex1_32();
 
+        void setValue(uint32_t value);
         void create(Printer* printer);
         MU_TEST_H(test);
     private:

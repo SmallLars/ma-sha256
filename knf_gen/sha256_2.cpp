@@ -87,6 +87,9 @@ int main() {
 
     cout << "2 / 3: Status gesetzt.\n";
 
+    Adder_Prepare_32 adder;
+    ShaCore_Ex1_32 core(0);
+
     unsigned global_input[64];
     for (unsigned i = 0; i < 16; i++) global_input[i] = i * 32;
 
@@ -102,7 +105,6 @@ int main() {
             prepareinputs.push_back(global_input[i - 15]);
             prepareinputs.push_back(global_input[i -  7]);
             prepareinputs.push_back(global_input[i -  2]);
-            Adder_Prepare_32 adder;
             adder.setInputs(prepareinputs);
             adder.setStart(varCount);
             adder.append(&solver);
@@ -112,7 +114,7 @@ int main() {
             subinputs.push_back(adder.getOutput());
         }
 
-        ShaCore_Ex1_32 core(sha_k[i]);
+        core.setValue(sha_k[i]);
         core.setInputs(subinputs);
         core.setStart(varCount);
         core.append(&solver);

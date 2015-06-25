@@ -34,6 +34,10 @@ ShaCore_Ex2_32::ShaCore_Ex2_32(uint32_t value) : Modul(32, 12, 2) {
 ShaCore_Ex2_32::~ShaCore_Ex2_32() {
 }
 
+void ShaCore_Ex2_32::setValue(uint32_t value) {
+    this->value = value;
+}
+
 void ShaCore_Ex2_32::create(Printer* printer) {
     unsigned newvars = 0;
     vector<unsigned> subinputs;
