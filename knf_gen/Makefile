@@ -8,7 +8,7 @@ MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")
 PRINTER = $(shell find printer/*.cpp -type f | sed "s/.cpp/.o/g")
 FUNCTIONS = minunit.o producer.o
 
-all: cryptominisat/lib/libcryptominisat4.so cc_miner knf_gen_test sha256
+all: cryptominisat/lib/libcryptominisat4.so cc_miner test_module sha256
 
 #%.o: %.c
 #	gcc -c $(CFLAGS) -o $@ $<
@@ -19,14 +19,14 @@ all: cryptominisat/lib/libcryptominisat4.so cc_miner knf_gen_test sha256
 cc_miner: cc_miner.o $(FUNCTIONS) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
-knf_gen_test: knf_gen_test.o $(FUNCTIONS) $(MODULE) $(PRINTER)
+test_module: test_module.o $(FUNCTIONS) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -lrt -lm -o $@ $^ $(LIBS)
 
 sha256: sha256.o $(FUNCTIONS) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	-rm -f cc_miner knf_gen_test sha256 *.o module/*.o printer/*.o
+	-rm -f cc_miner test_module sha256 *.o module/*.o printer/*.o
 
 clobber: clean
 	-rm -rf cryptominisat
