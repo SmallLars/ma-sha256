@@ -2,7 +2,7 @@
 #define __PREPARE_32_H__
 
 #include "modul.h"
-#include "../minunit.h"
+#include "../common/minunit.h"
 
 class Prepare_32 : public Modul {
     public:

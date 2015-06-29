@@ -2,7 +2,7 @@
 #define __CONSTADDER_32_H__
 
 #include "modul.h"
-#include "../minunit.h"
+#include "../common/minunit.h"
 
 class ConstAdder_32 : public Modul {
     public:

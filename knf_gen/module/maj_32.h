@@ -2,7 +2,7 @@
 #define __MAJ_32_H__
 
 #include "modul.h"
-#include "../minunit.h"
+#include "../common/minunit.h"
 
 class Maj_32 : public Modul {
     public:

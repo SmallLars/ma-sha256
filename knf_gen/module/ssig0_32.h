@@ -2,7 +2,7 @@
 #define __SSIG0_32_H__
 
 #include "modul.h"
-#include "../minunit.h"
+#include "../common/minunit.h"
 
 class Ssig0_32 : public Modul {
     public:

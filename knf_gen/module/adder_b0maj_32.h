@@ -2,7 +2,7 @@
 #define __ADDER_B0MAJ_32_H__
 
 #include "modul.h"
-#include "../minunit.h"
+#include "../common/minunit.h"
 
 class Adder_B0Maj_32 : public Modul {
     public:

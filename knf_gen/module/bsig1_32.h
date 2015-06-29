@@ -2,7 +2,7 @@
 #define __BSIG1_32_H__
 
 #include "modul.h"
-#include "../minunit.h"
+#include "../common/minunit.h"
 
 class Bsig1_32 : public Modul {
     public:

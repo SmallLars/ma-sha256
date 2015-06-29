@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-#include "minunit.h"
+#include "common/minunit.h"
 
 #include "module/bsig0_32.h"
 #include "module/bsig1_32.h"

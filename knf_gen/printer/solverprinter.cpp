@@ -21,6 +21,13 @@ void SolverPrinter::create(bool xOR, const vector<Lit>& vars) {
     }
 #endif
 
+    for (unsigned i = 0; i < vars.size(); i++) {
+      if (vars[i].var() >= solver->nVars()) {
+          //std::cout << "Added: " << (vars[i].var() - solver->nVars() + 1) << "\n";
+          solver->new_vars(vars[i].var() - solver->nVars() + 1);
+      }
+    }
+
     if (xOR) {
         vector<unsigned> lits;
         for (unsigned i = 0; i < vars.size(); i++) lits.push_back(vars[i].var());

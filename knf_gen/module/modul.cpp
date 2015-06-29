@@ -7,6 +7,7 @@
 #include "clausecreator.h"
 
 #include "../printer/solverprinter.h"
+#include "../printer/reversesolverprinter.h"
 #include "../printer/dimacsfileprinter.h"
 #include "../printer/ttfileprinter.h"
 #include "../printer/counter.h"
@@ -81,11 +82,6 @@ unsigned Modul::getOutputNum() {
 
 unsigned Modul::append(SATSolver* solver) {
     //std::cout << "Start: " << start << " | Output: " << output << "\n";
-    unsigned maxVar = getMaxVar();
-    if (maxVar >= solver->nVars()) {
-        //std::cout << "Added: " << (maxVar - solver->nVars() + 1) << "\n";
-        solver->new_vars(maxVar - solver->nVars() + 1);
-    }
     SolverPrinter printer(solver);
     create(&printer);
     return 0;

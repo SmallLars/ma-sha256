@@ -2,7 +2,7 @@
 #define __SHACORE_32_H__
 
 #include "modul.h"
-#include "../minunit.h"
+#include "../common/minunit.h"
 
 class ShaCore_32 : public Modul {
     public:

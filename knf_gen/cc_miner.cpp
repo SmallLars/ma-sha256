@@ -2,8 +2,9 @@
 #include <vector>
 #include <stdio.h>
 #include <pthread.h>
+#include <signal.h>
 
-#include "producer.h"
+#include "common/producer.h"
 
 #include "cryptominisat4/cryptominisat.h"
 #include "module/const.h"
@@ -20,6 +21,10 @@
 
 using std::vector;
 using namespace CMSat;
+
+void signalHandler(int signum) {
+    exit(1);
+}
 
 void *calculate(void* producer) {
     SolverConf config;
@@ -55,10 +60,12 @@ void *calculate(void* producer) {
 }
 
 int main() {
+    signal(SIGINT, signalHandler);
+
     MODUL modul;
     unsigned out = modul.getOutput();
 
-    Producer producer(3);
+    static Producer producer(3);
     for (unsigned i = 0; i < modul.getInputNum(); i++) producer.addVar(i);
     for (unsigned i = out; i < out + modul.getOutputNum(); i++) producer.addVar(i);
 

@@ -2,7 +2,7 @@
 #define __ADDER_SSIG_32_H__
 
 #include "modul.h"
-#include "../minunit.h"
+#include "../common/minunit.h"
 
 class Adder_Ssig_32 : public Modul {
     public:
