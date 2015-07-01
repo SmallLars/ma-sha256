@@ -51,10 +51,11 @@ Titel:
 4.4   MAJ
 
 5   Konfliktklausel Mining -> Nur bei Komponenten mit Hilfsvariablen
-5.1   Addierer(BSIG0, MAJ)
-5.2   Addierer(BSIG1, CH)
-5.3   Addierer(SSIG0, SSIG1)
-5.4   Addierer(Prepare)
+5.1   Komplexität und Grenzen
+5.2   Addierer(BSIG0, MAJ)
+5.3   Addierer(BSIG1, CH)
+5.4   Addierer(SSIG0, SSIG1)
+5.5   Addierer(Prepare)
 
 6   Vollständige Berechnung mit Cryptominisat
 6.1   Vergleich mit CBMC -> Es geht kompakter (wirklich besser?)
