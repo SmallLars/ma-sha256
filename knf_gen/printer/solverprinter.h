@@ -9,6 +9,7 @@ class SolverPrinter : public Printer {
         ~SolverPrinter();
 
         virtual void create(bool xOR, const std::vector<CMSat::Lit>& vars);
+        virtual void flush();
     protected:
 
     private:

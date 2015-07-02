@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+     version="1.1" baseProfile="full"
+     width="945" height="470" viewBox="-10 -10 945 470">
+
+  <title>Kern</title>
+
+  <rect x="75" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <rect x="175" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <rect x="275" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <rect x="375" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:blue" />
+  <rect x="475" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <rect x="575" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <rect x="675" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <rect x="775" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:red" />
+  <rect x="875" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:red" />
+  <text x="100" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">A</text>
+  <text x="200" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">B</text>
+  <text x="300" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">C</text>
+  <text x="400" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">D</text>
+  <text x="500" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">E</text>
+  <text x="600" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">F</text>
+  <text x="700" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">G</text>
+  <text x="800" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">H</text>
+  <text x="900" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">I</text>
+
+  <rect x="0" y="100" width="100" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <rect x="150" y="100" width="100" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <text x="50" y="135" text-anchor="middle" style="font-family: Arial; font-size: 32px;">BSIG0</text>
+  <text x="200" y="135" text-anchor="middle" style="font-family: Arial; font-size: 32px;">MAJ</text>
+
+  <rect x="400" y="100" width="100" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <rect x="550" y="100" width="100" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <text x="450" y="135" text-anchor="middle" style="font-family: Arial; font-size: 32px;">BSIG1</text>
+  <text x="600" y="135" text-anchor="middle" style="font-family: Arial; font-size: 32px;">CH</text>
+
+  <rect x="550" y="200" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="600" y="235" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
+
+  <rect x="50" y="300" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="100" y="335" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
+
+  <rect x="450" y="300" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="500" y="335" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
+
+  <rect x="75" y="400" width="50" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <rect x="475" y="400" width="50" height="50" style="fill:white;stroke-width:2;stroke:green" />
+  <text x="100" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">A</text>
+  <text x="500" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">E</text>
+
+  <!-- A -->
+  <line x1="100" y1="50" x2="100" y2="75" style="stroke:green;stroke-width:2" />
+  <line x1="50" y1="75" x2="170" y2="75" style="stroke:green;stroke-width:2" />
+  <line x1="50" y1="75" x2="50" y2="100" style="stroke:green;stroke-width:2" />
+  <line x1="170" y1="75" x2="170" y2="100" style="stroke:green;stroke-width:2" />
+  <circle cx ="100" cy ="75" r ="5" />
+
+  <!-- B -->
+  <line x1="200" y1="50" x2="200" y2="100" style="stroke:green;stroke-width:2" />
+
+  <!-- C -->
+  <line x1="300" y1="50" x2="300" y2="75" style="stroke:green;stroke-width:2" />
+  <line x1="230" y1="75" x2="300" y2="75" style="stroke:green;stroke-width:2" />
+  <line x1="230" y1="75" x2="230" y2="100" style="stroke:green;stroke-width:2" />
+
+  <!-- D -->
+  <line x1="375" y1="50" x2="375" y2="225" style="stroke:blue;stroke-width:2" />
+  <line x1="375" y1="225" x2="470" y2="225" style="stroke:blue;stroke-width:2" />
+  <line x1="470" y1="225" x2="470" y2="300" style="stroke:blue;stroke-width:2" />
+
+  <!-- E -->
+  <line x1="500" y1="50" x2="500" y2="75" style="stroke:green;stroke-width:2" />
+  <line x1="450" y1="75" x2="570" y2="75" style="stroke:green;stroke-width:2" />
+  <line x1="450" y1="75" x2="450" y2="100" style="stroke:green;stroke-width:2" />
+  <line x1="570" y1="75" x2="570" y2="100" style="stroke:green;stroke-width:2" />
+  <circle cx ="500" cy ="75" r ="5" />
+
+  <!-- F -->
+  <line x1="600" y1="50" x2="600" y2="100" style="stroke:green;stroke-width:2" />
+
+  <!-- G -->
+  <line x1="700" y1="50" x2="700" y2="75" style="stroke:green;stroke-width:2" />
+  <line x1="630" y1="75" x2="700" y2="75" style="stroke:green;stroke-width:2" />
+  <line x1="630" y1="75" x2="630" y2="100" style="stroke:green;stroke-width:2" />
+
+  <!-- H -->
+  <line x1="800" y1="50" x2="800" y2="175" style="stroke:red;stroke-width:2" />
+  <line x1="630" y1="175" x2="800" y2="175" style="stroke:red;stroke-width:2" />
+  <line x1="630" y1="175" x2="630" y2="200" style="stroke:red;stroke-width:2" />
+
+  <!-- I -->
+  <line x1="900" y1="50" x2="900" y2="225" style="stroke:red;stroke-width:2" />
+  <line x1="650" y1="225" x2="900" y2="225" style="stroke:red;stroke-width:2" />
+
+  <!-- BSIG1 -->
+  <line x1="450" y1="150" x2="450" y2="175" style="stroke:green;stroke-width:2" />
+  <line x1="450" y1="175" x2="570" y2="175" style="stroke:green;stroke-width:2" />
+  <line x1="570" y1="175" x2="570" y2="200" style="stroke:green;stroke-width:2" />
+
+  <!-- CH -->
+  <line x1="600" y1="150" x2="600" y2="200" style="stroke:green;stroke-width:2" />
+
+  <!-- BSIG0 -->
+  <line x1="50" y1="150" x2="50" y2="225" style="stroke:green;stroke-width:2" />
+  <line x1="50" y1="225" x2="70" y2="225" style="stroke:green;stroke-width:2" />
+  <line x1="70" y1="225" x2="70" y2="300" style="stroke:green;stroke-width:2" />
+
+  <!-- MAJ -->
+  <line x1="200" y1="150" x2="200" y2="225" style="stroke:green;stroke-width:2" />
+  <line x1="200" y1="225" x2="100" y2="225" style="stroke:green;stroke-width:2" />
+  <line x1="100" y1="225" x2="100" y2="300" style="stroke:green;stroke-width:2" />
+
+  <!-- + -->
+  <line x1="600" y1="250" x2="600" y2="275" style="stroke:red;stroke-width:2" />
+  <line x1="130" y1="275" x2="600" y2="275" style="stroke:red;stroke-width:2" />
+  <line x1="130" y1="275" x2="130" y2="300" style="stroke:red;stroke-width:2" />
+  <line x1="530" y1="275" x2="530" y2="300" style="stroke:red;stroke-width:2" />
+  <circle cx ="530" cy ="275" r ="5" />
+
+  <!-- A -->
+  <line x1="100" y1="350" x2="100" y2="400" style="stroke:green;stroke-width:2" />
+
+  <!-- E -->
+  <line x1="500" y1="350" x2="500" y2="400" style="stroke:green;stroke-width:2" />
+</svg>

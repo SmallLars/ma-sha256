@@ -26,6 +26,8 @@ Titel:
 2.2   Konjunktive Normalform
 2.3   Espresso
         Wahrheitstabelle
+        Karnaugh maps
+        Quine–McCluskey
         KNF <-> Wahrheitstabelle
 2.4   SAT-Solver
         Konfliktklausel
@@ -64,6 +66,8 @@ Titel:
 6.3   Parallelisierung von Extension/Computation
 
 7   Reduzierung des Problems durch Raten
+      Wie oft kann man raten (Werte festlegen) so dass es immer noch eine Lösung gibt?
+      SAT-Solver wählt nur I und H -> In jeder Runde 2^32 Möglichkeiten
 
 8   Fazit
 8.1   Nutzen für Bitcoin-Mining

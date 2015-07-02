@@ -37,3 +37,6 @@ void SolverPrinter::create(bool xOR, const vector<Lit>& vars) {
 
     solver->add_clause(vars);
 }
+
+void SolverPrinter::flush() {
+}

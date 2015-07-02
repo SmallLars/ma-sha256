@@ -6,6 +6,7 @@
 #include "module/adder_prepare_32.h"
 #include "module/shacore_ex1_32.h"
 
+#include "printer/counter.h"
 #include "printer/reversesolverprinter.h"
 
 using std::cout;
@@ -60,20 +61,22 @@ int main() {
     solver.log_to_file("solver.log");
     solver.set_num_threads(4);
 
+//    Counter printer;
     ReverseSolverPrinter printer(&solver);
+//    SolverPrinter printer(&solver);
 
     for (unsigned i = 0; i < 16; i++) {
-        if (i != 11) {
+//        if (i != 11) {
             Const c(32, input[i]);
             c.setStart(i * 32);
-            c.create(&printer);
+            if (i>12) c.create(&printer);
             varCount += c.getAdditionalVarCount();
-        } else {
-            Const c(16, input[i]);
-            c.setStart(i * 32);
-            c.append(&solver);
-            varCount += 32;
-        }
+//        } else {
+//            Const c(16, input[i]);
+//            c.setStart(i * 32);
+//            c.append(&solver);
+//            varCount += 32;
+//        }
     }
 
     cout << "1 / 4: Eingabe gesetzt.\n";
@@ -96,7 +99,7 @@ int main() {
     unsigned global_input[64];
     for (unsigned i = 0; i < 16; i++) global_input[i] = i * 32;
 
-    for (unsigned i = 0; i < 64; i++) {
+    for (unsigned i = 0; i < 18; i++) {
         vector<unsigned> subinputs;
         for (unsigned n = 0; n < 8; n++) subinputs.push_back(vars[n]);
 
@@ -131,20 +134,22 @@ int main() {
     }
     cout << "\n";
 
-    printer.flush();
     cout << "4 / 4: Übertragen.\n";
 
     // START - Erste 32 Bit vom Ergebnis auf 0 setzen
     Const c1(32, 0x95F61999);
     c1.setStart(vars[0]);
-    c1.append(&solver);
+    c1.create(&printer);
     // ENDE
 
     // START - Zweite 32 Bit vom Ergebnis auf 0 setzen
     Const c2(32, 0x4498517B);
     c2.setStart(vars[1]);
-    c2.append(&solver);
+    c2.create(&printer);
     // ENDE
+
+    printer.flush();
+//    printf("Var: %u, Clause: %u\n", printer.getVarCount(), printer.getClauseCount());
 
     lbool ret = solver.solve();
     if (ret == l_False) {

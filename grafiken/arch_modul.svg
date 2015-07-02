@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+     version="1.1" baseProfile="full"
+     width="220" height="320" viewBox="-10 -10 220 320">
+
+  <title>Architektur - Modul</title>
+
+  <defs>
+    <marker id="pf1"
+      viewBox="0 0 20 10" refX="10" refY="5"
+      markerUnits="strokeWidth"
+      markerWidth="30" markerHeight="30"
+      orient="auto">
+      <path d="M 0,0 L 20,5 L 0,10 z" fill="white" stroke="black" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="200" height="100" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="100" y="60" text-anchor="middle" style="font-family: Arial; font-size: 32px;">Modul</text>
+
+  <rect x="0" y="200" width="200" height="100" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="100" y="260" text-anchor="middle" style="font-family: Arial; font-size: 32px;">...</text>
+  <line x1="100" y1="200" x2="100" y2="130" style="stroke:black;stroke-width:2" marker-end="url(#pf1)" />
+
+</svg>
