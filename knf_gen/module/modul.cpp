@@ -7,7 +7,6 @@
 #include "clausecreator.h"
 
 #include "../printer/solverprinter.h"
-#include "../printer/reversesolverprinter.h"
 #include "../printer/dimacsfileprinter.h"
 #include "../printer/ttfileprinter.h"
 #include "../printer/counter.h"

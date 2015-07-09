@@ -4,6 +4,8 @@ LIBS = -lcryptominisat4 -lpthread
 COMP = g++
 #COMP = clang++-3.5
 
+SOLVERVERSION = 4.2.0
+
 COMMON = $(shell find common/*.cpp -type f | sed "s/.cpp/.o/g")
 MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")
 PRINTER = $(shell find printer/*.cpp -type f | sed "s/.cpp/.o/g")
@@ -36,19 +38,19 @@ clean:
 
 clobber: clean
 	-rm -rf cryptominisat
-	-rm -rf cryptominisat4-4.2.0
+	-rm -rf cryptominisat4-$(SOLVERVERSION)
 	-rm -f *.tt *.dimacs *.log
 
 cryptominisat/lib/libcryptominisat4.so:
-	tar xjf cryptominisat-4.2.0.tar.bz2
+	tar xjf cryptominisat-$(SOLVERVERSION).tar.bz2
 	mkdir cryptominisat
-	cd cryptominisat;cmake ../cryptominisat4-4.2.0
+	cd cryptominisat;cmake ../cryptominisat4-$(SOLVERVERSION)
 	cd cryptominisat;make
 
 startsql:
 	mysql -u root -p cmsat < cmsat_tablestructure.sql
 
 depend:
-	sudo apt-get install cmake libboost-program-options-dev zlib1g-dev mysql-server libmysql++-dev libm4ri-dev libtbb-dev
+	sudo apt-get install build-essential cmake valgrind libboost-program-options-dev zlib1g-dev mysql-server libmysqlclient-dev libsqlite3-dev libm4ri-dev libtbb-dev
 
 .PHONY: all clean clobber depend startsql

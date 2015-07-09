@@ -5,6 +5,7 @@
 \usepackage[ngerman]{babel}
 \usepackage{ngerman}
 \usepackage{wrapfig}
+\usepackage{multicol}
  
 \title{Hashverfahren}
 \author{Lars Schmertmann}
@@ -12,7 +13,11 @@
  
 \begin{document}
 \maketitle
-\frame{\tableofcontents[currentsection]}
+%\setcounter{tocdepth}{3}
+%\frame{\tableofcontents}
+%\frame{\tableofcontents[currentsection]}
+
+\frame{ \begin{multicols}{2} \tableofcontents \end{multicols} }
 
 \section{Eigenschaften}
   \begin{frame}

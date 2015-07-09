@@ -7,7 +7,10 @@
 #include "module/shacore_ex1_32.h"
 
 #include "printer/counter.h"
-#include "printer/reversesolverprinter.h"
+#include "printer/solverprinter.h"
+#include "printer/bufferedsolverprinter.h"
+
+#define NUM_ROUND 64
 
 using std::cout;
 using std::vector;
@@ -53,17 +56,17 @@ int main() {
     unsigned varCount = 0;
 
     SolverConf config;
-    config.verbosity = 2;
+    config.verbosity = 0;
     config.printFullStats = 1;
     config.doSQL = false;
 
     SATSolver solver(config);
     solver.log_to_file("solver.log");
-    solver.set_num_threads(4);
+    solver.set_num_threads(16);
 
 //    Counter printer;
-    ReverseSolverPrinter printer(&solver);
-//    SolverPrinter printer(&solver);
+    SolverPrinter printer(&solver);
+    vector<BufferedSolverPrinter> rounds(NUM_ROUND, BufferedSolverPrinter(&solver));
 
     for (unsigned i = 0; i < 16; i++) {
 //        if (i != 11) {
@@ -96,10 +99,10 @@ int main() {
     Adder_Prepare_32 adder;
     ShaCore_Ex1_32 core(0);
 
-    unsigned global_input[64];
+    unsigned global_input[NUM_ROUND];
     for (unsigned i = 0; i < 16; i++) global_input[i] = i * 32;
 
-    for (unsigned i = 0; i < 18; i++) {
+    for (unsigned i = 0; i < NUM_ROUND; i++) {
         vector<unsigned> subinputs;
         for (unsigned n = 0; n < 8; n++) subinputs.push_back(vars[n]);
 
@@ -113,7 +116,7 @@ int main() {
             prepareinputs.push_back(global_input[i -  2]);
             adder.setInputs(prepareinputs);
             adder.setStart(varCount);
-            adder.create(&printer);
+            adder.create(&rounds[i]);
             varCount += adder.getAdditionalVarCount();
 
             global_input[i] = adder.getOutput();
@@ -123,18 +126,16 @@ int main() {
         core.setValue(sha_k[i]);
         core.setInputs(subinputs);
         core.setStart(varCount);
-        core.create(&printer);
+        core.create(&rounds[i]);
         varCount += core.getAdditionalVarCount();
 
         for (unsigned n = 7; n > 0; n--) vars[n] = vars[n - 1];
         vars[0] = core.getOutput();
         vars[4] = core.getOutput() + 32;
 
-        cout << "\r3 / 4: Kern " << i + 1 << " / 64 definiert." << std::flush;
+        cout << "\r3 / 4: Kern " << i + 1 << " / " << NUM_ROUND << " definiert." << std::flush;
     }
     cout << "\n";
-
-    cout << "4 / 4: Übertragen.\n";
 
     // START - Erste 32 Bit vom Ergebnis auf 0 setzen
     Const c1(32, 0x95F61999);
@@ -148,16 +149,28 @@ int main() {
     c2.create(&printer);
     // ENDE
 
-    printer.flush();
+    cout << "4 / 4: Ausgabe gesetzt.\n";
+
+//    printer.flush();
 //    printf("Var: %u, Clause: %u\n", printer.getVarCount(), printer.getClauseCount());
 
-    lbool ret = solver.solve();
-    if (ret == l_False) {
-        cout << "Nicht lösbar.\n";
-        return 0;
+    for (unsigned i = 0; i < NUM_ROUND; i++) {
+        rounds[NUM_ROUND - 1 - i].flush();
+
+        lbool ret = solver.solve();
+        if (ret == l_False) {
+            cout << "Nicht lösbar.\n";
+            return 0;
+        } else {
+            printf("\rVerbleibende Runden: %2u / %2u.", NUM_ROUND - 1 - i, NUM_ROUND);
+            cout << std::flush;
+        }
     }
+    cout << "\n";
 
     cout << "Lösung gefunden\n";
+
+//    solver.print_stats();
 
     cout << "Eingabe: ";
     for (unsigned i = 0; i < 16; i++) {
