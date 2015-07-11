@@ -10,7 +10,7 @@
 #include "printer/solverprinter.h"
 #include "printer/bufferedsolverprinter.h"
 
-#define NUM_ROUND 64
+#define NUM_ROUND 24
 
 using std::cout;
 using std::vector;
@@ -170,8 +170,6 @@ int main() {
 
     cout << "Lösung gefunden\n";
 
-//    solver.print_stats();
-
     cout << "Eingabe: ";
     for (unsigned i = 0; i < 16; i++) {
         if (i == 8) cout << "\n         ";
@@ -193,6 +191,8 @@ int main() {
         printf("%08x ", state[i]);
     }
     cout << "\n";
+
+    solver.print_stats();
 
     return 0;
 }
