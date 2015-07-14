@@ -1,14 +1,14 @@
-#include "adder_ssig_32.h"
+#include "add_ssig_32.h"
 
 #include "const.h"
 #include "ssig0_32.h"
 #include "ssig1_32.h"
-#include "adder_32.h"
+#include "add_32.h"
 
 using std::vector;
 using namespace CMSat;
 
-Adder_Ssig_32::Adder_Ssig_32() : Modul(32, 2, 1) {
+Add_Ssig_32::Add_Ssig_32() : Modul(32, 2, 1) {
     inputs.push_back(0);
     inputs.push_back(32);
     
@@ -16,14 +16,14 @@ Adder_Ssig_32::Adder_Ssig_32() : Modul(32, 2, 1) {
 
     Ssig0_32 ssig0;
     Ssig1_32 ssig1;
-    Adder_32 adder;
+    Add_32 adder;
     output = start + ssig0.getAdditionalVarCount() + ssig1.getAdditionalVarCount() + adder.getAdditionalVarCount() - 32;
 }
 
-Adder_Ssig_32::~Adder_Ssig_32() {
+Add_Ssig_32::~Add_Ssig_32() {
 }
 
-void Adder_Ssig_32::create(Printer* printer) {
+void Add_Ssig_32::create(Printer* printer) {
     unsigned newvars = 0;
     vector<unsigned> subinputs;
 
@@ -46,14 +46,14 @@ void Adder_Ssig_32::create(Printer* printer) {
     subinputs.clear();
     subinputs.push_back(ssig0.getOutput());
     subinputs.push_back(ssig1.getOutput());
-    Adder_32 adder;
+    Add_32 adder;
     adder.setInputs(subinputs);
     adder.setStart(start + newvars);
     adder.create(printer);
     newvars += adder.getAdditionalVarCount();
 }
 
-MU_TEST_C(Adder_Ssig_32::test) {
+MU_TEST_C(Add_Ssig_32::test) {
     unsigned a[] = {0xabcdef98, 0x456af012};
     unsigned b[] = {0x651d8fa1, 0x456af012};
 
@@ -75,7 +75,7 @@ MU_TEST_C(Adder_Ssig_32::test) {
         con.setOutput(32);
         con.append(&solver);
 
-        Adder_Ssig_32 adderSsig;
+        Add_Ssig_32 adderSsig;
         adderSsig.append(&solver);
 
         lbool ret = solver.solve();

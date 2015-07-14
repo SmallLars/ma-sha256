@@ -10,7 +10,7 @@
 #include "printer/solverprinter.h"
 #include "printer/bufferedsolverprinter.h"
 
-#define NUM_ROUND 18
+#define NUM_ROUND 64
 
 using std::cout;
 using std::vector;
@@ -41,22 +41,31 @@ void padding(uint32_t* target, const char* input) {
 }
 
 int main() {
+/*
     uint32_t input[16] = {0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
                           0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80000000, 0x00000000, 0x000001A0};
-/*
-    uint32_t input[16] = {0x61626364, 0x65800000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-                          0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000028};
-
-    uint32_t input[16];
-    padding(input, "abcde");
-    // 36bbe50e d96841d1 0443bcb6 70d6554f 0a34b761 be67ec9c 4a8ad2c0 c44ca42c
 */
+    uint32_t input[16];
+    padding(input, "Das ist eine Eingabe aus der ein Hash erstellt wird.");
+    // 27931f0e 7e53670d dbec1a1c e23e21b4 663c63c0 d17117ee 1a934bc0 c294dbe9
+
     uint32_t state[8] = {0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19};
+
+    uint32_t output[8] = {
+        0x27931f0e - state[0],
+        0x7e53670d - state[1],
+        0xdbec1a1c - state[2],
+        0xe23e21b4 - state[3],
+        0x663c63c0 - state[4],
+        0xd17117ee - state[5],
+        0x1a934bc0 - state[6],
+        0xc294dbe9 - state[7]
+    };
 
     unsigned varCount = 0;
 
     SolverConf config;
-    config.verbosity = 0;
+    config.verbosity = 0; // 3
     config.printFullStats = 1;
     config.doSQL = false;
 
@@ -137,17 +146,21 @@ int main() {
     }
     cout << "\n";
 
-    // START - Erste 32 Bit vom Ergebnis auf 0 setzen
-    Const c1(32, 0x95F61999);
-    c1.setStart(vars[0]);
-    c1.create(&printer);
-    // ENDE
+/*
+    unsigned fixed[36] = {2,3,4,5,6,7,8,9,10,11,12,26,29,30,31,32,33,34,35,37,39,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63};
+    for (unsigned i = 0; i < 36; i++) {
+        Const c(32, 0);
+        c.setStart(global_input[fixed[i]]);
+        c.create(&printer);
+    }
+*/
 
-    // START - Zweite 32 Bit vom Ergebnis auf 0 setzen
-    Const c2(32, 0x4498517B);
-    c2.setStart(vars[1]);
-    c2.create(&printer);
-    // ENDE
+    // Ergebnis setzen
+    for (unsigned i = 0; i < 8; i++) {
+        Const c(32, output[i]);
+        c.setStart(vars[i]);
+        c.create(&printer);
+    }
 
     cout << "4 / 4: Ausgabe gesetzt.\n";
 

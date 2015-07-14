@@ -10,7 +10,7 @@ COMMON = $(shell find common/*.cpp -type f | sed "s/.cpp/.o/g")
 MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")
 PRINTER = $(shell find printer/*.cpp -type f | sed "s/.cpp/.o/g")
 
-all: cryptominisat/lib/libcryptominisat4.so cc_miner test_module sha256_1 sha256_2 sha256_3
+all: cryptominisat/lib/libcryptominisat4.so cc_miner test_module sha256_1 sha256_2 sha256_3 sha256_4
 
 #%.o: %.c
 #	gcc -c $(CFLAGS) -o $@ $<
@@ -33,8 +33,11 @@ sha256_2: sha256_2.o $(COMMON) $(MODULE) $(PRINTER)
 sha256_3: sha256_3.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
+sha256_4: sha256_4.o $(COMMON) $(MODULE) $(PRINTER)
+	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
+
 clean:
-	-rm -f cc_miner test_module sha256_1 sha256_2 sha256_3 *.o common/*.o module/*.o printer/*.o
+	-rm -f cc_miner test_module sha256_1 sha256_2 sha256_3 sha256_4 *.o common/*.o module/*.o printer/*.o
 
 clobber: clean
 	-rm -rf cryptominisat

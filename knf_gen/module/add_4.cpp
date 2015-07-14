@@ -1,4 +1,4 @@
-#include "adder_4.h"
+#include "add_4.h"
 
 #include "clausecreator.h"
 
@@ -6,16 +6,16 @@
 
 using namespace CMSat;
 
-Adder_4::Adder_4() : Modul(4, 2, 1) {
+Add_4::Add_4() : Modul(4, 2, 1) {
     inputs.push_back(0);
     inputs.push_back(4);
     output = 8;
 }
 
-Adder_4::~Adder_4() {
+Add_4::~Add_4() {
 }
 
-void Adder_4::create(Printer* printer) {
+void Add_4::create(Printer* printer) {
     ClauseCreator cc(printer);
     cc.setLiterals(12, inputs[0] + 0, inputs[0] + 1, inputs[0] + 2, inputs[0] + 3,
                        inputs[1] + 0, inputs[1] + 1, inputs[1] + 2, inputs[1] + 3,
@@ -30,7 +30,7 @@ void Adder_4::create(Printer* printer) {
     }
 }
 
-MU_TEST_C(Adder_4::test) {
+MU_TEST_C(Add_4::test) {
     unsigned a[] = {0, 1, 2, 3, 4,  5,  6, 7,  8};
     unsigned b[] = {5, 1, 3, 4, 2, 12, 10, 9, 12};
 
@@ -50,7 +50,7 @@ MU_TEST_C(Adder_4::test) {
         con.setOutput(4);
         con.append(&solver);
 
-        Adder_4 adder;
+        Add_4 adder;
         adder.append(&solver);
 
         lbool ret = solver.solve();

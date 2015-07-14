@@ -1,4 +1,4 @@
-#include "adder_32.h"
+#include "sub_32.h"
 
 #include "clausecreator.h"
 
@@ -6,73 +6,73 @@
 
 using namespace CMSat;
 
-Adder_32::Adder_32() : Modul(32, 2, 1) {
+Sub_32::Sub_32() : Modul(32, 2, 1) {
     inputs.push_back(0);
     inputs.push_back(32);
     start = 64;
     output = 95;
 }
 
-Adder_32::~Adder_32() {
+Sub_32::~Sub_32() {
 }
 
-void Adder_32::create(Printer* printer) {
+void Sub_32::create(Printer* printer) {
     ClauseCreator cc(printer);
 
-    // Half adder
+    // Half subber
 #ifdef XOR_SUPPORT
-    // AND ->          c_out       a_in       b_in
-    createAND(printer, start, inputs[0], inputs[1]);
-
-    // XOR ->          !s_out       a_in       b_in
+    // XOR ->          !d_out       a_in       b_in
     createXOR(printer, output, inputs[0], inputs[1]);
+
+    // AND ->          c_out   d_out       b_in
+    createAND(printer, start, output, inputs[1]);
 #else
-    //                 s_out  c_out       a_in       b_in
+    //                 d_out  c_out       a_in       b_in
     cc.setLiterals(4, output, start, inputs[0], inputs[1]);
     cc.printClause(4,      0, CC_DC,         0,         0);
-    cc.printClause(4,      1,     1,         0,     CC_DC);
-    cc.printClause(4,      1, CC_DC,         1,         0);
+    cc.printClause(4,      1, CC_DC,         0,         1);
+    cc.printClause(4,  CC_DC,     1,         1,         0);
     cc.printClause(4,      0, CC_DC,         1,         1);
-    cc.printClause(4,  CC_DC,     0,         1,     CC_DC);
-    cc.printClause(4,  CC_DC,     0,     CC_DC,         1);
+    cc.printClause(4,  CC_DC,     0,         0,     CC_DC);
+    cc.printClause(4,      1,     0,     CC_DC,     CC_DC);
 #endif
 
-    // Full adder x30
+    // Full subber x30
     for (unsigned i = 1; i < 31; i++) {
 #ifdef XOR_SUPPORT
         //                    c_out           a_in           b_in           c_in
         cc.setLiterals(4, start + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
-        cc.printClause(4,         1,             0,             0,         CC_DC);
-        cc.printClause(4,         1,             0,         CC_DC,             0);
-        cc.printClause(4,         0,             1,             1,         CC_DC);
-        cc.printClause(4,         0,             1,         CC_DC,             1);
+        cc.printClause(4,         0,             0,             1,         CC_DC);
+        cc.printClause(4,         0,             0,         CC_DC,             1);
+        cc.printClause(4,         1,             1,             0,         CC_DC);
+        cc.printClause(4,         1,             1,         CC_DC,             0);
         cc.printClause(4,         1,         CC_DC,             0,             0);
         cc.printClause(4,         0,         CC_DC,             1,             1);
 
-        // XOR ->              !s_out           a_in           b_in           c_in
+        // XOR ->              !d_out           a_in           b_in           c_in
         createXOR(printer, output + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
 #else
-        //                     s_out      c_out           a_in           b_in           c_in
+        //                     c_out      d_out           a_in           b_in           c_in
         cc.setLiterals(5, output + i, start + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
-        cc.printClause(5,          1,     CC_DC,             0,             0,             0);
-        cc.printClause(5,      CC_DC,         1,             0,             0,         CC_DC);
+        cc.printClause(5,          0,     CC_DC,             0,             0,             1);
         cc.printClause(5,          0,     CC_DC,             0,             1,             0);
         cc.printClause(5,          1,     CC_DC,             0,             1,             1);
+        cc.printClause(5,          1,         0,             0,         CC_DC,         CC_DC);
         cc.printClause(5,          0,     CC_DC,             1,             0,             0);
         cc.printClause(5,          1,     CC_DC,             1,             0,             1);
-        cc.printClause(5,          0,     CC_DC,             1,             1,             1);
-        cc.printClause(5,      CC_DC,         0,             1,             1,         CC_DC);
-        cc.printClause(5,          1,         1,         CC_DC,         CC_DC,             0);
-        cc.printClause(5,          0,         0,         CC_DC,         CC_DC,             1);
+        cc.printClause(5,          1,     CC_DC,             1,             1,             0);
+        cc.printClause(5,          0,         1,             1,         CC_DC,         CC_DC);
+        cc.printClause(5,      CC_DC,         1,         CC_DC,             0,             0);
+        cc.printClause(5,      CC_DC,         0,         CC_DC,             1,             1);
 #endif
     }
 
-    // Final adder (without carry calculation)
-    // XOR ->               !s_out            a_in            b_in        c_in
+    // Final subber (without carry calculation)
+    // XOR ->               !d_out            a_in            b_in        c_in
     createXOR(printer, output + 31, inputs[0] + 31, inputs[1] + 31, start + 30);
 }
 
-MU_TEST_C(Adder_32::test) {
+MU_TEST_C(Sub_32::test) {
     unsigned a[] = {1234, 5, 0x80000000, 1, 0xFFFFFFFF, 0x2, 0xFFFFFFFF, 0x1, 0xFFFFFFFF, 0x0};
     unsigned b[] = {1235, 6, 1, 0x80000000, 0x2, 0xFFFFFFFF, 0x1, 0xFFFFFFFF, 0x0, 0xFFFFFFFF};
 
@@ -81,7 +81,7 @@ MU_TEST_C(Adder_32::test) {
         solver.log_to_file("test.log");
         solver.set_num_threads(4);
 
-        uint32_t ausgabe = a[t] + b[t];
+        uint32_t ausgabe = a[t] - b[t];
         uint32_t result = 0;
 
         Const con(32, a[t]);
@@ -92,16 +92,16 @@ MU_TEST_C(Adder_32::test) {
         con.setOutput(32);
         con.append(&solver);
 
-        Adder_32 adder;
+        Sub_32 adder;
         adder.append(&solver);
 
         lbool ret = solver.solve();
-        mu_assert(ret == l_True, "Adder UNSAT");
+        mu_assert(ret == l_True, "Subber UNSAT");
 
         for (unsigned i = 126; i >=95; i--) {
             result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - 95));
         }
 
-        mu_assert(ausgabe == result, "Adder failed");
+        mu_assert(ausgabe == result, "Subber failed");
     }
 }

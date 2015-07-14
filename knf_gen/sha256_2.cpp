@@ -3,7 +3,7 @@
 
 #include "cryptominisat4/cryptominisat.h"
 #include "module/const.h"
-#include "module/adder_prepare_32.h"
+#include "module/add_prepare_32.h"
 #include "module/shacore_ex1_32.h"
 
 using std::cout;
@@ -87,7 +87,7 @@ int main() {
 
     cout << "2 / 3: Status gesetzt.\n";
 
-    Adder_Prepare_32 adder;
+    Add_Prepare_32 adder;
     ShaCore_Ex1_32 core(0);
 
     unsigned global_input[64];

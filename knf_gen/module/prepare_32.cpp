@@ -1,8 +1,8 @@
 #include "prepare_32.h"
 
 #include "const.h"
-#include "adder_prepare_32.h"
-#include "constadder_32.h"
+#include "add_prepare_32.h"
+#include "constadd_32.h"
 
 using std::vector;
 using namespace CMSat;
@@ -24,8 +24,8 @@ Prepare_32::Prepare_32() : Modul(32, 16, 64) {
     
     start = 512;
 
-    Adder_Prepare_32 adderPrepare;
-    ConstAdder_32 constAdder(0);
+    Add_Prepare_32 adderPrepare;
+    ConstAdd_32 constAdder(0);
     output = start + 48 * adderPrepare.getAdditionalVarCount() + 64 * constAdder.getAdditionalVarCount() - 2048;
 }
 
@@ -44,7 +44,7 @@ void Prepare_32::create(Printer* printer) {
         subinputs.push_back(results[i - 15]);
         subinputs.push_back(results[i -  7]);
         subinputs.push_back(results[i -  2]);
-        Adder_Prepare_32 adder;
+        Add_Prepare_32 adder;
         adder.setInputs(subinputs);
         adder.setStart(start + newvars);
         adder.create(printer);
@@ -55,7 +55,7 @@ void Prepare_32::create(Printer* printer) {
     for (unsigned i = 0; i < 64; i++) {
         subinputs.clear();
         subinputs.push_back(results[i]);
-        ConstAdder_32 adder(sha_k[i]);
+        ConstAdd_32 adder(sha_k[i]);
         adder.setInputs(subinputs);
         adder.setStart(start + newvars);
         adder.setOutput(output + i * 32);

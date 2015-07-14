@@ -1,7 +1,7 @@
 #include "shacore_ex1_32.h"
 
 #include "const.h"
-#include "constadder_32.h"
+#include "constadd_32.h"
 #include "shacore_32.h"
 
 using std::vector;
@@ -22,7 +22,7 @@ ShaCore_Ex1_32::ShaCore_Ex1_32(uint32_t value) : Modul(32, 9, 2) {
     
     start = 288;
 
-    ConstAdder_32 adder(0);
+    ConstAdd_32 adder(0);
     ShaCore_32 shacore;
 
     output = start + adder.getAdditionalVarCount() + shacore.getAdditionalVarCount() - 64;
@@ -41,7 +41,7 @@ void ShaCore_Ex1_32::create(Printer* printer) {
 
     subinputs.clear();
     subinputs.push_back(inputs[8]);
-    ConstAdder_32 adder(value);
+    ConstAdd_32 adder(value);
     adder.setInputs(subinputs);
     adder.setStart(start + newvars);
     adder.create(printer);

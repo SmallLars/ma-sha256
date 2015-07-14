@@ -10,13 +10,14 @@
 #include "module/ssig1_32.h"
 #include "module/maj_32.h"
 #include "module/ch_32.h"
-#include "module/adder_4.h"
-#include "module/adder_32.h"
-#include "module/constadder_32.h"
-#include "module/adder_ssig_32.h"
-#include "module/adder_prepare_32.h"
-#include "module/adder_b0maj_32.h"
-#include "module/adder_b1ch_32.h"
+#include "module/add_4.h"
+#include "module/add_32.h"
+#include "module/sub_32.h"
+#include "module/constadd_32.h"
+#include "module/add_ssig_32.h"
+#include "module/add_prepare_32.h"
+#include "module/add_b0maj_32.h"
+#include "module/add_b1ch_32.h"
 #include "module/prepare_32.h"
 #include "module/shacore_32.h"
 #include "module/shacore_ex1_32.h"
@@ -31,13 +32,14 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(Ssig1_32::test);
     MU_RUN_TEST(Maj_32::test);
     MU_RUN_TEST(Ch_32::test);
-	MU_RUN_TEST(Adder_4::test);
-	MU_RUN_TEST(Adder_32::test);
-	MU_RUN_TEST(ConstAdder_32::test);
-	MU_RUN_TEST(Adder_Ssig_32::test);
-	MU_RUN_TEST(Adder_Prepare_32::test);
-	MU_RUN_TEST(Adder_B0Maj_32::test);
-	MU_RUN_TEST(Adder_B1Ch_32::test);
+	MU_RUN_TEST(Add_4::test);
+	MU_RUN_TEST(Add_32::test);
+	MU_RUN_TEST(Sub_32::test);
+	MU_RUN_TEST(ConstAdd_32::test);
+	MU_RUN_TEST(Add_Ssig_32::test);
+	MU_RUN_TEST(Add_Prepare_32::test);
+	MU_RUN_TEST(Add_B0Maj_32::test);
+	MU_RUN_TEST(Add_B1Ch_32::test);
 	MU_RUN_TEST(Prepare_32::test);
 	MU_RUN_TEST(ShaCore_32::test);
 	MU_RUN_TEST(ShaCore_Ex1_32::test);
@@ -45,7 +47,7 @@ MU_TEST_SUITE(test_suite) {
 }
 
 int main() {
-//    Adder_4 adder;
+//    Add_4 adder;
 //    adder.writeTT("adder.tt");
 
 	MU_RUN_SUITE(test_suite);

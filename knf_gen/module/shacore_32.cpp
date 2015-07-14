@@ -1,9 +1,12 @@
 #include "shacore_32.h"
 
 #include "const.h"
-#include "adder_32.h"
-#include "adder_b0maj_32.h"
-#include "adder_b1ch_32.h"
+#include "add_32.h"
+#include "add_b0maj_32.h"
+#include "add_b1ch_32.h"
+#include "sub_32.h"
+
+#define ADDITIONAL_CLAUSES 1
 
 using std::vector;
 using namespace CMSat;
@@ -21,10 +24,14 @@ ShaCore_32::ShaCore_32() : Modul(32, 9, 2) {
     
     start = 288;
 
-    Adder_32 adder;
-    Adder_B0Maj_32 adderB0Maj;
-    Adder_B1Ch_32 adderB1Ch;
+    Add_32 adder;
+    Add_B0Maj_32 adderB0Maj;
+    Add_B1Ch_32 adderB1Ch;
     output = start + adderB0Maj.getAdditionalVarCount() + adderB1Ch.getAdditionalVarCount() + 4 * adder.getAdditionalVarCount() - 64;
+#if ADDITIONAL_CLAUSES == 1
+    Sub_32 subber;
+    output += adder.getAdditionalVarCount() + subber.getAdditionalVarCount() - 32;
+#endif
 }
 
 ShaCore_32::~ShaCore_32() {
@@ -34,11 +41,17 @@ void ShaCore_32::create(Printer* printer) {
     unsigned newvars = 0;
     vector<unsigned> subinputs;
 
+#if ADDITIONAL_CLAUSES == 1
+    Add_32 rev_adder;
+    Sub_32 rev_subber;
+    newvars = rev_adder.getAdditionalVarCount() + rev_subber.getAdditionalVarCount() - 32;
+#endif
+
     subinputs.clear();
     subinputs.push_back(inputs[0]);
     subinputs.push_back(inputs[1]);
     subinputs.push_back(inputs[2]);
-    Adder_B0Maj_32 adderB0Maj;
+    Add_B0Maj_32 adderB0Maj;
     adderB0Maj.setInputs(subinputs);
     adderB0Maj.setStart(start + newvars);
     adderB0Maj.create(printer);
@@ -48,7 +61,7 @@ void ShaCore_32::create(Printer* printer) {
     subinputs.push_back(inputs[4]);
     subinputs.push_back(inputs[5]);
     subinputs.push_back(inputs[6]);
-    Adder_B1Ch_32 adderB1Ch;
+    Add_B1Ch_32 adderB1Ch;
     adderB1Ch.setInputs(subinputs);
     adderB1Ch.setStart(start + newvars);
     adderB1Ch.create(printer);
@@ -57,7 +70,7 @@ void ShaCore_32::create(Printer* printer) {
     subinputs.clear();
     subinputs.push_back(inputs[7]);
     subinputs.push_back(inputs[8]);
-    Adder_32 adder1;
+    Add_32 adder1;
     adder1.setInputs(subinputs);
     adder1.setStart(start + newvars);
     adder1.create(printer);
@@ -66,7 +79,7 @@ void ShaCore_32::create(Printer* printer) {
     subinputs.clear();
     subinputs.push_back(adderB1Ch.getOutput());
     subinputs.push_back(adder1.getOutput());
-    Adder_32 adder2;
+    Add_32 adder2;
     adder2.setInputs(subinputs);
     adder2.setStart(start + newvars);
     adder2.create(printer);
@@ -75,7 +88,7 @@ void ShaCore_32::create(Printer* printer) {
     subinputs.clear();
     subinputs.push_back(inputs[3]);
     subinputs.push_back(adder2.getOutput());
-    Adder_32 adder4;
+    Add_32 adder4;
     adder4.setInputs(subinputs);
     adder4.setStart(start + newvars);
     adder4.setOutput(adder4.getOutput() + adder4.getAdditionalVarCount());
@@ -85,11 +98,31 @@ void ShaCore_32::create(Printer* printer) {
     subinputs.clear();
     subinputs.push_back(adderB0Maj.getOutput());
     subinputs.push_back(adder2.getOutput());
-    Adder_32 adder3;
+    Add_32 adder3;
     adder3.setInputs(subinputs);
     adder3.setStart(start + newvars);
     adder3.create(printer);
     newvars += adder3.getAdditionalVarCount() + 32;
+
+#if ADDITIONAL_CLAUSES == 1
+    newvars = 0;
+
+    subinputs.clear();
+    subinputs.push_back(adder4.getOutput());
+    subinputs.push_back(adderB0Maj.getOutput());
+    rev_adder.setInputs(subinputs);
+    rev_adder.setStart(start + newvars);
+    rev_adder.create(printer);
+    newvars += rev_adder.getAdditionalVarCount();
+
+    subinputs.clear();
+    subinputs.push_back(rev_adder.getOutput());
+    subinputs.push_back(adder3.getOutput());
+    rev_subber.setInputs(subinputs);
+    rev_subber.setStart(start + newvars);
+    rev_subber.setOutput(inputs[3]);
+    rev_subber.create(printer);
+#endif
 }
 
 MU_TEST_C(ShaCore_32::test) {
