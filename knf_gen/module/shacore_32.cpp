@@ -6,7 +6,7 @@
 #include "add_b1ch_32.h"
 #include "sub_32.h"
 
-#define ADDITIONAL_CLAUSES 1
+#define ADDITIONAL_CLAUSES 0
 
 using std::vector;
 using namespace CMSat;
