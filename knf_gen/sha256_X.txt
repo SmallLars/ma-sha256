@@ -1,0 +1,9 @@
+sha256_1.cpp - Vorwärtsberechnung von "abcde" in einzelnem solve. Message preparation vor calculation.
+
+sha256_2.cpp - Vorwärtsberechnung von "abcde" in einzelnem solve. Message preparation parallel zu calculation.
+
+sha256_3.cpp - Lösungsversuch mit 64 führenden Nullen im Ergebnis. Inkrementelles Lösen. Message preparation parallel zu calculation.
+
+sha256_4.cpp - Lösungsversuch mit vollständig definiertem Ergebnis. Inkrementelles Lösen. Message preparation parallel zu calculation.
+
+sha256_5.cpp - Lösungsversuch mit vollständig definiertem Ergebnis. Inkrementelles Lösen in 48 preparation Schritten. Calculation von Anfang an enthalten. .Message preparation parallel zu calculation.
