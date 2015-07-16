@@ -33,17 +33,17 @@ Titel:
         Konfliktklausel
         Cryptominisat: XOR-Support
 2.5   C Bounded Model Checking
-2.5   SHA256
-        Padding
-        Funktionen: BSIG0, BSIG1, SSIG0, SSIG1, CH, MAJ
-        Extension
-        Computation
 2.6   BitCoin
 
-3   Analyse von SHA256
-3.1   Extension
-3.2   Computation
-3.3   Kombination
+3   SHA256
+3.1   Padding
+3.2   Funktionen
+        BSIG0, BSIG1, SSIG0, SSIG1
+        CH
+        MAJ
+3.3   Extension
+3.4   Computation
+3.5   Analyse
 
 4   Die Komponenten in KNF
 4.1   Addierer
@@ -51,6 +51,7 @@ Titel:
 4.2   BSIG0, BSIG1, SSIG0, SSIG1
 4.3   CH
 4.4   MAJ
+4.5   Vergleich mit CBMC
 
 5   Konfliktklausel Mining -> Nur bei Komponenten mit Hilfsvariablen
 5.1   Komplexität und Grenzen

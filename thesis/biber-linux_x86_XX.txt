@@ -1,0 +1,5 @@
+1. sudo add-apt-repository ppa:texlive-backports/ppa
+
+2. Pakete aktualisieren
+
+3. biber aus biber-linux_x86_XX.tar.gz nach /usr/local/bin kopieren

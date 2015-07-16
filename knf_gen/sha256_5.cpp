@@ -69,7 +69,7 @@ int main() {
 
     SATSolver solver(config);
     solver.log_to_file("solver.log");
-    solver.set_num_threads(16);
+    solver.set_num_threads(4);
 
 //    Counter printer;
     SolverPrinter printer(&solver);
@@ -174,7 +174,7 @@ int main() {
     cout << std::flush;
 
     for (unsigned i = 0; i < 48; i++) {
-        rounds[47 - i].flush();
+        rounds[i].flush();
 
         lbool ret = solver.solve();
         if (ret == l_False) {
