@@ -12,6 +12,7 @@
 #include "module/ch_32.h"
 #include "module/add_4.h"
 #include "module/add_32.h"
+#include "module/add_multi_32.h"
 #include "module/sub_32.h"
 #include "module/constadd_32.h"
 #include "module/add_ssig_32.h"
@@ -34,6 +35,7 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(Ch_32::test);
 	MU_RUN_TEST(Add_4::test);
 	MU_RUN_TEST(Add_32::test);
+	MU_RUN_TEST(Add_Multi_32::test);
 	MU_RUN_TEST(Sub_32::test);
 	MU_RUN_TEST(ConstAdd_32::test);
 	MU_RUN_TEST(Add_Ssig_32::test);

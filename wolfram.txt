@@ -30,3 +30,14 @@ http://www.wolframalpha.com/input/?i=%28D+%3C%3D%3E+%28!a+AND+b%29+OR+%28!%28a+X
 
 Vollsubtrahierer Übertrag
 http://www.wolframalpha.com/input/?i=D+%3C%3D%3E+%28!a+AND+b%29+OR+%28!%28a+XOR+b%29+%26+c%29
+
+
+2bit Volladierer ohne XOR für s0
+https://www.wolframalpha.com/input/?i=%28s1+%3C%3D%3E+%28a1+XOR+b1+XOR+%28%28a0+AND+b0%29+OR+%28%28a0+XOR+b0%29+AND+c0%29%29%29%29+AND+%28c1+%3C%3D%3E+%28%28a1+AND+b1%29+OR+%28%28a1+XOR+b1%29+AND+%28%28a0+AND+b0%29+OR+%28%28a0+XOR+b0%29+AND+c0%29%29%29%29%29
+
+    (s0 <=> (a0 XOR b0 XOR c0))
+AND (s1 <=> (a1 XOR b1 XOR ((a0 AND b0) OR ((a0 XOR b0) AND c0))))
+AND (c1 <=> ((a1 AND b1) OR ((a1 XOR b1) AND ((a0 AND b0) OR ((a0 XOR b0) AND c0)))))
+
+
+(s0 <=> (a0 XOR b0 XOR c0)) AND (s1 <=> (a1 XOR b1 XOR ((a0 AND b0) OR ((a0 XOR b0) AND c0)))) AND (c1 <=> ((a1 AND b1) OR ((a1 XOR b1) AND ((a0 AND b0) OR ((a0 XOR b0) AND c0)))))
