@@ -29,12 +29,12 @@ void Add_32::create(Printer* printer) {
 #else
     //                 s_out  c_out       a_in       b_in
     cc.setLiterals(4, output, start, inputs[0], inputs[1]);
-    cc.printClause(4,      0, CC_DC,         0,         0);
-    cc.printClause(4,      1,     1,         0,     CC_DC);
-    cc.printClause(4,      1, CC_DC,         1,         0);
     cc.printClause(4,      0, CC_DC,         1,         1);
-    cc.printClause(4,  CC_DC,     0,         1,     CC_DC);
+    cc.printClause(4,      0,     0,     CC_DC,     CC_DC);
     cc.printClause(4,  CC_DC,     0,     CC_DC,         1);
+    cc.printClause(4,  CC_DC,     1,         0,         0);
+    cc.printClause(4,      1, CC_DC,         1,         0);
+    cc.printClause(4,      1, CC_DC,         0,         1);
 #endif
 
     // Full adder x30

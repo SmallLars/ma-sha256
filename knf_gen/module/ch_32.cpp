@@ -29,10 +29,10 @@ void Ch_32::create(Printer* printer) {
     for (unsigned i = 0; i < 32; i++) {
         //                     r_out           a_in           b_in           c_in
         cc.setLiterals(4, output + i, inputs[0] + i, inputs[1] + i, inputs[2] + i);
-        cc.printClause(4,          0,             0,             1,         CC_DC);
-        cc.printClause(4,          0,             1,         CC_DC,             1);
         cc.printClause(4,          1,             0,             0,         CC_DC);
+        cc.printClause(4,          0,             0,             1,         CC_DC);
         cc.printClause(4,          1,             1,         CC_DC,             0);
+        cc.printClause(4,          0,             1,         CC_DC,             1);
     }
 }
 
