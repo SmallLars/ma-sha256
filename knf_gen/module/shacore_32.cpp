@@ -11,6 +11,8 @@
 using std::vector;
 using namespace CMSat;
 
+unsigned ShaCore_32::stats[STATS_LENGTH];
+
 ShaCore_32::ShaCore_32() : Modul(32, 9, 2) {
     inputs.push_back(0);
     inputs.push_back(32);
@@ -35,6 +37,10 @@ ShaCore_32::ShaCore_32() : Modul(32, 9, 2) {
 }
 
 ShaCore_32::~ShaCore_32() {
+}
+
+unsigned* ShaCore_32::getStats() {
+    return stats;
 }
 
 void ShaCore_32::create(Printer* printer) {

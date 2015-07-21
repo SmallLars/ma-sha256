@@ -9,9 +9,12 @@ class Const : public Modul {
         ~Const();
 
         void setValue(uint32_t value);
+        unsigned* getStats();
         void create(Printer* printer);
     private:
         uint32_t value;
+
+        static unsigned stats[STATS_LENGTH];
 };
 
 #endif //__CONST_H__

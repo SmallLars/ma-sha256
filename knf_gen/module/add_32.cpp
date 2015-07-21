@@ -6,6 +6,8 @@
 
 using namespace CMSat;
 
+unsigned Add_32::stats[STATS_LENGTH];
+
 Add_32::Add_32() : Modul(32, 2, 1) {
     inputs.push_back(0);
     inputs.push_back(32);
@@ -14,6 +16,10 @@ Add_32::Add_32() : Modul(32, 2, 1) {
 }
 
 Add_32::~Add_32() {
+}
+
+unsigned* Add_32::getStats() {
+    return stats;
 }
 
 void Add_32::create(Printer* printer) {
@@ -27,14 +33,14 @@ void Add_32::create(Printer* printer) {
     // XOR ->          !s_out       a_in       b_in
     createXOR(printer, output, inputs[0], inputs[1]);
 #else
-    //                 s_out  c_out       a_in       b_in
-    cc.setLiterals(4, output, start, inputs[0], inputs[1]);
-    cc.printClause(4,      0, CC_DC,         1,         1);
-    cc.printClause(4,      0,     0,     CC_DC,     CC_DC);
-    cc.printClause(4,  CC_DC,     0,     CC_DC,         1);
-    cc.printClause(4,  CC_DC,     1,         0,         0);
-    cc.printClause(4,      1, CC_DC,         1,         0);
-    cc.printClause(4,      1, CC_DC,         0,         1);
+    //                 cout_  s_out       a_in       b_in
+    cc.setLiterals(4, start, output, inputs[0], inputs[1]);
+    cc.printClause(4, CC_DC,      0,         1,         1);
+    cc.printClause(4,     0,      0,     CC_DC,     CC_DC);
+    cc.printClause(4,     0,  CC_DC,     CC_DC,         1);
+    cc.printClause(4,     1,  CC_DC,         0,         0);
+    cc.printClause(4, CC_DC,      1,         1,         0);
+    cc.printClause(4, CC_DC,      1,         0,         1);
 #endif
 
     // Full adder x30
@@ -43,27 +49,27 @@ void Add_32::create(Printer* printer) {
         //                    c_out           a_in           b_in           c_in
         cc.setLiterals(4, start + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
         cc.printClause(4,         1,             0,             0,         CC_DC);
-        cc.printClause(4,         1,             0,         CC_DC,             0);
         cc.printClause(4,         0,             1,             1,         CC_DC);
-        cc.printClause(4,         0,             1,         CC_DC,             1);
+        cc.printClause(4,         1,             0,         CC_DC,             0);
         cc.printClause(4,         1,         CC_DC,             0,             0);
+        cc.printClause(4,         0,             1,         CC_DC,             1);
         cc.printClause(4,         0,         CC_DC,             1,             1);
 
         // XOR ->              !s_out           a_in           b_in           c_in
         createXOR(printer, output + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
 #else
-        //                     s_out      c_out           a_in           b_in           c_in
-        cc.setLiterals(5, output + i, start + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
-        cc.printClause(5,          1,     CC_DC,             0,             0,             0);
-        cc.printClause(5,      CC_DC,         1,             0,             0,         CC_DC);
-        cc.printClause(5,          0,     CC_DC,             0,             1,             0);
-        cc.printClause(5,          1,     CC_DC,             0,             1,             1);
-        cc.printClause(5,          0,     CC_DC,             1,             0,             0);
-        cc.printClause(5,          1,     CC_DC,             1,             0,             1);
-        cc.printClause(5,          0,     CC_DC,             1,             1,             1);
-        cc.printClause(5,      CC_DC,         0,             1,             1,         CC_DC);
-        cc.printClause(5,          1,         1,         CC_DC,         CC_DC,             0);
-        cc.printClause(5,          0,         0,         CC_DC,         CC_DC,             1);
+        //                    c_out       s_out           a_in           b_in           c_in
+        cc.setLiterals(5, start + i, output + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
+        cc.printClause(5,     CC_DC,          1,             0,             0,             0);
+        cc.printClause(5,     CC_DC,          0,             1,             1,             1);
+        cc.printClause(5,         1,      CC_DC,             0,             0,         CC_DC);
+        cc.printClause(5,         0,      CC_DC,             1,             1,         CC_DC);
+        cc.printClause(5,         1,          1,         CC_DC,         CC_DC,             0);
+        cc.printClause(5,         0,          0,         CC_DC,         CC_DC,             1);
+        cc.printClause(5,     CC_DC,          0,             1,             0,             0);
+        cc.printClause(5,     CC_DC,          0,             0,             1,             0);
+        cc.printClause(5,     CC_DC,          1,             1,             0,             1);
+        cc.printClause(5,     CC_DC,          1,             0,             1,             1);
 #endif
     }
 

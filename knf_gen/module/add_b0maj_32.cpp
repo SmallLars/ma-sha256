@@ -8,6 +8,8 @@
 using std::vector;
 using namespace CMSat;
 
+unsigned Add_B0Maj_32::stats[STATS_LENGTH];
+
 Add_B0Maj_32::Add_B0Maj_32() : Modul(32, 3, 1) {
     inputs.push_back(0);
     inputs.push_back(32);
@@ -22,6 +24,10 @@ Add_B0Maj_32::Add_B0Maj_32() : Modul(32, 3, 1) {
 }
 
 Add_B0Maj_32::~Add_B0Maj_32() {
+}
+
+unsigned* Add_B0Maj_32::getStats() {
+    return stats;
 }
 
 void Add_B0Maj_32::create(Printer* printer) {

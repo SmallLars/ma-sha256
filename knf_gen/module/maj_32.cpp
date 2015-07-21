@@ -6,6 +6,8 @@
 
 using namespace CMSat;
 
+unsigned Maj_32::stats[STATS_LENGTH];
+
 // MAJ(a; b; c) = (a AND b) XOR (a AND c) XOR (b AND c)
 // (!r | a | b) & (!r | a | c) & (!r | b | c) & (r | !a | !b) & (r | !a | !c) & (r | !b | !c)
 
@@ -22,6 +24,10 @@ Maj_32::Maj_32() : Modul(32, 3, 1) {
 }
 
 Maj_32::~Maj_32() {
+}
+
+unsigned* Maj_32::getStats() {
+    return stats;
 }
 
 void Maj_32::create(Printer* printer) {

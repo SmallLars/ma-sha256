@@ -6,6 +6,8 @@
 
 using namespace CMSat;
 
+unsigned Ch_32::stats[STATS_LENGTH];
+
 // CH(a; b; c) = (a AND b) XOR ( (NOT a) AND c)
 // (!r | !a | b) & (!r | a | c) & (r |!a | !b) & (r | a | !c)
 
@@ -22,6 +24,10 @@ Ch_32::Ch_32() : Modul(32, 3, 1) {
 }
 
 Ch_32::~Ch_32() {
+}
+
+unsigned* Ch_32::getStats() {
+    return stats;
 }
 
 void Ch_32::create(Printer* printer) {

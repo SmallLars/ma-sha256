@@ -24,27 +24,19 @@ Modul::~Modul() {
 }
 
 unsigned Modul::getMaxVar() {
-    Counter counter;
-    create(&counter);
-    return counter.getMaxVar();
+    return count()[STATS_MAXVAR];
 }
 
 unsigned Modul::getVarCount() {
-    Counter counter;
-    create(&counter);
-    return counter.getVarCount();
+    return count()[STATS_VARCOUNT];
 }
 
 unsigned Modul::getAdditionalVarCount() {
-    Counter counter;
-    create(&counter);
-    return counter.getVarCount() - (inputCount * bitWidth);
+    return count()[STATS_VARCOUNT] - (inputCount * bitWidth);
 }
 
 unsigned Modul::getClauseCount() {
-    Counter counter;
-    create(&counter);
-    return counter.getClauseCount();
+    return count()[STATS_CLAUSECOUNT];
 }
 
 void Modul::setInputs(const vector<unsigned>& inputs) {
@@ -155,4 +147,16 @@ void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2
     clause.push_back(Lit(in2, false));
     clause.push_back(Lit(in3, false));
     printer->create(true, clause);
+}
+
+unsigned* Modul::count() {
+    unsigned* stats = getStats();
+    if (stats[STATS_VARCOUNT] == 0) {
+        Counter counter;
+        create(&counter);
+        stats[STATS_MAXVAR] = counter.getMaxVar();
+        stats[STATS_VARCOUNT] = counter.getVarCount();
+        stats[STATS_CLAUSECOUNT] = counter.getClauseCount();
+    }
+    return stats;
 }

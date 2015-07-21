@@ -9,8 +9,11 @@ class ShaCore_32 : public Modul {
         ShaCore_32();
         ~ShaCore_32();
 
+        unsigned* getStats();
         void create(Printer* printer);
         MU_TEST_H(test);
+    private:
+        static unsigned stats[STATS_LENGTH];
 };
 
 #endif //__SHACORE_32_H__

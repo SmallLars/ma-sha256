@@ -6,6 +6,8 @@
 
 using namespace CMSat;
 
+unsigned ConstAdd_32::stats[STATS_LENGTH];
+
 ConstAdd_32::ConstAdd_32(uint32_t value) : Modul(32, 1, 1) {
     this->value = value;
     inputs.push_back(0);
@@ -18,6 +20,10 @@ ConstAdd_32::~ConstAdd_32() {
 
 void ConstAdd_32::setValue(uint32_t value) {
     this->value = value;
+}
+
+unsigned* ConstAdd_32::getStats() {
+    return stats;
 }
 
 void ConstAdd_32::create(Printer* printer) {
@@ -43,14 +49,14 @@ void ConstAdd_32::create(Printer* printer) {
             // XOR ->              !s_out           a_in           c_in
             createXOR(printer, output + i, inputs[0] + i, start - 1 + i);
 #else
-            //                     s_out      c_out           a_in           c_in
-            cc.setLiterals(4, output + i, start + i, inputs[0] + i, start - 1 + i);
-            cc.printClause(4,          0,     CC_DC,             0,             0);
-            cc.printClause(4,          1,         1,             0,         CC_DC);
-            cc.printClause(4,          1,     CC_DC,             1,             0);
-            cc.printClause(4,          0,     CC_DC,             1,             1);
-            cc.printClause(4,      CC_DC,         0,             1,         CC_DC);
-            cc.printClause(4,      CC_DC,         0,         CC_DC,             1);
+            //                    c_out       s_out           a_in           c_in
+            cc.setLiterals(4, start + i, output + i, inputs[0] + i, start - 1 + i);
+            cc.printClause(4,     CC_DC,          0,             1,             1);
+            cc.printClause(4,         0,          0,         CC_DC,         CC_DC);
+            cc.printClause(4,         0,      CC_DC,         CC_DC,             1);
+            cc.printClause(4,         1,      CC_DC,             0,             0);
+            cc.printClause(4,     CC_DC,          1,             1,             0);
+            cc.printClause(4,     CC_DC,          1,             0,             1);
 #endif
         } else {
 #ifdef XOR_SUPPORT
@@ -60,14 +66,14 @@ void ConstAdd_32::create(Printer* printer) {
             // XOR ->               s_out           a_in           c_in
             createXOR(printer, output + i, inputs[0] + i, start - 1 + i, true);
 #else
-            //                     s_out      c_out           a_in           c_in
-            cc.setLiterals(4, output + i, start + i, inputs[0] + i, start - 1 + i);
-            cc.printClause(4,          1,     CC_DC,             0,             0);
-            cc.printClause(4,          0,     CC_DC,             0,             1);
-            cc.printClause(4,      CC_DC,         1,             0,         CC_DC);
-            cc.printClause(4,          1,     CC_DC,             1,             1);
-            cc.printClause(4,          0,         0,             1,         CC_DC);
-            cc.printClause(4,      CC_DC,         1,         CC_DC,             0);
+            //                    c_out       s_out           a_in           c_in
+            cc.setLiterals(4, start + i, output + i, inputs[0] + i, start - 1 + i);
+            cc.printClause(4,     CC_DC,          1,             0,             0);
+            cc.printClause(4,         1,          1,         CC_DC,         CC_DC);
+            cc.printClause(4,         1,      CC_DC,             0,         CC_DC);
+            cc.printClause(4,     CC_DC,          0,             1,             0);
+            cc.printClause(4,         0,          0,         CC_DC,             1);
+            cc.printClause(4,         0,      CC_DC,             1,             1);
 #endif
         }
     }

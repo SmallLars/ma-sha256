@@ -8,6 +8,8 @@
 using std::vector;
 using namespace CMSat;
 
+unsigned Add_Ssig_32::stats[STATS_LENGTH];
+
 Add_Ssig_32::Add_Ssig_32() : Modul(32, 2, 1) {
     inputs.push_back(0);
     inputs.push_back(32);
@@ -21,6 +23,10 @@ Add_Ssig_32::Add_Ssig_32() : Modul(32, 2, 1) {
 }
 
 Add_Ssig_32::~Add_Ssig_32() {
+}
+
+unsigned* Add_Ssig_32::getStats() {
+    return stats;
 }
 
 void Add_Ssig_32::create(Printer* printer) {

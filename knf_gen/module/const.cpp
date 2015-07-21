@@ -3,6 +3,8 @@
 using std::vector;
 using namespace CMSat;
 
+unsigned Const::stats[STATS_LENGTH];
+
 Const::Const(unsigned bitWidth, uint32_t value) : Modul(bitWidth, 0, 1) {
     this->value = value;
     output = 0;
@@ -13,6 +15,10 @@ Const::~Const() {
 
 void Const::setValue(uint32_t value) {
     this->value = value;
+}
+
+unsigned* Const::getStats() {
+    return stats;
 }
 
 void Const::create(Printer* printer) {

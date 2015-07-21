@@ -4,12 +4,18 @@
 
 using namespace CMSat;
 
+unsigned Ssig1_32::stats[STATS_LENGTH];
+
 Ssig1_32::Ssig1_32() : Modul(32, 1, 1) {
     inputs.push_back(0);
     output = 32;
 }
 
 Ssig1_32::~Ssig1_32() {
+}
+
+unsigned* Ssig1_32::getStats() {
+    return stats;
 }
 
 void Ssig1_32::create(Printer* printer) {

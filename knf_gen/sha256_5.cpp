@@ -69,7 +69,7 @@ int main() {
 
     SATSolver solver(config);
     solver.log_to_file("solver.log");
-    solver.set_num_threads(16);
+//    solver.set_num_threads(16);
 
 //    Counter printer;
     SolverPrinter printer(&solver);

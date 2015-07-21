@@ -5,6 +5,11 @@
 
 #include "../printer/printer.h"
 
+#define STATS_LENGTH 3
+#define STATS_MAXVAR 0
+#define STATS_VARCOUNT 1
+#define STATS_CLAUSECOUNT 2
+
 class Modul {
     public:
         Modul(unsigned bitWidth, unsigned inputCount, unsigned outputCount);
@@ -28,6 +33,7 @@ class Modul {
         unsigned writeDimacs(const char* filename);
         unsigned writeTT(const char* filename);
 
+        virtual unsigned* getStats() = 0;
         virtual void create(Printer* printer) = 0;
     protected:
         std::vector<unsigned> inputs;
@@ -48,6 +54,8 @@ class Modul {
         unsigned bitWidth;
         unsigned inputCount;
         unsigned outputCount;
+
+        unsigned* count();
 };
 
 #endif //__MODUL_H__

@@ -7,6 +7,8 @@
 using std::vector;
 using namespace CMSat;
 
+unsigned Add_Prepare_32::stats[STATS_LENGTH];
+
 Add_Prepare_32::Add_Prepare_32() : Modul(32, 4, 1) {
     inputs.push_back(0);
     inputs.push_back(32);
@@ -21,6 +23,10 @@ Add_Prepare_32::Add_Prepare_32() : Modul(32, 4, 1) {
 }
 
 Add_Prepare_32::~Add_Prepare_32() {
+}
+
+unsigned* Add_Prepare_32::getStats() {
+    return stats;
 }
 
 void Add_Prepare_32::create(Printer* printer) {

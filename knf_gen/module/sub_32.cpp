@@ -6,6 +6,8 @@
 
 using namespace CMSat;
 
+unsigned Sub_32::stats[STATS_LENGTH];
+
 Sub_32::Sub_32() : Modul(32, 2, 1) {
     inputs.push_back(0);
     inputs.push_back(32);
@@ -14,6 +16,10 @@ Sub_32::Sub_32() : Modul(32, 2, 1) {
 }
 
 Sub_32::~Sub_32() {
+}
+
+unsigned* Sub_32::getStats() {
+    return stats;
 }
 
 void Sub_32::create(Printer* printer) {

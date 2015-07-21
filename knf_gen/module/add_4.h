@@ -9,8 +9,11 @@ class Add_4 : public Modul {
         Add_4();
         ~Add_4();
 
+        unsigned* getStats();
         void create(Printer* printer);
         MU_TEST_H(test);
+    private:
+        static unsigned stats[STATS_LENGTH];
 };
 
 #endif //__ADD_4_H__

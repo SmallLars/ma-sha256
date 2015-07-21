@@ -7,6 +7,8 @@
 using std::vector;
 using namespace CMSat;
 
+unsigned ShaCore_Ex1_32::stats[STATS_LENGTH];
+
 ShaCore_Ex1_32::ShaCore_Ex1_32(uint32_t value) : Modul(32, 9, 2) {
     this->value = value;
 
@@ -33,6 +35,10 @@ ShaCore_Ex1_32::~ShaCore_Ex1_32() {
 
 void ShaCore_Ex1_32::setValue(uint32_t value) {
     this->value = value;
+}
+
+unsigned* ShaCore_Ex1_32::getStats() {
+    return stats;
 }
 
 void ShaCore_Ex1_32::create(Printer* printer) {

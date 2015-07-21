@@ -9,8 +9,11 @@ class Ssig1_32 : public Modul {
         Ssig1_32();
         ~Ssig1_32();
 
+        unsigned* getStats();
         void create(Printer* printer);
         MU_TEST_H(test);
+    private:
+        static unsigned stats[STATS_LENGTH];
 };
 
 #endif //__SSIG1_32_H__
