@@ -1,0 +1,8 @@
+#define xor(a,b) ((a)&!(b) | !(a)&(b))
+#define eq(a,b) ((a)&(b) | !(a)&!(b))
+
+NAME = FullAdder;
+INORDER = c_out a_in b_in c_in;
+OUTORDER = z;
+
+z = eq(c_out, (a_in & b_in) | (xor(a_in, b_in) & c_in));

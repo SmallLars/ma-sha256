@@ -1,8 +1,0 @@
-#define xor(a,b) ((a)&!(b) | !(a)&(b))
-#define eq(a,b) ((a)&(b) | !(a)&!(b))
-
-NAME = FullAdderConst1;
-INORDER = c_out s_out a_in c_in;
-OUTORDER = z;
-
-z = eq(c_out, a_in | c_in) & eq(s_out, xor(c_in, !a_in));
