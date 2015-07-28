@@ -1,5 +1,7 @@
 #include <vector>
 #include <stdio.h>
+#include <signal.h>
+#include <ctime>
 
 #include "cryptominisat4/cryptominisat.h"
 #include "module/const.h"
@@ -24,6 +26,23 @@ static uint32_t sha_k[64] = {\
      0x19A4C116, 0x1E376C08, 0x2748774C, 0x34B0BCB5, 0x391C0CB3, 0x4ED8AA4A, 0x5B9CCA4F, 0x682E6FF3,\
      0x748F82EE, 0x78A5636F, 0x84C87814, 0x8CC70208, 0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2};
 
+SATSolver* solverToInterrupt;
+
+void signalHandler(int signum) {
+    std::cerr << "*** INTERRUPTED ***" << std::endl;
+
+    SATSolver* solver = solverToInterrupt;
+    solver->interrupt_asap();
+
+    solver->add_in_partial_solving_stats();
+    solver->print_stats();
+
+    solver->open_file_and_dump_red_clauses("red.dimacs");
+    solver->open_file_and_dump_irred_clauses("irred.dimacs");
+
+    _exit(1);
+}
+
 void padding(uint32_t* target, const char* input) {
     unsigned i;
     for (i = 0; i < 16; i++) target[i] = 0;
@@ -39,6 +58,8 @@ void padding(uint32_t* target, const char* input) {
 }
 
 int main() {
+    signal(SIGINT, signalHandler);
+
 /*
     uint32_t input[16] = {0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
                           0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80000000, 0x00000000, 0x000001A0};
@@ -65,11 +86,20 @@ int main() {
     SolverConf config;
     config.verbosity = 0; // 3
     config.printFullStats = 1;
-    config.doSQL = false;
+    config.doSQL = true;
+    config.do_bva = false;
 
     SATSolver solver(config);
     solver.log_to_file("solver.log");
-    solver.set_num_threads(16);
+    solver.set_num_threads(4);
+
+    time_t rawtime;
+    time(&rawtime);
+    char filename[64];
+    strftime(filename, 64, "sha256_6 %Y-%m-%d %H:%M:%S", localtime(&rawtime));
+    solver.add_sql_tag("filename", filename);
+
+    solverToInterrupt = &solver;
 
 //    Counter printer;
     SolverPrinter printer(&solver);
@@ -123,7 +153,8 @@ int main() {
             prepareinputs.push_back(global_input[i -  2]);
             adder.setInputs(prepareinputs);
             adder.setStart(varCount);
-            adder.create(&rounds[i - 16]);
+            adder.create(&printer);
+//            adder.create(&rounds[i - 16]);
             varCount += adder.getAdditionalVarCount();
 
             global_input[i] = adder.getOutput();
@@ -170,22 +201,6 @@ int main() {
         cout << "Nicht lösbar.\n";
         return 0;
     }
-    printf("\rVerbleibende Runden: 48 / 48.");
-    cout << std::flush;
-
-    for (unsigned i = 0; i < 48; i++) {
-        rounds[47 - i].flush();
-
-        lbool ret = solver.solve();
-        if (ret == l_False) {
-            cout << "Nicht lösbar.\n";
-            return 0;
-        }
-        printf("\rVerbleibende Runden: %2u / 48.", 47 - i);
-        cout << std::flush;
-    }
-    cout << "\n";
-
     cout << "Lösung gefunden\n";
 
     cout << "Eingabe: ";
