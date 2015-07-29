@@ -22,6 +22,8 @@ unsigned* Const::getStats() {
 }
 
 void Const::create(Printer* printer) {
+    printer->newModul("Const", this);
+
     for (unsigned i = getBitWidth(); i > 0; i--) {
         vector<Lit> clause;
         clause.push_back(Lit(output + i - 1, !(value >> (i - 1) & 1)));

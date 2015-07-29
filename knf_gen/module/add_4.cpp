@@ -22,7 +22,10 @@ unsigned* Add_4::getStats() {
 }
 
 void Add_4::create(Printer* printer) {
+    printer->newModul("Add_4", this);
+
     ClauseCreator cc(printer);
+
     cc.setLiterals(12, inputs[0] + 0, inputs[0] + 1, inputs[0] + 2, inputs[0] + 3,
                        inputs[1] + 0, inputs[1] + 1, inputs[1] + 2, inputs[1] + 3,
                        output + 0, output + 1, output + 2, output + 3);

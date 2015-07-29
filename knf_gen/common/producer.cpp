@@ -14,7 +14,7 @@ Producer::Producer(unsigned taskLengthMax) {
         exit(EXIT_FAILURE);
     }
 
-    semid = semget (1337, 1, IPC_CREAT | IPC_EXCL | 0666);
+    semid = semget(1337, 1, IPC_CREAT | IPC_EXCL | 0666);
     if (semid < 0) {
         printf("Fehler beim Anlegen des Semaphors ...\n");
         exit(EXIT_FAILURE);
@@ -118,5 +118,5 @@ int Producer::getWork(std::vector<unsigned>& task) {
 
 void Producer::reset() {
     for (unsigned i = 0; i < MAX_VARS; i++) counter[i] = i;
-    if (taskLength > 1) counter[taskLength - 1] = outStart;
+    if (taskLength > 1 && counter[taskLength - 1] < outStart) counter[taskLength - 1] = outStart;
 }

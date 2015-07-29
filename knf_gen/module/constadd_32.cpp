@@ -27,6 +27,8 @@ unsigned* ConstAdd_32::getStats() {
 }
 
 void ConstAdd_32::create(Printer* printer) {
+    printer->newModul("ConstAdd_32", this);
+
     ClauseCreator cc(printer);
 
     // Half adder

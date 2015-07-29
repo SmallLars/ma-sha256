@@ -59,6 +59,14 @@ unsigned Modul::getBitWidth() {
     return this->bitWidth;
 }
 
+vector<unsigned>& Modul::getInputs() {
+    return this->inputs;
+}
+
+unsigned Modul::getStart() {
+    return this->start;
+}
+
 unsigned Modul::getOutput() {
     return this->output;
 }

@@ -31,7 +31,10 @@ unsigned* Maj_32::getStats() {
 }
 
 void Maj_32::create(Printer* printer) {
+    printer->newModul("Maj_32", this);
+
     ClauseCreator cc(printer);
+
     for (unsigned i = 0; i < 32; i++) {
         //                     r_out           a_in           b_in           c_in
         cc.setLiterals(4, output + i, inputs[0] + i, inputs[1] + i, inputs[2] + i);

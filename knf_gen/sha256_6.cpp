@@ -9,6 +9,7 @@
 #include "module/shacore_ex1_32.h"
 
 #include "printer/counter.h"
+#include "printer/logger.h"
 #include "printer/solverprinter.h"
 #include "printer/bufferedsolverprinter.h"
 
@@ -29,18 +30,19 @@ static uint32_t sha_k[64] = {\
 SATSolver* solverToInterrupt;
 
 void signalHandler(int signum) {
-    std::cerr << "*** INTERRUPTED ***" << std::endl;
+    if (signum == SIGINT) std::cerr << "*** INTERRUPTED ***" << std::endl;
+    else std::cerr << "*** WRITE OUT ***" << std::endl;
 
     SATSolver* solver = solverToInterrupt;
-    solver->interrupt_asap();
+    if (signum == SIGINT) solver->interrupt_asap();
 
     solver->add_in_partial_solving_stats();
     solver->print_stats();
 
-    solver->open_file_and_dump_red_clauses("red.dimacs");
-    solver->open_file_and_dump_irred_clauses("irred.dimacs");
+    solver->open_file_and_dump_red_clauses("learned_clauses.dimacs");
+//    solver->open_file_and_dump_irred_clauses("irred.dimacs");
 
-    _exit(1);
+    if (signum == SIGINT) _exit(1);
 }
 
 void padding(uint32_t* target, const char* input) {
@@ -59,6 +61,7 @@ void padding(uint32_t* target, const char* input) {
 
 int main() {
     signal(SIGINT, signalHandler);
+    signal(SIGUSR1, signalHandler);
 
 /*
     uint32_t input[16] = {0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
@@ -102,6 +105,7 @@ int main() {
     solverToInterrupt = &solver;
 
 //    Counter printer;
+    Logger logger("sha256.log");
     SolverPrinter printer(&solver);
     vector<BufferedSolverPrinter> rounds(48, BufferedSolverPrinter(&solver));
 
@@ -109,7 +113,10 @@ int main() {
 //        if (i != 11) {
             Const c(32, input[i]);
             c.setStart(i * 32);
-            if (i>12) c.create(&printer);
+            if (i>12) {
+                c.create(&printer);
+                c.create(&logger);
+            }
             varCount += c.getAdditionalVarCount();
 //        } else {
 //            Const c(16, input[i]);
@@ -126,6 +133,7 @@ int main() {
         Const c(32, state[i]);
         c.setStart(varCount);
         c.create(&printer);
+        c.create(&logger);
         varCount += c.getAdditionalVarCount();
 
         vars[i] = c.getOutput();
@@ -155,6 +163,7 @@ int main() {
             adder.setStart(varCount);
             adder.create(&printer);
 //            adder.create(&rounds[i - 16]);
+            adder.create(&logger);
             varCount += adder.getAdditionalVarCount();
 
             global_input[i] = adder.getOutput();
@@ -165,6 +174,7 @@ int main() {
         core.setInputs(subinputs);
         core.setStart(varCount);
         core.create(&printer);
+        core.create(&logger);
         varCount += core.getAdditionalVarCount();
 
         for (unsigned n = 7; n > 0; n--) vars[n] = vars[n - 1];
@@ -189,6 +199,7 @@ int main() {
         Const c(32, output[i]);
         c.setStart(vars[i]);
         c.create(&printer);
+        c.create(&logger);
     }
 
     cout << "4 / 4: Ausgabe gesetzt.\n";

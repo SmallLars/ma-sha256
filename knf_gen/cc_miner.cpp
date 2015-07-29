@@ -15,14 +15,15 @@
 #include "module/constadd_32.h"
 #include "module/ssig0_32.h"
 #include "module/add_b0maj_32.h"
+#include "module/add_b1ch_32.h"
 #include "module/add_ssig_32.h"
 #include "module/add_prepare_32.h"
 
 #define THREAD_NUM 4
-#define MAX_TEST 4
+#define MAX_TEST 2
 
-//#define MODUL Add_32
-#define MODUL Add_B0Maj_32
+#define MODUL Add_32
+//#define MODUL Add_B0Maj_32
 //#define MODUL Add_B1Ch_32
 //#define MODUL Add_Ssig_32
 //#define MODUL Add_Prepare_32
@@ -38,22 +39,21 @@ void *calculate(void* producer) {
     SolverConf config;
     config.doSQL = false;
 
+    SATSolver solver(config);
+//    solver.log_to_file("solver.log");
+
+    MODUL modul;
+    modul.append(&solver);
+
     vector<unsigned> v;
     while (((Producer*) producer)->getWork(v)) {
         for (unsigned s = 0; s < (1u << v.size()); s++) {
-            SATSolver solver(config);
-//            solver.log_to_file("solver.log");
-
-            MODUL modul;
-            modul.append(&solver);
-
-            vector<Lit> clause(1);
+            vector<Lit> assumptions;
             for (unsigned i = 0; i < v.size(); i++) {
-                clause[0] = Lit(v[i], (s >> i) & 1);
-                solver.add_clause(clause);
+                assumptions.push_back(Lit(v[i], (s >> i) & 1));
             }
 
-            lbool ret = solver.solve();
+            lbool ret = solver.solve(&assumptions);
             if (ret == l_False) {
                 std::cout << " Hurra: ";
                 for (unsigned i = 0; i < v.size(); i++) {
@@ -70,12 +70,13 @@ int main() {
     signal(SIGINT, signalHandler);
 
     MODUL modul;
-    unsigned out = modul.getOutput();
+//    unsigned out = modul.getOutput();
 
     static Producer producer(MAX_TEST);
-    for (unsigned i = 0; i < modul.getInputNum(); i++) producer.addVar(i);
-    producer.setOutStart();
-    for (unsigned i = out; i < out + modul.getOutputNum(); i++) producer.addVar(i);
+    for (unsigned i = 0; i < modul.getVarCount(); i++) producer.addVar(i);
+//    for (unsigned i = 0; i < modul.getInputNum(); i++) producer.addVar(i);
+//    producer.setOutStart();
+//    for (unsigned i = out; i < out + modul.getOutputNum(); i++) producer.addVar(i);
 
     pthread_t threads[THREAD_NUM];
     for (unsigned i = 0; i < THREAD_NUM; i++) {

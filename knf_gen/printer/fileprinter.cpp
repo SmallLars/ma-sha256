@@ -10,6 +10,6 @@ FilePrinter::~FilePrinter() {
     outputFile.close();
 }
 
-std::ofstream &FilePrinter::getStream() {
+std::ofstream& FilePrinter::getStream() {
     return outputFile;
 }

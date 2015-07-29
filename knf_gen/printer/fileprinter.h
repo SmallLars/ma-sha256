@@ -10,7 +10,7 @@ class FilePrinter : public Printer {
         FilePrinter(const char* filename);
         ~FilePrinter();
     protected:
-        std::ofstream &getStream();
+        std::ofstream& getStream();
     private:
         std::ofstream outputFile;
 };

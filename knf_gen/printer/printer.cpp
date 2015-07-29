@@ -11,6 +11,10 @@ Printer::Printer() {
 Printer::~Printer() {
 }
 
+void Printer::newModul(const char* name, Modul* modul) {}
+
+void Printer::create(bool xOR, const std::vector<CMSat::Lit>& vars) {}
+
 vector< vector<Lit> > Printer::convertXOR(const vector<Lit>& vars) {
     vector< vector<Lit> > clauses;
     if (vars.size() < 2) return clauses;

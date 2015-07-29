@@ -1,7 +1,5 @@
 #include "ttfileprinter.h"
 
-#include <assert.h>
-
 using std::vector;
 using namespace CMSat;
 

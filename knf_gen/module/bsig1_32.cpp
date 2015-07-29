@@ -19,6 +19,8 @@ unsigned* Bsig1_32::getStats() {
 }
 
 void Bsig1_32::create(Printer* printer) {
+    printer->newModul("Bsig1_32", this);
+
     for (unsigned i = 0; i < 32; i++) {
         createXOR(printer,
                   output + i, 

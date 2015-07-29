@@ -23,6 +23,8 @@ unsigned* Add_32::getStats() {
 }
 
 void Add_32::create(Printer* printer) {
+    printer->newModul("Add_32_multi", this);
+
     ClauseCreator cc(printer);
 
     // Half adder
