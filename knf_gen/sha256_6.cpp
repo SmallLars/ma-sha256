@@ -1,5 +1,6 @@
 #include <vector>
 #include <stdio.h>
+#include <iomanip>
 #include <signal.h>
 #include <ctime>
 
@@ -12,9 +13,11 @@
 #include "printer/logger.h"
 #include "printer/solverprinter.h"
 #include "printer/bufferedsolverprinter.h"
+#include "printer/assumptionprinter.h"
 
 using std::cout;
 using std::vector;
+using std::setw;
 using namespace CMSat;
 
 static uint32_t sha_k[64] = {\
@@ -30,8 +33,8 @@ static uint32_t sha_k[64] = {\
 SATSolver* solverToInterrupt;
 
 void signalHandler(int signum) {
-    if (signum == SIGINT) std::cerr << "*** INTERRUPTED ***" << std::endl;
-    else std::cerr << "*** WRITE OUT ***" << std::endl;
+    if (signum == SIGINT) std::cerr << "*** INTERRUPTED ***\n";
+    else std::cerr << "*** WRITE OUT ***\n";
 
     SATSolver* solver = solverToInterrupt;
     if (signum == SIGINT) solver->interrupt_asap();
@@ -39,8 +42,8 @@ void signalHandler(int signum) {
     solver->add_in_partial_solving_stats();
     solver->print_stats();
 
-    solver->open_file_and_dump_red_clauses("learned_clauses.dimacs");
-//    solver->open_file_and_dump_irred_clauses("irred.dimacs");
+    solver->open_file_and_dump_red_clauses("257_learned.dimacs");
+    solver->open_file_and_dump_irred_clauses("257_irred.dimacs");
 
     if (signum == SIGINT) _exit(1);
 }
@@ -93,8 +96,8 @@ int main() {
     config.do_bva = false;
 
     SATSolver solver(config);
-    solver.log_to_file("solver.log");
-    solver.set_num_threads(4);
+//    solver.log_to_file("solver.log");
+    solver.set_num_threads(8);
 
     time_t rawtime;
     time(&rawtime);
@@ -104,42 +107,31 @@ int main() {
 
     solverToInterrupt = &solver;
 
-//    Counter printer;
-    Logger logger("sha256.log");
+//    Logger logger("sha256.log");
     SolverPrinter printer(&solver);
-    vector<BufferedSolverPrinter> rounds(48, BufferedSolverPrinter(&solver));
 
-    for (unsigned i = 0; i < 16; i++) {
-//        if (i != 11) {
-            Const c(32, input[i]);
-            c.setStart(i * 32);
-            if (i>12) {
-                c.create(&printer);
-                c.create(&logger);
-            }
-            varCount += c.getAdditionalVarCount();
-//        } else {
-//            Const c(16, input[i]);
-//            c.setStart(i * 32);
-//            c.append(&solver);
-//            varCount += 32;
-//        }
+    for (unsigned i = 13; i < 16; i++) {
+        Const c(32, input[i]);
+        c.setStart(i * 32);
+        c.create(&printer);
+//        c.create(&logger);
     }
+    varCount += 512;
 
-    cout << "1 / 4: Eingabe gesetzt.\n";
+    cout << "  1 /   4: Eingabe gesetzt.\n";
 
     unsigned vars[8];
     for (unsigned i = 0; i < 8; i++) {
         Const c(32, state[i]);
         c.setStart(varCount);
         c.create(&printer);
-        c.create(&logger);
+//        c.create(&logger);
         varCount += c.getAdditionalVarCount();
 
         vars[i] = c.getOutput();
     }
 
-    cout << "2 / 4: Status gesetzt.\n";
+    cout << "  2 /   4: Status gesetzt.\n";
 
     Add_Prepare_32 adder;
     ShaCore_Ex1_32 core(0);
@@ -162,8 +154,7 @@ int main() {
             adder.setInputs(prepareinputs);
             adder.setStart(varCount);
             adder.create(&printer);
-//            adder.create(&rounds[i - 16]);
-            adder.create(&logger);
+//            adder.create(&logger);
             varCount += adder.getAdditionalVarCount();
 
             global_input[i] = adder.getOutput();
@@ -174,67 +165,65 @@ int main() {
         core.setInputs(subinputs);
         core.setStart(varCount);
         core.create(&printer);
-        core.create(&logger);
+//        core.create(&logger);
         varCount += core.getAdditionalVarCount();
 
         for (unsigned n = 7; n > 0; n--) vars[n] = vars[n - 1];
         vars[0] = core.getOutput();
         vars[4] = core.getOutput() + 32;
 
-        cout << "\r3 / 4: Kern " << i + 1 << " / " << 64 << " definiert." << std::flush;
+        cout << "\r  3 /   4: Kern " << i + 1 << " / " << 64 << " definiert." << std::flush;
     }
     cout << "\n";
 
-/*
-    unsigned fixed[36] = {2,3,4,5,6,7,8,9,10,11,12,26,29,30,31,32,33,34,35,37,39,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63};
-    for (unsigned i = 0; i < 36; i++) {
-        Const c(32, 0);
-        c.setStart(global_input[fixed[i]]);
-        c.create(&printer);
-    }
-*/
-
+    vector<Lit> assumptions;
+    AssumptionPrinter ap(&assumptions);
     // Ergebnis setzen
     for (unsigned i = 0; i < 8; i++) {
         Const c(32, output[i]);
         c.setStart(vars[i]);
-        c.create(&printer);
-        c.create(&logger);
+        c.create(&ap);
+//        c.create(&logger);
     }
 
-    cout << "4 / 4: Ausgabe gesetzt.\n";
+    cout << "  4 /   4: Ausgabe gesetzt.\n";
 
-//    printer.flush();
-//    printf("Var: %u, Clause: %u\n", printer.getVarCount(), printer.getClauseCount());
+    for (unsigned r = 1; r <= assumptions.size(); r++) {
+        cout << setw(3) << r << " / 256:" << std::flush;
 
-    lbool ret = solver.solve();
-    if (ret == l_False) {
-        cout << "Nicht lösbar.\n";
-        return 0;
-    }
-    cout << "Lösung gefunden\n";
-
-    cout << "Eingabe: ";
-    for (unsigned i = 0; i < 16; i++) {
-        if (i == 8) cout << "\n         ";
-        uint32_t result = 0;
-        for (unsigned b = i * 32; b < (i + 1) * 32; b++) {
-            result |= ((solver.get_model()[b] == l_True? 1 : 0) << (b - i * 32));
+        vector<Lit> as(assumptions.begin(), assumptions.begin() + r);
+        lbool ret = solver.solve(&as);
+        if (ret == l_False) {
+            cout << "Nicht lösbar.\n";
+            return 0;
         }
-        printf("%08x ", result);
-    }
 
-    cout << "\nAusgabe: ";
-    for (unsigned i = 0; i < 8; i++) {
-        uint32_t result = 0;
-        for (unsigned b = vars[i]; b < vars[i] + 32; b++) {
-            result |= ((solver.get_model()[b] == l_True? 1 : 0) << (b - vars[i]));
+        cout << " Lösung gefunden.\n  Ausgabe: ";
+        for (unsigned i = 0; i < 8; i++) {
+            uint32_t result = 0;
+            for (unsigned b = vars[i]; b < vars[i] + 32; b++) {
+                result |= ((solver.get_model()[b] == l_True? 1 : 0) << (b - vars[i]));
+            }
+            printf("%08x ", state[i] + result);
         }
-        state[i] += result;
+        cout << "\n  Eingabe: ";
+        for (unsigned i = 0; i < 16; i++) {
+            if (i == 8) cout << "\n           ";
+            uint32_t result = 0;
+            for (unsigned b = i * 32; b < (i + 1) * 32; b++) {
+                result |= ((solver.get_model()[b] == l_True? 1 : 0) << (b - i * 32));
+            }
+            printf("%08x ", result);
+        }
+        cout << "\n";
 
-        printf("%08x ", state[i]);
+        char red_name[19];
+        char irred_name[17];
+        sprintf(red_name, "%03u_learned.dimacs", r);
+        sprintf(irred_name, "%03u_irred.dimacs", r);
+        solver.open_file_and_dump_red_clauses(red_name);
+        solver.open_file_and_dump_irred_clauses(irred_name);
     }
-    cout << "\n";
 
     solver.print_stats();
 
