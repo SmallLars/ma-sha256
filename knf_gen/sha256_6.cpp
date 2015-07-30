@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <signal.h>
 #include <ctime>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "cryptominisat4/cryptominisat.h"
 #include "module/const.h"
@@ -65,6 +67,7 @@ void padding(uint32_t* target, const char* input) {
 int main() {
     signal(SIGINT, signalHandler);
     signal(SIGUSR1, signalHandler);
+    mkdir("dump", 0777);
 
 /*
     uint32_t input[16] = {0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
