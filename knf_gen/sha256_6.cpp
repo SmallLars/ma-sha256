@@ -42,8 +42,8 @@ void signalHandler(int signum) {
     solver->add_in_partial_solving_stats();
     solver->print_stats();
 
-    solver->open_file_and_dump_red_clauses("257_learned.dimacs");
-    solver->open_file_and_dump_irred_clauses("257_irred.dimacs");
+    solver->open_file_and_dump_red_clauses("dump/257_learned.dimacs");
+    solver->open_file_and_dump_irred_clauses("dump/257_irred.dimacs");
 
     if (signum == SIGINT) _exit(1);
 }
@@ -217,10 +217,10 @@ int main() {
         }
         cout << "\n";
 
-        char red_name[19];
-        char irred_name[17];
-        sprintf(red_name, "%03u_learned.dimacs", r);
-        sprintf(irred_name, "%03u_irred.dimacs", r);
+        char red_name[24];
+        char irred_name[22];
+        sprintf(red_name, "dump/%03u_learned.dimacs", r);
+        sprintf(irred_name, "dump/%03u_irred.dimacs", r);
         solver.open_file_and_dump_red_clauses(red_name);
         solver.open_file_and_dump_irred_clauses(irred_name);
     }
