@@ -7,3 +7,5 @@ sha256_3.cpp - Lösungsversuch mit 64 führenden Nullen im Ergebnis. Inkrementel
 sha256_4.cpp - Lösungsversuch mit vollständig definiertem Ergebnis. Inkrementelles Lösen. Message preparation parallel zu calculation.
 
 sha256_5.cpp - Lösungsversuch mit vollständig definiertem Ergebnis. Inkrementelles Lösen in 48 preparation Schritten. Calculation von Anfang an enthalten. Message preparation parallel zu calculation.
+
+sha256_6.cpp - Inkrementeller Lösungsversuch. Alle Klauseln enthalten. Ergebnis in jedem Schritt um 1 Bit erweitern.
