@@ -19,7 +19,7 @@ bool DimacsParser::getNextClause(vector<Lit>& clause) {
 
     int c;
     while ((c = inputFile.peek()) != EOF) {
-        if (c == 'c') {
+        if (c == 'c' || c == 'p' || c == 'x') {
             string line;
             getline(inputFile, line);
             continue;

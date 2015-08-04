@@ -20,7 +20,7 @@ void Logger::newModul(const char* name, Modul* modul) {
 
     for (unsigned i = 0; i < 3; i++) {
         if (i < modul->getInputs().size()) {
-            getStream() << setw(i == 0 ? 5 : 7) << modul->getInputs()[i];
+            getStream() << setw(i == 0 ? 5 : 7) << modul->getInputs()[i] + 1;
         } else {
             if (i > 0) getStream() << "  ";
             getStream() << "     ";
@@ -30,11 +30,11 @@ void Logger::newModul(const char* name, Modul* modul) {
     if (modul->getAdditionalVarCount() - modul->getOutputNum() == 0) {
         getStream() << " |          ";
     } else {
-        getStream() << " | " << setw(5) << modul->getStart();
+        getStream() << " | " << setw(5) << modul->getStart() + 1;
         getStream() <<          setw(4) << modul->getAdditionalVarCount() - modul->getOutputNum();
     }
 
-    getStream() << " | " << setw(5) << modul->getOutput();
+    getStream() << " | " << setw(5) << modul->getOutput() + 1;
     getStream() <<          setw(4) << modul->getOutputNum();
 
     getStream() << " |\n" << std::flush;
