@@ -98,7 +98,7 @@ void *calculate(void* producer) {
             if (ret == l_False) {
                 std::cout << " Hurra: ";
                 for (unsigned i = 0; i < v.size(); i++) {
-                    std::cout << ((s >> i) & 1 ? "-" : "") << v[i] << " ";
+                    std::cout << ((s >> i) & 1 ? "" : "-") << v[i] << " ";
                 }
                 std::cout << "\n";
             }

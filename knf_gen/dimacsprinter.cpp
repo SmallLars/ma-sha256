@@ -6,19 +6,13 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include "cryptominisat4/cryptominisat.h"
-
-#include "common/dimacsparser.h"
-
 #include "module/const.h"
 #include "module/add_prepare_32.h"
 #include "module/shacore_ex1_32.h"
 
 #include "printer/counter.h"
 #include "printer/logger.h"
-#include "printer/solverprinter.h"
-#include "printer/bufferedsolverprinter.h"
-#include "printer/assumptionprinter.h"
+#include "printer/dimacsfileprinter.h"
 
 using std::cout;
 using std::vector;
@@ -35,24 +29,6 @@ static uint32_t sha_k[64] = {\
      0x19A4C116, 0x1E376C08, 0x2748774C, 0x34B0BCB5, 0x391C0CB3, 0x4ED8AA4A, 0x5B9CCA4F, 0x682E6FF3,\
      0x748F82EE, 0x78A5636F, 0x84C87814, 0x8CC70208, 0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2};
 
-SATSolver* solverToInterrupt;
-
-void signalHandler(int signum) {
-    if (signum == SIGINT) std::cerr << "*** INTERRUPTED ***\n";
-    else std::cerr << "*** WRITE OUT ***\n";
-
-    SATSolver* solver = solverToInterrupt;
-    if (signum == SIGINT) solver->interrupt_asap();
-
-    solver->add_in_partial_solving_stats();
-    solver->print_stats();
-
-    solver->open_file_and_dump_red_clauses("dump/257_learned.dimacs");
-    solver->open_file_and_dump_irred_clauses("dump/257_irred.dimacs");
-
-    if (signum == SIGINT) _exit(1);
-}
-
 void padding(uint32_t* target, const char* input) {
     unsigned i;
     for (i = 0; i < 16; i++) target[i] = 0;
@@ -68,10 +44,6 @@ void padding(uint32_t* target, const char* input) {
 }
 
 int main() {
-    signal(SIGINT, signalHandler);
-    signal(SIGUSR1, signalHandler);
-    mkdir("dump", 0777);
-
 /*
     uint32_t input[16] = {0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
                           0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80000000, 0x00000000, 0x000001A0};
@@ -95,49 +67,34 @@ int main() {
 
     unsigned varCount = 0;
 
-    SolverConf config;
-    config.verbosity = 0; // 3
-    config.printFullStats = 1;
-    config.doSQL = true;
-    config.do_bva = false;
-
-    SATSolver solver(config);
-//    solver.log_to_file("solver.txt");
-    solver.set_num_threads(8);
-
-    time_t rawtime;
-    time(&rawtime);
-    char filename[64];
-    strftime(filename, 64, "sha256_6 %Y-%m-%d %H:%M:%S", localtime(&rawtime));
-    solver.add_sql_tag("filename", filename);
-
-    solverToInterrupt = &solver;
-
-//    Logger logger("sha256.log");
-    SolverPrinter printer(&solver);
+    Counter counter;
+    Logger logger("sha256.txt");
+    DimacsFilePrinter printer("sha256.xor.dimacs", 49328, 149392);
 
     for (unsigned i = 13; i < 16; i++) {
         Const c(32, input[i]);
         c.setStart(i * 32);
+        c.create(&counter);
+        c.create(&logger);
         c.create(&printer);
-//        c.create(&logger);
     }
     varCount += 512;
 
-    cout << "  1 /   4: Eingabe gesetzt.\n";
+    cout << "  1 /   3: Eingabe gesetzt.\n";
 
     unsigned vars[8];
     for (unsigned i = 0; i < 8; i++) {
         Const c(32, state[i]);
         c.setStart(varCount);
+        c.create(&counter);
+        c.create(&logger);
         c.create(&printer);
-//        c.create(&logger);
         varCount += c.getAdditionalVarCount();
 
         vars[i] = c.getOutput();
     }
 
-    cout << "  2 /   4: Status gesetzt.\n";
+    cout << "  2 /   3: Status gesetzt.\n";
 
     Add_Prepare_32 adder;
     ShaCore_Ex1_32 core(0);
@@ -159,8 +116,9 @@ int main() {
             prepareinputs.push_back(global_input[i -  2]);
             adder.setInputs(prepareinputs);
             adder.setStart(varCount);
+            adder.create(&counter);
+            adder.create(&logger);
             adder.create(&printer);
-//            adder.create(&logger);
             varCount += adder.getAdditionalVarCount();
 
             global_input[i] = adder.getOutput();
@@ -170,85 +128,29 @@ int main() {
         core.setValue(sha_k[i]);
         core.setInputs(subinputs);
         core.setStart(varCount);
+        core.create(&counter);
+        core.create(&logger);
         core.create(&printer);
-//        core.create(&logger);
         varCount += core.getAdditionalVarCount();
 
         for (unsigned n = 7; n > 0; n--) vars[n] = vars[n - 1];
         vars[0] = core.getOutput();
         vars[4] = core.getOutput() + 32;
 
-        cout << "\r  3 /   4: Kern " << i + 1 << " / " << 64 << " definiert." << std::flush;
+        cout << "\r  3 /   3: Kern " << i + 1 << " / " << 64 << " definiert." << std::flush;
     }
     cout << "\n";
 
-    {
-        DimacsParser dp("dump_old/000_irred.dimacs");
-        vector<Lit> learned;
-        while (dp.getNextClause(learned)) {
-          solver.add_clause(learned);
-        }
+/*
+    DimacsParser dp("024_learned.dimacs");
+    vector<Lit> learned;
+    while (dp.getNextClause(learned)) {
+      counter.create(false, learned);
+      printer.create(false, learned);
     }
+*/
 
-    {
-        DimacsParser dp("dump_old/000_learned.dimacs");
-        vector<Lit> learned;
-        while (dp.getNextClause(learned)) {
-          solver.add_clause(learned);
-        }
-    }
-
-
-    vector<Lit> assumptions;
-    AssumptionPrinter ap(&assumptions);
-    // Ergebnis setzen
-    for (unsigned i = 0; i < 8; i++) {
-        Const c(32, output[i]);
-        c.setStart(vars[i]);
-        c.create(&ap);
-//        c.create(&logger);
-    }
-
-    cout << "  4 /   4: Ausgabe gesetzt.\n";
-
-    for (unsigned r = 1; r <= assumptions.size(); r++) {
-        cout << setw(3) << r << " / 256:" << std::flush;
-
-        vector<Lit> as(assumptions.begin(), assumptions.begin() + r);
-        lbool ret = solver.solve(&as);
-        if (ret == l_False) {
-            cout << "Nicht lösbar.\n";
-            return 0;
-        }
-
-        cout << " Lösung gefunden.\n  Ausgabe: ";
-        for (unsigned i = 0; i < 8; i++) {
-            uint32_t result = 0;
-            for (unsigned b = vars[i]; b < vars[i] + 32; b++) {
-                result |= ((solver.get_model()[b] == l_True? 1 : 0) << (b - vars[i]));
-            }
-            printf("%08x ", state[i] + result);
-        }
-        cout << "\n  Eingabe: ";
-        for (unsigned i = 0; i < 16; i++) {
-            if (i == 8) cout << "\n           ";
-            uint32_t result = 0;
-            for (unsigned b = i * 32; b < (i + 1) * 32; b++) {
-                result |= ((solver.get_model()[b] == l_True? 1 : 0) << (b - i * 32));
-            }
-            printf("%08x ", result);
-        }
-        cout << "\n";
-
-        char red_name[24];
-        char irred_name[22];
-        sprintf(red_name, "dump/%03u_learned.dimacs", r);
-        sprintf(irred_name, "dump/%03u_irred.dimacs", r);
-        solver.open_file_and_dump_red_clauses(red_name);
-        solver.open_file_and_dump_irred_clauses(irred_name);
-    }
-
-    solver.print_stats();
+    cout << "Variablen: " << counter.getMaxVar() << " Klauseln: " << counter.getClauseCount() << "\n";
 
     return 0;
 }
