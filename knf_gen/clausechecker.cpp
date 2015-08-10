@@ -84,11 +84,6 @@ int main() {
 
     SolverPrinter printer(&solver);
 
-    for (unsigned i = 13; i < 16; i++) {
-        Const c(32, input[i]);
-        c.setStart(i * 32);
-        c.create(&printer);
-    }
     varCount += 512;
 
     cout << "  1 /   3: Eingabe gesetzt.\n";
@@ -97,9 +92,7 @@ int main() {
     for (unsigned i = 0; i < 8; i++) {
         Const c(32, state[i]);
         c.setStart(varCount);
-        c.create(&printer);
         varCount += c.getAdditionalVarCount();
-
         vars[i] = c.getOutput();
     }
 

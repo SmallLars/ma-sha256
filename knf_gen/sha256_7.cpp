@@ -47,8 +47,8 @@ void signalHandler(int signum) {
     solver->add_in_partial_solving_stats();
     solver->print_stats();
 
-    solver->open_file_and_dump_red_clauses("dump/257_learned.dimacs");
-    solver->open_file_and_dump_irred_clauses("dump/257_irred.dimacs");
+//    solver->open_file_and_dump_red_clauses("dump/257_learned.dimacs");
+//    solver->open_file_and_dump_irred_clauses("dump/257_irred.dimacs");
 
     if (signum == SIGINT) _exit(1);
 }
@@ -101,9 +101,12 @@ int main() {
     config.doSQL = true;
     config.do_bva = false;
 
+    long numCPU = sysconf( _SC_NPROCESSORS_ONLN );
+    cout << "CPUNUM: " << numCPU << "\n";
+
     SATSolver solver(config);
 //    solver.log_to_file("solver.txt");
-    solver.set_num_threads(8);
+    solver.set_num_threads(numCPU);
 
     time_t rawtime;
     time(&rawtime);
@@ -113,22 +116,28 @@ int main() {
 
     solverToInterrupt = &solver;
 
+    vector<Lit> assumptions;
+    AssumptionPrinter ap(&assumptions);
+
     SolverPrinter printer(&solver);
 
+    // Eingabe
     for (unsigned i = 13; i < 16; i++) {
         Const c(32, input[i]);
         c.setStart(i * 32);
-        c.create(&printer);
+        c.create(&ap);
     }
+    // 512 Variablen für die Eingabe reservieren egal wieviele Bits gesetzt sind
     varCount += 512;
 
     cout << "  1 /   4: Eingabe gesetzt.\n";
 
+    // Status
     unsigned vars[8];
     for (unsigned i = 0; i < 8; i++) {
         Const c(32, state[i]);
         c.setStart(varCount);
-        c.create(&printer);
+        c.create(&ap);
         varCount += c.getAdditionalVarCount();
 
         vars[i] = c.getOutput();
@@ -177,26 +186,6 @@ int main() {
     }
     cout << "\n";
 
-/*
-    {
-        DimacsParser dp("dump_old/000_irred.dimacs");
-        vector<Lit> learned;
-        while (dp.getNextClause(learned)) {
-          solver.add_clause(learned);
-        }
-    }
-
-    {
-        DimacsParser dp("dump_old/000_learned.dimacs");
-        vector<Lit> learned;
-        while (dp.getNextClause(learned)) {
-          solver.add_clause(learned);
-        }
-    }
-*/
-
-    vector<Lit> assumptions;
-    AssumptionPrinter ap(&assumptions);
     // Ergebnis setzen
     for (unsigned i = 0; i < 8; i++) {
         Const c(32, output[i]);
@@ -206,8 +195,8 @@ int main() {
 
     cout << "  4 /   4: Ausgabe gesetzt.\n";
 
-    for (unsigned r = 1; r <= assumptions.size(); r++) {
-        cout << setw(3) << r << " / 256:" << std::flush;
+    for (unsigned r = 353; r <= assumptions.size(); r++) {
+        cout << setw(3) << r - 352 << " / " << assumptions.size() - 352 << ":" << std::flush;
 
         vector<Lit> as(assumptions.begin(), assumptions.begin() + r);
         lbool ret = solver.solve(&as);
@@ -237,8 +226,8 @@ int main() {
 
         char red_name[24];
         char irred_name[22];
-        sprintf(red_name, "dump/%03u_learned.dimacs", r);
-        sprintf(irred_name, "dump/%03u_irred.dimacs", r);
+        sprintf(red_name, "dump/%03u_learned.dimacs", r - 352);
+        sprintf(irred_name, "dump/%03u_irred.dimacs", r - 352);
         solver.open_file_and_dump_red_clauses(red_name);
         solver.open_file_and_dump_irred_clauses(irred_name);
     }
