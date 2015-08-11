@@ -4,6 +4,7 @@
 
 #include "const.h"
 
+using std::vector;
 using namespace CMSat;
 
 unsigned ConstAdd_32::stats[STATS_LENGTH];
@@ -44,7 +45,7 @@ void ConstAdd_32::create(Printer* printer) {
     for (unsigned i = 1; i < 31; i++) {
         if (((value >> i) & 1) == 0) {
             // Half adder
-#ifdef XOR_SUPPORT
+#ifdef XOR_OPTIMIZATION
             // AND ->              c_out           a_in           c_in
             createAND(printer, start + i, inputs[0] + i, start - 1 + i);
 
@@ -61,7 +62,7 @@ void ConstAdd_32::create(Printer* printer) {
             cc.printClause(4,     CC_DC,          1,             0,             1);
 #endif
         } else {
-#ifdef XOR_SUPPORT
+#ifdef XOR_OPTIMIZATION
             // OR ->              c_out           a_in           c_in
             createOR(printer, start + i, inputs[0] + i, start - 1 + i);
 
@@ -87,6 +88,14 @@ void ConstAdd_32::create(Printer* printer) {
     } else {
         // XOR ->               !s_out            a_in        c_in
         createXOR(printer, output + 31, inputs[0] + 31, start + 30, true);
+    }
+
+    // Fix carry bits if constant starts with zeros from LSB
+    if (value == 0) return;
+    for (unsigned i = 1; i < 32; i++) {
+        if ((value >> i) & 1) break;
+        createFalse(printer, start + i);
+        createEQ(printer, output + i, inputs[0] + i);
     }
 }
 

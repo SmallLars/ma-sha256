@@ -40,26 +40,21 @@ int main() {
     set<vector<Lit>, clausecomp> irreducible;
     set<vector<Lit>, clausecomp> reducible;
 
-    {
-        DimacsParser parser("sha256.dimacs");
+    const char* filename[4] = {"00_sha256.dimacs", "01_sha256.dimacs", "10_sha256.dimacs", "11_sha256.dimacs"};
+    for (unsigned i = 0; i < 4; i++) {
+        DimacsParser parser(filename[i]);
         vector<Lit> clause;
         while (parser.getNextClause(clause)) {
             original.insert(clause);
         }
     }
 
-    {
-        DimacsParser parser("sha256.xor.dimacs");
-        vector<Lit> clause;
-        while (parser.getNextClause(clause)) {
-            original.insert(clause);
-        }
-    }
+    cout << "Einlesen der Eingabe beendet.\n";
 
     unsigned counter = 0;
-    for (unsigned i = 1; i <= 24; i++) {
-        char filename[22];
-        sprintf(filename, "dump/%03u_irred.dimacs", i);
+    for (unsigned i = 1; i <= 23; i++) {
+        char filename[33];
+        sprintf(filename, "2015-08-11_dump/%03u_irred.dimacs", i);
         DimacsParser parser(filename);
         vector<Lit> clause;
         while (parser.getNextClause(clause)) {
@@ -69,32 +64,34 @@ int main() {
             }
             irreducible.insert(clause);
         }
+        cout << "\rEinlesen von " << filename << " beendet." << std::flush;
     }
-    cout << "irreducible size: " << irreducible.size() << " killed: " << counter  << "\n";
+    cout << "\nirreducible size: " << irreducible.size() << " killed: " << counter  << "\n";
 
     counter = 0;
-    for (unsigned i = 1; i <= 24; i++) {
-        char filename[24];
-        sprintf(filename, "dump/%03u_learned.dimacs", i);
+    for (unsigned i = 1; i <= 23; i++) {
+        char filename[35];
+        sprintf(filename, "2015-08-11_dump/%03u_learned.dimacs", i);
         DimacsParser parser(filename);
         vector<Lit> clause;
         while (parser.getNextClause(clause)) {
             if (original.find(clause) != original.end()) {
                 counter++;
                 continue;
-            }
+            }/*
             if (irreducible.find(clause) != irreducible.end()) {
                 counter++;
                 continue;
-            }
+            }*/
             reducible.insert(clause);
         }
+        cout << "\rEinlesen von " << filename << " beendet." << std::flush;
     }
-    cout << "reducible (learned) size: " << reducible.size() << " killed: " << counter << "\n";
+    cout << "\nreducible (learned) size: " << reducible.size() << " killed: " << counter << "\n";
 
     set< vector<Lit> >::iterator it;
 
-    ofstream i_out("dump/000_irred.dimacs");
+    ofstream i_out("2015-08-11_dump/000_irred.dimacs");
     for (it = irreducible.begin(); it != irreducible.end(); ++it) {
         for (unsigned i = 0; i < it->size(); i++) {
             if ((*it)[i].sign() == 1) i_out << "-";
@@ -103,14 +100,17 @@ int main() {
         i_out << "0\n";
     }
     i_out.close();
+    irreducible.clear();
 
-    ofstream r_out("dump/000_learned.dimacs");
-    for (it = reducible.begin(); it != reducible.end(); ++it) {
+    ofstream r_out("2015-08-11_dump/000_learned.dimacs");
+    for (it = reducible.begin(); it != reducible.end();/* ++it*/) {
         for (unsigned i = 0; i < it->size(); i++) {
             if ((*it)[i].sign() == 1) r_out << "-";
             r_out << (*it)[i].var() + 1 << " ";
         }
         r_out << "0\n";
+        reducible.erase(it++);
+        cout << "\rZu schreiben: " << std::setw(7) << reducible.size() << std::flush;
     }
     r_out.close();
 

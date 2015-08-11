@@ -28,7 +28,7 @@ void Add_32::create(Printer* printer) {
     ClauseCreator cc(printer);
 
     // Half adder
-#ifdef XOR_SUPPORT
+#ifdef XOR_OPTIMIZATION
     // AND ->          c_out       a_in       b_in
     createAND(printer, start, inputs[0], inputs[1]);
 
@@ -47,7 +47,7 @@ void Add_32::create(Printer* printer) {
 
     // Full adder x30
     for (unsigned i = 1; i < 31; i++) {
-#ifdef XOR_SUPPORT
+#ifdef XOR_OPTIMIZATION
         //                    c_out           a_in           b_in           c_in
         cc.setLiterals(4, start + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
         cc.printClause(4,         1,             0,             0,         CC_DC);

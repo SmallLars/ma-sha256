@@ -69,7 +69,7 @@ int main() {
 
     Counter counter;
     Logger logger("sha256.txt");
-    DimacsFilePrinter printer("sha256.xor.dimacs", 49328, 149392);
+    DimacsFilePrinter printer("sha256.dimacs", 49328, 149454);
 
     for (unsigned i = 13; i < 16; i++) {
         Const c(32, input[i]);
@@ -140,15 +140,6 @@ int main() {
         cout << "\r  3 /   3: Kern " << i + 1 << " / " << 64 << " definiert." << std::flush;
     }
     cout << "\n";
-
-/*
-    DimacsParser dp("024_learned.dimacs");
-    vector<Lit> learned;
-    while (dp.getNextClause(learned)) {
-      counter.create(false, learned);
-      printer.create(false, learned);
-    }
-*/
 
     cout << "Variablen: " << counter.getMaxVar() << " Klauseln: " << counter.getClauseCount() << "\n";
 

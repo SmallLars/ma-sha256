@@ -1,5 +1,7 @@
 #include "dimacsfileprinter.h"
 
+#include <algorithm>
+
 using std::vector;
 using namespace CMSat;
 
@@ -31,9 +33,11 @@ void DimacsFilePrinter::create(bool xOR, const vector<Lit>& vars) {
         return;
     }
 
-    for (unsigned i = 0; i < vars.size(); i++) {
-        if (vars[i].sign()) getStream() << "-";
-        getStream() << (vars[i].var() + 1) << " ";
+    vector<Lit> sorted_vars(vars);
+    std::sort(sorted_vars.begin(), sorted_vars.end());
+    for (unsigned i = 0; i < sorted_vars.size(); i++) {
+        if (sorted_vars[i].sign()) getStream() << "-";
+        getStream() << (sorted_vars[i].var() + 1) << " ";
     }
     getStream() << "0\n";
 }

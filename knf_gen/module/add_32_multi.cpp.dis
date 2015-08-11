@@ -28,7 +28,7 @@ void Add_32::create(Printer* printer) {
     ClauseCreator cc(printer);
 
     // Half adder
-#ifdef XOR_SUPPORT
+#ifdef XOR_OPTIMIZATION
     // AND ->          c_out       a_in       b_in
     createAND(printer, start, inputs[0], inputs[1]);
 
