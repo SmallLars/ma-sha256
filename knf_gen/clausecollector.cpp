@@ -52,7 +52,7 @@ int main() {
     cout << "Einlesen der Eingabe beendet.\n";
 
     unsigned counter = 0;
-    for (unsigned i = 1; i <= 23; i++) {
+    for (unsigned i = 1; i <= 1; i++) {
         char filename[33];
         sprintf(filename, "2015-08-11_dump/%03u_irred.dimacs", i);
         DimacsParser parser(filename);
@@ -69,7 +69,7 @@ int main() {
     cout << "\nirreducible size: " << irreducible.size() << " killed: " << counter  << "\n";
 
     counter = 0;
-    for (unsigned i = 1; i <= 23; i++) {
+    for (unsigned i = 1; i <= 1; i++) {
         char filename[35];
         sprintf(filename, "2015-08-11_dump/%03u_learned.dimacs", i);
         DimacsParser parser(filename);

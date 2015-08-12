@@ -90,13 +90,50 @@ void ConstAdd_32::create(Printer* printer) {
         createXOR(printer, output + 31, inputs[0] + 31, start + 30, true);
     }
 
-    // Fix carry bits if constant starts with zeros from LSB
     if (value == 0) return;
-    for (unsigned i = 1; i < 32; i++) {
-        if ((value >> i) & 1) break;
+
+    for (unsigned i = 0; i < 32; i++) {
+        if ((value >> i) & 1) {
+            if (i < 31) {
+              //                         a_in      c_out
+              cc.setLiterals(2, inputs[0] + i, start + i);
+              cc.printClause(2,             1,         0);
+            }
+            break;
+        }
+        // Fix carry bits and equal output if constant starts with zeros from LSB
         createFalse(printer, start + i);
         createEQ(printer, output + i, inputs[0] + i);
     }
+
+    // A single 1 Bit can cause the following carry bits to be 1 on a long row of constant 1 bits
+    for (unsigned i = 0; i < 30; i++) {
+        if ((value >> i) & 1) {
+            for (unsigned j = i + 1; j < 31; j++) {
+                if ((value >> j) & 1) {
+                    //                         a_in      c_out
+                    cc.setLiterals(2, inputs[0] + i, start + j);
+                    cc.printClause(2,             0,         1);
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    // A single 0 Bit can cause the following carry bits to be 0 on a long row of constant 0 bits
+    for (unsigned i = 0; i < 30; i++) {
+        if ((value >> i) & 1) continue;
+
+        for (unsigned j = i + 1; j < 31; j++) {
+            if ((value >> j) & 1) break;
+
+            //                         a_in      c_out
+            cc.setLiterals(2, inputs[0] + i, start + j);
+            cc.printClause(2,             1,         0);
+        }
+    }
+
 }
 
 MU_TEST_C(ConstAdd_32::test) {
@@ -118,12 +155,13 @@ MU_TEST_C(ConstAdd_32::test) {
         constadder.append(&solver);
 
         lbool ret = solver.solve();
+        if (ret != l_True) printf("\n%u + %u = %u\n", a[t], b[t], ausgabe);
         mu_assert(ret == l_True, "ConstAdd UNSAT");
 
         for (unsigned i = 94; i >=63; i--) {
             result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - 63));
         }
-
+        if (ausgabe != result) printf("\n%u + %u = %u | %u\n", a[t], b[t], ausgabe, result);
         mu_assert(ausgabe == result, "ConstAdd failed");
     }
 }

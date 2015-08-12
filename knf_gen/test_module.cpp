@@ -50,6 +50,9 @@ int main() {
 //    Add_4 adder;
 //    adder.writeTT("adder.tt");
 
+//    ConstAdd_32 adder(0xFFFFFFFF);
+//    adder.writeDimacs("constadd.dimacs");
+
 	MU_RUN_SUITE(test_suite);
 	MU_REPORT();
     return 0;
