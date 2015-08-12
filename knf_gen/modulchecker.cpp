@@ -5,10 +5,12 @@
 #include <ctime>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <fstream>
 
 #include "cryptominisat4/cryptominisat.h"
 
 #include "common/dimacsparser.h"
+#include "common/clauseprinter.h"
 
 #include "module/const.h"
 #include "module/add_prepare_32.h"
@@ -19,10 +21,12 @@
 #include "printer/solverprinter.h"
 #include "printer/bufferedsolverprinter.h"
 #include "printer/assumptionprinter.h"
+#include "printer/moduldb.h"
 
 using std::cout;
 using std::vector;
 using std::setw;
+using std::ofstream;
 using namespace CMSat;
 
 static uint32_t sha_k[64] = {\
@@ -62,16 +66,7 @@ int main() {
 
     unsigned varCount = 0;
 
-    SolverConf config;
-    config.verbosity = 0; // 3
-    config.printFullStats = 1;
-    config.doSQL = true;
-    config.do_bva = false;
-
-    SATSolver solver(config);
- //   solver.set_num_threads(8);
-
-    SolverPrinter printer(&solver);
+    ModulDB printer;
 
     varCount += 512;
 
@@ -128,19 +123,23 @@ int main() {
     }
     cout << "\n";
 
-    DimacsParser dp("dump/000_irred.dimacs");
+    DimacsParser dp("2015-08-11_dump/000_irred.dimacs");
+    ofstream inside_out("2015-08-11_dump/000_irred_inside.dimacs");
+    ofstream outside_out("2015-08-11_dump/000_irred_outside.dimacs");
     vector<Lit> learned;
     unsigned counter = 0;
     while (dp.getNextClause(learned)) {
-        for (unsigned i = 0; i < learned.size(); i++) learned[i] ^= 1;
-
-        lbool ret = solver.solve(&learned);
-        if (ret == l_False) {
-            cout << ++counter << ": " << learned.size() << "\r" << std::flush;
+        bool ret = printer.isInSingleModul(learned);
+        if (ret) {
+            printClause(inside_out, learned);
         } else {
-            cout << ++counter << " FAIL: " << learned.size() << "\n";
+            counter++;
+            printClause(outside_out, learned);
         }
     }
+    inside_out.close();
+    outside_out.close();
+    cout << "Modulübergreifend: " << counter << "\n";
 
     return 0;
 }

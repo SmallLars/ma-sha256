@@ -54,17 +54,6 @@ int main() {
 
     uint32_t state[8] = {0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19};
 
-    uint32_t output[8] = {
-        0x27931f0e - state[0],
-        0x7e53670d - state[1],
-        0xdbec1a1c - state[2],
-        0xe23e21b4 - state[3],
-        0x663c63c0 - state[4],
-        0xd17117ee - state[5],
-        0x1a934bc0 - state[6],
-        0xc294dbe9 - state[7]
-    };
-
     unsigned varCount = 0;
 
     Counter counter;

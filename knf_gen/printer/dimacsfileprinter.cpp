@@ -1,6 +1,6 @@
 #include "dimacsfileprinter.h"
 
-#include <algorithm>
+#include "../common/clauseprinter.h"
 
 using std::vector;
 using namespace CMSat;
@@ -33,13 +33,7 @@ void DimacsFilePrinter::create(bool xOR, const vector<Lit>& vars) {
         return;
     }
 
-    vector<Lit> sorted_vars(vars);
-    std::sort(sorted_vars.begin(), sorted_vars.end());
-    for (unsigned i = 0; i < sorted_vars.size(); i++) {
-        if (sorted_vars[i].sign()) getStream() << "-";
-        getStream() << (sorted_vars[i].var() + 1) << " ";
-    }
-    getStream() << "0\n";
+    printClause(getStream(), vars);
 }
 
 void DimacsFilePrinter::printHeader() {

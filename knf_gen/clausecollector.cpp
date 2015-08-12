@@ -11,6 +11,7 @@
 #include "cryptominisat4/cryptominisat.h"
 
 #include "common/dimacsparser.h"
+#include "common/clauseprinter.h"
 
 using std::cout;
 using std::set;
@@ -78,11 +79,11 @@ int main() {
             if (original.find(clause) != original.end()) {
                 counter++;
                 continue;
-            }/*
+            }
             if (irreducible.find(clause) != irreducible.end()) {
                 counter++;
                 continue;
-            }*/
+            }
             reducible.insert(clause);
         }
         cout << "\rEinlesen von " << filename << " beendet." << std::flush;
@@ -93,22 +94,14 @@ int main() {
 
     ofstream i_out("2015-08-11_dump/000_irred.dimacs");
     for (it = irreducible.begin(); it != irreducible.end(); ++it) {
-        for (unsigned i = 0; i < it->size(); i++) {
-            if ((*it)[i].sign() == 1) i_out << "-";
-            i_out << (*it)[i].var() + 1 << " ";
-        }
-        i_out << "0\n";
+        printClause(i_out, *it);
     }
     i_out.close();
     irreducible.clear();
 
     ofstream r_out("2015-08-11_dump/000_learned.dimacs");
     for (it = reducible.begin(); it != reducible.end();/* ++it*/) {
-        for (unsigned i = 0; i < it->size(); i++) {
-            if ((*it)[i].sign() == 1) r_out << "-";
-            r_out << (*it)[i].var() + 1 << " ";
-        }
-        r_out << "0\n";
+        printClause(r_out, *it);
         reducible.erase(it++);
         cout << "\rZu schreiben: " << std::setw(7) << reducible.size() << std::flush;
     }

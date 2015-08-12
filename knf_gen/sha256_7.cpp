@@ -205,22 +205,22 @@ int main() {
             return 0;
         }
 
-        cout << " Lösung gefunden.\n  Ausgabe: ";
+        cout << " Lösung gefunden.\n  Ausgabe:";
         for (unsigned i = 0; i < 8; i++) {
             uint32_t result = 0;
             for (unsigned b = vars[i]; b < vars[i] + 32; b++) {
                 result |= ((solver.get_model()[b] == l_True? 1 : 0) << (b - vars[i]));
             }
-            printf("%08x ", state[i] + result);
+            printf(" %08x", state[i] + result);
         }
-        cout << "\n  Eingabe: ";
+        cout << "\n  Eingabe:";
         for (unsigned i = 0; i < 16; i++) {
-            if (i == 8) cout << "\n           ";
+            if (i == 8) cout << "\n          ";
             uint32_t result = 0;
             for (unsigned b = i * 32; b < (i + 1) * 32; b++) {
                 result |= ((solver.get_model()[b] == l_True? 1 : 0) << (b - i * 32));
             }
-            printf("%08x ", result);
+            printf(" %08x", result);
         }
         cout << "\n";
 
