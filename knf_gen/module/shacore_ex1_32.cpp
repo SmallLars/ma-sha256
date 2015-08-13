@@ -3,6 +3,7 @@
 #include "const.h"
 #include "constadd_32.h"
 #include "shacore_32.h"
+#include "clausecreator.h"
 
 using std::vector;
 using namespace CMSat;
@@ -60,6 +61,16 @@ void ShaCore_Ex1_32::create(Printer* printer) {
     shacore.setStart(start + newvars);
     shacore.create(printer);
     newvars += shacore.getAdditionalVarCount();
+
+    ClauseCreator cc(printer);
+    if ((value & 1) == 0) {
+        // 1. inputbit    -    1. carrybit in 3rd adder of shacore
+        cc.setLiterals(2, inputs[8], start + 317);
+        cc.printClause(2,         1,           0);
+    }
+    // 1. carrybit of constadder    -    1. carrybit in 3rd adder of shacore
+    cc.setLiterals(2, start, start + 317);
+    cc.printClause(2,     0,           0);
 }
 
 MU_TEST_C(ShaCore_Ex1_32::test) {

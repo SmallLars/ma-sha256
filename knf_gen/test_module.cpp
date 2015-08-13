@@ -22,6 +22,7 @@
 #include "module/shacore_32.h"
 #include "module/shacore_ex1_32.h"
 #include "module/shacore_ex2_32.h"
+#include "module/sha256.h"
 
 MU_TEST_SUITE(test_suite) {
 	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
@@ -44,6 +45,7 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(ShaCore_32::test);
 	MU_RUN_TEST(ShaCore_Ex1_32::test);
 	MU_RUN_TEST(ShaCore_Ex2_32::test);
+	MU_RUN_TEST(Sha256::test);
 }
 
 int main() {

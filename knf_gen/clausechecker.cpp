@@ -128,7 +128,7 @@ int main() {
     }
     cout << "\n";
 
-    DimacsParser dp("dump/000_irred.dimacs");
+    DimacsParser dp("test.dimacs");
     vector<Lit> learned;
     unsigned counter = 0;
     while (dp.getNextClause(learned)) {
@@ -136,7 +136,7 @@ int main() {
 
         lbool ret = solver.solve(&learned);
         if (ret == l_False) {
-            cout << ++counter << ": " << learned.size() << "\r" << std::flush;
+            cout << ++counter << ": " << learned.size() << "\n";// "\r" << std::flush;
         } else {
             cout << ++counter << " FAIL: " << learned.size() << "\n";
         }
