@@ -1,9 +1,10 @@
 #include "add_b1ch_32.h"
 
-#include "const.h"
 #include "bsig1_32.h"
 #include "ch_32.h"
 #include "add_32.h"
+
+#include "../common/solvertools.h"
 
 using std::vector;
 using namespace CMSat;
@@ -75,31 +76,16 @@ MU_TEST_C(Add_B1Ch_32::test) {
 		uint32_t S1 = (a[t] >> 6 | a[t] << (32-6)) ^ (a[t] >> 11 | a[t] << (32-11)) ^ (a[t] >> 25 | a[t] << (32-25));
 		uint32_t ch = (a[t] & b[t]) ^ ((~a[t]) & c[t]);
 		uint32_t ausgabe = S1 + ch;
-        uint32_t result = 0;
 
-        Const con(32, a[t]);
-        con.setOutput(0);
-        con.append(&solver);
-
-        con.setValue(b[t]);
-        con.setOutput(32);
-        con.append(&solver);
-
-        con.setValue(c[t]);
-        con.setOutput(64);
-        con.append(&solver);
+        solver_writeInt(solver,  0, 32, a[t]);
+        solver_writeInt(solver, 32, 32, b[t]);
+        solver_writeInt(solver, 64, 32, c[t]);
 
         Add_B1Ch_32 adderB1Ch;
         adderB1Ch.append(&solver);
 
         lbool ret = solver.solve();
         mu_assert(ret == l_True, "ADDER_B1CH UNSAT");
-
-        unsigned output = adderB1Ch.getOutput();
-        for (unsigned i = output + 31; i >= output; i--) {
-            result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - output));
-        }
-
-        mu_assert(ausgabe == result, "ADDER_B1CH failed");
+        mu_assert(ausgabe == solver_readInt(solver, adderB1Ch.getOutput(), 32), "ADDER_B1CH failed");
     }
 }

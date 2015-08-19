@@ -1,9 +1,10 @@
 #include "add_ssig_32.h"
 
-#include "const.h"
 #include "ssig0_32.h"
 #include "ssig1_32.h"
 #include "add_32.h"
+
+#include "../common/solvertools.h"
 
 using std::vector;
 using namespace CMSat;
@@ -71,27 +72,15 @@ MU_TEST_C(Add_Ssig_32::test) {
 		uint32_t s0 = (a[t] >> 7 | a[t] << (32-7)) ^ (a[t] >> 18 | a[t] << (32-18)) ^ (a[t] >> 3);
 		uint32_t s1 = (b[t] >> 17 | b[t] << (32-17)) ^ (b[t] >> 19 | b[t] << (32-19)) ^ (b[t] >> 10);
 		uint32_t ausgabe = s0 + s1;
-        uint32_t result = 0;
 
-        Const con(32, a[t]);
-        con.setOutput(0);
-        con.append(&solver);
-
-        con.setValue(b[t]);
-        con.setOutput(32);
-        con.append(&solver);
+        solver_writeInt(solver,  0, 32, a[t]);
+        solver_writeInt(solver, 32, 32, b[t]);
 
         Add_Ssig_32 adderSsig;
         adderSsig.append(&solver);
 
         lbool ret = solver.solve();
         mu_assert(ret == l_True, "ADDER_SSIG UNSAT");
-
-        unsigned output = adderSsig.getOutput();
-        for (unsigned i = output + 31; i >= output; i--) {
-            result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - output));
-        }
-
-        mu_assert(ausgabe == result, "ADDER_SSIG failed");
+        mu_assert(ausgabe == solver_readInt(solver, adderSsig.getOutput(), 32), "ADDER_SSIG failed");
     }
 }

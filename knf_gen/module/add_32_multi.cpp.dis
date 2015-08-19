@@ -1,9 +1,11 @@
 #include "add_32.h"
 
+#include "add_half_1.h"
 #include "clausecreator.h"
 
-#include "const.h"
+#include "../common/solvertools.h"
 
+using std::vector;
 using namespace CMSat;
 
 unsigned Add_32::stats[STATS_LENGTH];
@@ -12,7 +14,7 @@ Add_32::Add_32() : Modul(32, 2, 1) {
     inputs.push_back(0);
     inputs.push_back(32);
     start = 64;
-    output = 80;
+    output = 95;
 }
 
 Add_32::~Add_32() {
@@ -25,61 +27,58 @@ unsigned* Add_32::getStats() {
 void Add_32::create(Printer* printer) {
     printer->newModul("Add_32_multi", this);
 
+    vector<unsigned> subinputs;
     ClauseCreator cc(printer);
 
     // Half adder
-#ifdef XOR_OPTIMIZATION
-    // AND ->          c_out       a_in       b_in
-    createAND(printer, start, inputs[0], inputs[1]);
-
-    // XOR ->          !s_out       a_in       b_in
-    createXOR(printer, output, inputs[0], inputs[1]);
-#else
-    //                 cout_  s_out       a_in       b_in
-    cc.setLiterals(4, start, output, inputs[0], inputs[1]);
-    cc.printClause(4, CC_DC,      0,         1,         1);
-    cc.printClause(4,     0,      0,     CC_DC,     CC_DC);
-    cc.printClause(4,     0,  CC_DC,     CC_DC,         1);
-    cc.printClause(4,     1,  CC_DC,         0,         0);
-    cc.printClause(4, CC_DC,      1,         1,         0);
-    cc.printClause(4, CC_DC,      1,         0,         1);
-#endif
+    subinputs.clear();
+    subinputs.push_back(inputs[0]);
+    subinputs.push_back(inputs[1]);
+    Add_Half_1 add_half;
+    add_half.setInputs(subinputs);
+    add_half.setStart(start);
+    add_half.setOutput(output);
+    add_half.create(printer);
 
     // Full 2bit adder x15
     for (unsigned i = 1; i < 16; i++) {
+        unsigned carry = start + i * 2;
         unsigned sum1 = i * 2;
         unsigned sum0 = sum1 - 1;
-        //                    c_out         s1_out         s0_out             a1_in             a0_in             b1_in             b0_in           c_in
-        cc.setLiterals(8, start + i, output + sum1, output + sum0, inputs[0] + sum1, inputs[0] + sum0, inputs[1] + sum1, inputs[1] + sum0, start - 1 + i);
-        cc.printClause(8,     CC_DC,         CC_DC,             1,            CC_DC,                0,            CC_DC,                0,             0);
-        cc.printClause(8,     CC_DC,         CC_DC,             0,            CC_DC,                1,            CC_DC,                1,             1);
-        cc.printClause(8,         1,             1,         CC_DC,                0,            CC_DC,            CC_DC,            CC_DC,         CC_DC);
-        cc.printClause(8,         0,             0,         CC_DC,                1,            CC_DC,            CC_DC,            CC_DC,         CC_DC);
-        cc.printClause(8,         1,         CC_DC,         CC_DC,            CC_DC,                0,                0,                0,         CC_DC);
-        cc.printClause(8,         0,         CC_DC,         CC_DC,            CC_DC,                1,                1,                1,         CC_DC);
-        cc.printClause(8,         1,         CC_DC,             1,            CC_DC,            CC_DC,                0,            CC_DC,             0);
-        cc.printClause(8,     CC_DC,         CC_DC,             0,            CC_DC,                1,            CC_DC,                0,             0);
-        cc.printClause(8,     CC_DC,         CC_DC,             0,            CC_DC,                0,            CC_DC,                1,             0);
-        cc.printClause(8,         0,         CC_DC,             0,            CC_DC,            CC_DC,                1,            CC_DC,             1);
-        cc.printClause(8,     CC_DC,         CC_DC,             1,            CC_DC,                1,            CC_DC,                0,             1);
-        cc.printClause(8,     CC_DC,         CC_DC,             1,            CC_DC,                0,            CC_DC,                1,             1);
-        cc.printClause(8,     CC_DC,             1,         CC_DC,                0,                0,                0,                0,         CC_DC);
-        cc.printClause(8,     CC_DC,             0,         CC_DC,                0,                0,                1,                0,         CC_DC);
-        cc.printClause(8,     CC_DC,             1,         CC_DC,                1,                0,                1,                0,         CC_DC);
-        cc.printClause(8,     CC_DC,             0,         CC_DC,                0,                1,                0,                1,         CC_DC);
-        cc.printClause(8,     CC_DC,             1,         CC_DC,                1,                1,                0,                1,         CC_DC);
-        cc.printClause(8,     CC_DC,             0,         CC_DC,                1,                1,                1,                1,         CC_DC);
-        cc.printClause(8,     CC_DC,             1,             1,                0,            CC_DC,                0,            CC_DC,             0);
-        cc.printClause(8,     CC_DC,             0,             1,                0,            CC_DC,                1,            CC_DC,             0);
-        cc.printClause(8,     CC_DC,             1,             1,                1,            CC_DC,                1,            CC_DC,             0);
-        cc.printClause(8,     CC_DC,             0,             0,                0,            CC_DC,                0,            CC_DC,             1);
-        cc.printClause(8,     CC_DC,             1,             0,                1,            CC_DC,                0,            CC_DC,             1);
-        cc.printClause(8,     CC_DC,             0,             0,                1,            CC_DC,                1,            CC_DC,             1);
+        // QuickFix
+        cc.setLiterals(1, carry - 1, carry - 1);
+        cc.printClause(1,         0,         1);
+        //                c_out         s1_out         s0_out             a1_in             a0_in             b1_in             b0_in       c_in
+        cc.setLiterals(8, carry, output + sum1, output + sum0, inputs[0] + sum1, inputs[0] + sum0, inputs[1] + sum1, inputs[1] + sum0, carry - 2);
+        cc.printClause(8, CC_DC,         CC_DC,             1,            CC_DC,                0,            CC_DC,                0,         0);
+        cc.printClause(8, CC_DC,         CC_DC,             0,            CC_DC,                1,            CC_DC,                1,         1);
+        cc.printClause(8,     1,             1,         CC_DC,                0,            CC_DC,            CC_DC,            CC_DC,     CC_DC);
+        cc.printClause(8,     0,             0,         CC_DC,                1,            CC_DC,            CC_DC,            CC_DC,     CC_DC);
+        cc.printClause(8,     1,         CC_DC,         CC_DC,            CC_DC,                0,                0,                0,     CC_DC);
+        cc.printClause(8,     0,         CC_DC,         CC_DC,            CC_DC,                1,                1,                1,     CC_DC);
+        cc.printClause(8,     1,         CC_DC,             1,            CC_DC,            CC_DC,                0,            CC_DC,         0);
+        cc.printClause(8, CC_DC,         CC_DC,             0,            CC_DC,                1,            CC_DC,                0,         0);
+        cc.printClause(8, CC_DC,         CC_DC,             0,            CC_DC,                0,            CC_DC,                1,         0);
+        cc.printClause(8,     0,         CC_DC,             0,            CC_DC,            CC_DC,                1,            CC_DC,         1);
+        cc.printClause(8, CC_DC,         CC_DC,             1,            CC_DC,                1,            CC_DC,                0,         1);
+        cc.printClause(8, CC_DC,         CC_DC,             1,            CC_DC,                0,            CC_DC,                1,         1);
+        cc.printClause(8, CC_DC,             1,         CC_DC,                0,                0,                0,                0,     CC_DC);
+        cc.printClause(8, CC_DC,             0,         CC_DC,                0,                0,                1,                0,     CC_DC);
+        cc.printClause(8, CC_DC,             1,         CC_DC,                1,                0,                1,                0,     CC_DC);
+        cc.printClause(8, CC_DC,             0,         CC_DC,                0,                1,                0,                1,     CC_DC);
+        cc.printClause(8, CC_DC,             1,         CC_DC,                1,                1,                0,                1,     CC_DC);
+        cc.printClause(8, CC_DC,             0,         CC_DC,                1,                1,                1,                1,     CC_DC);
+        cc.printClause(8, CC_DC,             1,             1,                0,            CC_DC,                0,            CC_DC,         0);
+        cc.printClause(8, CC_DC,             0,             1,                0,            CC_DC,                1,            CC_DC,         0);
+        cc.printClause(8, CC_DC,             1,             1,                1,            CC_DC,                1,            CC_DC,         0);
+        cc.printClause(8, CC_DC,             0,             0,                0,            CC_DC,                0,            CC_DC,         1);
+        cc.printClause(8, CC_DC,             1,             0,                1,            CC_DC,                0,            CC_DC,         1);
+        cc.printClause(8, CC_DC,             0,             0,                1,            CC_DC,                1,            CC_DC,         1);
     }
 
     // Final adder (without carry calculation)
     // XOR ->               !s_out            a_in            b_in        c_in
-    createXOR(printer, output + 31, inputs[0] + 31, inputs[1] + 31, start + 15);
+    createXOR(printer, output + 31, inputs[0] + 31, inputs[1] + 31, start + 30);
 }
 
 MU_TEST_C(Add_32::test) {
@@ -92,26 +91,15 @@ MU_TEST_C(Add_32::test) {
         solver.set_num_threads(4);
 
         uint32_t ausgabe = a[t] + b[t];
-        uint32_t result = 0;
 
-        Const con(32, a[t]);
-        con.setOutput(0);
-        con.append(&solver);
-
-        con.setValue(b[t]);
-        con.setOutput(32);
-        con.append(&solver);
+        solver_writeInt(solver,  0, 32, a[t]);
+        solver_writeInt(solver, 32, 32, b[t]);
 
         Add_32 adder;
         adder.append(&solver);
 
         lbool ret = solver.solve();
         mu_assert(ret == l_True, "Adder UNSAT");
-
-        for (unsigned i = 111; i >=80; i--) {
-            result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - 80));
-        }
-
-        mu_assert(ausgabe == result, "Adder failed");
+        mu_assert(ausgabe == solver_readInt(solver, 95, 32), "Adder failed");
     }
 }

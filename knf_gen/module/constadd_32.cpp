@@ -1,8 +1,9 @@
 #include "constadd_32.h"
 
+#include "add_half_1.h"
 #include "clausecreator.h"
 
-#include "const.h"
+#include "../common/solvertools.h"
 
 using std::vector;
 using namespace CMSat;
@@ -30,6 +31,7 @@ unsigned* ConstAdd_32::getStats() {
 void ConstAdd_32::create(Printer* printer) {
     printer->newModul("ConstAdd_32", this);
 
+    vector<unsigned> subinputs;
     ClauseCreator cc(printer);
 
     // Half adder
@@ -45,22 +47,14 @@ void ConstAdd_32::create(Printer* printer) {
     for (unsigned i = 1; i < 31; i++) {
         if (((value >> i) & 1) == 0) {
             // Half adder
-#ifdef XOR_OPTIMIZATION
-            // AND ->              c_out           a_in           c_in
-            createAND(printer, start + i, inputs[0] + i, start - 1 + i);
-
-            // XOR ->              !s_out           a_in           c_in
-            createXOR(printer, output + i, inputs[0] + i, start - 1 + i);
-#else
-            //                    c_out       s_out           a_in           c_in
-            cc.setLiterals(4, start + i, output + i, inputs[0] + i, start - 1 + i);
-            cc.printClause(4,     CC_DC,          0,             1,             1);
-            cc.printClause(4,         0,          0,         CC_DC,         CC_DC);
-            cc.printClause(4,         0,      CC_DC,         CC_DC,             1);
-            cc.printClause(4,         1,      CC_DC,             0,             0);
-            cc.printClause(4,     CC_DC,          1,             1,             0);
-            cc.printClause(4,     CC_DC,          1,             0,             1);
-#endif
+            subinputs.clear();
+            subinputs.push_back(inputs[0] + i);
+            subinputs.push_back(start - 1 + i);
+            Add_Half_1 add_half;
+            add_half.setInputs(subinputs);
+            add_half.setStart(start + i);
+            add_half.setOutput(output + i);
+            add_half.create(printer);
         } else {
 #ifdef XOR_OPTIMIZATION
             // OR ->              c_out           a_in           c_in
@@ -92,6 +86,7 @@ void ConstAdd_32::create(Printer* printer) {
 
     if (value == 0) return;
 
+#ifdef ADDITIONAL_CLAUSES
     for (unsigned i = 0; i < 32; i++) {
         if ((value >> i) & 1) {
             if (i < 31) {
@@ -133,7 +128,7 @@ void ConstAdd_32::create(Printer* printer) {
             cc.printClause(2,             1,         0);
         }
     }
-
+#endif
 }
 
 MU_TEST_C(ConstAdd_32::test) {
@@ -146,10 +141,8 @@ MU_TEST_C(ConstAdd_32::test) {
         solver.set_num_threads(4);
 
         uint32_t ausgabe = a[t] + b[t];
-        uint32_t result = 0;
 
-        Const con(32, a[t]);
-        con.append(&solver);
+        solver_writeInt(solver, 0, 32, a[t]);
 
         ConstAdd_32 constadder(b[t]);
         constadder.append(&solver);
@@ -157,11 +150,6 @@ MU_TEST_C(ConstAdd_32::test) {
         lbool ret = solver.solve();
         if (ret != l_True) printf("\n%u + %u = %u\n", a[t], b[t], ausgabe);
         mu_assert(ret == l_True, "ConstAdd UNSAT");
-
-        for (unsigned i = 94; i >=63; i--) {
-            result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - 63));
-        }
-        if (ausgabe != result) printf("\n%u + %u = %u | %u\n", a[t], b[t], ausgabe, result);
-        mu_assert(ausgabe == result, "ConstAdd failed");
+        mu_assert(ausgabe == solver_readInt(solver, 63, 32), "ConstAdd failed");
     }
 }

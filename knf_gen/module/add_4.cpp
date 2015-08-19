@@ -2,7 +2,7 @@
 
 #include "clausecreator.h"
 
-#include "const.h"
+#include "../common/solvertools.h"
 
 using namespace CMSat;
 
@@ -49,26 +49,15 @@ MU_TEST_C(Add_4::test) {
         solver.set_num_threads(4);
 
         uint32_t ausgabe = (a[t] + b[t]) & 0xF;
-        uint32_t result = 0;
 
-        Const con(4, a[t]);
-        con.setOutput(0);
-        con.append(&solver);
-
-        con.setValue(b[t]);
-        con.setOutput(4);
-        con.append(&solver);
+        solver_writeInt(solver, 0, 4, a[t]);
+        solver_writeInt(solver, 4, 4, b[t]);
 
         Add_4 adder;
         adder.append(&solver);
 
         lbool ret = solver.solve();
         mu_assert(ret == l_True, "Adder UNSAT");
-
-        for (unsigned i = 11; i >=8; i--) {
-            result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - 8));
-        }
-
-        mu_assert(ausgabe == result, "Adder failed");
+        mu_assert(ausgabe == solver_readInt(solver, 8, 4), "Adder failed");
     }
 }

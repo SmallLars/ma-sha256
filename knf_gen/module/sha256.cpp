@@ -1,9 +1,9 @@
 #include "sha256.h"
 
-#include "const.h"
 #include "add_prepare_32.h"
 #include "shacore_ex1_32.h"
 #include "clausecreator.h"
+
 #include "../common/sha256tools.h"
 #include "../common/solvertools.h"
 
@@ -87,25 +87,22 @@ void Sha256::create(Printer* printer) {
 }
 
 MU_TEST_C(Sha256::test) {
-    SATSolver solver;
+    SolverConf config;
+    config.verbosity = 0;//9;
+
+    SATSolver solver(config);
     solver.log_to_file("test.log");
 //    solver.set_num_threads(4);
-
-    Const con(32, 0);
 
     uint32_t input[16];
     sha256_padding(input, "Das ist eine Eingabe aus der ein Hash erstellt wird.");
     for (unsigned i = 0; i < 16; i++) {
-        con.setValue(input[i]);
-        con.setOutput(i * 32);
-        con.append(&solver);
+        solver_writeInt(solver, i * 32, 32, input[i]);
     }
 
     uint32_t state[8] = {0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19};
     for (unsigned i = 16; i < 24; i++) {
-        con.setValue(state[i - 16]);
-        con.setOutput(i * 32);
-        con.append(&solver);
+        solver_writeInt(solver, i * 32, 32, state[i - 16]);
     }
 
     Sha256 sha256;

@@ -2,6 +2,7 @@
 #define __CONST_H__
 
 #include "modul.h"
+#include "../common/minunit.h"
 
 class Const : public Modul {
     public:
@@ -11,6 +12,7 @@ class Const : public Modul {
         void setValue(uint32_t value);
         unsigned* getStats();
         void create(Printer* printer);
+        MU_TEST_H(test);
     private:
         uint32_t value;
 

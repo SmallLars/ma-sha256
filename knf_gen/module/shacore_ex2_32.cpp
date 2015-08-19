@@ -1,8 +1,9 @@
 #include "shacore_ex2_32.h"
 
-#include "const.h"
 #include "add_prepare_32.h"
 #include "shacore_ex1_32.h"
+
+#include "../common/solvertools.h"
 
 using std::vector;
 using namespace CMSat;
@@ -105,55 +106,19 @@ MU_TEST_C(ShaCore_Ex2_32::test) {
 		uint32_t fch = (e[t] & f[t]) ^ ((~e[t]) & g[t]);
 		uint32_t t1 = h[t] + S1 + fch + cons[t] + input1[t] + p0 + input3[t] + p1;
 		uint32_t ausgabe[2] = {t1 + t2, d[t] + t1};
-        uint32_t result[2] = {0, 0};
 
-        Const con(32, a[t]);
-        con.setOutput(0);
-        con.append(&solver);
-
-        con.setValue(b[t]);
-        con.setOutput(32);
-        con.append(&solver);
-
-        con.setValue(c[t]);
-        con.setOutput(64);
-        con.append(&solver);
-
-        con.setValue(d[t]);
-        con.setOutput(96);
-        con.append(&solver);
-
-        con.setValue(e[t]);
-        con.setOutput(128);
-        con.append(&solver);
-
-        con.setValue(f[t]);
-        con.setOutput(160);
-        con.append(&solver);
-
-        con.setValue(g[t]);
-        con.setOutput(192);
-        con.append(&solver);
-
-        con.setValue(h[t]);
-        con.setOutput(224);
-        con.append(&solver);
-
-        con.setValue(input1[t]);
-        con.setOutput(256);
-        con.append(&solver);
-
-        con.setValue(input2[t]);
-        con.setOutput(288);
-        con.append(&solver);
-
-        con.setValue(input3[t]);
-        con.setOutput(320);
-        con.append(&solver);
-
-        con.setValue(input4[t]);
-        con.setOutput(352);
-        con.append(&solver);
+        solver_writeInt(solver,   0, 32, a[t]);
+        solver_writeInt(solver,  32, 32, b[t]);
+        solver_writeInt(solver,  64, 32, c[t]);
+        solver_writeInt(solver,  96, 32, d[t]);
+        solver_writeInt(solver, 128, 32, e[t]);
+        solver_writeInt(solver, 160, 32, f[t]);
+        solver_writeInt(solver, 192, 32, g[t]);
+        solver_writeInt(solver, 224, 32, h[t]);
+        solver_writeInt(solver, 256, 32, input1[t]);
+        solver_writeInt(solver, 288, 32, input2[t]);
+        solver_writeInt(solver, 320, 32, input3[t]);
+        solver_writeInt(solver, 352, 32, input4[t]);
 
         ShaCore_Ex2_32 shaCore(cons[t]);
         shaCore.append(&solver);
@@ -162,14 +127,7 @@ MU_TEST_C(ShaCore_Ex2_32::test) {
         mu_assert(ret == l_True, "SHACORE UNSAT");
 
         unsigned output = shaCore.getOutput();
-        for (unsigned i = output + 31; i >= output; i--) {
-            result[0] |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - output));
-        }
-        for (unsigned i = output + 63; i >= output + 32; i--) {
-            result[1] |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - output));
-        }
-
-        mu_assert(ausgabe[0] == result[0], "SHACORE 0 failed");
-        mu_assert(ausgabe[1] == result[1], "SHACORE 1 failed");
+        mu_assert(ausgabe[0] == solver_readInt(solver, output     , 32), "SHACORE 0 failed");
+        mu_assert(ausgabe[1] == solver_readInt(solver, output + 32, 32), "SHACORE 1 failed");
     }
 }

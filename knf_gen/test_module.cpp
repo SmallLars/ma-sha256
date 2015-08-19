@@ -4,12 +4,14 @@
 
 #include "common/minunit.h"
 
+#include "module/const.h"
 #include "module/bsig0_32.h"
 #include "module/bsig1_32.h"
 #include "module/ssig0_32.h"
 #include "module/ssig1_32.h"
 #include "module/maj_32.h"
 #include "module/ch_32.h"
+#include "module/add_half_1.h"
 #include "module/add_4.h"
 #include "module/add_32.h"
 #include "module/sub_32.h"
@@ -27,12 +29,14 @@
 MU_TEST_SUITE(test_suite) {
 	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
 
+    MU_RUN_TEST(Const::test);
     MU_RUN_TEST(Bsig0_32::test);
     MU_RUN_TEST(Bsig1_32::test);
     MU_RUN_TEST(Ssig0_32::test);
     MU_RUN_TEST(Ssig1_32::test);
     MU_RUN_TEST(Maj_32::test);
     MU_RUN_TEST(Ch_32::test);
+	MU_RUN_TEST(Add_Half_1::test);
 	MU_RUN_TEST(Add_4::test);
 	MU_RUN_TEST(Add_32::test);
 	MU_RUN_TEST(Sub_32::test);

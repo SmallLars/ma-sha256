@@ -8,15 +8,15 @@ using std::setw;
 using namespace CMSat;
 
 Logger::Logger(const char* filename) : FilePrinter(filename) {
-    getStream() << "|        Name |              Inputs |     Start |    Output |\n";
-    getStream() << "|-------------|---------------------|-----------|-----------|\n";
+    getStream() << "|         Name |              Inputs |     Start |    Output |\n";
+    getStream() << "|--------------|---------------------|-----------|-----------|\n";
 }
 
 Logger::~Logger() {
 }
 
 void Logger::newModul(const char* name, Modul* modul) {
-    getStream() << "| " << setw(11) << name << " | ";
+    getStream() << "| " << setw(12) << name << " | ";
 
     for (unsigned i = 0; i < 3; i++) {
         if (i < modul->getInputs().size()) {

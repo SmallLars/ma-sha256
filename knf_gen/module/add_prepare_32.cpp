@@ -1,8 +1,9 @@
 #include "add_prepare_32.h"
 
-#include "const.h"
 #include "add_32.h"
 #include "add_ssig_32.h"
+
+#include "../common/solvertools.h"
 
 using std::vector;
 using namespace CMSat;
@@ -75,35 +76,17 @@ MU_TEST_C(Add_Prepare_32::test) {
 		uint32_t s0 = (b[t] >> 7 | b[t] << (32-7)) ^ (b[t] >> 18 | b[t] << (32-18)) ^ (b[t] >> 3);
 		uint32_t s1 = (d[t] >> 17 | d[t] << (32-17)) ^ (d[t] >> 19 | d[t] << (32-19)) ^ (d[t] >> 10);
 		uint32_t ausgabe = a[t] + s0 + c[t] + s1;
-        uint32_t result = 0;
 
-        Const con(32, a[t]);
-        con.setOutput(0);
-        con.append(&solver);
-
-        con.setValue(b[t]);
-        con.setOutput(32);
-        con.append(&solver);
-
-        con.setValue(c[t]);
-        con.setOutput(64);
-        con.append(&solver);
-
-        con.setValue(d[t]);
-        con.setOutput(96);
-        con.append(&solver);
+        solver_writeInt(solver,  0, 32, a[t]);
+        solver_writeInt(solver, 32, 32, b[t]);
+        solver_writeInt(solver, 64, 32, c[t]);
+        solver_writeInt(solver, 96, 32, d[t]);
 
         Add_Prepare_32 adderPrepare;
         adderPrepare.append(&solver);
 
         lbool ret = solver.solve();
         mu_assert(ret == l_True, "ADDER_PREPARE UNSAT");
-
-        unsigned output = adderPrepare.getOutput();
-        for (unsigned i = output + 31; i >= output; i--) {
-            result |= ((solver.get_model()[i] == l_True? 1 : 0) << (i - output));
-        }
-
-        mu_assert(ausgabe == result, "ADDER_PREPARE failed");
+        mu_assert(ausgabe == solver_readInt(solver, adderPrepare.getOutput(), 32), "ADDER_PREPARE failed");
     }
 }

@@ -1,8 +1,9 @@
 #include "prepare_32.h"
 
-#include "const.h"
 #include "add_prepare_32.h"
 #include "constadd_32.h"
+
+#include "../common/solvertools.h"
 
 using std::vector;
 using namespace CMSat;
@@ -106,11 +107,8 @@ MU_TEST_C(Prepare_32::test) {
             ausgabe[i] += sha_k[i];
 	    }
 
-        Const con(32, 0);
         for (unsigned i = 0; i < 16; i++) {
-            con.setValue(values[i][t]);
-            con.setOutput(i * 32);
-            con.append(&solver);
+            solver_writeInt(solver, i * 32, 32, values[i][t]);
         }
 
         Prepare_32 prepare;
@@ -121,11 +119,7 @@ MU_TEST_C(Prepare_32::test) {
 
         unsigned output = prepare.getOutput();
         for (unsigned i = 0; i < 64; i++) {
-            uint32_t result = 0;
-            for (unsigned b = output + 31; b >= output; b--) {
-                result |= ((solver.get_model()[b] == l_True? 1 : 0) << (b - output));
-            }
-            mu_assert(ausgabe[i] == result, "PREPARE failed");
+            mu_assert(ausgabe[i] == solver_readInt(solver, output, 32), "PREPARE failed");
             output += 32;
         }
     }

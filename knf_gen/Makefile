@@ -1,4 +1,4 @@
-CFLAGS = -Wall -g -Icryptominisat/include -DXOR_SUPPORT -DXOR_OPTIMIZATION
+CFLAGS = -Wall -g -Icryptominisat/include -DXOR_SUPPORT -DXOR_OPTIMIZATION -DADDITIONAL_CLAUSES
 LFLAGS = -Wl,-rpath=./cryptominisat/lib -Lcryptominisat/lib
 LIBS = -lcryptominisat4 -lpthread
 COMP = g++
