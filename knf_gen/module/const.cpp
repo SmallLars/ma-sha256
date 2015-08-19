@@ -46,7 +46,6 @@ MU_TEST_C(Const::test) {
     for (unsigned t = 0; t < 10; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
-        solver.set_num_threads(4);
 
         Const c(width[t], value[t]);
         c.append(&solver);

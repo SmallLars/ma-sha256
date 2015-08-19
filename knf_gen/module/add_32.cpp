@@ -1,7 +1,7 @@
 #include "add_32.h"
 
 #include "add_half_1.h"
-#include "clausecreator.h"
+#include "add_full_1.h"
 
 #include "../common/solvertools.h"
 
@@ -28,7 +28,6 @@ void Add_32::create(Printer* printer) {
     printer->newModul("Add_32", this);
 
     vector<unsigned> subinputs;
-    ClauseCreator cc(printer);
 
     // Half adder
     subinputs.clear();
@@ -42,32 +41,15 @@ void Add_32::create(Printer* printer) {
 
     // Full adder x30
     for (unsigned i = 1; i < 31; i++) {
-#ifdef XOR_OPTIMIZATION
-        //                    c_out           a_in           b_in           c_in
-        cc.setLiterals(4, start + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
-        cc.printClause(4,         1,             0,             0,         CC_DC);
-        cc.printClause(4,         0,             1,             1,         CC_DC);
-        cc.printClause(4,         1,             0,         CC_DC,             0);
-        cc.printClause(4,         1,         CC_DC,             0,             0);
-        cc.printClause(4,         0,             1,         CC_DC,             1);
-        cc.printClause(4,         0,         CC_DC,             1,             1);
-
-        // XOR ->              !s_out           a_in           b_in           c_in
-        createXOR(printer, output + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
-#else
-        //                    c_out       s_out           a_in           b_in           c_in
-        cc.setLiterals(5, start + i, output + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
-        cc.printClause(5,     CC_DC,          1,             0,             0,             0);
-        cc.printClause(5,     CC_DC,          0,             1,             1,             1);
-        cc.printClause(5,         1,      CC_DC,             0,             0,         CC_DC);
-        cc.printClause(5,         0,      CC_DC,             1,             1,         CC_DC);
-        cc.printClause(5,         1,          1,         CC_DC,         CC_DC,             0);
-        cc.printClause(5,         0,          0,         CC_DC,         CC_DC,             1);
-        cc.printClause(5,     CC_DC,          0,             1,             0,             0);
-        cc.printClause(5,     CC_DC,          0,             0,             1,             0);
-        cc.printClause(5,     CC_DC,          1,             1,             0,             1);
-        cc.printClause(5,     CC_DC,          1,             0,             1,             1);
-#endif
+        subinputs.clear();
+        subinputs.push_back(inputs[0] + i);
+        subinputs.push_back(inputs[1] + i);
+        subinputs.push_back(start - 1 + i);
+        Add_Full_1 add_full;
+        add_full.setInputs(subinputs);
+        add_full.setStart(start + i);
+        add_full.setOutput(output + i);
+        add_full.create(printer);
     }
 
     // Final adder (without carry calculation)
@@ -82,7 +64,6 @@ MU_TEST_C(Add_32::test) {
     for (unsigned t = 0; t < 10; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
-        solver.set_num_threads(4);
 
         uint32_t ausgabe = a[t] + b[t];
 

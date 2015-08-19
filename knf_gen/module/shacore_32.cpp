@@ -7,7 +7,7 @@
 
 #include "../common/solvertools.h"
 
-#define ADDITIONAL_CLAUSES 0
+#define ADDITIONAL_KNOWLEDGE 0
 
 using std::vector;
 using namespace CMSat;
@@ -31,7 +31,7 @@ ShaCore_32::ShaCore_32() : Modul(32, 9, 2) {
     Add_B0Maj_32 adderB0Maj;
     Add_B1Ch_32 adderB1Ch;
     output = start + adderB0Maj.getAdditionalVarCount() + adderB1Ch.getAdditionalVarCount() + 4 * adder.getAdditionalVarCount() - 64;
-#if ADDITIONAL_CLAUSES == 1
+#if ADDITIONAL_KNOWLEDGE == 1
     Sub_32 subber;
     output += adder.getAdditionalVarCount() + subber.getAdditionalVarCount() - 32;
 #endif
@@ -48,7 +48,7 @@ void ShaCore_32::create(Printer* printer) {
     unsigned newvars = 0;
     vector<unsigned> subinputs;
 
-#if ADDITIONAL_CLAUSES == 1
+#if ADDITIONAL_KNOWLEDGE == 1
     Add_32 rev_adder;
     Sub_32 rev_subber;
     newvars = rev_adder.getAdditionalVarCount() + rev_subber.getAdditionalVarCount() - 32;
@@ -111,7 +111,7 @@ void ShaCore_32::create(Printer* printer) {
     adder3.create(printer);
     newvars += adder3.getAdditionalVarCount() + 32;
 
-#if ADDITIONAL_CLAUSES == 1
+#if ADDITIONAL_KNOWLEDGE == 1
     newvars = 0;
 
     subinputs.clear();
@@ -146,7 +146,6 @@ MU_TEST_C(ShaCore_32::test) {
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
-        solver.set_num_threads(4);
 
 		uint32_t S0 = (a[t] >> 2 | a[t] << (32-2)) ^ (a[t] >> 13 | a[t] << (32-13)) ^ (a[t] >> 22 | a[t] << (32-22));
 		uint32_t maj = (a[t] & b[t]) ^ (a[t] & c[t]) ^ (b[t] & c[t]);

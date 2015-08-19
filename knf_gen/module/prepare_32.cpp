@@ -94,7 +94,6 @@ MU_TEST_C(Prepare_32::test) {
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
-        solver.set_num_threads(4);
 
 	    uint32_t ausgabe[64];
 	    for (unsigned i = 0; i < 16; i++) ausgabe[i] = values[i][t];

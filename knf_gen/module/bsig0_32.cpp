@@ -37,7 +37,6 @@ MU_TEST_C(Bsig0_32::test) {
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
-        solver.set_num_threads(4);
 
         uint32_t ausgabe = (a[t] >> 2 | a[t] << (32-2)) ^ (a[t] >> 13 | a[t] << (32-13)) ^ (a[t] >> 22 | a[t] << (32-22));
 

@@ -95,7 +95,6 @@ MU_TEST_C(ShaCore_Ex2_32::test) {
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
-        solver.set_num_threads(4);
 
 		uint32_t p0 = (input2[t] >> 7 | input2[t] << (32-7)) ^ (input2[t] >> 18 | input2[t] << (32-18)) ^ (input2[t] >> 3);
 		uint32_t p1 = (input4[t] >> 17 | input4[t] << (32-17)) ^ (input4[t] >> 19 | input4[t] << (32-19)) ^ (input4[t] >> 10);

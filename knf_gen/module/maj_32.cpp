@@ -55,7 +55,6 @@ MU_TEST_C(Maj_32::test) {
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
-        solver.set_num_threads(4);
 
         uint32_t ausgabe = (a[t] & b[t]) ^ (a[t] & c[t]) ^ (b[t] & c[t]);
 

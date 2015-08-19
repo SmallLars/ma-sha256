@@ -67,7 +67,6 @@ MU_TEST_C(Add_Ssig_32::test) {
     for (unsigned t = 0; t < 2; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
-        solver.set_num_threads(4);
 
 		uint32_t s0 = (a[t] >> 7 | a[t] << (32-7)) ^ (a[t] >> 18 | a[t] << (32-18)) ^ (a[t] >> 3);
 		uint32_t s1 = (b[t] >> 17 | b[t] << (32-17)) ^ (b[t] >> 19 | b[t] << (32-19)) ^ (b[t] >> 10);

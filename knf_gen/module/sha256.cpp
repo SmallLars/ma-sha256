@@ -92,7 +92,6 @@ MU_TEST_C(Sha256::test) {
 
     SATSolver solver(config);
     solver.log_to_file("test.log");
-//    solver.set_num_threads(4);
 
     uint32_t input[16];
     sha256_padding(input, "Das ist eine Eingabe aus der ein Hash erstellt wird.");

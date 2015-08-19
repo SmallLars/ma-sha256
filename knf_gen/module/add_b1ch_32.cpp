@@ -71,7 +71,6 @@ MU_TEST_C(Add_B1Ch_32::test) {
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
-        solver.set_num_threads(4);
 
 		uint32_t S1 = (a[t] >> 6 | a[t] << (32-6)) ^ (a[t] >> 11 | a[t] << (32-11)) ^ (a[t] >> 25 | a[t] << (32-25));
 		uint32_t ch = (a[t] & b[t]) ^ ((~a[t]) & c[t]);
