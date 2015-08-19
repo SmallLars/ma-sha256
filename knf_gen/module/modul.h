@@ -32,6 +32,7 @@ class Modul {
         unsigned getOutputNum();
 
         unsigned append(CMSat::SATSolver* solver);
+        unsigned writeLog(const char* filename);
         unsigned writeDimacs(const char* filename);
         unsigned writeTT(const char* filename);
 
