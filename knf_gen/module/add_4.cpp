@@ -22,7 +22,7 @@ unsigned* Add_4::getStats() {
 }
 
 void Add_4::create(Printer* printer) {
-    printer->newModul("Add_4", this);
+    printer->newModul(2, "Add_4", this);
 
     ClauseCreator cc(printer);
 

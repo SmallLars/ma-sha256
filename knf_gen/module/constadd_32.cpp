@@ -29,7 +29,7 @@ unsigned* ConstAdd_32::getStats() {
 }
 
 void ConstAdd_32::create(Printer* printer) {
-    printer->newModul("ConstAdd_32", this);
+    printer->newModul(10, "ConstAdd_32", this);
 
     vector<unsigned> subinputs;
     ClauseCreator cc(printer);

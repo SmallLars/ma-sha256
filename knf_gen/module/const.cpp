@@ -24,7 +24,7 @@ unsigned* Const::getStats() {
 }
 
 void Const::create(Printer* printer) {
-    printer->newModul("Const", this);
+    printer->newModul(10, "Const", this);
 /*
     for (unsigned i = getBitWidth(); i > 0; i--) {
         vector<Lit> clause;

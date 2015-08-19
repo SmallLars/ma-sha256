@@ -31,6 +31,8 @@ unsigned* Add_Prepare_32::getStats() {
 }
 
 void Add_Prepare_32::create(Printer* printer) {
+    printer->newModul(12, "Add_Prepare_32", this);
+
     unsigned newvars = 0;
     vector<unsigned> subinputs;
 

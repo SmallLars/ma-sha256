@@ -25,7 +25,7 @@ unsigned* Add_32::getStats() {
 }
 
 void Add_32::create(Printer* printer) {
-    printer->newModul("Add_32_multi", this);
+    printer->newModul(10, "Add_32_multi", this);
 
     vector<unsigned> subinputs;
     ClauseCreator cc(printer);

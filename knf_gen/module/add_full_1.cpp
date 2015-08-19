@@ -24,6 +24,8 @@ unsigned* Add_Full_1::getStats() {
 }
 
 void Add_Full_1::create(Printer* printer) {
+    printer->newModul(0, "Add_Full_1", this);
+
     ClauseCreator cc(printer);
 #ifdef XOR_OPTIMIZATION
     //                c_out       a_in       b_in       c_in

@@ -12,7 +12,7 @@ class Printer {
         Printer();
         ~Printer();
 
-        virtual void newModul(const char* name, Modul* modul);
+        virtual void newModul(unsigned level, const char* name, Modul* modul);
         virtual void create(bool xOR, const std::vector<CMSat::Lit>& vars);
     protected:
         std::vector< std::vector<CMSat::Lit> > convertXOR(const std::vector<CMSat::Lit>& vars);

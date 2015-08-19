@@ -31,7 +31,7 @@ unsigned* Ch_32::getStats() {
 }
 
 void Ch_32::create(Printer* printer) {
-    printer->newModul("Ch_32", this);
+    printer->newModul(10, "Ch_32", this);
 
     ClauseCreator cc(printer);
 

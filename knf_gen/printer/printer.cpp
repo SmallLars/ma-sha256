@@ -11,7 +11,7 @@ Printer::Printer() {
 Printer::~Printer() {
 }
 
-void Printer::newModul(const char* name, Modul* modul) {}
+void Printer::newModul(unsigned level, const char* name, Modul* modul) {}
 
 void Printer::create(bool xOR, const std::vector<CMSat::Lit>& vars) {}
 

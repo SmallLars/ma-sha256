@@ -45,6 +45,8 @@ unsigned* ShaCore_32::getStats() {
 }
 
 void ShaCore_32::create(Printer* printer) {
+    printer->newModul(20, "ShaCore_32", this);
+
     unsigned newvars = 0;
     vector<unsigned> subinputs;
 

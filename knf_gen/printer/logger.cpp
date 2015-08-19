@@ -15,7 +15,9 @@ Logger::Logger(const char* filename) : FilePrinter(filename) {
 Logger::~Logger() {
 }
 
-void Logger::newModul(const char* name, Modul* modul) {
+void Logger::newModul(unsigned level, const char* name, Modul* modul) {
+    if (level != 10) return;
+
     getStream() << "| " << setw(12) << name << " | ";
 
     for (unsigned i = 0; i < 3; i++) {

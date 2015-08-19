@@ -8,7 +8,7 @@ class Logger : public FilePrinter {
         Logger(const char* filename);
         ~Logger();
 
-        void newModul(const char* name, Modul* modul);
+        void newModul(unsigned level, const char* name, Modul* modul);
 };
 
 #endif //__LOGGER_H__

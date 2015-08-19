@@ -31,6 +31,8 @@ unsigned* Add_Ssig_32::getStats() {
 }
 
 void Add_Ssig_32::create(Printer* printer) {
+    printer->newModul(11, "Add_SSig_32", this);
+
     unsigned newvars = 0;
     vector<unsigned> subinputs;
 

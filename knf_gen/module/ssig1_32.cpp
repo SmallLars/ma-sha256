@@ -19,7 +19,7 @@ unsigned* Ssig1_32::getStats() {
 }
 
 void Ssig1_32::create(Printer* printer) {
-    printer->newModul("Ssig1_32", this);
+    printer->newModul(10, "Ssig1_32", this);
 
     for (unsigned i = 0; i < 22; i++) {
         createXOR(printer,

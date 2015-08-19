@@ -23,6 +23,8 @@ unsigned* Add_Half_1::getStats() {
 }
 
 void Add_Half_1::create(Printer* printer) {
+    printer->newModul(0, "Add_Half_1", this);
+
 #ifdef XOR_OPTIMIZATION
     // AND ->          c_out       a_in       b_in
     createAND(printer, start, inputs[0], inputs[1]);

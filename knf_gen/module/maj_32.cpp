@@ -31,7 +31,7 @@ unsigned* Maj_32::getStats() {
 }
 
 void Maj_32::create(Printer* printer) {
-    printer->newModul("Maj_32", this);
+    printer->newModul(10, "Maj_32", this);
 
     ClauseCreator cc(printer);
 

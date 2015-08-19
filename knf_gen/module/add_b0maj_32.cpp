@@ -32,6 +32,8 @@ unsigned* Add_B0Maj_32::getStats() {
 }
 
 void Add_B0Maj_32::create(Printer* printer) {
+    printer->newModul(11, "Add_B0Maj_32", this);
+
     unsigned newvars = 0;
     vector<unsigned> subinputs;
 

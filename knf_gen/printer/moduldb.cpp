@@ -20,7 +20,7 @@ ModulDB::~ModulDB() {
 */
 }
 
-void ModulDB::newModul(const char* name, Modul* modul) {
+void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
     vector< pair<unsigned, unsigned> > newModul;
 
     for (unsigned i = 0; i < modul->getInputs().size(); i++) {

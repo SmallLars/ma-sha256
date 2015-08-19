@@ -23,7 +23,7 @@ unsigned* Sub_32::getStats() {
 }
 
 void Sub_32::create(Printer* printer) {
-    printer->newModul("Sub_32", this);
+    printer->newModul(10, "Sub_32", this);
 
     ClauseCreator cc(printer);
 

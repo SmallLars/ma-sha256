@@ -10,7 +10,7 @@ class ModulDB : public Printer {
         ModulDB();
         ~ModulDB();
 
-        void newModul(const char* name, Modul* modul);
+        void newModul(unsigned level, const char* name, Modul* modul);
 
         bool isInSingleModul(std::vector<CMSat::Lit>& clause);
     private:
