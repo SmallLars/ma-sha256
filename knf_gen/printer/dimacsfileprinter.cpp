@@ -1,6 +1,6 @@
 #include "dimacsfileprinter.h"
 
-#include "../common/clauseprinter.h"
+#include "../common/clausetools.h"
 
 using std::vector;
 using namespace CMSat;

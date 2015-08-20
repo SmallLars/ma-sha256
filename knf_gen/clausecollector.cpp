@@ -11,7 +11,7 @@
 #include "cryptominisat4/cryptominisat.h"
 
 #include "common/dimacsparser.h"
-#include "common/clauseprinter.h"
+#include "common/clausetools.h"
 
 using std::cout;
 using std::set;
@@ -22,24 +22,10 @@ using std::ofstream;
 
 using namespace CMSat;
 
-struct clausecomp {
-    bool operator() (const vector<Lit>& lhs, const vector<Lit>& rhs) const {
-        if (lhs.size() != rhs.size())
-            return lhs.size() < rhs.size();
-
-        for (unsigned i = 0; i < lhs.size(); i++) {
-           if (lhs[i].toInt() != rhs[i].toInt())
-               return lhs[i].toInt() < rhs[i].toInt();
-        }
-
-        return false;
-    }
-};
-
 int main() {
-    set<vector<Lit>, clausecomp> original;
-    set<vector<Lit>, clausecomp> irreducible;
-    set<vector<Lit>, clausecomp> reducible;
+    set<vector<Lit>, compareClause> original;
+    set<vector<Lit>, compareClause> irreducible;
+    set<vector<Lit>, compareClause> reducible;
 
     const char* filename[4] = {"00_sha256.dimacs", "01_sha256.dimacs", "10_sha256.dimacs", "11_sha256.dimacs"};
     for (unsigned i = 0; i < 4; i++) {
