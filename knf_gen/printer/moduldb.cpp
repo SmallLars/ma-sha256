@@ -16,6 +16,7 @@ ModulDB::ModulDB() {
 }
 
 ModulDB::~ModulDB() {
+/*
     for (unsigned m = 0; m < module.size(); m++) {
         std::cout << "( " << module[m].level << ") " << module[m].name << ":";
         for (unsigned range = 0; range < module[m].ranges.size(); range++) {
@@ -23,6 +24,7 @@ ModulDB::~ModulDB() {
         }
         std::cout << "\n";
     }
+*/
 }
 
 void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
@@ -46,10 +48,16 @@ void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
         newModul.ranges.push_back(pair<unsigned, unsigned>(modul->getStart(), modul->getAdditionalVarCount()));
     }
 
+    for (vector<ModulEntry>::iterator it = module.begin(); it < module.end(); it++) {
+        if ((*it).level > level) {
+            module.insert(it, newModul);
+            return;
+        }
+    }
     module.push_back(newModul);
 }
 
-bool ModulDB::isInSingleModul(vector<Lit>& clause) {
+bool ModulDB::isInSingleModul(vector<Lit>& clause, const char* fileprefix) {
     for (unsigned m = 0; m < module.size(); m++) {
         bool isInside;
         for (unsigned lit = 0; lit < clause.size(); lit++) {

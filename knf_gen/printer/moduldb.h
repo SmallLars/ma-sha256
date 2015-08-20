@@ -14,7 +14,7 @@ class ModulDB : public Printer {
 
         void newModul(unsigned level, const char* name, Modul* modul);
 
-        bool isInSingleModul(std::vector<CMSat::Lit>& clause);
+        bool isInSingleModul(std::vector<CMSat::Lit>& clause, const char* fileprefix);
     private:
         std::vector<ModulEntry> module;
 };
