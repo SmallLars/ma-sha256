@@ -5,7 +5,11 @@
 
 #include <utility>
 
-struct ModulEntry;
+struct ModulEntry {
+    unsigned level;
+    const char* name;
+    std::vector< std::pair<unsigned, unsigned> > ranges;
+};
 
 class ModulDB : public Printer {
     public:
@@ -14,7 +18,7 @@ class ModulDB : public Printer {
 
         void newModul(unsigned level, const char* name, Modul* modul);
 
-        bool isInSingleModul(std::vector<CMSat::Lit>& clause, const char* fileprefix);
+        ModulEntry* isInSingleModul(std::vector<CMSat::Lit>& clause);
     private:
         std::vector<ModulEntry> module;
 };

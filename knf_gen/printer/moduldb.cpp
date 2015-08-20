@@ -6,12 +6,6 @@ using std::vector;
 using std::pair;
 using namespace CMSat;
 
-struct ModulEntry {
-    unsigned level;
-    const char* name;
-    vector< pair<unsigned, unsigned> > ranges;
-};
-
 ModulDB::ModulDB() {
 }
 
@@ -57,7 +51,7 @@ void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
     module.push_back(newModul);
 }
 
-bool ModulDB::isInSingleModul(vector<Lit>& clause, const char* fileprefix) {
+ModulEntry* ModulDB::isInSingleModul(vector<Lit>& clause) {
     for (unsigned m = 0; m < module.size(); m++) {
         bool isInside;
         for (unsigned lit = 0; lit < clause.size(); lit++) {
@@ -70,7 +64,7 @@ bool ModulDB::isInSingleModul(vector<Lit>& clause, const char* fileprefix) {
             }
             if (!isInside) break;
         }
-        if (isInside) return true;
+        if (isInside) return &module[m];
     }
-    return false;
+    return NULL;
 }

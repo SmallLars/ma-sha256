@@ -28,31 +28,32 @@ using std::setw;
 using std::ofstream;
 using namespace CMSat;
 
+#define INPUT_FILE "2015-08-11_dump/000_irred.dimacs"
+#define OUTPUT_PREFIX "2015-08-11_dump/000_irred_"
+
+//#define INPUT_FILE "2015-08-11_dump/000_learned.dimacs"
+//#define OUTPUT_PREFIX "2015-08-11_dump/000_learned_"
+
 int main() {
     ModulDB printer;
     Sha256 sha256;
     sha256.create(&printer);
 
-    DimacsParser dp("2015-08-11_dump/000_irred.dimacs");
-    ofstream inside_out("2015-08-11_dump/000_irred_inside.dimacs");
-    ofstream outside_out("2015-08-11_dump/000_irred_outside.dimacs");
-//    DimacsParser dp("2015-08-11_dump/000_learned.dimacs");
-//    ofstream inside_out("2015-08-11_dump/000_learned_inside.dimacs");
-//    ofstream outside_out("2015-08-11_dump/000_learned_outside.dimacs");
+    DimacsParser dp(INPUT_FILE);
+
     vector<Lit> learned;
-    unsigned counter = 0;
     while (dp.getNextClause(learned)) {
-        bool ret = printer.isInSingleModul(learned, "");
-        if (ret) {
-            printClause(inside_out, learned);
-        } else {
-            counter++;
-            printClause(outside_out, learned);
+        ModulEntry* mod = printer.isInSingleModul(learned);
+        if (mod != NULL) {
+            // TODO mit learned anhand von mod
         }
+
+        char filename[100];
+        snprintf(filename, 100, "%s%s.dimacs", OUTPUT_PREFIX, (mod == NULL ? "outside" : mod->name));
+        ofstream file(filename, std::ofstream::app);
+        printClause(file, learned);
+        file.close();
     }
-    inside_out.close();
-    outside_out.close();
-    cout << "Modulübergreifend: " << counter << "\n";
 
     return 0;
 }
