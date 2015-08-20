@@ -32,7 +32,7 @@ int main() {
     ModulDB printer;
     Sha256 sha256;
     sha256.create(&printer);
-
+/*
     DimacsParser dp("2015-08-11_dump/000_irred.dimacs");
     ofstream inside_out("2015-08-11_dump/000_irred_inside.dimacs");
     ofstream outside_out("2015-08-11_dump/000_irred_outside.dimacs");
@@ -53,6 +53,6 @@ int main() {
     inside_out.close();
     outside_out.close();
     cout << "Modulübergreifend: " << counter << "\n";
-
+*/
     return 0;
 }

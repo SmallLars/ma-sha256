@@ -3,7 +3,9 @@
 
 #include "printer.h"
 
-#include <utility> 
+#include <utility>
+
+struct ModulEntry;
 
 class ModulDB : public Printer {
     public:
@@ -14,7 +16,7 @@ class ModulDB : public Printer {
 
         bool isInSingleModul(std::vector<CMSat::Lit>& clause);
     private:
-        std::vector< std::vector< std::pair<unsigned, unsigned> > > module;
+        std::vector<ModulEntry> module;
 };
 
 #endif //__MODULDB_H__
