@@ -4,11 +4,14 @@
 #include "printer.h"
 
 #include <utility>
+#include <iostream>
 
 struct ModulEntry {
     unsigned level;
     const char* name;
     std::vector< std::pair<unsigned, unsigned> > ranges;
+
+    void print(std::ostream& out);
 };
 
 class ModulDB : public Printer {

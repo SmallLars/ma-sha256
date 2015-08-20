@@ -45,7 +45,29 @@ int main() {
     while (dp.getNextClause(learned)) {
         ModulEntry* mod = printer.isInSingleModul(learned);
         if (mod != NULL) {
-            // TODO mit learned anhand von mod
+/*
+            if (learned.size() < 4) {
+                mod->print(std::cout);
+                std::cout << "OLD: ";
+                printClause(std::cout, learned);
+            }
+*/
+            for (unsigned r = mod->ranges.size() - 1; r > 0; r--) {
+                unsigned distance = mod->ranges[r].first - (mod->ranges[r-1].first + mod->ranges[r-1].second);
+                for (unsigned l = 0; l < learned.size(); l++) {
+                    if (learned[l].var() >= mod->ranges[r].first) learned[l] = Lit(learned[l].var() - distance, learned[l].sign());
+                }
+            }
+            unsigned distance = mod->ranges[0].first;
+            for (unsigned l = 0; l < learned.size(); l++) {
+                learned[l] = Lit(learned[l].var() - distance, learned[l].sign());
+            }
+/*
+            if (learned.size() < 4) {
+                std::cout << "NEW: ";
+                printClause(std::cout, learned);
+            }
+*/
         }
 
         char filename[100];

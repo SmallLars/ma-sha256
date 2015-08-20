@@ -4,6 +4,7 @@
 
 using std::vector;
 using std::pair;
+using std::ostream;
 using namespace CMSat;
 
 ModulDB::ModulDB() {
@@ -12,11 +13,7 @@ ModulDB::ModulDB() {
 ModulDB::~ModulDB() {
 /*
     for (unsigned m = 0; m < module.size(); m++) {
-        std::cout << "( " << module[m].level << ") " << module[m].name << ":";
-        for (unsigned range = 0; range < module[m].ranges.size(); range++) {
-            std::cout << " " << module[m].ranges[range].first << ":" << module[m].ranges[range].second;
-        }
-        std::cout << "\n";
+        module[m].print(std::cout);
     }
 */
 }
@@ -67,4 +64,12 @@ ModulEntry* ModulDB::isInSingleModul(vector<Lit>& clause) {
         if (isInside) return &module[m];
     }
     return NULL;
+}
+
+void ModulEntry::print(ostream& out) {
+    out << "(" << level << ") " << name << ":";
+    for (unsigned range = 0; range < ranges.size(); range++) {
+        out << " " << ranges[range].first << ":" << ranges[range].second;
+    }
+    out << "\n";
 }
