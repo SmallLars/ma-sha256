@@ -113,6 +113,13 @@ void ShaCore_32::create(Printer* printer) {
     adder3.create(printer);
     newvars += adder3.getAdditionalVarCount() + 32;
 
+#ifdef ADDITIONAL_CLAUSES
+    // XOR ->             731    289         321          637    
+    createXOR(printer, output, start, start + 32, start + 348);
+    // XOR ->                  637          416          448          574    
+    createXOR(printer, start + 348, start + 127, start + 159, start + 285);
+#endif
+
 #if ADDITIONAL_KNOWLEDGE == 1
     newvars = 0;
 

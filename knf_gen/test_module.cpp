@@ -61,6 +61,18 @@ int main() {
 //    ConstAdd_32 adder(0xFFFFFFFF);
 //    adder.writeDimacs("constadd.dimacs");
 
+//    Add_32 adder;
+//    adder.writeDimacs("add_32.dimacs");
+
+//    Add_B0Maj_32 adder;
+//    adder.writeDimacs("add_b0maj_32.dimacs");
+
+//    Add_Ssig_32 adder;
+//    adder.writeDimacs("add_ssig_32.dimacs");
+
+//    ShaCore_32 shacore;
+//    shacore.writeDimacs("shacore_32.dimacs");
+
 	MU_RUN_SUITE(test_suite);
 	MU_REPORT();
     return 0;

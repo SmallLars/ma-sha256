@@ -8,19 +8,24 @@ using std::setw;
 using namespace CMSat;
 
 Logger::Logger(const char* filename) : FilePrinter(filename) {
-    getStream() << "|         Name |              Inputs |     Start |    Output |\n";
-    getStream() << "|--------------|---------------------|-----------|-----------|\n";
+    getStream() << "| Level |           Name |                     Inputs |     Start |    Output |\n";
+    getStream() << "|-------|----------------|----------------------------|-----------|-----------|\n";
 }
 
 Logger::~Logger() {
 }
 
 void Logger::newModul(unsigned level, const char* name, Modul* modul) {
-    if (level != 10) return;
+    if (level < 10) return;
 
-    getStream() << "| " << setw(12) << name << " | ";
+    getStream() << "| " << setw(5) << level << " | ";
+    getStream() << setw(14) << name << " | ";
 
-    for (unsigned i = 0; i < 3; i++) {
+    for (unsigned i = 0; i < 4; i++) {
+        if (i == 3 && modul->getInputs().size() > 4) {
+            getStream() << "  .....";
+            break;
+        }
         if (i < modul->getInputs().size()) {
             getStream() << setw(i == 0 ? 5 : 7) << modul->getInputs()[i] + 1;
         } else {

@@ -2,6 +2,7 @@
 
 #include "add_half_1.h"
 #include "add_full_1.h"
+#include "clausecreator.h"
 
 #include "../common/solvertools.h"
 
@@ -55,6 +56,23 @@ void Add_32::create(Printer* printer) {
     // Final adder (without carry calculation)
     // XOR ->               !s_out            a_in            b_in        c_in
     createXOR(printer, output + 31, inputs[0] + 31, inputs[1] + 31, start + 30);
+
+#ifdef ADDITIONAL_CLAUSES
+    ClauseCreator cc(printer);
+    //              c_out[0]  c_out[1]s_out[0]    s_out[1]    a_in[0]        a_in[1]    b_in[0]        b_in[1]
+    cc.setLiterals(8, start, start + 1, output, output + 1, inputs[0], inputs[0] + 1, inputs[1], inputs[1] + 1);
+    cc.printClause(8, CC_DC,         0,  CC_DC,      CC_DC,         1,             1,     CC_DC,         CC_DC);
+    cc.printClause(8, CC_DC,         0,  CC_DC,      CC_DC,         1,         CC_DC,     CC_DC,             1);
+    cc.printClause(8, CC_DC,         0,  CC_DC,      CC_DC,     CC_DC,             1,         1,         CC_DC);
+    cc.printClause(8, CC_DC,         0,  CC_DC,      CC_DC,     CC_DC,         CC_DC,         1,             1);
+    cc.printClause(8, CC_DC,         1,  CC_DC,      CC_DC,         0,             0,         0,         CC_DC);
+    cc.printClause(8, CC_DC,         1,  CC_DC,      CC_DC,         0,         CC_DC,         0,             0);
+    cc.printClause(8, CC_DC,         0,  CC_DC,          0,         1,         CC_DC,     CC_DC,         CC_DC);
+    cc.printClause(8, CC_DC,         0,      0,      CC_DC,     CC_DC,             1,     CC_DC,         CC_DC);
+    cc.printClause(8,     1,     CC_DC,      1,      CC_DC,     CC_DC,         CC_DC,         0,         CC_DC);
+    cc.printClause(8, CC_DC,         0,      0,      CC_DC,     CC_DC,         CC_DC,     CC_DC,             1);
+    cc.printClause(8, CC_DC,         0,      0,          0,     CC_DC,         CC_DC,     CC_DC,         CC_DC);
+#endif
 }
 
 MU_TEST_C(Add_32::test) {

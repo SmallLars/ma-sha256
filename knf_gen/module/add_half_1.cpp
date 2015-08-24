@@ -25,6 +25,7 @@ unsigned* Add_Half_1::getStats() {
 void Add_Half_1::create(Printer* printer) {
     printer->newModul(0, "Add_Half_1", this);
 
+    ClauseCreator cc(printer);
 #ifdef XOR_OPTIMIZATION
     // AND ->          c_out       a_in       b_in
     createAND(printer, start, inputs[0], inputs[1]);
@@ -32,8 +33,7 @@ void Add_Half_1::create(Printer* printer) {
     // XOR ->          !s_out       a_in       b_in
     createXOR(printer, output, inputs[0], inputs[1]);
 #else
-    ClauseCreator cc(printer);
-    //                 cout_  s_out       a_in       b_in
+    //                 c_out  s_out       a_in       b_in
     cc.setLiterals(4, start, output, inputs[0], inputs[1]);
     cc.printClause(4, CC_DC,      0,         1,         1);
     cc.printClause(4,     0,      0,     CC_DC,     CC_DC);
@@ -41,6 +41,12 @@ void Add_Half_1::create(Printer* printer) {
     cc.printClause(4,     1,  CC_DC,         0,         0);
     cc.printClause(4, CC_DC,      1,         1,         0);
     cc.printClause(4, CC_DC,      1,         0,         1);
+#endif
+
+#ifdef ADDITIONAL_CLAUSES
+    //                 c_out  s_out       a_in       b_in
+    cc.setLiterals(4, start, output, inputs[0], inputs[1]);
+    cc.printClause(4,     1,      1,         0,     CC_DC);
 #endif
 }
 

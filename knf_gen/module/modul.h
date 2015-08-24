@@ -13,7 +13,7 @@
 class Modul {
     public:
         Modul(unsigned bitWidth, unsigned inputCount, unsigned outputCount);
-        ~Modul();
+        virtual ~Modul();
 
         unsigned getMaxVar();
         unsigned getVarCount();

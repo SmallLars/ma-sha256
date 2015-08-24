@@ -1,5 +1,7 @@
 #include "moduldb.h"
 
+#include <algorithm>
+
 #include "../module/modul.h"
 
 using std::vector;
@@ -25,18 +27,29 @@ void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
     newModul.level = level;
     newModul.name = name;
 
-    for (unsigned i = 0; i < modul->getInputs().size(); i++) {
-        if (i > 0 && newModul.ranges.back().first + newModul.ranges.back().second == modul->getInputs()[i]) {
+    // Inputs
+    vector<unsigned> sortedInputs(modul->getInputs());
+    std::sort(sortedInputs.begin(), sortedInputs.end());
+    for (unsigned i = 0; i < sortedInputs.size(); i++) {
+        if (i > 0 && newModul.ranges.back().first + newModul.ranges.back().second == sortedInputs[i]) {
             newModul.ranges.back().second += modul->getBitWidth();
             continue;
         }
-        newModul.ranges.push_back(pair<unsigned, unsigned>(modul->getInputs()[i], modul->getBitWidth()));
+        newModul.ranges.push_back(pair<unsigned, unsigned>(sortedInputs[i], modul->getBitWidth()));
     }
 
+    // Additional Vars
     if (newModul.ranges.size() > 0 && newModul.ranges.back().first + newModul.ranges.back().second == modul->getStart()) {
-        newModul.ranges.back().second += modul->getAdditionalVarCount();
+        newModul.ranges.back().second += (modul->getAdditionalVarCount() - modul->getOutputNum());
     } else {
-        newModul.ranges.push_back(pair<unsigned, unsigned>(modul->getStart(), modul->getAdditionalVarCount()));
+        newModul.ranges.push_back(pair<unsigned, unsigned>(modul->getStart(), (modul->getAdditionalVarCount() - modul->getOutputNum())));
+    }
+
+    // Output
+    if (newModul.ranges.size() > 0 && newModul.ranges.back().first + newModul.ranges.back().second == modul->getOutput()) {
+        newModul.ranges.back().second += modul->getOutputNum();
+    } else {
+        newModul.ranges.push_back(pair<unsigned, unsigned>(modul->getOutput(), modul->getOutputNum()));
     }
 
     for (vector<ModulEntry>::iterator it = module.begin(); it < module.end(); it++) {

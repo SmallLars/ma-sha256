@@ -3,6 +3,7 @@
 #include "ssig0_32.h"
 #include "ssig1_32.h"
 #include "add_32.h"
+#include "clausecreator.h"
 
 #include "../common/solvertools.h"
 
@@ -31,7 +32,7 @@ unsigned* Add_Ssig_32::getStats() {
 }
 
 void Add_Ssig_32::create(Printer* printer) {
-    printer->newModul(11, "Add_SSig_32", this);
+    printer->newModul(11, "Add_Ssig_32", this);
 
     unsigned newvars = 0;
     vector<unsigned> subinputs;
@@ -60,6 +61,20 @@ void Add_Ssig_32::create(Printer* printer) {
     adder.setStart(start + newvars);
     adder.create(printer);
     newvars += adder.getAdditionalVarCount();
+
+#ifdef ADDITIONAL_CLAUSES
+    ClauseCreator cc(printer);
+    //                        93         156         157             46              48
+    cc.setLiterals(5, start + 28, start + 91, start + 92, inputs[1]+ 13, inputs[1] + 15);
+    cc.printClause(5,          1,      CC_DC,          0,             1,              1);
+    cc.printClause(5,      CC_DC,          1,          0,             1,              1);
+    cc.printClause(5,          0,      CC_DC,          1,             1,              0);
+    cc.printClause(5,      CC_DC,          0,          1,             1,              0);
+    cc.printClause(5,          0,      CC_DC,          1,             0,              1);
+    cc.printClause(5,      CC_DC,          0,          1,             0,              1);
+    cc.printClause(5,          1,      CC_DC,          0,             0,              0);
+    cc.printClause(5,      CC_DC,          1,          0,             0,              0);
+#endif
 }
 
 MU_TEST_C(Add_Ssig_32::test) {
