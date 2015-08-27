@@ -42,6 +42,10 @@ void Ch_32::create(Printer* printer) {
         cc.printClause(4,          0,             0,             1,         CC_DC);
         cc.printClause(4,          1,             1,         CC_DC,             0);
         cc.printClause(4,          0,             1,         CC_DC,             1);
+#ifdef ADDITIONAL_CLAUSES
+        cc.printClause(4,          0,         CC_DC,             1,             1);
+        cc.printClause(4,          1,         CC_DC,             0,             0);
+#endif
     }
 }
 

@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fstream>
+#include <string.h>
 
 #include "cryptominisat4/cryptominisat.h"
 
@@ -32,7 +33,7 @@ using std::setw;
 using std::ofstream;
 using namespace CMSat;
 
-//#define USE_IRRED 1
+#define USE_IRRED 1
 
 #ifdef USE_IRRED
     #define INPUT_FILE "2015-08-11_dump/000_irred.dimacs"
@@ -60,31 +61,31 @@ int main() {
             printClause(outsideFile, learned);
             continue;
         }
-
 /*
-        if (learned.size() < 4) {
+        if (strcmp(mod->name, "ShaCore_32") == 0 && learned.size() < 4) {
             mod->print(std::cout);
             std::cout << "OLD: ";
             printClause(std::cout, learned);
         }
 */
-        for (unsigned r = mod->ranges.size() - 1; r > 0; r--) {
-            unsigned distance = mod->ranges[r].first - (mod->ranges[r-1].first + mod->ranges[r-1].second);
+        unsigned offset = 0;
+        vector<Lit> normalized;
+        for (unsigned r = 0; r < mod->ranges.size(); r++) {
             for (unsigned l = 0; l < learned.size(); l++) {
-                if (learned[l].var() >= mod->ranges[r].first) learned[l] = Lit(learned[l].var() - distance, learned[l].sign());
+                if (learned[l].var() >= mod->ranges[r].first && learned[l].var() < mod->ranges[r].first + mod->ranges[r].second) {
+                    normalized.push_back(Lit(learned[l].var() - mod->ranges[r].first + offset, learned[l].sign()));
+                    learned.erase(learned.begin() + l--);
+                }
             }
-        }
-        unsigned distance = mod->ranges[0].first;
-        for (unsigned l = 0; l < learned.size(); l++) {
-            learned[l] = Lit(learned[l].var() - distance, learned[l].sign());
+            offset += mod->ranges[r].second;
         }
 /*
-        if (learned.size() < 4) {
+        if (strcmp(mod->name, "ShaCore_32") == 0 && normalized.size() < 4) {
             std::cout << "NEW: ";
-            printClause(std::cout, learned);
+            printClause(std::cout, normalized);
         }
 */
-        storage[mod->name].insert(learned);
+        storage[mod->name].insert(normalized);
     }
 
     for (map<const char*, set<vector<Lit>, compareClause> >::iterator it = storage.begin(); it != storage.end(); ++it) {

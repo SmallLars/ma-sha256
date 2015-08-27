@@ -3,6 +3,7 @@
 #include "bsig1_32.h"
 #include "ch_32.h"
 #include "add_32.h"
+#include "clausecreator.h"
 
 #include "../common/solvertools.h"
 
@@ -63,6 +64,28 @@ void Add_B1Ch_32::create(Printer* printer) {
     adder.setStart(start + newvars);
     adder.create(printer);
     newvars += adder.getAdditionalVarCount();
+
+#ifdef ADDITIONAL_CLAUSES
+    ClauseCreator cc(printer);
+    for (unsigned i = 0; i < 31; i++) {
+        cc.setLiterals(6, inputs[0] + i, inputs[1] + i, inputs[2] + i, start + i, start + 63 + i, start + 64 + i);
+        cc.printClause(6,             0,             1,         CC_DC,         1,          CC_DC,              0);
+        cc.printClause(6,             1,         CC_DC,             1,         1,          CC_DC,              0);
+        cc.printClause(6,             0,             0,         CC_DC,         0,          CC_DC,              1);
+        cc.printClause(6,             1,         CC_DC,             0,         0,          CC_DC,              1);
+        cc.printClause(6,             0,             1,         CC_DC,     CC_DC,              1,              0);
+        cc.printClause(6,             1,         CC_DC,             1,     CC_DC,              1,              0);
+        if (i == 0) continue;
+        cc.printClause(6,             0,             0,         CC_DC,     CC_DC,              0,              1);
+        cc.printClause(6,             1,         CC_DC,             0,     CC_DC,              0,              1);
+    }
+
+    for (unsigned i = 0; i < 32; i++) {
+        cc.setLiterals(6, inputs[0] + i, inputs[1] + i, inputs[2] + i, start + i, start + 63 + i, output + i);
+        cc.printClause(6,             1,         CC_DC,             1,         0,              1,          1);
+        cc.printClause(6,             0,             1,         CC_DC,         0,              1,          1);
+    }
+#endif
 }
 
 MU_TEST_C(Add_B1Ch_32::test) {

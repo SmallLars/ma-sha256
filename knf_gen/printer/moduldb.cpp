@@ -28,14 +28,12 @@ void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
     newModul.name = name;
 
     // Inputs
-    vector<unsigned> sortedInputs(modul->getInputs());
-    std::sort(sortedInputs.begin(), sortedInputs.end());
-    for (unsigned i = 0; i < sortedInputs.size(); i++) {
-        if (i > 0 && newModul.ranges.back().first + newModul.ranges.back().second == sortedInputs[i]) {
+    for (unsigned i = 0; i < modul->getInputs().size(); i++) {
+        if (i > 0 && newModul.ranges.back().first + newModul.ranges.back().second == modul->getInputs()[i]) {
             newModul.ranges.back().second += modul->getBitWidth();
             continue;
         }
-        newModul.ranges.push_back(pair<unsigned, unsigned>(sortedInputs[i], modul->getBitWidth()));
+        newModul.ranges.push_back(pair<unsigned, unsigned>(modul->getInputs()[i], modul->getBitWidth()));
     }
 
     // Additional Vars
@@ -82,7 +80,7 @@ ModulEntry* ModulDB::isInSingleModul(vector<Lit>& clause) {
 void ModulEntry::print(ostream& out) {
     out << "(" << level << ") " << name << ":";
     for (unsigned range = 0; range < ranges.size(); range++) {
-        out << " " << ranges[range].first << ":" << ranges[range].second;
+        out << " " << ranges[range].first + 1 << ":" << ranges[range].second;
     }
     out << "\n";
 }

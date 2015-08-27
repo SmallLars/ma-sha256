@@ -4,6 +4,7 @@
 #include "add_b0maj_32.h"
 #include "add_b1ch_32.h"
 #include "sub_32.h"
+#include "clausecreator.h"
 
 #include "../common/solvertools.h"
 
@@ -118,6 +119,36 @@ void ShaCore_32::create(Printer* printer) {
     createXOR(printer, output, start, start + 32, start + 348);
     // XOR ->                  637          416          448          574    
     createXOR(printer, start + 348, start + 127, start + 159, start + 285);
+
+    ClauseCreator cc(printer);
+    //                          226            258          481          512          544          607          638
+    cc.setLiterals(7, inputs[7] + 1, inputs[8] + 1, start + 192, start + 223, start + 255, start + 318, start + 349);
+    cc.printClause(7,             1,         CC_DC,       CC_DC,       CC_DC,           0,           0,       CC_DC);
+    cc.printClause(7,         CC_DC,             1,       CC_DC,       CC_DC,           0,           0,       CC_DC);
+    cc.printClause(7,         CC_DC,         CC_DC,       CC_DC,           1,           0,           0,       CC_DC);
+    cc.printClause(7,         CC_DC,         CC_DC,       CC_DC,       CC_DC,           0,           0,           0);
+    cc.printClause(7,         CC_DC,         CC_DC,           0,       CC_DC,       CC_DC,           0,           0);
+    //                      290         322         354         385          607          638          701
+    cc.setLiterals(7, start + 1, start + 33, start + 65, start + 96, start + 318, start + 349, start + 412);
+    cc.printClause(7,         1,      CC_DC,          0,      CC_DC,       CC_DC,       CC_DC,           0);
+    cc.printClause(7,     CC_DC,          1,          0,      CC_DC,       CC_DC,       CC_DC,           0);
+    cc.printClause(7,     CC_DC,      CC_DC,          0,      CC_DC,       CC_DC,           1,           0);
+    cc.printClause(7,     CC_DC,      CC_DC,      CC_DC,          1,           0,       CC_DC,           0);
+    //                        417          449          481          575          607          670          764
+    cc.setLiterals(7, start + 128, start + 160, start + 192, start + 286, start + 318, start + 381, output + 33);
+    cc.printClause(7,           1,       CC_DC,           0,       CC_DC,           0,       CC_DC,       CC_DC);
+    cc.printClause(7,       CC_DC,           1,           0,       CC_DC,           0,       CC_DC,       CC_DC);
+    cc.printClause(7,       CC_DC,       CC_DC,           0,           1,           0,       CC_DC,       CC_DC);
+    cc.printClause(7,       CC_DC,       CC_DC,       CC_DC,       CC_DC,           0,           0,           0);
+    //                           98         354          512          575          607          670          701         732
+    cc.setLiterals(8, inputs[3] + 1, start + 65, start + 223, start + 286, start + 318, start + 381, start + 412, output + 1);
+    cc.printClause(8,             1,      CC_DC,       CC_DC,       CC_DC,           0,           0,       CC_DC,      CC_DC);
+    cc.printClause(8,         CC_DC,      CC_DC,           1,       CC_DC,           0,           0,       CC_DC,      CC_DC);
+    cc.printClause(8,         CC_DC,      CC_DC,           1,       CC_DC,           0,       CC_DC,           0,      CC_DC);
+    cc.printClause(8,         CC_DC,      CC_DC,       CC_DC,           1,           0,           0,       CC_DC,      CC_DC);
+    cc.printClause(8,         CC_DC,      CC_DC,       CC_DC,           1,           0,       CC_DC,           0,      CC_DC);
+    cc.printClause(8,         CC_DC,      CC_DC,       CC_DC,       CC_DC,           0,       CC_DC,           0,          0);
+    cc.printClause(8,         CC_DC,          0,       CC_DC,       CC_DC,       CC_DC,       CC_DC,           0,          0);
 #endif
 
 #if ADDITIONAL_KNOWLEDGE == 1

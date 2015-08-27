@@ -108,6 +108,7 @@ extern void (*minunit_teardown)(void);
 	}\
 	if (minunit_setup) (*minunit_setup)();\
 	minunit_status = 0;\
+    printf(#test ": ");\
 	test();\
 	minunit_run++;\
 	if (minunit_status) {\

@@ -64,8 +64,14 @@ int main() {
 //    Add_32 adder;
 //    adder.writeDimacs("add_32.dimacs");
 
+//    Ch_32 ch;
+//    ch.writeDimacs("ch_32.dimacs");
+
 //    Add_B0Maj_32 adder;
 //    adder.writeDimacs("add_b0maj_32.dimacs");
+
+//    Add_B1Ch_32 adder;
+//    adder.writeDimacs("add_b1ch_32.dimacs");
 
 //    Add_Ssig_32 adder;
 //    adder.writeDimacs("add_ssig_32.dimacs");
