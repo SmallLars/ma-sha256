@@ -46,6 +46,7 @@ int main() {
     Sha256 sha256;
     sha256.create(&printer);
 
+    printer.calcDistances();
     printer.printGraph("sha256.graph");
 
     return 0;

@@ -4,6 +4,7 @@
 #include "printer.h"
 
 #include <list>
+#include <map>
 
 struct Node {
     const char* name;
@@ -12,6 +13,9 @@ struct Node {
     unsigned internCount;
     unsigned output;
     std::vector<Node*> usage;
+
+    unsigned dist;
+    std::map<unsigned, unsigned> distance;
 };
 
 class ModulGraph : public Printer {
@@ -21,6 +25,7 @@ class ModulGraph : public Printer {
 
         void newModul(unsigned level, const char* name, Modul* modul);
 
+        void calcDistances();
         void printGraph(const char* filename);
     private:
         std::list<Node> module;
