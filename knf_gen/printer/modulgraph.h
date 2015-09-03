@@ -25,10 +25,14 @@ class ModulGraph : public Printer {
 
         void newModul(unsigned level, const char* name, Modul* modul);
 
-        void calcDistances();
         void printGraph(const char* filename);
+
+        void calcDistances();
+        unsigned getModulCount(std::vector<CMSat::Lit>& clause);
+        unsigned getDistance(std::vector<CMSat::Lit>& clause);
     private:
         std::list<Node> module;
+        std::map<unsigned, Node*> varToNode;
 };
 
 #endif //__MODULGRAPH_H__

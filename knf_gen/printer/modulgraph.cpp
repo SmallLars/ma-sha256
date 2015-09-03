@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <string.h>
 #include <vector>
+#include <set>
 #include <algorithm>
 #include <utility>
 
@@ -13,6 +14,7 @@ using std::list;
 using std::ofstream;
 using std::setw;
 using std::vector;
+using std::set;
 using std::find;
 using std::pair;
 
@@ -48,44 +50,12 @@ void ModulGraph::newModul(unsigned level, const char* name, Modul* modul) {
     node.intern = modul->getStart();
     node.internCount = modul->getAdditionalVarCount() - modul->getOutputNum();
     node.output = modul->getOutput();
-}
 
-void ModulGraph::calcDistances() {
-    // Dijkstra for every node
-    for (list<Node>::iterator start = module.begin(); start != module.end(); ++start) {
-        // Initialisation
-        list<Node*> todo;
-        for (list<Node>::iterator it = module.begin(); it != module.end(); ++it) {
-            it->dist = 0xFFFFFFFF;
-            todo.push_back(&*it);
-        }
-        start->dist = 0;
-        // For every node
-        while (!todo.empty()) {
-            // Find node with smallest distance
-            Node* min_dist = *(todo.begin());
-            for (list<Node*>::iterator it = todo.begin(); it != todo.end(); ++it) if ((*it)->dist < min_dist->dist) min_dist = *it;
-            // Collect neighbours of that node
-            vector<Node*> neighbours(min_dist->inputs);
-            neighbours.insert(neighbours.end(), min_dist->usage.begin(), min_dist->usage.end());
-            // Check for all neighbours in working list if there is a smaller distance
-            for (vector<Node*>::iterator it = neighbours.begin(); it != neighbours.end(); ++it) {
-                if (find(todo.begin(), todo.end(), *it) != todo.end()) {
-                    unsigned new_dist = min_dist->dist + 1;
-                    if (new_dist < (*it)->dist) (*it)->dist = new_dist;
-                }
-            }
-            // Remove node from working list
-            todo.remove(min_dist);
-        }
-        // Save result from Dijkstra in start node
-        for (list<Node>::iterator it = module.begin(); it != module.end(); ++it) {
-            start->distance[it->output] = it->dist;
-        }
+    for (unsigned i = node.intern; i < node.intern + node.internCount; i++) {
+        varToNode[i] = &node;
     }
-    // After all clear dist in module
-    for (list<Node>::iterator it = module.begin(); it != module.end(); ++it) {
-        it->dist = 0xFFFFFFFF;
+    for (unsigned i = node.output; i < node.output + 32; i++) {
+        varToNode[i] = &node;
     }
 }
 
@@ -162,4 +132,73 @@ void ModulGraph::printGraph(const char* filename) {
     outputFile << "}";
 
     outputFile.close();
+}
+
+void ModulGraph::calcDistances() {
+    // Dijkstra for every node
+    for (list<Node>::iterator start = module.begin(); start != module.end(); ++start) {
+        // Initialisation
+        list<Node*> todo;
+        for (list<Node>::iterator it = module.begin(); it != module.end(); ++it) {
+            it->dist = 0xFFFFFFFF;
+            todo.push_back(&*it);
+        }
+        start->dist = 0;
+        // For every node
+        while (!todo.empty()) {
+            // Find node with smallest distance
+            Node* min_dist = *(todo.begin());
+            for (list<Node*>::iterator it = todo.begin(); it != todo.end(); ++it) if ((*it)->dist < min_dist->dist) min_dist = *it;
+            // Collect neighbours of that node
+            vector<Node*> neighbours(min_dist->inputs);
+            neighbours.insert(neighbours.end(), min_dist->usage.begin(), min_dist->usage.end());
+            // Check for all neighbours in working list if there is a smaller distance
+            for (vector<Node*>::iterator it = neighbours.begin(); it != neighbours.end(); ++it) {
+                if (find(todo.begin(), todo.end(), *it) != todo.end()) {
+                    unsigned new_dist = min_dist->dist + 1;
+                    if (new_dist < (*it)->dist) (*it)->dist = new_dist;
+                }
+            }
+            // Remove node from working list
+            todo.remove(min_dist);
+        }
+        // Save result from Dijkstra in start node
+        for (list<Node>::iterator it = module.begin(); it != module.end(); ++it) {
+            start->distance[it->output] = it->dist;
+        }
+    }
+    // After all: clear dist in module
+    for (list<Node>::iterator it = module.begin(); it != module.end(); ++it) {
+        it->dist = 0xFFFFFFFF;
+    }
+}
+
+unsigned ModulGraph::getModulCount(std::vector<CMSat::Lit>& clause) {
+    set<Node*> clauseModule;
+
+    for (unsigned lit = 0; lit < clause.size(); lit++) {
+        clauseModule.insert(varToNode[clause[lit].var()]);
+    }
+
+    return clauseModule.size();
+}
+
+unsigned ModulGraph::getDistance(std::vector<CMSat::Lit>& clause) {
+    set<Node*> clauseModule;
+
+    for (unsigned lit = 0; lit < clause.size(); lit++) {
+        clauseModule.insert(varToNode[clause[lit].var()]);
+    }
+
+    unsigned distance = 0;
+    for (set<Node*>::iterator it_1 = clauseModule.begin(); it_1 != clauseModule.end(); ++it_1) {
+        for (set<Node*>::iterator it_2 = it_1; it_2 != clauseModule.end(); ++it_2) {
+            unsigned dist = (*it_1)->distance[(*it_2)->output];
+            if (dist > distance) {
+                distance = dist;
+            }
+        }
+    }
+
+    return distance;
 }
