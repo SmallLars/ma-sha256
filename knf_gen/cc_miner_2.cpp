@@ -7,10 +7,11 @@
 
 #include "common/producer.h"
 
+#include "module/const.h"
+#include "module/sha256.h"
 #include "cryptominisat4/cryptominisat.h"
 #include "printer/solverprinter.h"
-#include "printer/logger.h"
-#include "module/sha256.h"
+#include "printer/modulgraph.h"
 
 #define THREAD_NUM 4
 #define MAX_TEST 2
@@ -23,19 +24,29 @@ void signalHandler(int signum) {
 }
 
 void *calculate(void* producer) {
+    Sha256 sha256;
+
     SolverConf config;
     config.doSQL = false;
     SATSolver solver(config);
 //    solver.log_to_file("solver.log");
-    Logger logger("sha256.log");
     SolverPrinter printer(&solver);
-
-    Sha256 sha256;
     sha256.create(&printer);
-    sha256.create(&logger);
+
+    ModulGraph graph;
+    for (unsigned i = 0; i < 24; i++) {
+        Const c(32, 0);
+        c.setStart(i * 32);
+        c.create(&graph);
+    }
+    sha256.create(&graph);
+
+    graph.calcDistances();
 
     vector<unsigned> v;
     while (((Producer*) producer)->getWork(v)) {
+        if (graph.getDistance(v) < 2) continue;
+
         for (unsigned s = 0; s < (1u << v.size()); s++) {
             vector<Lit> assumptions;
             for (unsigned i = 0; i < v.size(); i++) {
@@ -46,7 +57,7 @@ void *calculate(void* producer) {
             if (ret == l_False) {
                 std::cout << " Hurra: ";
                 for (unsigned i = 0; i < v.size(); i++) {
-                    std::cout << ((s >> i) & 1 ? "" : "-") << v[i] << " ";
+                    std::cout << ((s >> i) & 1 ? "" : "-") << v[i] + 1 << " ";
                 }
                 std::cout << "\n";
             }
@@ -59,7 +70,7 @@ int main() {
     signal(SIGINT, signalHandler);
 
     static Producer producer(MAX_TEST);
-    for (unsigned i = 0; i < 64; i++) producer.addVar(i);
+    for (unsigned i = 0; i < 49328; i++) producer.addVar(i);
 
     pthread_t threads[THREAD_NUM];
     for (unsigned i = 0; i < THREAD_NUM; i++) {

@@ -84,23 +84,22 @@ int main(int argc, const char* argv[]) {
     modul->create(&printer);
     delete modul;
 
-    unsigned linecount;
-    string line;
-    ifstream inputFile(argv[2]);
-    while (getline(inputFile, line)) linecount++;
-    inputFile.close();
-
+    unsigned linecount = 0;
     DimacsParser dp(argv[2]);
     vector<Lit> learned;
+    while (dp.getNextClause(learned)) linecount++;
+    dp.reset();
+
     unsigned counter = 0;
-    while (dp.getNextClause(learned)) {
+    for (unsigned c = 1; dp.getNextClause(learned); ++c) {
         for (unsigned i = 0; i < learned.size(); i++) learned[i] ^= 1;
 
         lbool ret = solver.solve(&learned);
+        cout << "\r" << c << " / " << linecount << std::flush;
         if (ret == l_False) {
-            cout << "\r" << ++counter << " / " << linecount << std::flush;
+            ++counter;
         } else {
-            cout << "\nFAIL: ";
+            cout << " FAIL: ";
             printClause(cout, learned);
         }
     }

@@ -7,6 +7,7 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <sys/syscall.h>
+#include <iostream>
 
 Producer::Producer(unsigned taskLengthMax) {
     if (taskLengthMax > MAX_VARS) {
@@ -96,6 +97,7 @@ int Producer::getWork(std::vector<unsigned>& task) {
    progress++;
    printf("\r %u / %u: %9u / %9u", taskLength, taskLengthMax, progress, work_amount);
    fflush(stdout);
+   std::cout << std::flush;
 
    counter[taskLength - 1]++;
    for (unsigned i = taskLength - 1; i > 0; i--) {

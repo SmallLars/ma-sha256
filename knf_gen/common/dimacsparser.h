@@ -12,6 +12,7 @@ class DimacsParser {
         ~DimacsParser();
 
         bool getNextClause(std::vector<CMSat::Lit> &clause);
+        void reset();
     protected:
 
     private:

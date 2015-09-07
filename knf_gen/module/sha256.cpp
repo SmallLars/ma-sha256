@@ -39,6 +39,11 @@ unsigned* Sha256::getStats() {
 }
 
 void Sha256::create(Printer* printer) {
+    // Information for additional clauses
+    unsigned prepNum[64];
+    unsigned coreInputs[64][8];
+    unsigned coreNum[64];
+
     // Input
     unsigned global_input[64];
     for (unsigned i = 0; i < 16; i++) global_input[i] = inputs[i];
@@ -55,7 +60,10 @@ void Sha256::create(Printer* printer) {
 
     for (unsigned i = 0; i < 64; i++) {
         vector<unsigned> subinputs;
-        for (unsigned n = 0; n < 8; n++) subinputs.push_back(vars[n]);
+        for (unsigned n = 0; n < 8; n++) {
+            subinputs.push_back(vars[n]);
+            coreInputs[i][n] = vars[n];
+        }
 
         if (i < 16) {
             subinputs.push_back(global_input[i]);
@@ -67,6 +75,7 @@ void Sha256::create(Printer* printer) {
             prepareinputs.push_back(global_input[i -  2]);
             adder.setInputs(prepareinputs);
             adder.setStart(start + newvars);
+            prepNum[i] = start + newvars;
             adder.create(printer);
             newvars += adder.getAdditionalVarCount();
 
@@ -77,6 +86,7 @@ void Sha256::create(Printer* printer) {
         core.setValue(sha_k[i]);
         core.setInputs(subinputs);
         core.setStart(start + newvars);
+        coreNum[i] = start + newvars;
         core.create(printer);
         newvars += core.getAdditionalVarCount();
 
@@ -84,6 +94,33 @@ void Sha256::create(Printer* printer) {
         vars[0] = core.getOutput();
         vars[4] = core.getOutput() + 32;
     }
+
+#ifdef ADDITIONAL_CLAUSES
+    ClauseCreator cc(printer);
+
+    for (unsigned i = 0; i < 64; i++) {
+        if (i < 39) {
+            if (i != 2 && i != 9 && i != 11 && i != 13 && i != 20 && i != 30 && i != 36 && i != 38) {
+                cc.setLiterals(6, coreInputs[i][7], coreNum[i] + 319, prepNum[i + 16] + 129, prepNum[i + 16] + 160, coreNum[i + 18] + 2, prepNum[i + 25] + 129);
+                cc.printClause(6,                0,                1,                     0,                     0,                   0,                     1);
+            }
+        }
+        if (i < 48) {
+            if (i == 0 || i == 3 || i == 4 || i == 14 || i == 18 || i == 25 || i == 29 || i == 40 || i == 42) {
+                cc.setLiterals(7, coreInputs[i][7], coreInputs[i][7] + 1, coreNum[i] + 32, coreNum[i + 9] + 318,
+                                  coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
+                cc.printClause(7,                0,                    0,               1,                    0,
+                                                     1,                    0,                     1);
+            }
+        }
+        /*
+        std::cout << (i < 16 ? 0 : prepNum[i] + 1);
+        std::cout << " " << coreInputs[i][0] + 1 << " " << coreInputs[i][1] + 1 << " " << coreInputs[i][2] + 1 << " " << coreInputs[i][3] + 1;
+        std::cout << " " << coreInputs[i][4] + 1 << " " << coreInputs[i][5] + 1 << " " << coreInputs[i][6] + 1 << " " << coreInputs[i][7] + 1;
+        std::cout << " " << coreNum[i] + 1 << "\n";
+        */
+    }
+#endif
 }
 
 MU_TEST_C(Sha256::test) {

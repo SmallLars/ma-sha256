@@ -34,3 +34,8 @@ bool DimacsParser::getNextClause(vector<Lit>& clause) {
     }
     return false;
 }
+
+void DimacsParser::reset() {
+    inputFile.clear();
+    inputFile.seekg(0);
+}

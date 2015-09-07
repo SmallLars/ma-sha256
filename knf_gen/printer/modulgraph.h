@@ -4,6 +4,7 @@
 #include "printer.h"
 
 #include <list>
+#include <set>
 #include <map>
 
 struct Node {
@@ -24,15 +25,18 @@ class ModulGraph : public Printer {
         ~ModulGraph();
 
         void newModul(unsigned level, const char* name, Modul* modul);
-
-        void printGraph(const char* filename);
+        void printGraph(const char* filename, const std::vector<CMSat::Lit>& highlight = std::vector<CMSat::Lit>());
 
         void calcDistances();
-        unsigned getModulCount(std::vector<CMSat::Lit>& clause);
-        unsigned getDistance(std::vector<CMSat::Lit>& clause);
+        unsigned getModulCount(const std::vector<CMSat::Lit>& clause);
+        unsigned getDistance(const std::vector<CMSat::Lit>& clause);
+        unsigned getDistance(const std::vector<unsigned>& literale);
     private:
         std::list<Node> module;
         std::map<unsigned, Node*> varToNode;
+
+        void getModule(std::set<Node*>& module, const std::vector<CMSat::Lit>& clause);
+        void getModule(std::set<Node*>& module, const std::vector<unsigned>& literale);
 };
 
 #endif //__MODULGRAPH_H__

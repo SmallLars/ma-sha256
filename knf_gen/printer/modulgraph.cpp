@@ -4,7 +4,6 @@
 #include <iomanip>
 #include <string.h>
 #include <vector>
-#include <set>
 #include <algorithm>
 #include <utility>
 
@@ -59,15 +58,28 @@ void ModulGraph::newModul(unsigned level, const char* name, Modul* modul) {
     }
 }
 
-void ModulGraph::printGraph(const char* filename) {
-    ofstream outputFile(filename);
+void ModulGraph::printGraph(const char* filename, const std::vector<CMSat::Lit>& highlight) {
+    set<Node*> clauseModule;
+    getModule(clauseModule, highlight);
 
-//                                      rankdir=LR
-    outputFile << "digraph G {\n  graph[ranksep=2]\n\n";
+    ofstream outputFile(filename);
+//                                      rankdir=LR 
+    outputFile << "digraph G {\n  graph[ranksep=1]\n\n";
 
     for (list<Node>::iterator it = module.begin(); it != module.end(); ++it) {
-//                                                            ellipse             yellow    blue
-        outputFile << setw(7) << it->output << " [shape=square style=filled fillcolor=green label=\"" << it->name << "\"]\n";
+        outputFile << setw(7) << it->output << " [shape=square style=filled fillcolor=";
+        if (clauseModule.find(&*it) == clauseModule.end()) {
+            outputFile << "green";
+        } else {
+            outputFile << "red";
+        }
+        outputFile << " label=\"";
+        if (it->internCount > 0) outputFile << it->intern + 1 << "-" << it->intern + it->internCount << "\\n";
+        outputFile << it->output + 1 << "-" << it->output + 32 << "\\n";
+        outputFile << it->name << "\"]\n";
+        for (unsigned e = 0; e < it->usage.size(); e++) {
+            outputFile << setw(7) << it->output << " -> " << setw(5) << it->usage[e]->output << " [arrowhead=none]\n";
+        }
     }
     outputFile << "\n";
 
@@ -123,12 +135,6 @@ void ModulGraph::printGraph(const char* filename) {
     }
     outputFile << "}\n\n";
 
-    for (list<Node>::iterator it = module.begin(); it != module.end(); ++it) {
-        for (unsigned e = 0; e < it->usage.size(); e++) {
-            outputFile << setw(7) << it->output << " -> " << setw(5) << it->usage[e]->output << " [arrowhead=none]\n";
-        }
-    }
-
     outputFile << "}";
 
     outputFile.close();
@@ -149,6 +155,8 @@ void ModulGraph::calcDistances() {
             // Find node with smallest distance
             Node* min_dist = *(todo.begin());
             for (list<Node*>::iterator it = todo.begin(); it != todo.end(); ++it) if ((*it)->dist < min_dist->dist) min_dist = *it;
+            // Remove node from working list
+            todo.remove(min_dist);
             // Collect neighbours of that node
             vector<Node*> neighbours(min_dist->inputs);
             neighbours.insert(neighbours.end(), min_dist->usage.begin(), min_dist->usage.end());
@@ -159,8 +167,6 @@ void ModulGraph::calcDistances() {
                     if (new_dist < (*it)->dist) (*it)->dist = new_dist;
                 }
             }
-            // Remove node from working list
-            todo.remove(min_dist);
         }
         // Save result from Dijkstra in start node
         for (list<Node>::iterator it = module.begin(); it != module.end(); ++it) {
@@ -173,22 +179,25 @@ void ModulGraph::calcDistances() {
     }
 }
 
-unsigned ModulGraph::getModulCount(std::vector<CMSat::Lit>& clause) {
+unsigned ModulGraph::getModulCount(const vector<CMSat::Lit>& clause) {
     set<Node*> clauseModule;
-
-    for (unsigned lit = 0; lit < clause.size(); lit++) {
-        clauseModule.insert(varToNode[clause[lit].var()]);
-    }
+    getModule(clauseModule, clause);
 
     return clauseModule.size();
 }
 
-unsigned ModulGraph::getDistance(std::vector<CMSat::Lit>& clause) {
-    set<Node*> clauseModule;
-
+unsigned ModulGraph::getDistance(const vector<CMSat::Lit>& clause) {
+    vector<unsigned> literale;
     for (unsigned lit = 0; lit < clause.size(); lit++) {
-        clauseModule.insert(varToNode[clause[lit].var()]);
+        literale.push_back(clause[lit].var());
     }
+
+    return getDistance(literale);
+}
+
+unsigned ModulGraph::getDistance(const vector<unsigned>& literale) {
+    set<Node*> clauseModule;
+    getModule(clauseModule, literale);
 
     unsigned distance = 0;
     for (set<Node*>::iterator it_1 = clauseModule.begin(); it_1 != clauseModule.end(); ++it_1) {
@@ -201,4 +210,16 @@ unsigned ModulGraph::getDistance(std::vector<CMSat::Lit>& clause) {
     }
 
     return distance;
+}
+
+void ModulGraph::getModule(set<Node*>& module, const vector<CMSat::Lit>& clause) {
+    for (unsigned lit = 0; lit < clause.size(); lit++) {
+        module.insert(varToNode[clause[lit].var()]);
+    }
+}
+
+void ModulGraph::getModule(set<Node*>& module, const vector<unsigned>& literale) {
+    for (unsigned lit = 0; lit < literale.size(); lit++) {
+        module.insert(varToNode[literale[lit]]);
+    }
 }
