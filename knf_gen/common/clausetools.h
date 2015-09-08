@@ -10,6 +10,6 @@ struct compareClause {
     bool operator() (const std::vector<CMSat::Lit>& lhs, const std::vector<CMSat::Lit>& rhs) const;
 };
 
-void printClause(std::ostream& out, const std::vector<CMSat::Lit>& clause);
+void printClause(std::ostream& out, const std::vector<CMSat::Lit>& clause, bool revert = false);
 
 #endif //__CLAUSETOOLS_H__

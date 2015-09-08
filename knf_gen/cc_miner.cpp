@@ -6,6 +6,7 @@
 #include <signal.h>
 
 #include "common/producer.h"
+#include "common/clausetools.h"
 
 #include "cryptominisat4/cryptominisat.h"
 #include "module/const.h"
@@ -56,10 +57,7 @@ void *calculate(void* producer) {
             lbool ret = solver.solve(&assumptions);
             if (ret == l_False) {
                 std::cout << " Hurra: ";
-                for (unsigned i = 0; i < v.size(); i++) {
-                    std::cout << ((s >> i) & 1 ? "" : "-") << v[i] + 1 << " ";
-                }
-                std::cout << "\n";
+                printClause(std::cout, assumptions, true);
             }
         }
     }

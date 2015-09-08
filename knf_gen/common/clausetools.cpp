@@ -18,11 +18,11 @@ bool compareClause::operator() (const vector<Lit>& lhs, const vector<Lit>& rhs) 
     return false;
 }
 
-void printClause(ostream& out, const vector<Lit>& clause) {
+void printClause(ostream& out, const vector<Lit>& clause, bool revert) {
     vector<Lit> sorted(clause);
     std::sort(sorted.begin(), sorted.end());
     for (unsigned i = 0; i < sorted.size(); i++) {
-        if (sorted[i].sign()) out << "-";
+        if (sorted[i].sign() != revert) out << "-";
         out << (sorted[i].var() + 1) << " ";
     }
     out << "0\n";

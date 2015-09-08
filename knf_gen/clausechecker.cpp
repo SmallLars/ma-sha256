@@ -90,6 +90,8 @@ int main(int argc, const char* argv[]) {
     while (dp.getNextClause(learned)) linecount++;
     dp.reset();
 
+    cout << "Start checking " << linecount << " clauses:\n";
+
     unsigned counter = 0;
     for (unsigned c = 1; dp.getNextClause(learned); ++c) {
         for (unsigned i = 0; i < learned.size(); i++) learned[i] ^= 1;
@@ -100,7 +102,7 @@ int main(int argc, const char* argv[]) {
             ++counter;
         } else {
             cout << " FAIL: ";
-            printClause(cout, learned);
+            printClause(cout, learned, true);
         }
     }
     cout << "\nFound " << counter << " valid conflictclauses.\n";

@@ -6,6 +6,7 @@
 #include <signal.h>
 
 #include "common/producer.h"
+#include "common/clausetools.h"
 
 #include "module/const.h"
 #include "module/sha256.h"
@@ -45,7 +46,7 @@ void *calculate(void* producer) {
 
     vector<unsigned> v;
     while (((Producer*) producer)->getWork(v)) {
-        if (graph.getDistance(v) < 2) continue;
+        if (graph.getDistance(v) < 5) continue;
 
         for (unsigned s = 0; s < (1u << v.size()); s++) {
             vector<Lit> assumptions;
@@ -56,10 +57,7 @@ void *calculate(void* producer) {
             lbool ret = solver.solve(&assumptions);
             if (ret == l_False) {
                 std::cout << " Hurra: ";
-                for (unsigned i = 0; i < v.size(); i++) {
-                    std::cout << ((s >> i) & 1 ? "" : "-") << v[i] + 1 << " ";
-                }
-                std::cout << "\n";
+                printClause(std::cout, assumptions, true);
             }
         }
     }
