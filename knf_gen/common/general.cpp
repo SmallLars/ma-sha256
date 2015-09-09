@@ -1,6 +1,11 @@
 #include "general.h"
 
 #include <cstdarg>
+#include <iomanip>
+
+using std::ostream;
+using std::setfill;
+using std::setw;
 
 bool in_array(unsigned needle, unsigned n_args, ...) {
     va_list ap;
@@ -13,4 +18,12 @@ bool in_array(unsigned needle, unsigned n_args, ...) {
     }
     va_end(ap);
     return false;
+}
+
+void printTime(ostream& out, unsigned time) {
+    out << setfill('0');
+    out << setw(2) << time / 3600 << ":";
+    out << setw(2) << (time / 60) % 60 << ":";
+    out << setw(2) << time % 60;
+    out << setfill(' ');
 }

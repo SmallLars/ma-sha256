@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <iomanip>
 #include <signal.h>
+#include <time.h>
 #include <ctime>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -11,6 +12,7 @@
 #include "common/sha256tools.h"
 #include "common/dimacsparser.h"
 #include "common/solvertools.h"
+#include "common/general.h"
 
 #include "module/const.h"
 #include "module/sha256.h"
@@ -24,6 +26,7 @@
 using std::cout;
 using std::vector;
 using std::setw;
+using std::flush;
 using namespace CMSat;
 
 SATSolver* solverToInterrupt;
@@ -86,7 +89,7 @@ int main() {
     time_t rawtime;
     time(&rawtime);
     char filename[64];
-    strftime(filename, 64, "sha256_6 %Y-%m-%d %H:%M:%S", localtime(&rawtime));
+    strftime(filename, 64, "sha256_7 %Y-%m-%d %H:%M:%S", localtime(&rawtime));
     solver.add_sql_tag("filename", filename);
 
     solverToInterrupt = &solver;
@@ -125,8 +128,9 @@ int main() {
     }
     cout << "  4 /   4: Ausgabe gesetzt.\n";
 
+    time_t start_time = time(0);
     for (unsigned r = 353; r <= assumptions.size(); r++) {
-        cout << setw(3) << r - 352 << " / " << assumptions.size() - 352 << ":" << std::flush;
+        cout << setw(3) << r - 352 << " / " << assumptions.size() - 352 << ":" << flush;
 
         vector<Lit> as(assumptions.begin(), assumptions.begin() + r);
         lbool ret = solver.solve(&as);
@@ -135,7 +139,9 @@ int main() {
             return 0;
         }
 
-        cout << " Lösung gefunden.\n  Ausgabe:";
+        cout << " Lösung gefunden zum Zeitpunkt ";
+        printTime(cout, time(0) - start_time);
+        cout << "\n  Ausgabe:";
         for (unsigned i = 0; i < 8; i++) {
             printf(" %08x", state[i] + solver_readInt(solver, out_lsb[i], 32));
         }
