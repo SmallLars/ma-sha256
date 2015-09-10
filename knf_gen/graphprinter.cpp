@@ -46,7 +46,7 @@ int main() {
     Sha256 sha256;
     sha256.create(&printer);
     {
-    DimacsParser dp("2015-08-11_dump/000_learned_outside_3.dimacs");
+    DimacsParser dp("dump/000_irred_outside_5.dimacs");
     vector<Lit> learned;
     dp.getNextClause(learned);
     printer.printGraph("sha256.graph", learned);
@@ -56,7 +56,7 @@ int main() {
 
     map<signed, unsigned> counter;
 
-    DimacsParser dp("2015-08-11_dump/000_learned_outside.dimacs");
+    DimacsParser dp("dump/000_learned_outside.dimacs");
     vector<Lit> learned;
     while (dp.getNextClause(learned)) {
         unsigned count = printer.getModulCount(learned);
@@ -65,7 +65,7 @@ int main() {
         counter[dist - count + 1]++;
 
         char filename[100];
-        snprintf(filename, 100, "2015-08-11_dump/000_learned_outside_%d.dimacs", dist - count + 1);
+        snprintf(filename, 100, "dump/000_learned_outside_%d.dimacs", dist - count + 1);
         ofstream file(filename, std::ofstream::app);
         printClause(file, learned);
         file.close();

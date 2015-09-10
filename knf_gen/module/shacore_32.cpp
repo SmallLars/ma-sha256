@@ -149,6 +149,15 @@ void ShaCore_32::create(Printer* printer) {
     cc.printClause(8,         CC_DC,      CC_DC,       CC_DC,           1,           0,       CC_DC,           0,      CC_DC);
     cc.printClause(8,         CC_DC,      CC_DC,       CC_DC,       CC_DC,           0,       CC_DC,           0,          0);
     cc.printClause(8,         CC_DC,          0,       CC_DC,       CC_DC,       CC_DC,       CC_DC,           0,          0);
+    //                       353          480          574          637     731
+    cc.setLiterals(5, start + 64, start + 191, start + 285, start + 348, output);
+    cc.printClause(5,          0,       CC_DC,       CC_DC,           1,      0);
+    cc.printClause(5,          0,       CC_DC,       CC_DC,           0,      1);
+    cc.printClause(5,      CC_DC,           0,           1,           0,  CC_DC);
+    cc.printClause(5,      CC_DC,           0,           0,           1,  CC_DC);
+    //                           98          607          638          669          670
+    cc.setLiterals(8, inputs[3] + 1, start + 318, start + 349, start + 380, start + 381);
+    cc.printClause(8,             0,           0,           0,           0,           0);
 #endif
 
 #if ADDITIONAL_KNOWLEDGE == 1

@@ -1,3 +1,6 @@
+#CFLAGS = -Wall -g -Icryptominisat/include -DADDITIONAL_CLAUSES
+#CFLAGS = -Wall -g -Icryptominisat/include -DXOR_SUPPORT -DADDITIONAL_CLAUSES
+#CFLAGS = -Wall -g -Icryptominisat/include -DXOR_OPTIMIZATION -DADDITIONAL_CLAUSES
 CFLAGS = -Wall -g -Icryptominisat/include -DXOR_SUPPORT -DXOR_OPTIMIZATION -DADDITIONAL_CLAUSES
 LFLAGS = -Wl,-rpath=./cryptominisat/lib -Lcryptominisat/lib
 LIBS = -lcryptominisat4 -lpthread

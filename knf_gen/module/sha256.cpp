@@ -107,6 +107,19 @@ void Sha256::create(Printer* printer) {
         std::cout << " " << coreNum[i] + 1 << "\n";
         */
 
+        // distance - modulcount + 1 = 5
+        if (i < 36) {
+            if (in_array(i, 8, 5, 9, 12, 19, 21, 23, 26, 28)) {
+//              -15595 -31374 -33144 38772 0
+                cc.setLiterals(4, coreInputs[i][4], prepNum[i + 19] + 129, coreNum[i + 21] + 2, prepNum[i + 28] + 129);
+                cc.printClause(4,                0,                     0,                   0,                     1);
+            }
+            if (!in_array(i, 7, 6, 8, 10, 17, 27, 33, 35)) {
+//              -1875 -14112 -14143 -15882 21510 0
+                cc.setLiterals(5, coreInputs[i][4], prepNum[i + 19] + 129, prepNum[i + 19] + 160, coreNum[i + 21] + 2, prepNum[i + 28] + 129);
+                cc.printClause(5,                0,                     0,                     0,                   0,                     1);
+            }
+        }
         // distance - modulcount + 1 = 4
         if (i < 39) {
             if (!in_array(i, 8, 2, 9, 11, 13, 20, 30, 36, 38)) {
@@ -136,6 +149,48 @@ void Sha256::create(Printer* printer) {
 //              773 -10035 -11775 17403 0
                 cc.setLiterals(4, coreNum[i] + 4, prepNum[i + 16] + 162, coreNum[i + 18] + 5, prepNum[i + 25] + 132);
                 cc.printClause(4,              1,                     0,                   0,                     1);
+            }
+            if (!in_array(i, 16, 3, 4, 5, 10, 14, 17, 18, 23, 24, 25, 27, 28, 29, 31, 35, 37)) {
+//              -1339 10824 12594 -18222 0
+                cc.setLiterals(4, coreNum[i] + 1, prepNum[i + 16] + 129, coreNum[i + 18] + 2, prepNum[i + 25] + 129);
+                cc.printClause(4,              0,                     1,                   1,                     0);
+            }
+            if (in_array(i, 18, 0, 1, 2, 6, 7, 8, 12, 15, 16, 19, 20, 22, 26, 32, 33, 34, 36, 38)) {
+//              -1339 10824 12595 -18223 0
+                cc.setLiterals(4, coreNum[i] + 1, prepNum[i + 16] + 129, coreNum[i + 18] + 3, prepNum[i + 25] + 130);
+                cc.printClause(4,              0,                     1,                   1,                     0);
+            }
+            if (in_array(i, 14, 2, 3, 8, 10, 12, 14, 15, 17, 20, 22, 24, 27, 29, 31)) {
+//              2478 -12468 -14238 19897 0
+                cc.setLiterals(4, coreNum[i] + 2, prepNum[i + 16] + 129, coreNum[i + 18] + 2, prepNum[i + 25] + 160);
+                cc.printClause(4,              1,                     0,                   0,                     1);
+            }
+            if (in_array(i, 5, 1, 3, 15, 29, 38)) {
+//              2500 -12490 -14260 19919 0
+                cc.setLiterals(4, coreNum[i] + 24, prepNum[i + 16] + 151, coreNum[i + 18] + 24, prepNum[i + 25] + 182);
+                cc.printClause(4,               1,                     0,                    0,                     1);
+            }
+            if (!in_array(i, 18, 1, 4, 7, 8, 14, 15, 16, 18, 20, 21, 24, 27, 28, 29, 31, 32, 35, 38)) {
+//              -2508 12467 14237 -19865 0
+                cc.setLiterals(4, coreNum[i] + 32, prepNum[i + 16] + 128, coreNum[i + 18] + 1, prepNum[i + 25] + 128);
+                cc.printClause(4,               0,                     1,                   1,                     0);
+            }
+            if (!in_array(i, 17, 0, 4, 6, 9, 10, 14, 16, 17, 19, 21, 25, 26, 28, 31, 32, 33, 37)) {
+//              5333 -16588 -18358 23986 0
+                cc.setLiterals(4, coreNum[i] + 12, prepNum[i + 16] + 139, coreNum[i + 18] + 12, prepNum[i + 25] + 139);
+                cc.printClause(4,               1,                     0,                    0,                     1);
+            }
+            if (in_array(i, 13, 1, 4, 8, 14, 15, 16, 18, 24, 27, 28, 29, 31, 32)) {
+//              8736 -21572 -23279 28907 0
+                cc.setLiterals(4, coreNum[i] + 1, prepNum[i + 16] + 191, coreNum[i + 18] + 1, prepNum[i + 25] + 128);
+                cc.printClause(4,              1,                     0,                   0,                     1);
+            }
+        }
+        if (i < 45) {
+            if (in_array(i, 17, 2, 5, 8, 9, 12, 15, 16, 17, 19, 23, 25, 29, 31, 40, 42, 43, 44)) {
+//              -3582 5639 10949 -16577 0
+                cc.setLiterals(4, coreInputs[i][4], coreNum[i + 3] + 318, coreNum[i + 12] + 1, prepNum[i + 19] + 128);
+                cc.printClause(4,                0,                    1,                   1,                     0);
             }
         }
         if (i < 48) {
@@ -172,75 +227,33 @@ void Sha256::create(Printer* printer) {
                 cc.setLiterals(4, coreInputs[i][7] + 1, coreNum[i] + 318, coreNum[i + 9] + 32, prepNum[i + 16] + 159);
                 cc.printClause(4,                    1,                0,               0,                     0);
             }
+            if (in_array(i, 7, 1, 4, 9, 14, 29, 39, 44)) {
+//              1338 -6777 -10823 10853 0
+                cc.setLiterals(4, coreNum[i], coreNum[i + 9] + 318, prepNum[i + 16] + 128, prepNum[i + 16] + 158);
+                cc.printClause(4,          1,                    0,                     0,                     1);
+            }
+            if (in_array(i, 18, 0, 1, 6, 8, 9, 12, 15, 19, 22, 26, 33, 34, 36, 39, 42, 44, 45, 47)) {
+//              -1339 4721 6808 10823 0
+                cc.setLiterals(4, coreNum[i] + 1, coreInputs[i + 6][4] + 1, coreNum[i + 9] + 349, prepNum[i + 16] + 128);
+                cc.printClause(4,              0,                        1,                    1,                     1);
+            }
+            if (!in_array(i, 21, 1, 2, 4, 5, 7, 9, 11, 14, 16, 20, 28, 29, 30, 31, 32, 35, 37, 39, 43, 44, 46)) {
+//              -2476 5859 -7915 12467 0
+                cc.setLiterals(4, coreNum[i], coreInputs[i + 6][4] + 1, coreNum[i + 9] + 318, prepNum[i + 16] + 128);
+                cc.printClause(4,          0,                        1,                    0,                     1);
+            }
+            if (in_array(i, 17, 0, 3, 6, 8, 12, 15, 19, 22, 25, 26, 33, 34, 36, 40, 42, 45, 47)) {
+//              -2477 5859 -7946 12467 0
+                cc.setLiterals(4, coreNum[i] + 1, coreInputs[i + 6][4] + 1, coreNum[i + 9] + 349, prepNum[i + 16] + 128);
+                cc.printClause(4,              0,                        1,                    0,                     1);
+            }
+            if (in_array(i, 17, 0, 3, 6, 8, 12, 15, 19, 22, 25, 26, 33, 34, 36, 40, 42, 45, 47)) {
+//              -2477 -7915 -12497 -12498 0
+                cc.setLiterals(4, coreNum[i] + 1, coreNum[i + 9] + 318, prepNum[i + 16] + 158, prepNum[i + 16] + 159);
+                cc.printClause(4,              0,                    0,                     0,                     0);
+            }
         }
     }
-/*
-    for (unsigned i = 0; i < 48; i++) {
-//      1338 -6777 -10823 10853 0
-        cc.setLiterals(4, coreNum[i], coreNum[i + 9] + 318, prepNum[i + 16] + 128, prepNum[i + 16] + 158);
-        cc.printClause(4,          1,                    0,                     0,                     1);
-    }
-    for (unsigned i = 0; i < 48; i++) {
-//      -1339 4721 6808 10823 0
-        cc.setLiterals(4, coreNum[i] + 1, coreInputs[i + 6][4] + 1, coreNum[i + 9] + 349, prepNum[i + 16] + 128);
-        cc.printClause(4,              0,                        1,                    1,                     1);
-    }
-    for (unsigned i = 0; i < 39; i++) {
-//      -1339 10824 12594 -18222 0
-        cc.setLiterals(4, coreNum[i] + 1, prepNum[i + 16] + 129, coreNum[i + 18] + 2, prepNum[i + 25] + 129);
-        cc.printClause(4,              0,                     1,                   1,                     0);
-    }
-    for (unsigned i = 0; i < 39; i++) {
-//      -1339 10824 12595 -18223 0
-        cc.setLiterals(4, coreNum[i] + 1, prepNum[i + 16] + 129, coreNum[i + 18] + 3, prepNum[i + 25] + 130);
-        cc.printClause(4,              0,                     1,                   1,                     0);
-    }
-    for (unsigned i = 0; i < 48; i++) {
-//      -2476 5859 -7915 12467 0
-        cc.setLiterals(4, coreNum[i], coreInputs[i + 6][4] + 1, coreNum[i + 9] + 318, prepNum[i + 16] + 128);
-        cc.printClause(4,          0,                        1,                    0,                     1);
-    }
-    for (unsigned i = 0; i < 48; i++) {
-//      -2477 5859 -7946 12467 0
-        cc.setLiterals(4, coreNum[i] + 1, coreInputs[i + 6][4] + 1, coreNum[i + 9] + 349, prepNum[i + 16] + 128);
-        cc.printClause(4,              0,                        1,                    0,                     1);
-    }
-    for (unsigned i = 0; i < 48; i++) {
-//      -2477 -7915 -12497 -12498 0
-        cc.setLiterals(4, coreNum[i] + 1, coreNum[i + 9] + 318, prepNum[i + 16] + 158, prepNum[i + 16] + 159);
-        cc.printClause(4,              0,                    0,                     0,                     0);
-    }
-    for (unsigned i = 0; i < 39; i++) {
-//      2478 -12468 -14238 19897 0
-        cc.setLiterals(4, coreNum[i] + 2, prepNum[i + 16] + 129, coreNum[i + 18] + 2, prepNum[i + 25] + 160);
-        cc.printClause(4,              1,                     0,                   0,                     1);
-    }
-    for (unsigned i = 0; i < 39; i++) {
-//      2500 -12490 -14260 19919 0
-        cc.setLiterals(4, coreNum[i] + 24, prepNum[i + 16] + 151, coreNum[i + 18] + 24, prepNum[i + 25] + 182);
-        cc.printClause(4,               1,                     0,                    0,                     1);
-    }
-    for (unsigned i = 0; i < 39; i++) {
-//      -2508 12467 14237 -19865 0
-        cc.setLiterals(4, coreNum[i] + 32, prepNum[i + 16] + 128, coreNum[i + 18] + 1, prepNum[i + 25] + 128);
-        cc.printClause(4,               0,                     1,                   1,                     0);
-    }
-    for (unsigned i = 0; i < 45; i++) {
-//      -3582 5639 10949 -16577 0
-        cc.setLiterals(4, coreInputs[i][4], coreNum[i + 3] + 318, coreNum[i + 12] + 1, prepNum[i + 19] + 128);
-        cc.printClause(4,                0,                    1,                   1,                     0);
-    }
-    for (unsigned i = 0; i < 39; i++) {
-//      5333 -16588 -18358 23986 0
-        cc.setLiterals(4, coreNum[i] + 12, prepNum[i + 16] + 139, coreNum[i + 18] + 12, prepNum[i + 25] + 139);
-        cc.printClause(4,               1,                     0,                    0,                     1);
-    }
-    for (unsigned i = 0; i < 39; i++) {
-//      8736 -21572 -23279 28907 0
-        cc.setLiterals(4, coreNum[i] + 1, prepNum[i + 16] + 191, coreNum[i + 18] + 1, prepNum[i + 25] + 128);
-        cc.printClause(4,              1,                     0,                   0,                     1);
-    }
-*/
 #endif
 }
 

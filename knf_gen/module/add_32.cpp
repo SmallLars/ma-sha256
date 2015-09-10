@@ -72,6 +72,8 @@ void Add_32::create(Printer* printer) {
     cc.printClause(8,     1,     CC_DC,      1,      CC_DC,     CC_DC,         CC_DC,         0,         CC_DC);
     cc.printClause(8, CC_DC,         0,      0,      CC_DC,     CC_DC,         CC_DC,     CC_DC,             1);
     cc.printClause(8, CC_DC,         0,      0,          0,     CC_DC,         CC_DC,     CC_DC,         CC_DC);
+    cc.printClause(8,     0,         0,      0,      CC_DC,     CC_DC,             0,     CC_DC,             0);
+    cc.printClause(8, CC_DC,         0,  CC_DC,          0,     CC_DC,         CC_DC,         1,         CC_DC);
 #endif
 }
 

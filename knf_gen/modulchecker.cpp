@@ -36,13 +36,13 @@ using namespace CMSat;
 #define USE_IRRED 1
 
 #ifdef USE_IRRED
-    #define INPUT_FILE "2015-08-11_dump/000_irred.dimacs"
-    #define OUTPUT_FILE "2015-08-11_dump/000_irred_outside.dimacs"
-    #define OUTPUT_PREFIX "2015-08-11_dump/000_irred_"
+    #define INPUT_FILE "dump/000_irred.dimacs"
+    #define OUTPUT_FILE "dump/000_irred_outside.dimacs"
+    #define OUTPUT_PREFIX "dump/000_irred_"
 #else
-    #define INPUT_FILE "2015-08-11_dump/000_learned.dimacs"
-    #define OUTPUT_FILE "2015-08-11_dump/000_learned_outside.dimacs"
-    #define OUTPUT_PREFIX "2015-08-11_dump/000_learned_"
+    #define INPUT_FILE "dump/000_learned.dimacs"
+    #define OUTPUT_FILE "dump/000_learned_outside.dimacs"
+    #define OUTPUT_PREFIX "dump/000_learned_"
 #endif
 
 int main() {

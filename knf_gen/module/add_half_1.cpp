@@ -47,6 +47,8 @@ void Add_Half_1::create(Printer* printer) {
     //                 c_out  s_out       a_in       b_in
     cc.setLiterals(4, start, output, inputs[0], inputs[1]);
     cc.printClause(4,     1,      1,         0,     CC_DC);
+    cc.printClause(4,     0,  CC_DC,         1,         0);
+    cc.printClause(4,     0,  CC_DC,         0,         1);
 #endif
 }
 

@@ -39,9 +39,9 @@ int main() {
     cout << "Einlesen der Eingabe beendet.\n";
 
     unsigned counter = 0;
-    for (unsigned i = 1; i <= 1; i++) {
+    for (unsigned i = 1; i <= 28; i++) {
         char filename[33];
-        sprintf(filename, "2015-08-11_dump/%03u_irred.dimacs", i);
+        sprintf(filename, "dump/%03u_irred.dimacs", i);
         DimacsParser parser(filename);
         vector<Lit> clause;
         while (parser.getNextClause(clause)) {
@@ -56,9 +56,9 @@ int main() {
     cout << "\nirreducible size: " << irreducible.size() << " killed: " << counter  << "\n";
 
     counter = 0;
-    for (unsigned i = 1; i <= 1; i++) {
+    for (unsigned i = 1; i <= 28; i++) {
         char filename[35];
-        sprintf(filename, "2015-08-11_dump/%03u_learned.dimacs", i);
+        sprintf(filename, "dump/%03u_learned.dimacs", i);
         DimacsParser parser(filename);
         vector<Lit> clause;
         while (parser.getNextClause(clause)) {
@@ -78,14 +78,14 @@ int main() {
 
     set< vector<Lit> >::iterator it;
 
-    ofstream i_out("2015-08-11_dump/000_irred.dimacs");
+    ofstream i_out("dump/000_irred.dimacs");
     for (it = irreducible.begin(); it != irreducible.end(); ++it) {
         printClause(i_out, *it);
     }
     i_out.close();
     irreducible.clear();
 
-    ofstream r_out("2015-08-11_dump/000_learned.dimacs");
+    ofstream r_out("dump/000_learned.dimacs");
     for (it = reducible.begin(); it != reducible.end();/* ++it*/) {
         printClause(r_out, *it);
         reducible.erase(it++);
