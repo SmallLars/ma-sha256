@@ -46,7 +46,7 @@ int main() {
     Sha256 sha256;
     sha256.create(&printer);
     {
-    DimacsParser dp("dump/000_irred_outside_5.dimacs");
+    DimacsParser dp("dump/000_irred_outside_4.dimacs");
     vector<Lit> learned;
     dp.getNextClause(learned);
     printer.printGraph("sha256.graph", learned);

@@ -41,8 +41,8 @@ void signalHandler(int signum) {
     solver->add_in_partial_solving_stats();
     solver->print_stats();
 
-//    solver->open_file_and_dump_red_clauses("dump/257_learned.dimacs");
-//    solver->open_file_and_dump_irred_clauses("dump/257_irred.dimacs");
+    solver->open_file_and_dump_red_clauses("dump/257_learned.dimacs");
+    solver->open_file_and_dump_irred_clauses("dump/257_irred.dimacs");
 
     if (signum == SIGINT) _exit(1);
 }

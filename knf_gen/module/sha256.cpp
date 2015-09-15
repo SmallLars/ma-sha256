@@ -42,7 +42,7 @@ unsigned* Sha256::getStats() {
 void Sha256::create(Printer* printer) {
     // Information for additional clauses
     unsigned prepNum[64];
-    unsigned coreInputs[64][8];
+    unsigned coreInputs[64][9];
     unsigned coreNum[64];
 
     // Input
@@ -83,6 +83,7 @@ void Sha256::create(Printer* printer) {
             global_input[i] = adder.getOutput();
             subinputs.push_back(adder.getOutput());
         }
+        coreInputs[i][8] = global_input[i];
 
         core.setValue(sha_k[i]);
         core.setInputs(subinputs);
@@ -120,8 +121,15 @@ void Sha256::create(Printer* printer) {
                 cc.printClause(5,                0,                     0,                     0,                   0,                     1);
             }
         }
+
         // distance - modulcount + 1 = 4
         if (i < 39) {
+            if (in_array(i, 8, 8, 12, 15, 22, 24, 26, 29, 31)) {
+//              7916 -19866 -21636 27264 0
+//              15377 -28086 -29856 35484 0
+                cc.setLiterals(4, coreNum[i] + 319, prepNum[i + 16] + 129, coreNum[i + 18] + 2, prepNum[i + 25] + 129);
+                cc.printClause(4,                1,                     0,                   0,                     1);
+            }
             if (!in_array(i, 8, 2, 9, 11, 13, 20, 30, 36, 38)) {
 //              -737 1088 -10002 -10033 -11772 17400 0
                 cc.setLiterals(6, coreInputs[i][7], coreNum[i] + 319, prepNum[i + 16] + 129, prepNum[i + 16] + 160, coreNum[i + 18] + 2, prepNum[i + 25] + 129);
@@ -129,6 +137,36 @@ void Sha256::create(Printer* printer) {
             }
         }
         if (i < 48) {
+            if (in_array(i, 10, 0, 7, 16, 21, 23, 30, 31, 35, 37, 42)) {
+//              -738 2 -6208 6270 -6271 10032 0
+//              -28748 31467 -39214 39276 -39277 44556 0
+                cc.setLiterals(6, coreInputs[i][7] + 1, coreInputs[i][8] + 1, coreNum[i + 9] + 318,
+                                  coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
+                cc.printClause(6,                    0,                    1,                    0,
+                                                     1,                    0,                     1);
+/*
+//              -737 -738 2 -6208 6270 -6271 10032 0
+//              -28747 -28748 31467 -39214 39276 -39277 44556 0
+                cc.setLiterals(7, coreInputs[i][7], coreInputs[i][7] + 1, coreInputs[i][8] + 1, coreNum[i + 9] + 318,
+                                  coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
+                cc.printClause(7,                0,                    0,                    1,                    0,
+                                                     1,                    0,                     1);
+*/
+            }
+            if (in_array(i, 21, 0, 3, 5, 6, 8, 12, 15, 18, 19, 22, 25, 26, 32, 33, 34, 36, 40, 42, 45, 46, 47)) {
+//              -9273 -11771 -19486 19548 -19549 24828 0
+                cc.setLiterals(6, coreInputs[i][7] + 1, coreNum[i] + 1, coreNum[i + 9] + 318,
+                                  coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
+                cc.printClause(6,                    0,              0,                    0,
+                                                     1,                    0,                     1);
+/*
+//              -9272 -9273 -11771 -19486 19548 -19549 24828 0
+                cc.setLiterals(7, coreInputs[i][7], coreInputs[i][7] + 1, coreNum[i] + 1, coreNum[i + 9] + 318,
+                                  coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
+                cc.printClause(7,                0,                    0,              0,                    0,
+                                                     1,                    0,                     1);
+*/
+            }
             if (in_array(i, 9, 0, 3, 4, 14, 18, 25, 29, 40, 42)) {
 //              -641 -642 2508 -7915 7977 -7978 12498 0
                 cc.setLiterals(7, coreInputs[i][7], coreInputs[i][7] + 1, coreNum[i] + 32, coreNum[i + 9] + 318,
