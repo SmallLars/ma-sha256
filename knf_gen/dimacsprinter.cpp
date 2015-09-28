@@ -14,7 +14,6 @@
     #endif
 #endif
 
-
 int main() {
     Sha256 sha256;
     sha256.writeLog("sha256.txt");
