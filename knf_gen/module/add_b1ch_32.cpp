@@ -85,6 +85,20 @@ void Add_B1Ch_32::create(Printer* printer) {
         cc.printClause(6,             1,         CC_DC,             1,         0,              1,          1);
         cc.printClause(6,             0,             1,         CC_DC,         0,              1,          1);
     }
+
+    for (unsigned i = 0; i < 32; i++) {
+        cc.setLiterals(6, inputs[0] + i, inputs[1] + i, inputs[2] + i, start + i, start + 32 + i, start + 63 + i);
+        cc.printClause(6,             1,         CC_DC,             1,         0,              0,              1);
+        cc.printClause(6,             1,         CC_DC,             0,         1,              1,              0);
+        cc.printClause(6,             0,             1,         CC_DC,         0,              0,              1);
+        cc.printClause(6,             0,             0,         CC_DC,         1,              1,              0);
+    }
+
+    for (unsigned i = 0; i < 31; i++) {
+        cc.setLiterals(7, inputs[0] + i, inputs[1] + i, inputs[2] + i, start + i, start + 32 + i, start + 63 + i, start + 64 + i);
+        cc.printClause(7,             1,         CC_DC,             1,         0,              1,              1,              0);
+        cc.printClause(7,             0,             1,         CC_DC,         0,              1,              1,              0);
+    }
 #endif
 }
 

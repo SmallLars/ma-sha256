@@ -14,10 +14,20 @@
     #endif
 #endif
 
+//#include "module/add_b1ch_32.h"
+//#include "module/shacore_32.h"
+
 int main() {
+//    Add_B1Ch_32 add;
+//    add.writeDimacs("add_b1ch_32.dimacs");
+
+//    ShaCore_32 core;
+//    core.writeDimacs("shacore_32.dimacs");
+
     Sha256 sha256;
     sha256.writeLog("sha256.txt");
     sha256.writeDimacs(FILENAME);
     std::cout << "Dimacs in Datei " << FILENAME << " geschrieben.\n";
+
     return 0;
 }
