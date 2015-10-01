@@ -66,55 +66,71 @@ void Add_32::create(Printer* printer) {
     cc.printClause(8,    CC_DC,         0,  CC_DC,      CC_DC,         1,         CC_DC,     CC_DC,             1);  //3
     cc.printClause(8,    CC_DC,         0,  CC_DC,      CC_DC,     CC_DC,             1,         1,         CC_DC);  //3
     cc.printClause(8,    CC_DC,         0,  CC_DC,      CC_DC,     CC_DC,         CC_DC,         1,             1);  //3
-    cc.printClause(8,    CC_DC,         1,  CC_DC,      CC_DC,         0,             0,         0,         CC_DC);  //4
-    cc.printClause(8,    CC_DC,         1,  CC_DC,      CC_DC,         0,         CC_DC,         0,             0);  //4
     cc.printClause(8,    CC_DC,         0,  CC_DC,          0,         1,         CC_DC,     CC_DC,         CC_DC);  //3
     cc.printClause(8,    CC_DC,         0,      0,      CC_DC,     CC_DC,             1,     CC_DC,         CC_DC);  //3
     cc.printClause(8,        1,     CC_DC,      1,      CC_DC,     CC_DC,         CC_DC,         0,         CC_DC);  //3
     cc.printClause(8,    CC_DC,         0,      0,      CC_DC,     CC_DC,         CC_DC,     CC_DC,             1);  //3
     cc.printClause(8,    CC_DC,         0,      0,          0,     CC_DC,         CC_DC,     CC_DC,         CC_DC);  //3
-    cc.printClause(8,        0,         0,      0,      CC_DC,     CC_DC,             0,     CC_DC,             0);  //5
     cc.printClause(8,    CC_DC,         0,  CC_DC,          0,     CC_DC,         CC_DC,         1,         CC_DC);  //3
+    cc.printClause(8,    CC_DC,         1,  CC_DC,      CC_DC,         0,             0,         0,         CC_DC);  //4
+    cc.printClause(8,    CC_DC,         1,  CC_DC,      CC_DC,         0,         CC_DC,         0,             0);  //4
     cc.printClause(8,    CC_DC,     CC_DC,      0,          1,     CC_DC,             1,     CC_DC,             0);  //4
     cc.printClause(8,    CC_DC,     CC_DC,      0,          1,     CC_DC,             0,     CC_DC,             1);  //4
     cc.printClause(8,    CC_DC,     CC_DC,      0,          0,     CC_DC,             0,     CC_DC,             0);  //4
     cc.printClause(8,    CC_DC,     CC_DC,      0,          1,     CC_DC,             1,     CC_DC,             0);  //4
     cc.printClause(8,    CC_DC,     CC_DC,      0,          1,     CC_DC,             0,     CC_DC,             1);  //4
     cc.printClause(8,    CC_DC,     CC_DC,      0,          0,     CC_DC,             0,     CC_DC,             0);  //4
+    cc.printClause(8,        0,         0,      0,      CC_DC,     CC_DC,             0,     CC_DC,             0);  //5
+
+    for (unsigned i = 0; i < 29; i++) {
+      // 66 -68 -98 -99 0
+      //                 c_out[0]       c_out[2]         s_out[1]        s_out[2]
+      cc.setLiterals(4, start + i, start + 2 + i,  output + 1 + i, output + 2 + i);
+      cc.printClause(4,         1,             0,               0,              0);
+    }
 
     for (unsigned i = 0; i < 28; i++) {
       // -40 -71 74 104 105 0
       // -43 -74 77 107 108 0
-      //                 c_out[6]       c_out[9]        s_out[8]        s_out[9]            b_in[7]
+      //                 c_out[0]       c_out[3]        s_out[2]        s_out[3]            b_in[1]
       cc.setLiterals(5, start + i, start + 3 + i, output + 2 + i, output + 3 + i, inputs[1] + 1 + i);
       cc.printClause(5,         0,             1,              1,              1,                 0);
     }
 
+    for (unsigned i = 0; i < 30; i++) {
+      // -3 35 58 -65 97 -98 0    ->    58 is irrelevant (b_in[25])
+      //                 c_out[0]        s_out[1]        s_out[2]            a_in[2]            b_in[2]
+      cc.setLiterals(5, start + i, output + 1 + i, output + 2 + i, inputs[0] + 2 + i, inputs[1] + 2 + i);
+      cc.printClause(5,         0,              1,              0,                 0,                 1);
+    }
+
     for (unsigned i = 0; i < 22; i++) {
       // -17 -26 -87 90 119 120 0
-      //                    c_out[22]      c_out[25]       s_out[23]       s_out[24]        a_in[16]           a_in[25]
+      //                     c_out[6]       c_out[9]        s_out[7]        s_out[8]         a_in[0]            a_in[9]
       cc.setLiterals(6, start + 6 + i, start + 9 + i, output + 7 + i, output + 8 + i, inputs[0] +  i, inputs[0] + 9 + i);
       cc.printClause(6,             0,             1,              1,              1,              0,                 0);
     }
 
     for (unsigned i = 0; i < 29; i++) {
       // -18 50 -79 111 112 -113 0
-      //                 c_out[14]      s_out[15]       s_out[16]       s_out[17]           a_in[17]           b_in[17]
+      //                  c_out[0]       s_out[1]        s_out[2]        s_out[3]            a_in[3]            b_in[3]
       cc.setLiterals(6, start + i, output + 1 + i, output + 2 + i, output + 3 + i, inputs[0] + 3 + i, inputs[1] + 3 + i);
       cc.printClause(6,         0,              1,              1,              0,                 0,                 1);
     }
 
-// 1 33
-// 65
-// 96
+    for (unsigned i = 0; i < 30; i++) {
+      // 12 44 74 105 -106 -107 0
+      //                 c_out[0]    s_out[0]        s_out[1]        s_out[2]            a_in[2]            b_in[2]
+      cc.setLiterals(6, start + i, output + i, output + 1 + i, output + 2 + i, inputs[0] + 2 + i, inputs[1] + 2 + i);
+      cc.printClause(6,         1,          1,              0,              0,                 1,                 1);
+    }
 
-/*
-66 -68 -98 -99 0
--3 35 58 -65 97 -98 0
-12 44 74 105 -106 -107 0
--38 86 -91 -118 -119 -120 -121 -122 0
-*/
-
+    for (unsigned i = 0; i < 26; i++) {
+      // -38 86 -91 -118 -119 -120 -121 -122 0    ->    38 is irrelevant (b_in[5])
+      //                 c_out[0]       c_out[5]        s_out[1]        s_out[2]        s_out[3]        s_out[4]        s_out[5]
+      cc.setLiterals(7, start + i, start + 5 + i, output + 1 + i, output + 2 + i, output + 3 + i, output + 4 + i, output + 5 + i);
+      cc.printClause(7,         1,             0,              0,              0,              0,              0,              0);
+    }
 #endif
 }
 
