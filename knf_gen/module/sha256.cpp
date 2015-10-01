@@ -136,6 +136,34 @@ void Sha256::create(Printer* printer) {
                 cc.printClause(6,                0,                1,                     0,                     0,                   0,                     1);
             }
         }
+        if (i < 43) {
+            if (in_array(i, 7, 18, 20, 24, 28, 32, 34, 38)) {
+//              -11486 14237 -21952 22014 -22015 27294 0
+//              -13130 15881 -23596 23658 -23659 28938 0
+                cc.setLiterals(6, coreInputs[i][4] + 1, coreNum[i + 3] + 1, coreNum[i + 12] + 318,
+                                  coreNum[i + 12] + 380, coreNum[i + 12] + 381, prepNum[i + 19] + 159);
+                if (i == 24 || i == 38) {
+                    cc.printClause(6,                0,                  1,                     0,
+                                                  CC_DC,                     0,                     1);
+                } else {
+                    cc.printClause(6,                0,                  1,                     0,
+                                                      1,                     0,                     1);
+                }
+            }
+            if (in_array(i, 8, 0, 1, 11, 15, 22, 26, 37, 39)) {
+//              -14774 17556 -25240 25302 -25303 30582 0
+//              -27104 29886 -37570 37632 -37633 42912 0
+                cc.setLiterals(6, coreInputs[i][4] + 1, coreNum[i + 3] + 32, coreNum[i + 12] + 318,
+                                  coreNum[i + 12] + 380, coreNum[i + 12] + 381, prepNum[i + 19] + 159);
+                cc.printClause(6,                    0,                  1,                     0,
+                                                      1,                     0,                     1);
+//              -18061 20844 -28528 28590 -28591 33870 0
+                cc.setLiterals(6, coreInputs[i][4], coreNum[i + 3] + 32, coreNum[i + 12] + 318,
+                                  coreNum[i + 12] + 380, coreNum[i + 12] + 381, prepNum[i + 19] + 159);
+                cc.printClause(6,                0,                  1,                     0,
+                                                      1,                     0,                     1);
+            }
+        }
         if (i < 48) {
             if (in_array(i, 10, 0, 7, 16, 21, 23, 30, 31, 35, 37, 42)) {
 //              -738 2 -6208 6270 -6271 10032 0
@@ -143,6 +171,12 @@ void Sha256::create(Printer* printer) {
                 cc.setLiterals(6, coreInputs[i][7] + 1, coreInputs[i][8] + 1, coreNum[i + 9] + 318,
                                   coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
                 cc.printClause(6,                    0,                    1,                    0,
+                                                     1,                    0,                     1);
+//              -737 2 -6208 6270 -6271 10032 0
+//              -28747 31467 -39214 39276 -39277 44556 0
+                cc.setLiterals(6, coreInputs[i][7], coreInputs[i][8] + 1, coreNum[i + 9] + 318,
+                                  coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
+                cc.printClause(6,                0,                    1,                    0,
                                                      1,                    0,                     1);
 /*
 //              -737 -738 2 -6208 6270 -6271 10032 0
@@ -159,6 +193,11 @@ void Sha256::create(Printer* printer) {
                                   coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
                 cc.printClause(6,                    0,              0,                    0,
                                                      1,                    0,                     1);
+//              -9272 -11771 -19486 19548 -19549 24828 0
+                cc.setLiterals(6, coreInputs[i][7], coreNum[i] + 1, coreNum[i + 9] + 318,
+                                  coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
+                cc.printClause(6,                0,              0,                    0,
+                                                     1,                    0,                     1);
 /*
 //              -9272 -9273 -11771 -19486 19548 -19549 24828 0
                 cc.setLiterals(7, coreInputs[i][7], coreInputs[i][7] + 1, coreNum[i] + 1, coreNum[i + 9] + 318,
@@ -168,11 +207,19 @@ void Sha256::create(Printer* printer) {
 */
             }
             if (in_array(i, 9, 0, 3, 4, 14, 18, 25, 29, 40, 42)) {
+//              -642 2508 -7915 7977 -7978 12498 0
+                cc.setLiterals(6, coreInputs[i][7] + 1, coreNum[i] + 32, coreNum[i + 9] + 318, coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
+                cc.printClause(6,                    0,               1,                    0,                    1,                    0,                     1);
+//              -641 2508 -7915 7977 -7978 12498 0
+                cc.setLiterals(6, coreInputs[i][7], coreNum[i] + 32, coreNum[i + 9] + 318, coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
+                cc.printClause(6,                0,               1,                    0,                    1,                    0,                     1);
+/*
 //              -641 -642 2508 -7915 7977 -7978 12498 0
                 cc.setLiterals(7, coreInputs[i][7], coreInputs[i][7] + 1, coreNum[i] + 32, coreNum[i + 9] + 318,
                                   coreNum[i + 9] + 380, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
                 cc.printClause(7,                0,                    0,               1,                    0,
                                                      1,                    0,                     1);
+*/
             }
         }
 
@@ -229,6 +276,25 @@ void Sha256::create(Printer* printer) {
 //              -3582 5639 10949 -16577 0
                 cc.setLiterals(4, coreInputs[i][4], coreNum[i + 3] + 318, coreNum[i + 12] + 1, prepNum[i + 19] + 128);
                 cc.printClause(4,                0,                    1,                   1,                     0);
+            }
+            cc.setLiterals(4, coreInputs[i][4] + 1, coreNum[i + 3] + 318, coreNum[i + 12] + 1, prepNum[i + 19] + 159);
+            if (in_array(i, 8, 1, 8, 11, 15, 17, 25, 26, 40)) {
+//              1307 -3363 8167 -13320 0
+//              6997 -9053 15881 -21540 0
+//              18062 -21130 28211 -33870 0
+                cc.printClause(4,                1,                    0,                   1,                     0);
+            }
+            if (in_array(i, 20, 0, 1, 3, 7, 10, 11, 14, 21, 22, 24, 26, 28, 30, 32, 33, 34, 35, 37, 38, 39)) {
+//              1307 -3363 -8167 13320 0
+//              6997 -9053 -15881 21540 0
+//              18062 -21130 -28211 33870 0
+                cc.printClause(4,                1,                    0,                   0,                     1);
+            }
+            if (in_array(i, 21, 0, 3, 4, 6, 7, 10, 13, 14, 18, 20, 21, 22, 24, 27, 30, 33, 35, 36, 37, 38, 41)) {
+                cc.printClause(4,                1,                    0,                   0,                     0);
+            }
+            if (in_array(i, 11, 2, 6, 16, 19, 23, 29, 31, 36, 41, 42, 43)) {
+                cc.printClause(4,                1,                    0,                   1,                     1);
             }
         }
         if (i < 48) {
@@ -290,9 +356,26 @@ void Sha256::create(Printer* printer) {
                 cc.setLiterals(4, coreNum[i] + 1, coreNum[i + 9] + 318, prepNum[i + 16] + 158, prepNum[i + 16] + 159);
                 cc.printClause(4,              0,                    0,                     0,                     0);
             }
+            if (in_array(i, 17, 0, 5, 6, 8, 12, 15, 19, 22, 26, 32, 33, 34, 36, 42, 45, 46, 47)) {
+//              -23279 -30994 -31057 36336 0
+                cc.setLiterals(4, coreNum[i] + 1, coreNum[i + 9] + 318, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
+                cc.printClause(4,              0,                    0,                    0,                     1);
+            }
         }
     }
 #endif
+/*
+    ClauseCreator cc(printer);
+    for (unsigned i = 0; i < 64; i++) {
+        if (i < 48) {
+            if (in_array(i, X,      )) {
+//              XXXXX
+                cc.setLiterals(4, coreNum[i] + 1, coreNum[i + 9] + 318, coreNum[i + 9] + 381, prepNum[i + 16] + 159);
+                cc.printClause(4,              0,                    0,                    0,                     1);
+            }
+        }
+    }
+*/
 }
 
 MU_TEST_C(Sha256::test) {
