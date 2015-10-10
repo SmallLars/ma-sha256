@@ -22,7 +22,18 @@ using std::ofstream;
 
 using namespace CMSat;
 
-int main() {
+int main(int argc, const char* argv[]) {
+    if (argc != 2) {
+        cout << "Usage: clausecollector <FILECOUNT>" << "\n";
+        return 0;
+    }
+
+    int filecount = atoi(argv[1]);
+    if (filecount < 1) {
+        cout << "Filecount needs to be > 0\n";
+        return 0;
+    }
+
     set<vector<Lit>, compareClause> original;
     set<vector<Lit>, compareClause> irreducible;
     set<vector<Lit>, compareClause> reducible;
@@ -39,7 +50,7 @@ int main() {
     cout << "Einlesen der Eingabe beendet.\n";
 
     unsigned counter = 0;
-    for (unsigned i = 1; i <= 23; i++) {
+    for (int i = 1; i <= filecount; i++) {
         char filename[33];
         sprintf(filename, "dump/%03u_irred.dimacs", i);
         DimacsParser parser(filename);
@@ -56,7 +67,7 @@ int main() {
     cout << "\nirreducible size: " << irreducible.size() << " killed: " << counter  << "\n";
 
     counter = 0;
-    for (unsigned i = 1; i <= 23; i++) {
+    for (int i = 1; i <= filecount; i++) {
         char filename[35];
         sprintf(filename, "dump/%03u_learned.dimacs", i);
         DimacsParser parser(filename);
@@ -92,6 +103,8 @@ int main() {
         cout << "\rZu schreiben: " << std::setw(7) << reducible.size() << std::flush;
     }
     r_out.close();
+
+    cout << "\n";
 
     return 0;
 }

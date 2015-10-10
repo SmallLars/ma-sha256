@@ -59,6 +59,7 @@ int main(int argc, const char* argv[]) {
     SolverConf config;
     config.verbosity = 0;
     SATSolver solver(config);
+//    solver.set_num_threads(4);
 
     SolverPrinter printer(&solver);
 

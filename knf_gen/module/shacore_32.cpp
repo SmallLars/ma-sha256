@@ -168,12 +168,17 @@ void ShaCore_32::create(Printer* printer) {
     //                           98          607          638          669          670
     cc.setLiterals(5, inputs[3] + 1, start + 318, start + 349, start + 380, start + 381);
     cc.printClause(5,             0,           0,           0,           0,           0);
-    //                  289         321          700
-    cc.setLiterals(3, start, start + 32, start + 411);
-    cc.printClause(3,     1,          1,           0);
-    //                        416          448          606
-    cc.setLiterals(3, start + 127, start + 159, start + 317);
-    cc.printClause(3,           1,           1,           0);
+    //                  289        290         321         322         385          700
+    cc.setLiterals(6, start, start + 1, start + 32, start + 33, start + 96, start + 411);
+    cc.printClause(6,     1,     CC_DC,          1,      CC_DC,      CC_DC,           0);
+    cc.printClause(6,     0,     CC_DC,          0,      CC_DC,      CC_DC,           0);
+    cc.printClause(6, CC_DC,         1,      CC_DC,          0,          1,           0);
+    cc.printClause(6, CC_DC,         0,      CC_DC,          0,          0,           0);
+    //                       353          416          448          480          606          700
+    cc.setLiterals(6, start + 64, start + 127, start + 159, start + 191, start + 317, start + 411);
+    cc.printClause(6,      CC_DC,           1,           1,       CC_DC,           0,       CC_DC);
+    cc.printClause(6,      CC_DC,       CC_DC,       CC_DC,           0,           0,       CC_DC);
+    cc.printClause(6,          0,       CC_DC,       CC_DC,       CC_DC,       CC_DC,           0);
 #endif
 
 #if ADDITIONAL_KNOWLEDGE == 1
