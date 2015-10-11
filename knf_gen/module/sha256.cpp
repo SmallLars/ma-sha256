@@ -23,6 +23,14 @@ static uint32_t sha_k[64] = {\
      0x19A4C116, 0x1E376C08, 0x2748774C, 0x34B0BCB5, 0x391C0CB3, 0x4ED8AA4A, 0x5B9CCA4F, 0x682E6FF3,\
      0x748F82EE, 0x78A5636F, 0x84C87814, 0x8CC70208, 0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2};
 
+// Information for additional clauses
+static unsigned prepNum[64];
+static unsigned coreInputs[64][9];
+static unsigned coreNum[64];
+
+static void clause_5_36(ClauseCreator &cc, unsigned r);
+static void clause_4_39(ClauseCreator &cc, unsigned r);
+
 Sha256::Sha256() : Modul(32, 24, 8) {
     for (unsigned i = 0; i < 24; i++) {
         inputs.push_back(i * 32);
@@ -40,11 +48,6 @@ unsigned* Sha256::getStats() {
 }
 
 void Sha256::create(Printer* printer) {
-    // Information for additional clauses
-    unsigned prepNum[64];
-    unsigned coreInputs[64][9];
-    unsigned coreNum[64];
-
     // Input
     unsigned global_input[64];
     for (unsigned i = 0; i < 16; i++) global_input[i] = inputs[i];
@@ -109,58 +112,11 @@ void Sha256::create(Printer* printer) {
         */
 
         // distance - modulcount + 1 = 5
-        if (i < 36) {
-/*
-    For every bit from 0 to 28 do:
-        If round const bit 2 is zero:
-            While zero bits follow:
-                Clause with 4 literals is valid
-            On first one bit clause with 5 literals is valid
-        From 0 or after first one bit:
-            Clause with 5 literals is valid if const bit is zero
-*/
-            unsigned j = 0;
-            if ((sha_k[i + 21] & 0x2) == 0) {
-                for (; true ; j++) {
-                    if ((sha_k[i + 21] >> (j + 2)) & 0x1) {
-                        goto start;
-                    } else {
-//                      -15595 -31374 -33144 38772 0
-//                                               result[0]                   carry[2]                 carry[2]                   carry[2]
-                        cc.setLiterals(4, coreInputs[i][4] + j, prepNum[i + 19] + 129 + j, coreNum[i + 21] + 2 + j, prepNum[i + 28] + 129 + j);
-                        cc.printClause(4,                    0,                         0,                       0,                         1);
-                    }
-                }
-            }
-            for (; j < 29; j++) {
-                if (((sha_k[i + 21] >> (j + 2)) & 0x1) == 0) {
-                start:
-//              -1875 -14112 -14143 -15882 21510 0
-//                                       result[0]                   carry[2]                  result[2]                 carry[2]                   carry[2]
-                cc.setLiterals(5, coreInputs[i][4] + j, prepNum[i + 19] + 129 + j, prepNum[i + 19] + 160 + j, coreNum[i + 21] + 2 + j, prepNum[i + 28] + 129 + j);
-                cc.printClause(5,                    0,                         0,                         0,                       0,                         1);
-                }
-            }
-        }
+        clause_5_36(cc, i);
 
         // distance - modulcount + 1 = 4
-/*
-        if (i < 39) {
-            if (in_array(i, 8, 8, 12, 15, 22, 24, 26, 29, 31)) {
-//              7916 -19866 -21636 27264 0
-//              15377 -28086 -29856 35484 0
-//                                   carry[2]              carry[2]            carry[2]                carry[2]
-                cc.setLiterals(4, coreNum[i] + 319, prepNum[i + 16] + 129, coreNum[i + 18] + 2, prepNum[i + 25] + 129);
-                cc.printClause(4,                1,                     0,                   0,                     1);
-            }
-            if (!in_array(i, 8, 2, 9, 11, 13, 20, 30, 36, 38)) {
-//              -737 1088 -10002 -10033 -11772 17400 0
-//                                   result[0]              carry[2]            carry[2]                result[2]         carry[2]          carry[2]
-                cc.setLiterals(6, coreInputs[i][7], coreNum[i] + 319, prepNum[i + 16] + 129, prepNum[i + 16] + 160, coreNum[i + 18] + 2, prepNum[i + 25] + 129);
-                cc.printClause(6,                0,                1,                     0,                     0,                   0,                     1);
-            }
-        }
-*/
+        clause_4_39(cc, i);
+
         if (i < 43) {
             if (in_array(i, 7, 18, 20, 24, 28, 32, 34, 38)) {
 //              -11486 14237 -21952 22014 -22015 27294 0
@@ -398,44 +354,10 @@ void Sha256::create(Printer* printer) {
         }
     }
 #endif
-
 /*
     ClauseCreator cc(printer);
     for (unsigned i = 0; i < 64; i++) {
-        if (i < 39) {
-            int j = 0;
-            for (; true ; j++) {
-//              7916 -19866 -21636 27264 0
-//              15377 -28086 -29856 35484 0
-//                                        carry[0]                   carry[0]             carry[0]                   carry[0]
-                cc.setLiterals(4, coreNum[i] + 317 + j, prepNum[i + 16] + 127 + j, coreNum[i + 18] + j, prepNum[i + 25] + 127 + j);
-                cc.printClause(4,                    1,                         0,                   0,                         1);
-                if ((sha_k[i + 18] >> (j + 1)) & 0x1) {
-                    j--;
-                    goto start1;
-                }
-            }
-            for (; j < 29; j++) {
-                // Exceptions
-                if (i ==  0 && j ==  0) goto start1;
-                if (i == 10 && j ==  2) goto start1;
-                if (i == 11 && j == 10) goto start1;
-                if (i == 13 && j ==  3) goto start1;
-                if (i == 15 && j == 14) goto start1;
-                if (i == 17 && j == 17) goto start1;
-                if (i == 27 && j ==  7) goto start1;
-                if (i == 28 && j ==  5) goto start1;
 
-                if (((sha_k[i + 18] >> (j + 2)) & 0x1) == 0) {
-                start1:
-                if (j < 0) continue;
-//              -737 1088 -10002 -10033 -11772 17400 0
-//                                       result[0]              carry[2]                   carry[2]                  result[2]                 carry[2]                   carry[2]
-                cc.setLiterals(6, coreInputs[i][7] + j, coreNum[i] + 319 + j, prepNum[i + 16] + 129 + j, prepNum[i + 16] + 160 + j, coreNum[i + 18] + 2 + j, prepNum[i + 25] + 129 + j);
-                cc.printClause(6,                0,                1,                     0,                     0,                   0,                     1);
-                }
-            }
-        }
     }
 */
 }
@@ -469,5 +391,97 @@ MU_TEST_C(Sha256::test) {
 
     for (unsigned i = 0; i < 8; i++) {
         mu_assert(output[i] - state[i] == solver_readInt(solver, out_lsb[i], 32), "SHA256 failed");
+    }
+}
+
+static void clause_5_36(ClauseCreator &cc, unsigned r) {
+/*
+    distance = 10
+    modulcount = 4
+
+    For every bit from 0 to 28 do:
+        If round const bit 2 is zero:
+            While zero bits follow:
+                Clause with 4 literals is valid
+            On first one bit clause with 5 literals is valid
+        From 0 or after first one bit:
+            Clause with 5 literals is valid if const bit is zero
+
+    valid for r < 36
+*/
+    if (r >= 36) return;
+
+    unsigned b = 0;
+    if ((sha_k[r + 21] & 0x2) == 0) {
+        for (; true ; b++) {
+            if ((sha_k[r + 21] >> (b + 2)) & 0x1) {
+                goto start;
+            } else {
+//              -15595 -31374 -33144 38772 0
+//                                       result[0]                   carry[2]                 carry[2]                   carry[2]
+                cc.setLiterals(4, coreInputs[r][4] + b, prepNum[r + 19] + 129 + b, coreNum[r + 21] + 2 + b, prepNum[r + 28] + 129 + b);
+                cc.printClause(4,                    0,                         0,                       0,                         1);
+            }
+        }
+    }
+    for (; b < 29; b++) {
+        if (((sha_k[r + 21] >> (b + 2)) & 0x1) == 0) {
+            start:
+//          -1875 -14112 -14143 -15882 21510 0
+//                                   result[0]                   carry[2]                  result[2]                 carry[2]                   carry[2]
+            cc.setLiterals(5, coreInputs[r][4] + b, prepNum[r + 19] + 129 + b, prepNum[r + 19] + 160 + b, coreNum[r + 21] + 2 + b, prepNum[r + 28] + 129 + b);
+            cc.printClause(5,                    0,                         0,                         0,                       0,                         1);
+        }
+    }
+}
+
+static void clause_4_39(ClauseCreator &cc, unsigned r) {
+/*
+    distance = 9
+    modulcount = 4
+
+    Clause with 4 literals is valid on bit -2
+    While zero bits follow:
+        Clause with 4 literals is valid
+    If bit > 0:
+        Clause with 5 literals is valid
+    For every bit from max(0, bit) to 28 do:
+         Clause with 5 literals is valid if const bit is zero
+
+    valid for r < 39
+*/
+    if (r >= 39) return;
+
+    int b = -2;
+    for (; true ; b++) {
+//      7916 -19866 -21636 27264 0
+//      15377 -28086 -29856 35484 0
+//                                carry[2]                   carry[2]                 carry[2]                   carry[2]
+        cc.setLiterals(4, coreNum[r] + 319 + b, prepNum[r + 16] + 129 + b, coreNum[r + 18] + 2 + b, prepNum[r + 25] + 129 + b);
+        cc.printClause(4,                    1,                         0,                   0,                         1);
+        if ((sha_k[r + 18] >> (b + 3)) & 0x1) {
+            b++;
+            goto start;
+        }
+    }
+    for (; b < 29; b++) {
+        // Exceptions
+        if (r ==  0 && b ==  0) goto start;
+        if (r == 10 && b ==  2) goto start;
+        if (r == 11 && b == 10) goto start;
+        if (r == 13 && b ==  3) goto start;
+        if (r == 15 && b == 14) goto start;
+        if (r == 17 && b == 17) goto start;
+        if (r == 27 && b ==  7) goto start;
+        if (r == 28 && b ==  5) goto start;
+
+        if (((sha_k[r + 18] >> (b + 2)) & 0x1) == 0) {
+            start:
+            if (b < 0) continue;
+//          -737 1088 -10002 -10033 -11772 17400 0
+//                                   result[0]              carry[2]                   carry[2]                  result[2]                 carry[2]                   carry[2]
+            cc.setLiterals(6, coreInputs[r][7] + b, coreNum[r] + 319 + b, prepNum[r + 16] + 129 + b, prepNum[r + 16] + 160 + b, coreNum[r + 18] + 2 + b, prepNum[r + 25] + 129 + b);
+            cc.printClause(6,                0,                1,                     0,                     0,                   0,                     1);
+        }
     }
 }
