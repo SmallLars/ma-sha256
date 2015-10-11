@@ -144,21 +144,23 @@ void Sha256::create(Printer* printer) {
         }
 
         // distance - modulcount + 1 = 4
+/*
         if (i < 39) {
             if (in_array(i, 8, 8, 12, 15, 22, 24, 26, 29, 31)) {
 //              7916 -19866 -21636 27264 0
 //              15377 -28086 -29856 35484 0
-//                                                                        j = 0; j < 29; j++
 //                                   carry[2]              carry[2]            carry[2]                carry[2]
                 cc.setLiterals(4, coreNum[i] + 319, prepNum[i + 16] + 129, coreNum[i + 18] + 2, prepNum[i + 25] + 129);
                 cc.printClause(4,                1,                     0,                   0,                     1);
             }
             if (!in_array(i, 8, 2, 9, 11, 13, 20, 30, 36, 38)) {
 //              -737 1088 -10002 -10033 -11772 17400 0
+//                                   result[0]              carry[2]            carry[2]                result[2]         carry[2]          carry[2]
                 cc.setLiterals(6, coreInputs[i][7], coreNum[i] + 319, prepNum[i + 16] + 129, prepNum[i + 16] + 160, coreNum[i + 18] + 2, prepNum[i + 25] + 129);
                 cc.printClause(6,                0,                1,                     0,                     0,                   0,                     1);
             }
         }
+*/
         if (i < 43) {
             if (in_array(i, 7, 18, 20, 24, 28, 32, 34, 38)) {
 //              -11486 14237 -21952 22014 -22015 27294 0
@@ -185,6 +187,15 @@ void Sha256::create(Printer* printer) {
                                   coreNum[i + 12] + 380, coreNum[i + 12] + 381, prepNum[i + 19] + 159);
                 cc.printClause(6,                0,                  1,                     0,
                                                       1,                     0,                     1);
+            }
+        }
+        if (i < 45) {
+            if (in_array(i, 7, 18, 20, 24, 28, 32, 34, 38)) {
+//              -11485 14237 -21952 22014 -22015 27294 0
+//              -13129 15881 -23596 23658 -23659 28938 0
+//                                       result[0]            carry[1]               carry[1]               carry[0]               carry[1]              result[1]
+                cc.setLiterals(6, coreInputs[i][4], coreNum[i + 3] + 1, coreNum[i + 12] + 318, coreNum[i + 12] + 380, coreNum[i + 12] + 381, prepNum[i + 19] + 159);
+                cc.printClause(6,                0,                  1,                     0,                     1,                     0,                     1);
             }
         }
         if (i < 48) {
@@ -387,23 +398,42 @@ void Sha256::create(Printer* printer) {
         }
     }
 #endif
+
 /*
     ClauseCreator cc(printer);
     for (unsigned i = 0; i < 64; i++) {
-        if (i < 36) {
-            for (unsigned j = 0; j < 29; j++) {
-//            if (in_array(i, 8, 5, 9, 12, 19, 21, 23, 26, 28)) {
-//              -15595 -31374 -33144 38772 0
-//                                   result[0]                carry[2]                    carry[2]                 carry[2]
-                cc.setLiterals(4, coreInputs[i][4] + j, prepNum[i + 19] + 129 + j, coreNum[i + 21] + 2 + j, prepNum[i + 28] + 129 + j);
-                cc.printClause(4,                0,                     0,                   0,                     1);
+        if (i < 39) {
+            int j = 0;
+            for (; true ; j++) {
+//              7916 -19866 -21636 27264 0
+//              15377 -28086 -29856 35484 0
+//                                        carry[0]                   carry[0]             carry[0]                   carry[0]
+                cc.setLiterals(4, coreNum[i] + 317 + j, prepNum[i + 16] + 127 + j, coreNum[i + 18] + j, prepNum[i + 25] + 127 + j);
+                cc.printClause(4,                    1,                         0,                   0,                         1);
+                if ((sha_k[i + 18] >> (j + 1)) & 0x1) {
+                    j--;
+                    goto start1;
+                }
             }
-            for (unsigned j = 0; j < 29; j++) {
-//            if (!in_array(i, 7, 6, 8, 10, 17, 27, 33, 35)) {
-//              -1875 -14112 -14143 -15882 21510 0
-//                                   result[0]                carry[2]                   result[2]                 carry[2]                 carry[2]
-                cc.setLiterals(5, coreInputs[i][4] + j, prepNum[i + 19] + 129 + j, prepNum[i + 19] + 160 + j, coreNum[i + 21] + 2 + j, prepNum[i + 28] + 129 + j);
-                cc.printClause(5,                0,                     0,                     0,                   0,                     1);
+            for (; j < 29; j++) {
+                // Exceptions
+                if (i ==  0 && j ==  0) goto start1;
+                if (i == 10 && j ==  2) goto start1;
+                if (i == 11 && j == 10) goto start1;
+                if (i == 13 && j ==  3) goto start1;
+                if (i == 15 && j == 14) goto start1;
+                if (i == 17 && j == 17) goto start1;
+                if (i == 27 && j ==  7) goto start1;
+                if (i == 28 && j ==  5) goto start1;
+
+                if (((sha_k[i + 18] >> (j + 2)) & 0x1) == 0) {
+                start1:
+                if (j < 0) continue;
+//              -737 1088 -10002 -10033 -11772 17400 0
+//                                       result[0]              carry[2]                   carry[2]                  result[2]                 carry[2]                   carry[2]
+                cc.setLiterals(6, coreInputs[i][7] + j, coreNum[i] + 319 + j, prepNum[i + 16] + 129 + j, prepNum[i + 16] + 160 + j, coreNum[i + 18] + 2 + j, prepNum[i + 25] + 129 + j);
+                cc.printClause(6,                0,                1,                     0,                     0,                   0,                     1);
+                }
             }
         }
     }

@@ -57,6 +57,7 @@ void Add_32::create(Printer* printer) {
     // XOR ->               !s_out            a_in            b_in        c_in
     createXOR(printer, output + 31, inputs[0] + 31, inputs[1] + 31, start + 30);
 
+    return;
 #ifdef ADDITIONAL_CLAUSES
     ClauseCreator cc(printer);
     //                      65         66      96          97          1              2         33             34
