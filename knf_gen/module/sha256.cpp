@@ -119,6 +119,7 @@ void Sha256::create(Printer* printer) {
     clause_4_39(cc, i);
     clause_4_45(cc, i);
 
+/*
     if (i < 43) {
       if (in_array(i, 7, 18, 20, 24, 28, 32, 34, 38)) {
         // -11486 14237 -21952 22014 -22015 27294 0
@@ -128,6 +129,13 @@ void Sha256::create(Printer* printer) {
           cc.printClause(6,             0,                1,                   0,               CC_DC,                   0,                   1);
         } else {
           cc.printClause(6,             0,                1,                   0,                   1,                   0,                   1);
+        }
+
+        cc.setLiterals(6, coreI[i][4], coreN[i + 3] + 1, coreN[i + 12] + 318, coreN[i + 12] + 380, coreN[i + 12] + 381, prepN[i + 19] + 159);
+        if (i == 24 || i == 38) {
+          cc.printClause(6,         0,                1,                   0,               CC_DC,                   0,                   1);
+        } else {
+          cc.printClause(6,         0,                1,                   0,                   1,                   0,                   1);
         }
       }
       if (in_array(i, 8, 0, 1, 11, 15, 22, 26, 37, 39)) {
@@ -140,6 +148,7 @@ void Sha256::create(Printer* printer) {
         cc.printClause(6,           0,                 1,                   0,                   1,                   0,                   1);
       }
     }
+*/
     if (i < 48) {
       if (in_array(i, 10, 0, 7, 16, 21, 23, 30, 31, 35, 37, 42)) {
         // -738 2 -6208 6270 -6271 10032 0
@@ -330,18 +339,32 @@ void Sha256::create(Printer* printer) {
 /*
   ClauseCreator cc(printer);
   for (unsigned i = 0; i < 64; i++) {
-    if (i < 45) {
+    if (i < 43) {
       if (in_array(i, 7, 18, 20, 24, 28, 32, 34, 38)) {
-        // -11485 14237 -21952 22014 -22015 27294 0
-        // -13129 15881 -23596 23658 -23659 28938 0
-        //                  result[0]          carry[1]             carry[1]             carry[0]             carry[1]            result[1]
+        // -11486 14237 -21952 22014 -22015 27294 0
+        // -13130 15881 -23596 23658 -23659 28938 0
+        cc.setLiterals(6, coreI[i][4] + 1, coreN[i + 3] + 1, coreN[i + 12] + 318, coreN[i + 12] + 380, coreN[i + 12] + 381, prepN[i + 19] + 159);
+        if (i == 24 || i == 38) {
+          cc.printClause(6,             0,                1,                   0,               CC_DC,                   0,                   1);
+        } else {
+          cc.printClause(6,             0,                1,                   0,                   1,                   0,                   1);
+        }
+
         cc.setLiterals(6, coreI[i][4], coreN[i + 3] + 1, coreN[i + 12] + 318, coreN[i + 12] + 380, coreN[i + 12] + 381, prepN[i + 19] + 159);
-        cc.printClause(6,           0,                1,                   0,                   1,                   0,                   1);
+        if (i == 24 || i == 38) {
+          cc.printClause(6,         0,                1,                   0,               CC_DC,                   0,                   1);
+        } else {
+          cc.printClause(6,         0,                1,                   0,                   1,                   0,                   1);
+        }
       }
-      if (i == 28) {
-        //                   result[1]       carry[2]         carry[2]         carry[1]         carry[2]        result[2]
-        cc.setLiterals(6, coreI[28][4], coreN[31] + 1, coreN[40] + 318, coreN[40] + 380, coreN[40] + 381, prepN[47] + 159);
-        cc.printClause(6,            0,             1,               0,               1,               0,               1);
+      if (in_array(i, 8, 0, 1, 11, 15, 22, 26, 37, 39)) {
+        // -14774 17556 -25240 25302 -25303 30582 0
+        // -27104 29886 -37570 37632 -37633 42912 0
+        cc.setLiterals(6, coreI[i][4] + 1, coreN[i + 3] + 32, coreN[i + 12] + 318, coreN[i + 12] + 380, coreN[i + 12] + 381, prepN[i + 19] + 159);
+        cc.printClause(6,               0,                 1,                   0,                   1,                   0,                   1);
+        // -18061 20844 -28528 28590 -28591 33870 0
+        cc.setLiterals(6, coreI[i][4], coreN[i + 3] + 32, coreN[i + 12] + 318, coreN[i + 12] + 380, coreN[i + 12] + 381, prepN[i + 19] + 159);
+        cc.printClause(6,           0,                 1,                   0,                   1,                   0,                   1);
       }
     }
   }
@@ -473,7 +496,6 @@ static void clause_4_39(ClauseCreator &cc, unsigned r) {
 }
 
 static void clause_4_45(ClauseCreator &cc, unsigned r) {
-
   if (r >= 45) return;
 
   if (in_array(r, 7, 18, 20, 24, 28, 32, 34, 38)) {
