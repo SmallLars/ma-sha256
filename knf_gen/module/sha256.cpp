@@ -30,6 +30,7 @@ static unsigned coreNum[64];
 
 static void clause_5_36(ClauseCreator &cc, unsigned r);
 static void clause_4_39(ClauseCreator &cc, unsigned r);
+static void clause_4_45(ClauseCreator &cc, unsigned r);
 
 Sha256::Sha256() : Modul(32, 24, 8) {
     for (unsigned i = 0; i < 24; i++) {
@@ -116,6 +117,7 @@ void Sha256::create(Printer* printer) {
 
         // distance - modulcount + 1 = 4
         clause_4_39(cc, i);
+        clause_4_45(cc, i);
 
         if (i < 43) {
             if (in_array(i, 7, 18, 20, 24, 28, 32, 34, 38)) {
@@ -143,15 +145,6 @@ void Sha256::create(Printer* printer) {
                                   coreNum[i + 12] + 380, coreNum[i + 12] + 381, prepNum[i + 19] + 159);
                 cc.printClause(6,                0,                  1,                     0,
                                                       1,                     0,                     1);
-            }
-        }
-        if (i < 45) {
-            if (in_array(i, 7, 18, 20, 24, 28, 32, 34, 38)) {
-//              -11485 14237 -21952 22014 -22015 27294 0
-//              -13129 15881 -23596 23658 -23659 28938 0
-//                                       result[0]            carry[1]               carry[1]               carry[0]               carry[1]              result[1]
-                cc.setLiterals(6, coreInputs[i][4], coreNum[i + 3] + 1, coreNum[i + 12] + 318, coreNum[i + 12] + 380, coreNum[i + 12] + 381, prepNum[i + 19] + 159);
-                cc.printClause(6,                0,                  1,                     0,                     1,                     0,                     1);
             }
         }
         if (i < 48) {
@@ -357,7 +350,20 @@ void Sha256::create(Printer* printer) {
 /*
     ClauseCreator cc(printer);
     for (unsigned i = 0; i < 64; i++) {
-
+        if (i < 45) {
+            if (in_array(i, 7, 18, 20, 24, 28, 32, 34, 38)) {
+//              -11485 14237 -21952 22014 -22015 27294 0
+//              -13129 15881 -23596 23658 -23659 28938 0
+//                                       result[0]            carry[1]               carry[1]               carry[0]               carry[1]              result[1]
+                cc.setLiterals(6, coreInputs[i][4], coreNum[i + 3] + 1, coreNum[i + 12] + 318, coreNum[i + 12] + 380, coreNum[i + 12] + 381, prepNum[i + 19] + 159);
+                cc.printClause(6,                0,                  1,                     0,                     1,                     0,                     1);
+            }
+            if (i == 28) {
+//                                        result[1]         carry[2]           carry[2]           carry[1]           carry[2]          result[2]
+                cc.setLiterals(6, coreInputs[28][4], coreNum[31] + 1, coreNum[40] + 318, coreNum[40] + 380, coreNum[40] + 381, prepNum[47] + 159);
+                cc.printClause(6,                 0,               1,                 0,                 1,                 0,                 1);
+            }
+        }
     }
 */
 }
@@ -483,5 +489,23 @@ static void clause_4_39(ClauseCreator &cc, unsigned r) {
             cc.setLiterals(6, coreInputs[r][7] + b, coreNum[r] + 319 + b, prepNum[r + 16] + 129 + b, prepNum[r + 16] + 160 + b, coreNum[r + 18] + 2 + b, prepNum[r + 25] + 129 + b);
             cc.printClause(6,                0,                1,                     0,                     0,                   0,                     1);
         }
+    }
+}
+
+static void clause_4_45(ClauseCreator &cc, unsigned r) {
+
+    if (r >= 45) return;
+
+    if (in_array(r, 7, 18, 20, 24, 28, 32, 34, 38)) {
+//      -11485 14237 -21952 22014 -22015 27294 0
+//      -13129 15881 -23596 23658 -23659 28938 0
+//                                   result[0]            carry[1]               carry[1]               carry[0]               carry[1]              result[1]
+        cc.setLiterals(6, coreInputs[r][4], coreNum[r + 3] + 1, coreNum[r + 12] + 318, coreNum[r + 12] + 380, coreNum[r + 12] + 381, prepNum[r + 19] + 159);
+        cc.printClause(6,                0,                  1,                     0,                     1,                     0,                     1);
+    }
+    if (r == 28) {
+//                                result[1]         carry[2]           carry[2]           carry[1]           carry[2]          result[2]
+        cc.setLiterals(6, coreInputs[28][4], coreNum[31] + 1, coreNum[40] + 318, coreNum[40] + 380, coreNum[40] + 381, prepNum[47] + 159);
+        cc.printClause(6,                 0,               1,                 0,                 1,                 0,                 1);
     }
 }
