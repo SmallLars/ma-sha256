@@ -98,7 +98,7 @@ int main(int argc, const char* argv[]) {
         for (unsigned i = 0; i < learned.size(); i++) learned[i] ^= 1;
 
         lbool ret = solver.solve(&learned);
-        cout << "\r" << c << " / " << linecount << " (" << ((c - 1) / 180) << " / " << (((c - 1) % 60) / 2) << ")" << std::flush;
+        cout << "\r" << c << " / " << linecount << " (" << ((c - 1) / 30) << " / " << ((c - 1) % 30) << ")" << std::flush;
         if (ret == l_False) {
             ++counter;
         } else {
