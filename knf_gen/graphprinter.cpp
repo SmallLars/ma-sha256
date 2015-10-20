@@ -47,7 +47,7 @@ int main() {
     sha256.create(&printer);
 
     {
-    DimacsParser dp("todo/000_outside_3.dimacs");
+    DimacsParser dp("todo/tocheck.dimacs");
     vector<Lit> learned;
     dp.getNextClause(learned);
     printer.printGraph("sha256.graph", learned);

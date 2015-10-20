@@ -1,0 +1,241 @@
+\documentclass{beamer}
+\usetheme{Warsaw}  %% Themenwahl
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{ngerman}
+\usepackage{wrapfig}
+\usepackage{multicol}
+
+\graphicspath{{../}}
+%\pdfimageresolution=300
+ 
+\title{Analyse von SHA256 mit Hilfe von CryptoMiniSat}
+\author{Lars Schmertmann}
+\date{\today}
+ 
+\begin{document}
+\maketitle
+%\setcounter{tocdepth}{3}
+%\frame{\tableofcontents}
+%\frame{\tableofcontents[currentsection]}
+
+\frame{ \begin{multicols}{2} \tableofcontents \end{multicols} }
+
+\section{Motivation}
+  \begin{frame}
+    \frametitle{Motivation}
+    Hurra
+  \end{frame}
+\section{Grundlagen}
+  \subsection{Hasheigenschaften}
+    \begin{frame}
+      \frametitle{Hasheigenschaften}
+      Ein guter kryptographischer Hash ist:\\
+      ~\\
+      \begin{itemize}
+        \setlength{\itemsep}{20pt}
+        \item Kollisionsresistent:
+        \begin{itemize}
+          \item schwer, $ x \neq y $ zu finden mit $ h(x) = h(y) $
+        \end{itemize}
+        \item Urbildresistent:
+        \begin{itemize}
+          \item schwer, zu einem $ a $ ein $ y $ zu finden mit $ a = h(y) $
+        \end{itemize}
+      \end{itemize}
+      ~\\
+      Gelingt es die Urbildresistenz zu umgehen,\\
+      ist die Kollisionsresistenz ebenfalls umgangen.
+    \end{frame}
+\subsection{SHA256}
+    \begin{frame}
+      \frametitle{SHA256 / Eckdaten}
+      X Bits Eingabe/Ausgabe\\
+      Padding, Erweiterung, Berechnung\\
+      Grobes Schaubild
+    \end{frame}
+    \begin{frame}
+      \frametitle{SHA256 / Padding}
+      Auffüllen der Eingabe auf ein Vielfaches von 512 Bit.\\
+      ~\\
+      Allgemeines Padding:\\
+      \includegraphics[width=300pt]{padding.pdf}\\
+    \end{frame}
+    \begin{frame}
+      \frametitle{SHA256 / Funktionen}
+      \begin{itemize}
+      \setlength{\itemsep}{20pt}
+      \item Erweiterung
+        \begin{itemize}
+          \setlength{\itemsep}{10pt}
+          \item $ SSIG0(x) = ROTR^{7}(x)~XOR~ROTR^{18}(x)~XOR~SHR^{3}(x) $
+          \item $ SSIG1(x) = ROTR^{17}(x)~XOR~ROTR^{19}(x)~XOR~SHR^{10}(x) $
+        \end{itemize}
+      \item Berechnung
+        \begin{itemize}
+          \setlength{\itemsep}{10pt}
+          \item $ CH( x, y, z) = (x~AND~y)~XOR~( (NOT~x)~AND~z) $
+          \item $ MAJ( x, y, z) = (x~AND~y)~XOR~(x~AND~z)~XOR~(y~AND~z) $
+          \item $ BSIG0(x) = ROTR^{2}(x)~XOR~ROTR^{13}(x)~XOR~ROTR^{22}(x) $
+          \item $ BSIG1(x) = ROTR^{6}(x)~XOR~ROTR^{11}(x)~XOR~ROTR^{25}(x) $
+        \end{itemize}
+      \end{itemize}
+    \end{frame}
+    \begin{frame}
+      \frametitle{SHA256 / Erweiterung}
+      Jeder Block der Länge 512 Bit wird auf 2048 Bit erweitert.\\
+      ~\\
+      Die zusätzliche Bits werden wie folgt generiert:\\
+      \includegraphics[width=300pt]{extend.pdf}
+    \end{frame}
+    \begin{frame}
+      \frametitle{SHA256 / Berechnung}
+      \includegraphics[width=300pt]{kern.pdf}
+    \end{frame}
+  \subsection{Bitcoin}
+    \begin{frame}
+      \frametitle{Bitcoin / Aufgabe}
+      Aufbau eines Bitcoinblocks:
+      \includegraphics[width=300pt]{bitcoinblock.pdf}\\
+      ~\\
+      Aufgabe:\\
+      Finde eine Nonce, so dass SHA256(SHA256(Block))\\
+      kleiner als das aktuelle Ziel ist.\\
+      ~\\
+      Das bedeutet aktuell:\\
+      Der Hashwert muss 67 führende Nullen haben.
+    \end{frame}
+    \begin{frame}
+      \frametitle{Bitcoin / Padding}
+      Eingabe für die erste Hashberechnung:
+      \includegraphics[width=300pt]{blockpadding.pdf}\\
+      ~\\
+      Eingabe für die zweite Hashberechnung:
+      \includegraphics[width=300pt]{blockpadding2.pdf}\\
+  \end{frame}
+  \subsection{CryptoMiniSat / Konjunktive Normalform}
+    \begin{frame}
+      \frametitle{Sat-Solver}
+      Hallo Welt
+    \end{frame}
+    \begin{frame}
+      \frametitle{Konjunktive Normalform}
+      Hallo Welt
+    \end{frame}
+    \begin{frame}
+      \frametitle{Tseitin-Transformation}
+      \includegraphics[scale=1]{tseitin.png}\\
+      Quelle: https://en.wikipedia.org/wiki/Tseitin\_transformation
+    \end{frame}
+    \begin{frame}
+      \frametitle{Espresso}
+      Palaber
+    \end{frame}
+    \begin{frame}
+      \frametitle{XOR}
+      Palaber
+    \end{frame}
+
+\section{Umsetzung}
+  \subsection{Padding}
+    \begin{frame}
+      \frametitle{Padding}
+      Mögliche Lösung für SAT-Berechnung\\
+      - Länge von 55 Byte vorgeben:\\
+      \includegraphics[width=300pt]{padding-allgemein.pdf}
+    \end{frame}
+  \subsection{Funktionen}
+    \begin{frame}
+      \frametitle{CH}
+      $ CH( x, y, z) = (x~AND~y)~XOR~( (NOT~x)~AND~z) $\\
+      ~\\
+      $ c \Leftrightarrow (x \wedge y) \veebar ( \neg x \wedge z) $\\
+      ~\\
+      \includegraphics[scale=0.5]{ch.png}\\
+      ~\\
+      $ (\neg c \vee \neg x \vee y) \wedge (\neg c \vee x \vee z) \wedge (c \vee \neg x \vee \neg y) \wedge (c \vee x \vee \neg z) $
+    \end{frame}
+    \begin{frame}
+      \frametitle{MAJ}
+      $ MAJ( x, y, z) = (x~AND~y)~XOR~(x~AND~z)~XOR~(y~AND~z) $\\
+      ~\\
+      $ m \Leftrightarrow (x \wedge y) \veebar (x \wedge z) \veebar (y \wedge z) $\\
+      ~\\
+      \includegraphics[scale=0.5]{maj.png}\\
+      ~\\
+      $ (\neg m \vee x \vee y) \wedge  (\neg m \vee x \vee z) \wedge (\neg m \vee y \vee z) \wedge $\\
+      $ (m \vee \neg x \vee \neg y) \wedge (m \vee \neg x \vee \neg z) \wedge (m \vee \neg y \vee \neg z) $
+      \end{frame}
+    \begin{frame}
+      \frametitle{*SIG*}
+      $ *SIG*(a, b, c) = a~XOR~b~XOR~c $\\
+      ~\\
+      $ s \Leftrightarrow a \veebar b \veebar c $\\
+      ~\\
+      \includegraphics[scale=0.5]{sig.png}\\
+      ~\\
+      $ (\neg a \vee \neg b \vee \neg c \vee s) \wedge (\neg a \vee \neg b \vee c \vee \neg s) \wedge (\neg a \vee b \vee \neg c \vee \neg s) \wedge$\\
+      $ (\neg a \vee b \vee c \vee s) \wedge (a \vee \neg b \vee \neg c \vee \neg s) \wedge (a \vee \neg b \vee c \vee s) \wedge $\\
+      $ (a \vee b \vee \neg c \vee s) \wedge (a \vee b \vee c \vee \neg s) $
+    \end{frame}
+    \begin{frame}
+      \frametitle{Addierer}
+      Carry-Riple-Addierer\\
+      Halbaddierer\\
+      Volladierer
+    \end{frame}
+  \subsection{Komposition}
+  \begin{frame}
+    \frametitle{CBMC vs Eigenbau}
+    \begin{itemize}
+      \item CBMC
+      \begin{itemize}
+        \item $ \sim $ 70.000 Variablen
+        \item $ \sim $ 350.000 Klauseln
+      \end{itemize}
+      \item Eigenbau
+      \begin{itemize}
+        \item $ \sim $ 50.000 Variablen
+        \item $ \sim $ 250.000 Klauseln
+      \end{itemize}
+      \item Eigenbau mit XOR
+      \begin{itemize}
+        \item $ \sim $ 50.000 Variablen
+        \item $ \sim $ 150.000 Klauseln
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+\section{Ergebnisse}
+  \subsection{Analyse}
+    \begin{frame}
+      \frametitle{Kern}
+      \includegraphics[width=300pt]{analyse_kern.pdf}
+    \end{frame}
+  \subsection{CC-Mining}
+    \begin{frame}
+      \frametitle{CC-Mining}
+      \begin{itemize}
+       \item Allgemeine Konfliktklausen errechnen
+       \item Konfliktklausel ausdenken und Literale einzeln negiert in die SAT-Instanz einfügen: Falls nicht lösbar ist die Konfliktklausel gültig
+       \item Bis 4 oder 5 Literalen machbar. Bei mehr Literalen gibt es zu viele Möglichkeiten
+       \item Producer / Consumer: Eine Thread-Safe-Klasse die Aufgaben an beliebig viele Consumer vergibt.
+      \end{itemize}
+    \end{frame}
+  \subsection{Sat-Solving}
+    \begin{frame}
+      \frametitle{Sat-Solving}
+      \begin{itemize}
+        \item SHA256 Vorwärtsberechnung funktioniert
+        \item SHA256 Rückwärtsberechnung \newline funktioniert mit 18 von 64 Runden
+        \begin{itemize}
+          \item Mit 4 Threads in unter 5 Minuten. Nicht deterministisch.
+        \end{itemize}
+        \item Espresso - Nutzbar für CH und MAJ
+        \begin{itemize}
+          \item *SIG*: 64 Variablen: Zu komplex
+        \end{itemize}
+      \end{itemize}
+    \end{frame}
+\end{document}
