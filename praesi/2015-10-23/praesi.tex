@@ -6,6 +6,7 @@
 \usepackage{ngerman}
 \usepackage{wrapfig}
 \usepackage{multicol}
+\usepackage{color}
 
 \graphicspath{{../}}
 %\pdfimageresolution=300
@@ -25,7 +26,12 @@
 \section{Motivation}
   \begin{frame}
     \frametitle{Motivation}
-    Hurra
+    \begin{itemize}
+      \setlength{\itemsep}{20pt}
+      \item Verlust von 1000 Euro
+      \item Masterarbeit zum Thema SHA1/SAT-Solver
+      \item GitHub-Projekt: SatCoin - (CBMC)
+    \end{itemize}
   \end{frame}
 \section{Grundlagen}
   \subsection{Hasheigenschaften}
@@ -51,15 +57,31 @@
 \subsection{SHA256}
     \begin{frame}
       \frametitle{SHA256 / Eckdaten}
-      X Bits Eingabe/Ausgabe\\
-      Padding, Erweiterung, Berechnung\\
-      Grobes Schaubild
+      \begin{columns}[T]
+        \column{.48\textwidth}
+        \begin{itemize}
+          \item Nachfolger von SHA-1\\
+          \item Standardisierung durch\newline das NIST in 2001\\
+          \item Arbeitet in 512 Bit Blöcken\\
+          \item Erzeugt einen 256 Bit Hash\\
+          \item Besteht aus:\\
+          \begin{itemize}
+            \item Padding\\
+            \item Konstanten\\
+            \item Erweiterung\\
+            \item Berechnung
+          \end{itemize}
+        \end{itemize}
+        \column{.52\textwidth}
+        \includegraphics[scale=0.3]{sha256o.pdf}
+      \end{columns} 
     \end{frame}
     \begin{frame}
       \frametitle{SHA256 / Padding}
       Auffüllen der Eingabe auf ein Vielfaches von 512 Bit.\\
       ~\\
       Allgemeines Padding:\\
+      ~\\
       \includegraphics[width=300pt]{padding.pdf}\\
     \end{frame}
     \begin{frame}
@@ -87,6 +109,7 @@
       Jeder Block der Länge 512 Bit wird auf 2048 Bit erweitert.\\
       ~\\
       Die zusätzliche Bits werden wie folgt generiert:\\
+      ~\\
       \includegraphics[width=300pt]{extend.pdf}
     \end{frame}
     \begin{frame}
@@ -134,7 +157,17 @@
     \end{frame}
     \begin{frame}
       \frametitle{XOR}
-      Palaber
+      Die Klauselmenge für ein XOR wächst exponentiell. Beispiel:\\
+      ~\\
+      $n = 2$:~~~~$ a \Leftrightarrow b \veebar c$\\
+      ~\\
+      4 Klauseln mit jeweils 3 Literalen
+      ~\\
+      $ (\neg a \vee \neg b \vee \neg c) \wedge (\neg a \vee b \vee c) \wedge (a \vee \neg b \vee c) \wedge (a \vee b \vee \neg c) $\\
+      ~\\
+      Allgemein: $ 2^{n - 1} $ Klauseln mit jeweils $ n $ Literalen\\
+      ~\\
+      CryptoMiniSat akzeptiert auch XOR-Klauseln: $ (\neg a \veebar b \veebar c)$\\
     \end{frame}
 
 \section{Umsetzung}
@@ -142,7 +175,9 @@
     \begin{frame}
       \frametitle{Padding}
       Mögliche Lösung für SAT-Berechnung\\
-      - Länge von 55 Byte vorgeben:\\
+      \begin{itemize}
+       \item Länge von 55 Byte vorgeben:
+      \end{itemize}
       \includegraphics[width=300pt]{padding-allgemein.pdf}
     \end{frame}
   \subsection{Funktionen}
@@ -172,18 +207,24 @@
       $ *SIG*(a, b, c) = a~XOR~b~XOR~c $\\
       ~\\
       $ s \Leftrightarrow a \veebar b \veebar c $\\
+      ~\\      
+      \begin{columns}[C]
+        \column{.4\textwidth}
+        \includegraphics[scale=0.5]{sig.png}
+        \column{.5\textwidth}
+        $ \Rightarrow (\neg s \veebar a \veebar b \veebar c) $
+      \end{columns}
       ~\\
-      \includegraphics[scale=0.5]{sig.png}\\
       ~\\
       $ (\neg a \vee \neg b \vee \neg c \vee s) \wedge (\neg a \vee \neg b \vee c \vee \neg s) \wedge (\neg a \vee b \vee \neg c \vee \neg s) \wedge$\\
       $ (\neg a \vee b \vee c \vee s) \wedge (a \vee \neg b \vee \neg c \vee \neg s) \wedge (a \vee \neg b \vee c \vee s) \wedge $\\
       $ (a \vee b \vee \neg c \vee s) \wedge (a \vee b \vee c \vee \neg s) $
     \end{frame}
     \begin{frame}
-      \frametitle{Addierer}
-      Carry-Riple-Addierer\\
-      Halbaddierer\\
-      Volladierer
+      \frametitle{Carry-Riple-Addierer}
+      32 Bit Addierer : 1 Halbaddierer + 30 Volladdierer + 1 XOR\\
+      \includegraphics[scale=0.5]{volladdierer.pdf}\\
+      TODO 6 klauseln einfügen + xor
     \end{frame}
   \subsection{Komposition}
   \begin{frame}
@@ -208,34 +249,84 @@
   \end{frame}
 
 \section{Ergebnisse}
-  \subsection{Analyse}
+  \subsection{Allgemein}
     \begin{frame}
       \frametitle{Kern}
-      \includegraphics[width=300pt]{analyse_kern.pdf}
+      \includegraphics[width=300pt]{analyse_kern.pdf}\\
+      ~\\
+      D = E' + \textcolor{blue}{\textbf{X}} - A'\\
+      %\pause
+      %~~~~~~~~~~~~~~~~~~~~~~ $ \Rightarrow $ D = E' + (\textcolor{blue}{\textbf{X}} - A')~~~~~~ $ \Rightarrow $ D = A' - (\textcolor{blue}{\textbf{X}} - A')\\
+      %~~~~~~~~~~~~~~~~~~~~~~ $ \Rightarrow $ D = A' - \textcolor{blue}{\textbf{X}} + A'~~~~~~~~ $ \Rightarrow $ D = 2 $\cdot$ A' - \textcolor{blue}{\textbf{X}}
     \end{frame}
-  \subsection{CC-Mining}
+  \subsection{Sat-Solving 1 - Einzelner Lösungsversuch}
     \begin{frame}
-      \frametitle{CC-Mining}
+      \frametitle{Einzelne Lösungsversuche}
       \begin{itemize}
-       \item Allgemeine Konfliktklausen errechnen
-       \item Konfliktklausel ausdenken und Literale einzeln negiert in die SAT-Instanz einfügen: Falls nicht lösbar ist die Konfliktklausel gültig
-       \item Bis 4 oder 5 Literalen machbar. Bei mehr Literalen gibt es zu viele Möglichkeiten
-       \item Producer / Consumer: Eine Thread-Safe-Klasse die Aufgaben an beliebig viele Consumer vergibt.
+        \setlength{\itemsep}{20pt}
+        \item Vorwärtsberechnung funktioniert
+        \pause
+        \item Rückwärtsberechnung funktioniert nicht
+        \pause
+        \item Rückwärtsberechnung funktioniert mit Runden 1 - 18
+        \pause
+        \item Rückwärtsberechnung ohne Runden 17 - 20 funktioniert
+        \pause
+        \item Rückwärtsberechnung ohne Erweiterung 17 - 24 funktioniert
       \end{itemize}
     \end{frame}
-  \subsection{Sat-Solving}
+  \subsection{Sat-Solving 2 - Iterative Lösungsversuche}
     \begin{frame}
-      \frametitle{Sat-Solving}
+      \frametitle{Iterative Lösungsversuche}
       \begin{itemize}
-        \item SHA256 Vorwärtsberechnung funktioniert
-        \item SHA256 Rückwärtsberechnung \newline funktioniert mit 18 von 64 Runden
-        \begin{itemize}
-          \item Mit 4 Threads in unter 5 Minuten. Nicht deterministisch.
-        \end{itemize}
-        \item Espresso - Nutzbar für CH und MAJ
-        \begin{itemize}
-          \item *SIG*: 64 Variablen: Zu komplex
-        \end{itemize}
+        \setlength{\itemsep}{20pt}
+        \item Rückwärtsbrechnung funktioniert mit bis zu 19 Bits
+        \pause
+        \item Rückwärtsberechnung mit 1,3 Gigabyte Konfliktklauseln:\\ Funktioniert mit bis zu 23 Bits
+        \pause
+        $ \Rightarrow $ Zusätzliche Klauseln begrenzen den Lösungsraum und helfen dem SAT-Solver
+        \pause
+        \item $ \Rightarrow $ Konfliktklausel-Mining
       \end{itemize}
+    \end{frame}
+    \begin{frame}
+      \frametitle{Konfliktklausel-Mining}
+      \begin{itemize}
+       \item Konfliktklausel ausdenken und Literale einzeln negiert in die SAT-Instanz einfügen:\\Falls nicht lösbar ist die Konfliktklausel gültig
+       \item Scheitert an den Komplexität.\\ \pause Beispiel für Klauseln mit 2 Literalen:
+       \item Bei 50.000 Literalen ergeben sich\\ 50.000 $ \cdot $ 49.999 = 2.499.950.000 Kombinationen
+       \item Klauseln mit 2 Literalen können 4 Belegungen abbilden:\\ 2.499.950.000 $ \cdot $ = 9.999.800.000 Klauseln
+      \end{itemize}
+    \end{frame}
+  \subsection{Sat-Solving 3 - Analyse der Konfliktklauseln}
+    \begin{frame}
+      \frametitle{Analyse der Konfliktklauseln}
+      \begin{enumerate}
+        \setlength{\itemsep}{20pt}
+        \item Entfernen schon bekannter Klauseln
+        \item Identifizierung und Normalisierung modulspezifischer Klauseln
+        \item Bewertung der modulübergreifenden Klauseln:
+        \begin{itemize}
+          \item SHA256 als ungerichter Graph mit ca. 1000 Knoten
+          \item Berechnung der Distanz der Knoten zueinander mit Dijkstra
+          \item Klauselbewertung ergibt sich durch: max\_dist - module + 1
+        \end{itemize}
+      \end{enumerate}
+    \end{frame}
+    \begin{frame}
+      \frametitle{Weitere Konfliktklauseln testen}
+      \begin{itemize}
+        \setlength{\itemsep}{20pt}
+        \item "`Wertvolle"' Klauseln übertragen auf:
+        \begin{itemize}
+          \item Vorhergehende oder Nachfolgende Runden
+          \item Vorhergehende oder Nachfolgende Bits
+        \end{itemize}
+        \item Bei der Hälfte der Klauseln sehr erfolgreich
+      \end{itemize}
+      \pause
+      ~\\
+      Mit 22 Megabyte Klauseln:\\
+      Rückwärtsbrechnung funktioniert mit bis zu 25 Bits
     \end{frame}
 \end{document}

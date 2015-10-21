@@ -8,12 +8,12 @@
 
   <title>Kern</title>
 
-  <line x1="100" y1="50" x2="200" y2="400" style="stroke:lightgrey;stroke-width:6" />
-  <line x1="200" y1="50" x2="300" y2="400" style="stroke:lightgrey;stroke-width:6" />
-  <line x1="300" y1="50" x2="400" y2="400" style="stroke:lightgrey;stroke-width:6" />
-  <line x1="500" y1="50" x2="600" y2="400" style="stroke:lightgrey;stroke-width:6" />
-  <line x1="600" y1="50" x2="700" y2="400" style="stroke:lightgrey;stroke-width:6" />
-  <line x1="700" y1="50" x2="800" y2="400" style="stroke:lightgrey;stroke-width:6" />
+  <line x1="100" y1="50" x2="200" y2="400" style="stroke:grey;stroke-width:5" />
+  <line x1="200" y1="50" x2="300" y2="400" style="stroke:grey;stroke-width:5" />
+  <line x1="300" y1="50" x2="400" y2="400" style="stroke:grey;stroke-width:5" />
+  <line x1="500" y1="50" x2="600" y2="400" style="stroke:grey;stroke-width:5" />
+  <line x1="600" y1="50" x2="700" y2="400" style="stroke:grey;stroke-width:5" />
+  <line x1="700" y1="50" x2="800" y2="400" style="stroke:grey;stroke-width:5" />
 
   <rect x="75" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
   <rect x="175" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
@@ -22,8 +22,8 @@
   <rect x="475" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
   <rect x="575" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
   <rect x="675" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <rect x="775" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:red" />
-  <rect x="875" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:red" />
+  <rect x="775" y="0" width="50" height="50" style="fill:white;stroke-width:4;stroke:red" />
+  <rect x="875" y="0" width="50" height="50" style="fill:white;stroke-width:4;stroke:red" />
   <text x="100" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">A</text>
   <text x="200" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">B</text>
   <text x="300" y="35" text-anchor="middle" style="font-family: Arial; font-size: 32px;">C</text>
@@ -115,14 +115,14 @@
   <line x1="625" y1="75" x2="625" y2="100" style="stroke:black;stroke-width:2" />
 
   <!-- H -->
-  <line x1="800" y1="50" x2="800" y2="75" style="stroke:red;stroke-width:2" />
-  <line x1="800" y1="75" x2="825" y2="75" style="stroke:red;stroke-width:2" />
-  <line x1="825" y1="75" x2="825" y2="100" style="stroke:red;stroke-width:2" />
+  <line x1="800" y1="50" x2="800" y2="75" style="stroke:red;stroke-width:4" />
+  <line x1="800" y1="75" x2="825" y2="75" style="stroke:red;stroke-width:4" />
+  <line x1="825" y1="75" x2="825" y2="100" style="stroke:red;stroke-width:4" />
 
   <!-- I -->
-  <line x1="900" y1="50" x2="900" y2="75" style="stroke:red;stroke-width:2" />
-  <line x1="875" y1="75" x2="900" y2="75" style="stroke:red;stroke-width:2" />
-  <line x1="875" y1="75" x2="875" y2="100" style="stroke:red;stroke-width:2" />
+  <line x1="900" y1="50" x2="900" y2="75" style="stroke:red;stroke-width:4" />
+  <line x1="875" y1="75" x2="900" y2="75" style="stroke:red;stroke-width:4" />
+  <line x1="875" y1="75" x2="875" y2="100" style="stroke:red;stroke-width:4" />
 
   <!-- BSIG1 -->
   <line x1="450" y1="150" x2="450" y2="175" style="stroke:black;stroke-width:2" />
@@ -146,7 +146,7 @@
   <line x1="625" y1="175" x2="625" y2="200" style="stroke:black;stroke-width:2" />
 
   <!-- + BSIG0/MAJ-->
-  <line x1="75" y1="250" x2="75" y2="300" style="stroke:black;stroke-width:2" />
+  <line x1="75" y1="250" x2="75" y2="300" style="stroke:blue;stroke-width:4" />
 
   <!-- + (BSIG1/CH)/(H/I) -->
   <line x1="600" y1="250" x2="600" y2="275" style="stroke:black;stroke-width:2" />

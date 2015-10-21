@@ -4,18 +4,23 @@
 <svg xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
      version="1.1" baseProfile="full"
-     width="1020" height="120" viewBox="-10 -10 1020 120">
+     width="1020" height="160" viewBox="-10 -10 1020 160">
 
   <title>Padding</title>
 
-  <rect x="0" y="0" width="1000" height="100" style="fill:white;stroke-width:2;stroke:black" />
+  <rect x="0" y="40" width="1000" height="75" style="fill:white;stroke-width:2;stroke:black" />
 
-  <line x1="350" y1="0" x2="350" y2="100" style="stroke:black;stroke-width:2" />
-  <line x1="450" y1="0" x2="450" y2="100" style="stroke:black;stroke-width:2" />
-  <line x1="650" y1="0" x2="650" y2="100" style="stroke:black;stroke-width:2" />
+  <line x1="350" y1="40" x2="350" y2="115" style="stroke:black;stroke-width:2" />
+  <line x1="450" y1="40" x2="450" y2="115" style="stroke:black;stroke-width:2" />
+  <line x1="650" y1="40" x2="650" y2="115" style="stroke:black;stroke-width:2" />
 
-  <text x="175" y="60" text-anchor="middle" style="font-family: Arial; font-size: 40px;">Eingabe (X Bit)</text>
-  <text x="400" y="60" text-anchor="middle" style="font-family: Arial; font-size: 40px;">1</text>
-  <text x="550" y="60" text-anchor="middle" style="font-family: Arial; font-size: 40px;">0 ... 0</text>
-  <text x="825" y="60" text-anchor="middle" style="font-family: Arial; font-size: 40px;">Länge X (64 Bit)</text>
+  <text x="175" y="20" text-anchor="middle" style="font-family: Arial; font-size: 30px;">X Bit</text>
+  <text x="400" y="20" text-anchor="middle" style="font-family: Arial; font-size: 30px;">1 Bit</text>
+  <text x="550" y="20" text-anchor="middle" style="font-family: Arial; font-size: 30px;">Füllbits</text>
+  <text x="825" y="20" text-anchor="middle" style="font-family: Arial; font-size: 30px;">64 Bit</text>
+
+  <text x="175" y="90" text-anchor="middle" style="font-family: Arial; font-size: 40px;">Eingabe</text>
+  <text x="400" y="90" text-anchor="middle" style="font-family: Arial; font-size: 40px;">1</text>
+  <text x="550" y="90" text-anchor="middle" style="font-family: Arial; font-size: 40px;">0 ... 0</text>
+  <text x="825" y="90" text-anchor="middle" style="font-family: Arial; font-size: 40px;">X</text>
 </svg>

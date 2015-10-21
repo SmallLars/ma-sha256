@@ -8,12 +8,12 @@
 
   <title>Kern</title>
 
-  <line x1="100" y1="50" x2="200" y2="400" style="stroke:lightgrey;stroke-width:6" />
-  <line x1="200" y1="50" x2="300" y2="400" style="stroke:lightgrey;stroke-width:6" />
-  <line x1="300" y1="50" x2="400" y2="400" style="stroke:lightgrey;stroke-width:6" />
-  <line x1="500" y1="50" x2="600" y2="400" style="stroke:lightgrey;stroke-width:6" />
-  <line x1="600" y1="50" x2="700" y2="400" style="stroke:lightgrey;stroke-width:6" />
-  <line x1="700" y1="50" x2="800" y2="400" style="stroke:lightgrey;stroke-width:6" />
+  <line x1="100" y1="50" x2="200" y2="400" style="stroke:grey;stroke-width:5" />
+  <line x1="200" y1="50" x2="300" y2="400" style="stroke:grey;stroke-width:5" />
+  <line x1="300" y1="50" x2="400" y2="400" style="stroke:grey;stroke-width:5" />
+  <line x1="500" y1="50" x2="600" y2="400" style="stroke:grey;stroke-width:5" />
+  <line x1="600" y1="50" x2="700" y2="400" style="stroke:grey;stroke-width:5" />
+  <line x1="700" y1="50" x2="800" y2="400" style="stroke:grey;stroke-width:5" />
 
   <rect x="75" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
   <rect x="175" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
