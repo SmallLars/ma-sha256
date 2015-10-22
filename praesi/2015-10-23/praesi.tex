@@ -11,9 +11,9 @@
 \graphicspath{{../}}
 %\pdfimageresolution=300
  
-\title{Analyse von SHA256 mit Hilfe von CryptoMiniSat}
+\title[Analyse von SHA256 mit Hilfe von CryptoMiniSat]{Vorstellung der Masterarbeit:\newline Analyse von SHA256 mit Hilfe von CryptoMiniSat}
 \author{Lars Schmertmann}
-\date{\today}
+\date{\today\newline\newline\newline Betreuung durch die AG Rechnerarchitektur:\newline Dr. Stephan Eggersglüß und Dr. Daniel Große}
  
 \begin{document}
 \maketitle
@@ -28,7 +28,7 @@
     \frametitle{Motivation}
     \begin{itemize}
       \setlength{\itemsep}{20pt}
-      \item Verlust von 1000 Euro
+      \item Spekulationsverlust bei LiteCoin
       \item Masterarbeit zum Thema SHA1/SAT-Solver
       \item GitHub-Projekt: SatCoin - (CBMC)
     \end{itemize}
@@ -140,11 +140,30 @@
   \subsection{CryptoMiniSat / Konjunktive Normalform}
     \begin{frame}
       \frametitle{Sat-Solver}
-      Hallo Welt
+      \begin{itemize}
+        \setlength{\itemsep}{20pt}
+        \item Versucht zu ermitteln, ob eine aussagenlogische Formel erfüllbar ist
+        \item Lösbar in exponentieller Zeit bezüglich der Anzahl Variablen
+        \begin{itemize}
+          \item NP vollständig
+        \end{itemize}
+        \item Falls erfüllbar, liefert der SAT-Solver ein Beispiel
+        \item Transformation von SHA256 in ein Erfüllbarkeitsproblem
+        \begin{itemize}
+         \item In diesem Fall die konjunktive Normalform
+        \end{itemize}
+      \end{itemize}
     \end{frame}
     \begin{frame}
       \frametitle{Konjunktive Normalform}
-      Hallo Welt
+      \begin{itemize}
+        \setlength{\itemsep}{16pt}
+        \item Eine Formel der Aussagenlogik ist in konjunktiver Normalform, wenn sie eine Konjunktion von Disjunktionstermen ist
+        \item Literal: nichtnegierte oder negierte Variable
+        \item Klausel: ein Disjunktionsterm
+        \item Eine Formel in KNF hat also die Form: \newline \newline $ \bigwedge\limits_{i} \bigvee\limits_{j} (\neg)x_{ij} $
+        \item Beispiel: $ (\neg a \vee \neg b \vee \neg c) \wedge (\neg a \vee b \vee c) $
+      \end{itemize}
     \end{frame}
     \begin{frame}
       \frametitle{Tseitin-Transformation}
@@ -153,7 +172,23 @@
     \end{frame}
     \begin{frame}
       \frametitle{Espresso}
-      Palaber
+      Heuristic Logic Minimizer der Berkeley Universität von 1989\\
+      ~\\
+      Am Beispiel von AND:\\
+      ~\\
+      \begin{tabular}{ccc|cp{1cm}ccc|cp{1cm}l}
+        a & b & r & c & & a & b & r & c\\
+        \cline{1-4}\cline{6-9}
+        1 & 1 & 0 & 0 & & 1 & 1 & 0 & 0 & & $ (\neg a \vee \neg b \vee c) $\\
+        1 & 0 & 1 & 0 & & X & 0 & 1 & 0 & & $ (b \vee \neg c) $\\
+        0 & 1 & 1 & 0 & & 0 & X & 1 & 0 & & $ (a \vee \neg c) $\\
+        0 & 0 & 1 & 0 \\
+        \cline{1-4}
+        1 & 1 & 1 & 1 \\
+        1 & 0 & 0 & 1 \\
+        0 & 1 & 0 & 1 \\
+        0 & 0 & 0 & 1 \\
+      \end{tabular}
     \end{frame}
     \begin{frame}
       \frametitle{XOR}
@@ -223,8 +258,12 @@
     \begin{frame}
       \frametitle{Carry-Riple-Addierer}
       32 Bit Addierer : 1 Halbaddierer + 30 Volladdierer + 1 XOR\\
+      ~\\
       \includegraphics[scale=0.5]{volladdierer.pdf}\\
-      TODO 6 klauseln einfügen + xor
+      $ (c_{out} \vee \neg x \vee \neg y) \wedge (\neg c_{out} \vee x \vee y) \wedge (c_{out} \vee \neg x \vee \neg c_{in}) \wedge $\\
+      $ (c_{out} \vee \neg y \vee \neg c_{in}) \wedge (\neg c_{out} \vee x \vee c_{in}) \wedge (\neg c_{out} \vee y \vee c_{in}) $\\
+      ~\\
+      $ (\neg s \veebar x \veebar y \veebar c_{in})$\\
     \end{frame}
   \subsection{Komposition}
   \begin{frame}
