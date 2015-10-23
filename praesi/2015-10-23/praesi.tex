@@ -24,19 +24,26 @@
 \frame{ \begin{multicols}{2} \tableofcontents \end{multicols} }
 
 \section{Motivation}
-  \begin{frame}
-    \frametitle{Motivation}
+  \begin{frame}{Motivation}
     \begin{itemize}
       \setlength{\itemsep}{20pt}
+      \item Spaß an der Arbeit mit SAT-Solvern
       \item Spekulationsverlust bei LiteCoin
       \item Masterarbeit zum Thema SHA1/SAT-Solver
+      \begin{itemize}
+        \item Universität Oslo - Vegard Nossum - November 2012
+      \end{itemize}
       \item GitHub-Projekt: SatCoin - (CBMC)
     \end{itemize}
   \end{frame}
 \section{Grundlagen}
+  \begin{frame}{}
+    \begin{center}
+      \Huge Grundlagen
+    \end{center}
+  \end{frame}
   \subsection{Hasheigenschaften}
-    \begin{frame}
-      \frametitle{Hasheigenschaften}
+    \begin{frame}{Hasheigenschaften}
       Ein guter kryptographischer Hash ist:\\
       ~\\
       \begin{itemize}
@@ -55,8 +62,7 @@
       ist die Kollisionsresistenz ebenfalls umgangen.
     \end{frame}
 \subsection{SHA256}
-    \begin{frame}
-      \frametitle{SHA256 / Eckdaten}
+    \begin{frame}{SHA256 / Eckdaten}
       \begin{columns}[T]
         \column{.48\textwidth}
         \begin{itemize}
@@ -76,16 +82,14 @@
         \includegraphics[scale=0.3]{sha256o.pdf}
       \end{columns} 
     \end{frame}
-    \begin{frame}
-      \frametitle{SHA256 / Padding}
+    \begin{frame}{SHA256 / Padding}
       Auffüllen der Eingabe auf ein Vielfaches von 512 Bit.\\
       ~\\
       Allgemeines Padding:\\
       ~\\
       \includegraphics[width=300pt]{padding.pdf}\\
     \end{frame}
-    \begin{frame}
-      \frametitle{SHA256 / Funktionen}
+    \begin{frame}{SHA256 / Funktionen}
       \begin{itemize}
       \setlength{\itemsep}{20pt}
       \item Erweiterung
@@ -104,16 +108,14 @@
         \end{itemize}
       \end{itemize}
     \end{frame}
-    \begin{frame}
-      \frametitle{SHA256 / Erweiterung}
+    \begin{frame}{SHA256 / Erweiterung}
       Jeder Block der Länge 512 Bit wird auf 2048 Bit erweitert.\\
       ~\\
       Die zusätzliche Bits werden wie folgt generiert:\\
       ~\\
       \includegraphics[width=300pt]{extend.pdf}
     \end{frame}
-    \begin{frame}
-      \frametitle{SHA256 / Berechnung}
+    \begin{frame}{SHA256 / Berechnung}
       \includegraphics[width=300pt]{kern.pdf}
     \end{frame}
   \subsection{Bitcoin}
@@ -129,8 +131,7 @@
       Das bedeutet aktuell:\\
       Der Hashwert muss 67 führende Nullen haben.
     \end{frame}
-    \begin{frame}
-      \frametitle{Bitcoin / Padding}
+    \begin{frame}{Bitcoin / Padding}
       Eingabe für die erste Hashberechnung:
       \includegraphics[width=300pt]{blockpadding.pdf}\\
       ~\\
@@ -138,8 +139,7 @@
       \includegraphics[width=300pt]{blockpadding2.pdf}\\
   \end{frame}
   \subsection{CryptoMiniSat / Konjunktive Normalform}
-    \begin{frame}
-      \frametitle{Sat-Solver}
+    \begin{frame}{Sat-Solver}
       \begin{itemize}
         \setlength{\itemsep}{20pt}
         \item Versucht zu ermitteln, ob eine aussagenlogische Formel erfüllbar ist
@@ -148,14 +148,14 @@
           \item NP vollständig
         \end{itemize}
         \item Falls erfüllbar, liefert der SAT-Solver ein Beispiel
+        \item Enthält u.a. Heuristiken und Lernverfahren
         \item Transformation von SHA256 in ein Erfüllbarkeitsproblem
         \begin{itemize}
          \item In diesem Fall die konjunktive Normalform
         \end{itemize}
       \end{itemize}
     \end{frame}
-    \begin{frame}
-      \frametitle{Konjunktive Normalform}
+    \begin{frame}{Konjunktive Normalform}
       \begin{itemize}
         \setlength{\itemsep}{16pt}
         \item Eine Formel der Aussagenlogik ist in konjunktiver Normalform, wenn sie eine Konjunktion von Disjunktionstermen ist
@@ -165,13 +165,11 @@
         \item Beispiel: $ (\neg a \vee \neg b \vee \neg c) \wedge (\neg a \vee b \vee c) $
       \end{itemize}
     \end{frame}
-    \begin{frame}
-      \frametitle{Tseitin-Transformation}
+    \begin{frame}{Tseitin-Transformation}
       \includegraphics[scale=1]{tseitin.png}\\
       Quelle: https://en.wikipedia.org/wiki/Tseitin\_transformation
     \end{frame}
-    \begin{frame}
-      \frametitle{Espresso}
+    \begin{frame}{Espresso}
       Heuristic Logic Minimizer der Berkeley Universität von 1989\\
       ~\\
       Am Beispiel von AND:\\
@@ -190,8 +188,7 @@
         0 & 0 & 0 & 1 \\
       \end{tabular}
     \end{frame}
-    \begin{frame}
-      \frametitle{XOR}
+    \begin{frame}{XOR}
       Die Klauselmenge für ein XOR wächst exponentiell. Beispiel:\\
       ~\\
       $n = 2$:~~~~$ a \Leftrightarrow b \veebar c$\\
@@ -206,9 +203,13 @@
     \end{frame}
 
 \section{Umsetzung}
+  \begin{frame}{}
+    \begin{center}
+      \Huge Umsetzung
+    \end{center}
+  \end{frame}
   \subsection{Padding}
-    \begin{frame}
-      \frametitle{Padding}
+    \begin{frame}{Padding}
       Mögliche Lösung für SAT-Berechnung\\
       \begin{itemize}
        \item Länge von 55 Byte vorgeben:
@@ -216,8 +217,7 @@
       \includegraphics[width=300pt]{padding-allgemein.pdf}
     \end{frame}
   \subsection{Funktionen}
-    \begin{frame}
-      \frametitle{CH}
+    \begin{frame}{CH}
       $ CH( x, y, z) = (x~AND~y)~XOR~( (NOT~x)~AND~z) $\\
       ~\\
       $ c \Leftrightarrow (x \wedge y) \veebar ( \neg x \wedge z) $\\
@@ -226,8 +226,7 @@
       ~\\
       $ (\neg c \vee \neg x \vee y) \wedge (\neg c \vee x \vee z) \wedge (c \vee \neg x \vee \neg y) \wedge (c \vee x \vee \neg z) $
     \end{frame}
-    \begin{frame}
-      \frametitle{MAJ}
+    \begin{frame}{MAJ}
       $ MAJ( x, y, z) = (x~AND~y)~XOR~(x~AND~z)~XOR~(y~AND~z) $\\
       ~\\
       $ m \Leftrightarrow (x \wedge y) \veebar (x \wedge z) \veebar (y \wedge z) $\\
@@ -237,8 +236,7 @@
       $ (\neg m \vee x \vee y) \wedge  (\neg m \vee x \vee z) \wedge (\neg m \vee y \vee z) \wedge $\\
       $ (m \vee \neg x \vee \neg y) \wedge (m \vee \neg x \vee \neg z) \wedge (m \vee \neg y \vee \neg z) $
       \end{frame}
-    \begin{frame}
-      \frametitle{*SIG*}
+    \begin{frame}{*SIG*}
       $ *SIG*(a, b, c) = a~XOR~b~XOR~c $\\
       ~\\
       $ s \Leftrightarrow a \veebar b \veebar c $\\
@@ -255,8 +253,7 @@
       $ (\neg a \vee b \vee c \vee s) \wedge (a \vee \neg b \vee \neg c \vee \neg s) \wedge (a \vee \neg b \vee c \vee s) \wedge $\\
       $ (a \vee b \vee \neg c \vee s) \wedge (a \vee b \vee c \vee \neg s) $
     \end{frame}
-    \begin{frame}
-      \frametitle{Carry-Riple-Addierer}
+    \begin{frame}{Carry-Riple-Addierer}
       32 Bit Addierer : 1 Halbaddierer + 30 Volladdierer + 1 XOR\\
       ~\\
       \includegraphics[scale=0.5]{volladdierer.pdf}\\
@@ -266,8 +263,7 @@
       $ (\neg s \veebar x \veebar y \veebar c_{in})$\\
     \end{frame}
   \subsection{Komposition}
-  \begin{frame}
-    \frametitle{CBMC vs Eigenbau}
+  \begin{frame}{CBMC vs Eigenbau}
     \begin{itemize}
       \item CBMC
       \begin{itemize}
@@ -288,9 +284,13 @@
   \end{frame}
 
 \section{Ergebnisse}
+  \begin{frame}{}
+    \begin{center}
+      \Huge Ergebnisse
+    \end{center}
+  \end{frame}
   \subsection{Allgemein}
-    \begin{frame}
-      \frametitle{Kern}
+    \begin{frame}{Kern}
       \includegraphics[width=300pt]{analyse_kern.pdf}\\
       ~\\
       D = E' + \textcolor{blue}{\textbf{X}} - A'\\
@@ -299,8 +299,7 @@
       %~~~~~~~~~~~~~~~~~~~~~~ $ \Rightarrow $ D = A' - \textcolor{blue}{\textbf{X}} + A'~~~~~~~~ $ \Rightarrow $ D = 2 $\cdot$ A' - \textcolor{blue}{\textbf{X}}
     \end{frame}
   \subsection{Sat-Solving 1 - Einzelner Lösungsversuch}
-    \begin{frame}
-      \frametitle{Einzelne Lösungsversuche}
+    \begin{frame}{Einzelne Lösungsversuche}
       \begin{itemize}
         \setlength{\itemsep}{20pt}
         \item Vorwärtsberechnung funktioniert
@@ -315,8 +314,7 @@
       \end{itemize}
     \end{frame}
   \subsection{Sat-Solving 2 - Iterative Lösungsversuche}
-    \begin{frame}
-      \frametitle{Iterative Lösungsversuche}
+    \begin{frame}{Iterative Lösungsversuche}
       \begin{itemize}
         \setlength{\itemsep}{20pt}
         \item Rückwärtsbrechnung funktioniert mit bis zu 19 Bits
@@ -328,22 +326,22 @@
         \item $ \Rightarrow $ Konfliktklausel-Mining
       \end{itemize}
     \end{frame}
-    \begin{frame}
-      \frametitle{Konfliktklausel-Mining}
+    \begin{frame}{Konfliktklausel-Mining}
       \begin{itemize}
        \item Konfliktklausel ausdenken und Literale einzeln negiert in die SAT-Instanz einfügen:\\Falls nicht lösbar ist die Konfliktklausel gültig
-       \item Scheitert an den Komplexität.\\ \pause Beispiel für Klauseln mit 2 Literalen:
+       \pause
+       \item Scheitert an den Komplexität.\\Beispiel für Klauseln mit 2 Literalen:
        \item Bei 50.000 Literalen ergeben sich\\ 50.000 $ \cdot $ 49.999 = 2.499.950.000 Kombinationen
        \item Klauseln mit 2 Literalen können 4 Belegungen abbilden:\\ 2.499.950.000 $ \cdot $ = 9.999.800.000 Klauseln
       \end{itemize}
     \end{frame}
   \subsection{Sat-Solving 3 - Analyse der Konfliktklauseln}
-    \begin{frame}
-      \frametitle{Analyse der Konfliktklauseln}
+    \begin{frame}{Analyse der Konfliktklauseln}
       \begin{enumerate}
         \setlength{\itemsep}{20pt}
         \item Entfernen schon bekannter Klauseln
         \item Identifizierung und Normalisierung modulspezifischer Klauseln
+        \pause
         \item Bewertung der modulübergreifenden Klauseln:
         \begin{itemize}
           \item SHA256 als ungerichter Graph mit ca. 1000 Knoten
@@ -352,8 +350,7 @@
         \end{itemize}
       \end{enumerate}
     \end{frame}
-    \begin{frame}
-      \frametitle{Weitere Konfliktklauseln testen}
+    \begin{frame}{Weitere Konfliktklauseln testen}
       \begin{itemize}
         \setlength{\itemsep}{20pt}
         \item "`Wertvolle"' Klauseln übertragen auf:
@@ -368,4 +365,33 @@
       Mit 22 Megabyte Klauseln:\\
       Rückwärtsbrechnung funktioniert mit bis zu 25 Bits
     \end{frame}
+
+\begin{frame}{}
+  \begin{center}
+    \begin{LARGE}
+      Vielen Dank für\\
+      eure Aufmerksamkeit\\
+      ~\\
+      \includegraphics[scale=0.2]{smilie.png}
+    \end{LARGE}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Fragen}
+  \begin{center}
+    \begin{LARGE}
+      \begin{tabular}{ccccc}
+         & \textbf{?} & \textbf{?} & \textbf{?} & \\
+        \textbf{?} & \textbf{?} &  & \textbf{?} & \textbf{?}\\
+         &  &  & \textbf{?} & \textbf{?}\\
+         &  & \textbf{?} & \textbf{?} & \\
+         & \textbf{?} & \textbf{?} &  & \\
+         &  &  &  & \\
+         & \textbf{?} & \textbf{?} &  & \\
+         & \textbf{?} & \textbf{?} &  & 
+      \end{tabular}
+    \end{LARGE}
+  \end{center}
+\end{frame}
+
 \end{document}
