@@ -13,6 +13,7 @@
 #include "module/ch_32.h"
 #include "module/add_half_1.h"
 #include "module/add_full_1.h"
+#include "module/add_full_2.h"
 #include "module/add_4.h"
 #include "module/add_32.h"
 #include "module/sub_32.h"
@@ -37,21 +38,22 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(Ssig1_32::test);
     MU_RUN_TEST(Maj_32::test);
     MU_RUN_TEST(Ch_32::test);
-	MU_RUN_TEST(Add_Half_1::test);
-	MU_RUN_TEST(Add_Full_1::test);
-	MU_RUN_TEST(Add_4::test);
-	MU_RUN_TEST(Add_32::test);
-	MU_RUN_TEST(Sub_32::test);
-	MU_RUN_TEST(ConstAdd_32::test);
-	MU_RUN_TEST(Add_Ssig_32::test);
-	MU_RUN_TEST(Add_Prepare_32::test);
-	MU_RUN_TEST(Add_B0Maj_32::test);
-	MU_RUN_TEST(Add_B1Ch_32::test);
-	MU_RUN_TEST(Prepare_32::test);
-	MU_RUN_TEST(ShaCore_32::test);
-	MU_RUN_TEST(ShaCore_Ex1_32::test);
-	MU_RUN_TEST(ShaCore_Ex2_32::test);
-	MU_RUN_TEST(Sha256::test);
+    MU_RUN_TEST(Add_Half_1::test);
+    MU_RUN_TEST(Add_Full_1::test);
+    MU_RUN_TEST(Add_Full_2::test);
+    MU_RUN_TEST(Add_4::test);
+    MU_RUN_TEST(Add_32::test);
+    MU_RUN_TEST(Sub_32::test);
+    MU_RUN_TEST(ConstAdd_32::test);
+    MU_RUN_TEST(Add_Ssig_32::test);
+    MU_RUN_TEST(Add_Prepare_32::test);
+    MU_RUN_TEST(Add_B0Maj_32::test);
+    MU_RUN_TEST(Add_B1Ch_32::test);
+    MU_RUN_TEST(Prepare_32::test);
+    MU_RUN_TEST(ShaCore_32::test);
+    MU_RUN_TEST(ShaCore_Ex1_32::test);
+    MU_RUN_TEST(ShaCore_Ex2_32::test);
+    MU_RUN_TEST(Sha256::test);
 }
 
 int main() {
