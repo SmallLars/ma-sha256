@@ -14,18 +14,6 @@ unsigned ShaCore_Ex1_32::stats[STATS_LENGTH];
 ShaCore_Ex1_32::ShaCore_Ex1_32(uint32_t value) : Modul(32, 9, 2) {
     this->value = value;
 
-    inputs.push_back(0);   // a
-    inputs.push_back(32);  // b
-    inputs.push_back(64);  // c
-    inputs.push_back(96);  // d
-    inputs.push_back(128); // e
-    inputs.push_back(160); // f
-    inputs.push_back(192); // g
-    inputs.push_back(224); // h
-    inputs.push_back(256); // Input
-    
-    start = 288;
-
     ConstAdd_32 adder(0);
     ShaCore_32 shacore;
 

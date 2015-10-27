@@ -9,9 +9,6 @@ using namespace CMSat;
 unsigned Add_Half_1::stats[STATS_LENGTH];
 
 Add_Half_1::Add_Half_1() : Modul(1, 2, 1) {
-    inputs.push_back(0);
-    inputs.push_back(1);
-    start = 2;
     output = 3;
 }
 

@@ -12,8 +12,6 @@ unsigned ConstAdd_32::stats[STATS_LENGTH];
 
 ConstAdd_32::ConstAdd_32(uint32_t value) : Modul(32, 1, 1) {
     this->value = value;
-    inputs.push_back(0);
-    start = 32;
     output = 63;
 }
 

@@ -16,18 +16,6 @@ using namespace CMSat;
 unsigned ShaCore_32::stats[STATS_LENGTH];
 
 ShaCore_32::ShaCore_32() : Modul(32, 9, 2) {
-    inputs.push_back(0);
-    inputs.push_back(32);
-    inputs.push_back(64);
-    inputs.push_back(96);
-    inputs.push_back(128);
-    inputs.push_back(160);
-    inputs.push_back(192);
-    inputs.push_back(224);
-    inputs.push_back(256);
-    
-    start = 288;
-
     Add_32 adder;
     Add_B0Maj_32 adderB0Maj;
     Add_B1Ch_32 adderB1Ch;

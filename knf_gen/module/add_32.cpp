@@ -13,9 +13,6 @@ using namespace CMSat;
 unsigned Add_32::stats[STATS_LENGTH];
 
 Add_32::Add_32() : Modul(32, 2, 1) {
-    inputs.push_back(0);
-    inputs.push_back(32);
-    start = 64;
     output = 95;
 }
 

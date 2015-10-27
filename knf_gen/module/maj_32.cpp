@@ -17,9 +17,6 @@ unsigned Maj_32::stats[STATS_LENGTH];
 // r = 96 - 127
 
 Maj_32::Maj_32() : Modul(32, 3, 1) {
-    inputs.push_back(0);
-    inputs.push_back(32);
-    inputs.push_back(64);
     output = 96;
 }
 

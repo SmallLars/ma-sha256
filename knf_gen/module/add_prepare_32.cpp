@@ -11,13 +11,6 @@ using namespace CMSat;
 unsigned Add_Prepare_32::stats[STATS_LENGTH];
 
 Add_Prepare_32::Add_Prepare_32() : Modul(32, 4, 1) {
-    inputs.push_back(0);
-    inputs.push_back(32);
-    inputs.push_back(64);
-    inputs.push_back(96);
-    
-    start = 128;
-
     Add_32 adder;
     Add_Ssig_32 adderSsig;
     output = start + adderSsig.getAdditionalVarCount() + 2 * adder.getAdditionalVarCount() - 32;

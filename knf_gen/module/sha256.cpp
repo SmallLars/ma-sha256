@@ -35,11 +35,6 @@ static void clause_4_45(ClauseCreator &cc);
 static void clause_4_48(ClauseCreator &cc);
 
 Sha256::Sha256() : Modul(32, 24, 8) {
-  for (unsigned i = 0; i < 24; i++) {
-    inputs.push_back(i * 32);
-  }
-
-  start = 768;
   output = 0;
 }
 

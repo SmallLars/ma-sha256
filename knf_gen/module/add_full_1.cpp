@@ -9,10 +9,6 @@ using namespace CMSat;
 unsigned Add_Full_1::stats[STATS_LENGTH];
 
 Add_Full_1::Add_Full_1() : Modul(1, 3, 1) {
-    inputs.push_back(0);
-    inputs.push_back(1);
-    inputs.push_back(2);
-    start = 3;
     output = 4;
 }
 

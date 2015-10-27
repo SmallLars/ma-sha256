@@ -13,21 +13,6 @@ unsigned ShaCore_Ex2_32::stats[STATS_LENGTH];
 ShaCore_Ex2_32::ShaCore_Ex2_32(uint32_t value) : Modul(32, 12, 2) {
     this->value = value;
 
-    inputs.push_back(0);   // a
-    inputs.push_back(32);  // b
-    inputs.push_back(64);  // c
-    inputs.push_back(96);  // d
-    inputs.push_back(128); // e
-    inputs.push_back(160); // f
-    inputs.push_back(192); // g
-    inputs.push_back(224); // h
-    inputs.push_back(256); // Input 1
-    inputs.push_back(288); // Input 2
-    inputs.push_back(320); // Input 3
-    inputs.push_back(352); // Input 4
-    
-    start = 384;
-
     Add_Prepare_32 adder;
     ShaCore_Ex1_32 shacore(0);
 

@@ -15,6 +15,8 @@ class Modul {
         Modul(unsigned bitWidth, unsigned inputCount, unsigned outputCount);
         virtual ~Modul();
 
+        void setInputsBitWidth(...);
+
         unsigned getMaxVar();
         unsigned getVarCount();
         unsigned getAdditionalVarCount();
@@ -56,7 +58,10 @@ class Modul {
     private:
         unsigned bitWidth;
         unsigned inputCount;
-        unsigned outputCount;
+        std::vector<unsigned> inputWidth;
+
+        unsigned inputNum;
+        unsigned outputNum;
 
         unsigned* count();
 };

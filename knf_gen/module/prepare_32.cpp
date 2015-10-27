@@ -21,12 +21,6 @@ static uint32_t sha_k[64] = {\
      0x748F82EE, 0x78A5636F, 0x84C87814, 0x8CC70208, 0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2};
 
 Prepare_32::Prepare_32() : Modul(32, 16, 64) {
-    for (unsigned i = 0; i < 16; i++) {
-        inputs.push_back(i * 32);
-    }
-    
-    start = 512;
-
     Add_Prepare_32 adderPrepare;
     ConstAdd_32 constAdder(0);
     output = start + 48 * adderPrepare.getAdditionalVarCount() + 64 * constAdder.getAdditionalVarCount() - 2048;

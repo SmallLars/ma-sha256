@@ -13,11 +13,6 @@ using namespace CMSat;
 unsigned Add_Ssig_32::stats[STATS_LENGTH];
 
 Add_Ssig_32::Add_Ssig_32() : Modul(32, 2, 1) {
-    inputs.push_back(0);
-    inputs.push_back(32);
-    
-    start = 64;
-
     Ssig0_32 ssig0;
     Ssig1_32 ssig1;
     Add_32 adder;

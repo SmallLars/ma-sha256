@@ -13,12 +13,6 @@ using namespace CMSat;
 unsigned Add_B1Ch_32::stats[STATS_LENGTH];
 
 Add_B1Ch_32::Add_B1Ch_32() : Modul(32, 3, 1) {
-    inputs.push_back(0);
-    inputs.push_back(32);
-    inputs.push_back(64);
-    
-    start = 96;
-
     Bsig1_32 bsig1;
     Ch_32 ch;
     Add_32 adder;

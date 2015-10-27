@@ -7,7 +7,6 @@ using namespace CMSat;
 unsigned Bsig0_32::stats[STATS_LENGTH];
 
 Bsig0_32::Bsig0_32() : Modul(32, 1, 1) {
-    inputs.push_back(0);
     output = 32;
 }
 

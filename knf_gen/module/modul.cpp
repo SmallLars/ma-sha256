@@ -1,6 +1,7 @@
 #include "modul.h"
 
 #include <stdio.h>
+#include <stdarg.h>
 #include <assert.h>
 #include <algorithm>
 
@@ -18,10 +19,35 @@ using namespace CMSat;
 Modul::Modul(unsigned bitWidth, unsigned inputCount, unsigned outputCount) {
     this->bitWidth = bitWidth;
     this->inputCount = inputCount;
-    this->outputCount = outputCount;
+
+    this->inputNum = 0;
+    for (unsigned i = 0; i < inputCount; i++) {
+        this->inputs.push_back(this->inputNum);
+        this->inputWidth.push_back(bitWidth);
+        this->inputNum += bitWidth;
+    }
+    this->outputNum = bitWidth * outputCount;
+
+    this->start = this->inputNum;
 }
 
 Modul::~Modul() {
+}
+
+void Modul::setInputsBitWidth(...) {
+    va_list ap;
+    va_start(ap, this->inputCount);
+
+    this->inputNum = 0;
+    for (unsigned i = 0; i < inputCount; i++) {
+        unsigned width = va_arg(ap, unsigned);
+        this->inputs[i] = this->inputNum;
+        this->inputWidth[i] = width;
+        this->inputNum += width;
+    }
+    this->start = this->inputNum;
+
+    va_end(ap);
 }
 
 unsigned Modul::getMaxVar() {
@@ -33,7 +59,7 @@ unsigned Modul::getVarCount() {
 }
 
 unsigned Modul::getAdditionalVarCount() {
-    return count()[STATS_VARCOUNT] - (inputCount * bitWidth);
+    return count()[STATS_VARCOUNT] - getInputNum();
 }
 
 unsigned Modul::getClauseCount() {
@@ -48,8 +74,8 @@ void Modul::setInputs(const vector<unsigned>& inputs) {
 
 void Modul::setStart(unsigned start) {
     this->start = start;
-    this->output = 0xFFFFFFFF - (outputCount * bitWidth); // TODO EVIL HACK
-    this->output = start + getAdditionalVarCount() - (outputCount * bitWidth);
+    this->output = 0xFFFFFFFF - getOutputNum(); // TODO EVIL HACK
+    this->output = start + getAdditionalVarCount() - getOutputNum();
 }
 
 void Modul::setOutput(unsigned output) {
@@ -73,11 +99,11 @@ unsigned Modul::getOutput() {
 }
 
 unsigned Modul::getInputNum() {
-    return this->bitWidth * this->inputCount;
+    return inputNum;
 }
 
 unsigned Modul::getOutputNum() {
-    return this->bitWidth * this->outputCount;
+    return outputNum;
 }
 
 unsigned Modul::append(SATSolver* solver) {

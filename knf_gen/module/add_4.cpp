@@ -9,8 +9,6 @@ using namespace CMSat;
 unsigned Add_4::stats[STATS_LENGTH];
 
 Add_4::Add_4() : Modul(4, 2, 1) {
-    inputs.push_back(0);
-    inputs.push_back(4);
     output = 8;
 }
 
