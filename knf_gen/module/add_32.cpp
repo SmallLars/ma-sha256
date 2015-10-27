@@ -2,6 +2,7 @@
 
 #include "add_half_1.h"
 #include "add_full_1.h"
+#include "add_full_2.h"
 #include "clausecreator.h"
 
 #include "../common/solvertools.h"
@@ -57,8 +58,20 @@ void Add_32::create(Printer* printer) {
     // XOR ->               !s_out            a_in            b_in        c_in
     createXOR(printer, output + 31, inputs[0] + 31, inputs[1] + 31, start + 30);
 
-    return;
 #ifdef ADDITIONAL_CLAUSES
+    // Full adder 2 x29
+    for (unsigned i = 0; i < 29; i++) {
+        subinputs.clear();
+        subinputs.push_back(inputs[0] + 1 + i);
+        subinputs.push_back(inputs[1] + 1 + i);
+        subinputs.push_back(start + i);
+        Add_Full_2 add_full;
+        add_full.setInputs(subinputs);
+        add_full.setStart(start + 2 + i);
+        add_full.setOutput(output + 1 + i);
+        add_full.create(printer);
+    }
+
     ClauseCreator cc(printer);
     //                      65         66      96          97          1              2         33             34
     //                c_out[0]   c_out[1]s_out[0]    s_out[1]    a_in[0]        a_in[1]    b_in[0]        b_in[1]

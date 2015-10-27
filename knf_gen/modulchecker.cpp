@@ -53,9 +53,16 @@ int main() {
     ofstream outsideFile(OUTPUT_FILE);
     map<const char*, set<vector<Lit>, compareClause> > storage;
 
+    unsigned linecount = 0;
     DimacsParser dp(INPUT_FILE);
     vector<Lit> learned;
-    while (dp.getNextClause(learned)) {
+    while (dp.getNextClause(learned)) linecount++;
+    dp.reset();
+
+    cout << "Start checking " << linecount << " clauses:\n";
+    for (unsigned i = 1; dp.getNextClause(learned); i++) {
+        cout << "\r" << i << " / " << linecount << std::flush;
+
         ModulEntry* mod = printer.isInSingleModul(learned);
         if (mod == NULL) {
             printClause(outsideFile, learned);

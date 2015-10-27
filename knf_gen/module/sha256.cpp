@@ -267,11 +267,10 @@ void Sha256::create(Printer* printer) {
     }
   }
 #endif
-
+/*
   ClauseCreator cc(printer);
   for (unsigned i = 0; i < 64; i++) {
     if (i < 39) {
-/*
       // 0
       for (unsigned b = 0; b < 30; b++) {
         // 773 -10035 -11775 17403 0
@@ -336,9 +335,9 @@ void Sha256::create(Printer* printer) {
         cc.setLiterals(4, coreN[i] + b, prepN[i + 16] + 128 + b, coreN[i + 18] + 1 + b, prepN[i + 25] + 128 + b);
         cc.printClause(4,            0,                       1,                     1,                       0);
       }
-*/
     }
   }
+*/
 }
 
 MU_TEST_C(Sha256::test) {
