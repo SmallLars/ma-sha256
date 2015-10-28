@@ -3,6 +3,7 @@
 #include "add_half_1.h"
 #include "add_full_1.h"
 #include "add_full_2.h"
+#include "add_full_3.h"
 #include "clausecreator.h"
 
 #include "../common/solvertools.h"
@@ -65,6 +66,19 @@ void Add_32::create(Printer* printer) {
         Add_Full_2 add_full;
         add_full.setInputs(subinputs);
         add_full.setStart(start + 2 + i);
+        add_full.setOutput(output + 1 + i);
+        add_full.create(printer);
+    }
+
+    // Full adder 3 x28
+    for (unsigned i = 0; i < 28; i++) {
+        subinputs.clear();
+        subinputs.push_back(inputs[0] + 1 + i);
+        subinputs.push_back(inputs[1] + 1 + i);
+        subinputs.push_back(start + i);
+        Add_Full_3 add_full;
+        add_full.setInputs(subinputs);
+        add_full.setStart(start + 3 + i);
         add_full.setOutput(output + 1 + i);
         add_full.create(printer);
     }

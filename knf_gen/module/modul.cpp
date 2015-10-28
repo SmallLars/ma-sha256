@@ -69,7 +69,9 @@ unsigned Modul::getClauseCount() {
 void Modul::setInputs(const vector<unsigned>& inputs) {
     assert(inputs.size() == inputCount);
     this->inputs = inputs;
-    setStart(*std::max_element(inputs.begin(), inputs.end()) + bitWidth);
+
+    unsigned max_index = std::distance(inputs.begin(), std::max_element(inputs.begin(), inputs.end()));
+    setStart(inputs[max_index] + inputWidth[max_index]);
 }
 
 void Modul::setStart(unsigned start) {
