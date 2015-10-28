@@ -26,6 +26,8 @@ class Modul {
 
         unsigned getBitWidth();
         std::vector<unsigned>& getInputs();
+        std::vector<unsigned>& getInputWidth();
+
         unsigned getStart();
         unsigned getOutput();
         unsigned getInputNum();

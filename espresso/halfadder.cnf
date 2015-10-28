@@ -1,0 +1,14 @@
+.na HalfAdder
+.i 4
+.o 1
+.ilb c_out s_out a_in b_in
+.ob z
+#.phase 0
+.p 6
+-100 1
+11-- 1
+1--0 1
+0-11 1
+-001 1
+-010 1
+.e

@@ -50,24 +50,23 @@ void Add_Half_1::create(Printer* printer) {
 }
 
 MU_TEST_C(Add_Half_1::test) {
-    unsigned a[] = {0, 0, 1, 1};
-    unsigned b[] = {0, 1, 0, 1};
+    for (unsigned a = 0; a < 2; a++) {
+        for (unsigned b = 0; b < 2; b++) {
+            SATSolver solver;
+            solver.log_to_file("test.log");
 
-    for (unsigned t = 0; t < 4; t++) {
-        SATSolver solver;
-        solver.log_to_file("test.log");
+            uint32_t ausgabe = a + b;
 
-        uint32_t ausgabe = a[t] + b[t];
+            solver_writeInt(solver, 0, 1, a);
+            solver_writeInt(solver, 1, 1, b);
 
-        solver_writeInt(solver, 0, 1, a[t]);
-        solver_writeInt(solver, 1, 1, b[t]);
+            Add_Half_1 adder;
+            adder.append(&solver);
 
-        Add_Half_1 adder;
-        adder.append(&solver);
-
-        lbool ret = solver.solve();
-        mu_assert(ret == l_True, "HalfAdder UNSAT");
-        mu_assert(((ausgabe >> 1) & 1) == solver_readInt(solver, 2, 1), "HalfAdder Carry failed");
-        mu_assert(((ausgabe >> 0) & 1) == solver_readInt(solver, 3, 1), "HalfAdder Result failed");
+            lbool ret = solver.solve();
+            mu_assert(ret == l_True, "HalfAdder UNSAT");
+            mu_assert(((ausgabe >> 1) & 0x1) == solver_readInt(solver, 2, 1), "HalfAdder Carry failed");
+            mu_assert(((ausgabe >> 0) & 0x1) == solver_readInt(solver, 3, 1), "HalfAdder Result failed");
+        }
     }
 }

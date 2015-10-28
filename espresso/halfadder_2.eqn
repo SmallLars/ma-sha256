@@ -1,0 +1,14 @@
+#define xor(a,b) ((a)&!(b) | !(a)&(b))
+#define eq(a,b) ((a)&(b) | !(a)&!(b))
+
+#define INTERNALCARRY1 (a0_in & b0_in)
+#define CARRY_OUT      ((a1_in & b1_in) | (xor(a1_in, b1_in) & INTERNALCARRY1))
+
+#define SUM0 (xor(a0_in, b0_in))
+#define SUM1 (xor(xor(a1_in, b1_in), INTERNALCARRY1))
+
+NAME = HalfAdder2Bit;
+INORDER = c_out s0_out s1_out a0_in a1_in b0_in b1_in;
+OUTORDER = z;
+
+z = eq(s0_out, SUM0) & eq(s1_out, SUM1) & eq(c_out, CARRY_OUT);

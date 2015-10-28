@@ -92,6 +92,10 @@ vector<unsigned>& Modul::getInputs() {
     return this->inputs;
 }
 
+vector<unsigned>& Modul::getInputWidth() {
+    return this->inputWidth;
+}
+
 unsigned Modul::getStart() {
     return this->start;
 }

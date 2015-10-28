@@ -67,26 +67,26 @@ void Add_Full_1::create(Printer* printer) {
 }
 
 MU_TEST_C(Add_Full_1::test) {
-    unsigned a[] = {0, 0, 1, 1, 0, 0, 1, 1};
-    unsigned b[] = {0, 1, 0, 1, 0, 1, 0, 1};
-    unsigned c[] = {0, 0, 0, 0, 1, 1, 1, 1};
+    for (unsigned a = 0; a < 2; a++) {
+        for (unsigned b = 0; b < 2; b++) {
+            for (unsigned c = 0; c < 2; c++) {
+                SATSolver solver;
+                solver.log_to_file("test.log");
 
-    for (unsigned t = 0; t < 8; t++) {
-        SATSolver solver;
-        solver.log_to_file("test.log");
+                uint32_t ausgabe = a + b + c;
 
-        uint32_t ausgabe = a[t] + b[t] + c[t];
+                solver_writeInt(solver, 0, 1, a);
+                solver_writeInt(solver, 1, 1, b);
+                solver_writeInt(solver, 2, 1, c);
 
-        solver_writeInt(solver, 0, 1, a[t]);
-        solver_writeInt(solver, 1, 1, b[t]);
-        solver_writeInt(solver, 2, 1, c[t]);
+                Add_Full_1 adder;
+                adder.append(&solver);
 
-        Add_Full_1 adder;
-        adder.append(&solver);
-
-        lbool ret = solver.solve();
-        mu_assert(ret == l_True, "FullAdder UNSAT");
-        mu_assert(((ausgabe >> 1) & 1) == solver_readInt(solver, 3, 1), "FullAdder Carry failed");
-        mu_assert(((ausgabe >> 0) & 1) == solver_readInt(solver, 4, 1), "FullAdder Result failed");
+                lbool ret = solver.solve();
+                mu_assert(ret == l_True, "FullAdder UNSAT");
+                mu_assert(((ausgabe >> 1) & 0x1) == solver_readInt(solver, 3, 1), "FullAdder Carry failed");
+                mu_assert(((ausgabe >> 0) & 0x1) == solver_readInt(solver, 4, 1), "FullAdder Result failed");
+            }
+        }
     }
 }

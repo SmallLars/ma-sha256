@@ -21,7 +21,7 @@ ModulDB::~ModulDB() {
 }
 
 void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
-    if (level < 10) return;
+    if (level < 1) return;
 
     ModulEntry newModul;
     newModul.level = level;
@@ -30,10 +30,10 @@ void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
     // Inputs
     for (unsigned i = 0; i < modul->getInputs().size(); i++) {
         if (i > 0 && newModul.ranges.back().first + newModul.ranges.back().second == modul->getInputs()[i]) {
-            newModul.ranges.back().second += modul->getBitWidth();
+            newModul.ranges.back().second += modul->getInputWidth()[i];
             continue;
         }
-        newModul.ranges.push_back(pair<unsigned, unsigned>(modul->getInputs()[i], modul->getBitWidth()));
+        newModul.ranges.push_back(pair<unsigned, unsigned>(modul->getInputs()[i], modul->getInputWidth()[i]));
     }
 
     // Additional Vars

@@ -13,6 +13,7 @@
 #include "module/ch_32.h"
 #include "module/add_half_1.h"
 #include "module/add_full_1.h"
+#include "module/add_half_2.h"
 #include "module/add_full_2.h"
 #include "module/add_full_3.h"
 #include "module/add_4.h"
@@ -41,6 +42,7 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(Ch_32::test);
     MU_RUN_TEST(Add_Half_1::test);
     MU_RUN_TEST(Add_Full_1::test);
+    MU_RUN_TEST(Add_Half_2::test);
     MU_RUN_TEST(Add_Full_2::test);
     MU_RUN_TEST(Add_Full_3::test);
     MU_RUN_TEST(Add_4::test);
