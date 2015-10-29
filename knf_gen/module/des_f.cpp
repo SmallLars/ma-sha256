@@ -29,11 +29,44 @@ unsigned* Des_F::getStats() {
 void Des_F::create(Printer* printer) {
     printer->newModul(10, "Des_F", this);
 
-    // E exploding
+    // E expansion
+    int e_permutation[] = {32,  1,  2,  3,  4,  5,
+                            4,  5,  6,  7,  8,  9,
+                            8,  9, 10, 11, 12, 13,
+                           12, 13, 14, 15, 16, 17,
+                           16, 17, 18, 19, 20, 21,
+                           20, 21, 22, 23, 24, 25,
+                           24, 25, 26, 27, 28, 29,
+                           28, 29, 30, 31, 32,  1};
     // K_1 ... generation
+    int pc_2[] = {14, 17, 11, 24,  1,  5,  3, 28,
+                  15,  6, 21, 10, 23, 19, 12,  4,
+                  26,  8, 16,  7, 27, 20, 13,  2,
+                  41, 52, 31, 37, 47, 55, 30, 40,
+                  51, 45, 33, 48, 44, 49, 39, 56,
+                  34, 53, 46, 42, 50, 36, 29, 32};
 
-    for(uint i = 0; i < 48; i++){
-        createXOR(printer, output, inputs[0], inputs[1], inputs[2]);
+    std::vector<unsigned> k_rotated;
+    for(int i = 0; i < 56; i++){
+      k_rotated.append(inputs[1] + i);
+    }
+    std::vector<unsigned>::iterator c_begin = k_rotated.begin();
+    std::vector<unsigned>::iterator c_end = k_rotated.begin()+27;
+    std::vector<unsigned>::iterator d_begin = k_rotated.begin()+28;
+    std::vector<unsigned>::iterator d_end = k_rotated.end();
+
+    for(int i = 0; i < round; i++){
+      if(i == 0 || i == 1 || i == 8 || i == 15){
+        std::rotate(c_begin, c_begin+1, c_end);
+        std::rotate(d_begin, d_begin+1, d_end);
+      } else {
+        std::rotate(c_begin, c_begin+2, c_end);
+        std::rotate(d_begin, d_begin+2, d_end);
+      }
+    }
+
+    for(int i = 0; i < 48; i++){
+      createXOR(printer, start + i, inputs[0] + e_permutation[i] - 1, k_rotated[pc_2[i] - 1]);
     }
 }
 
