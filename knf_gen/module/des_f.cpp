@@ -1,10 +1,4 @@
-#include "add_32.h"
-
-#include "add_half_1.h"
-#include "add_full_1.h"
-#include "add_full_2.h"
-#include "add_full_3.h"
-#include "clausecreator.h"
+#include "des_f.h"
 
 #include "../common/solvertools.h"
 
@@ -68,6 +62,64 @@ void Des_F::create(Printer* printer) {
     for(int i = 0; i < 48; i++){
       createXOR(printer, start + i, inputs[0] + e_permutation[i] - 1, k_rotated[pc_2[i] - 1]);
     }
+
+    vector<unsigned> subinputs;
+    subinputs.push_back(start + 0);
+
+    // SBox1
+    Des_SBox_1 sbox_1;
+    sbox_1.setInputs(subinputs);
+    sbox_1.setOutput(output + 0);
+    sbox_1.create(printer);
+
+    // SBox2
+    subinputs[0] += 6;
+    Des_SBox_2 sbox_2;
+    sbox_2.setInputs(subinputs);
+    sbox_2.setOutput(output + 4);
+    sbox_2.create(printer);
+
+    // SBox3
+    subinputs[0] += 6;
+    Des_SBox_3 sbox_3;
+    sbox_3.setInputs(subinputs);
+    sbox_3.setOutput(output + 8);
+    sbox_3.create(printer);
+
+     // SBox4
+    subinputs[0] += 6;
+    Des_SBox_4 sbox_4;
+    sbox_4.setInputs(subinputs);
+    sbox_4.setOutput(output + 12);
+    sbox_4.create(printer);
+
+     // SBox5
+    subinputs[0] += 6;
+    Des_SBox_5 sbox_5;
+    sbox_5.setInputs(subinputs);
+    sbox_5.setOutput(output + 16);
+    sbox_5.create(printer);
+
+     // SBox6
+    subinputs[0] += 6;
+    Des_SBox_6 sbox_6;
+    sbox_6.setInputs(subinputs);
+    sbox_6.setOutput(output + 20);
+    sbox_6.create(printer);
+
+     // SBox7
+    subinputs[0] += 6;
+    Des_SBox_7 sbox_7;
+    sbox_7.setInputs(subinputs);
+    sbox_7.setOutput(output + 24);
+    sbox_7.create(printer);
+
+     // SBox8
+    subinputs[0] += 6;
+    Des_SBox_8 sbox_8;
+    sbox_8.setInputs(subinputs);
+    sbox_8.setOutput(output + 28);
+    sbox_8.create(printer);
 }
 
 MU_TEST_C(Des_F::test) {
