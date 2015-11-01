@@ -1,7 +1,10 @@
 all: $(shell find *.eqn -type f | sed "s/.eqn/.cnf/g")
 
-%.cnf: %.eqn espresso/espresso
-	eqntott -l $< | ./espresso/espresso -Dexact -epos > $@
+%.cnf: %.tt espresso/espresso
+	./espresso/espresso -Dexact -epos $< > $@
+
+%.tt: %.eqn
+	eqntott -l $< > $@
 
 espresso/espresso:
 	tar xf espresso-modern.tar.gz
