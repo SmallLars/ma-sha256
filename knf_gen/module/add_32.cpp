@@ -9,6 +9,9 @@
 #include "add_half_3.h"
 #include "add_full_3.h"
 #include "add_last_3.h"
+#include "add_half_4.h"
+#include "add_full_4.h"
+#include "add_last_4.h"
 #include "clausecreator.h"
 
 #include "../common/solvertools.h"
@@ -133,11 +136,46 @@ void Add_32::create(Printer* printer) {
     add_last_3.setInputs(subinputs);
     add_last_3.setOutput(output + 29);
     add_last_3.create(printer);
+/*
+    // Half adder 4
+    subinputs.clear();
+    subinputs.push_back(inputs[0]);
+    subinputs.push_back(inputs[1]);
+    Add_Half_4 add_half_4;
+    add_half_4.setInputs(subinputs);
+    add_half_4.setStart(start + 3);
+    add_half_4.setOutput(output);
+    add_half_4.create(printer);
+
+    // Full adder 4 x27
+    for (unsigned i = 0; i < 27; i++) {
+        subinputs.clear();
+        subinputs.push_back(inputs[0] + 1 + i);
+        subinputs.push_back(inputs[1] + 1 + i);
+        subinputs.push_back(start + i);
+        Add_Full_4 add_full;
+        add_full.setInputs(subinputs);
+        add_full.setStart(start + 4 + i);
+        add_full.setOutput(output + 1 + i);
+        add_full.create(printer);
+    }
+
+    // Last adder 4
+    subinputs.clear();
+    subinputs.push_back(inputs[0] + 28);
+    subinputs.push_back(inputs[1] + 28);
+    subinputs.push_back(start + 27);
+    Add_Last_4 add_last_4;
+    add_last_4.setInputs(subinputs);
+    add_last_4.setOutput(output + 28);
+    add_last_4.create(printer);
+*/
 
     ClauseCreator cc(printer);
     //                      65         66      96          97          1              2         33             34
     //                c_out[0]   c_out[1]s_out[0]    s_out[1]    a_in[0]        a_in[1]    b_in[0]        b_in[1]
     cc.setLiterals(8,    start, start + 1, output, output + 1, inputs[0], inputs[0] + 1, inputs[1], inputs[1] + 1);
+/*
     cc.printClause(8,    CC_DC,         0,  CC_DC,      CC_DC,         1,             1,     CC_DC,         CC_DC);  //3
     cc.printClause(8,    CC_DC,         0,  CC_DC,      CC_DC,         1,         CC_DC,     CC_DC,             1);  //3
     cc.printClause(8,    CC_DC,         0,  CC_DC,      CC_DC,     CC_DC,             1,         1,         CC_DC);  //3
@@ -156,6 +194,7 @@ void Add_32::create(Printer* printer) {
     cc.printClause(8,    CC_DC,     CC_DC,      0,          1,     CC_DC,             1,     CC_DC,             0);  //4
     cc.printClause(8,    CC_DC,     CC_DC,      0,          1,     CC_DC,             0,     CC_DC,             1);  //4
     cc.printClause(8,    CC_DC,     CC_DC,      0,          0,     CC_DC,             0,     CC_DC,             0);  //4
+*/
     cc.printClause(8,        0,         0,      0,      CC_DC,     CC_DC,             0,     CC_DC,             0);  //5
 
     for (unsigned i = 0; i < 30; i++) {
@@ -173,7 +212,7 @@ void Add_32::create(Printer* printer) {
       // 66 -68 -98 -99 0
       //                 c_out[0]       c_out[2]         s_out[1]        s_out[2]
       cc.setLiterals(4, start + i, start + 2 + i,  output + 1 + i, output + 2 + i);
-      cc.printClause(4,         1,             0,               0,              0);
+//      cc.printClause(4,         1,             0,               0,              0);
     }
 
     for (unsigned i = 0; i < 29; i++) {
@@ -204,15 +243,15 @@ void Add_32::create(Printer* printer) {
       // -31 -93 95 125 0
       //                 c_out[0]       c_out[2]        s_out[1]            a_in[2]            b_in[2]
       cc.setLiterals(5, start + i, start + 2 + i, output + 1 + i, inputs[0] + 2 + i, inputs[1] + 2 + i);
-      cc.printClause(5,         0,             1,              1,             CC_DC,                 0);
-      cc.printClause(5,         0,             1,              1,                 0,             CC_DC);
+//      cc.printClause(5,         0,             1,              1,             CC_DC,                 0);
+//      cc.printClause(5,         0,             1,              1,                 0,             CC_DC);
     }
 
     for (unsigned i = 0; i < 30; i++) {
       // 3 35 65 -97 -98 0
       //                 c_out[0]        s_out[1]        s_out[2]            a_in[2]            b_in[2] 
       cc.setLiterals(5, start + i, output + 1 + i, output + 2 + i, inputs[0] + 2 + i, inputs[1] + 2 + i);
-      cc.printClause(5,         1,              0,              0,                 1,                 1);
+//      cc.printClause(5,         1,              0,              0,                 1,                 1);
     }
 
     for (unsigned i = 0; i < 28; i++) {
@@ -220,8 +259,8 @@ void Add_32::create(Printer* printer) {
       // -43 -74 77 107 108 0
       //                 c_out[0]       c_out[3]        s_out[2]        s_out[3]            a_in[1]            b_in[1]
       cc.setLiterals(6, start + i, start + 3 + i, output + 2 + i, output + 3 + i, inputs[0] + 1 + i, inputs[1] + 1 + i);
-      cc.printClause(6,         0,             1,              1,              1,             CC_DC,                 0);
-      cc.printClause(6,         0,             1,              1,              1,                 0,             CC_DC);
+//      cc.printClause(6,         0,             1,              1,              1,             CC_DC,                 0);
+//      cc.printClause(6,         0,             1,              1,              1,                 0,             CC_DC);
     }
 
     for (unsigned i = 0; i < 28; i++) {
@@ -244,17 +283,19 @@ void Add_32::create(Printer* printer) {
       // -30 -91 94 123 124 0
       //                 c_out[0]       c_out[3]        s_out[1]        s_out[2]            a_in[3]            b_in[3]
       cc.setLiterals(6, start + i, start + 3 + i, output + 1 + i, output + 2 + i, inputs[0] + 3 + i, inputs[1] + 3 + i);
-      cc.printClause(6,         0,             1,              1,              1,             CC_DC,                 0);
-      cc.printClause(6,         0,             1,              1,              1,                 0,             CC_DC);
+//      cc.printClause(6,         0,             1,              1,              1,             CC_DC,                 0);
+//      cc.printClause(6,         0,             1,              1,              1,                 0,             CC_DC);
     }
 
     for (unsigned i = 0; i < 30; i++) {
       // -3 35 58 -65 97 -98 0    ->    58 is irrelevant (b_in[25])
       //                 c_out[0]        s_out[1]        s_out[2]            a_in[2]            b_in[2]
       cc.setLiterals(5, start + i, output + 1 + i, output + 2 + i, inputs[0] + 2 + i, inputs[1] + 2 + i);
-      cc.printClause(5,         0,              1,              0,                 0,                 1);
-      cc.printClause(5,         0,              1,              0,                 1,                 0);
+//      cc.printClause(5,         0,              1,              0,                 0,                 1);
+//      cc.printClause(5,         0,              1,              0,                 1,                 0);
     }
+
+// ------------------------------------------------------------------------------------------
 
     for (unsigned i = 0; i < 22; i++) {
       // -17 -26 -87 90 119 120 0
@@ -270,8 +311,8 @@ void Add_32::create(Printer* printer) {
       // -18 50 -79 111 112 -113 0
       //                  c_out[0]       s_out[1]        s_out[2]        s_out[3]            a_in[3]            b_in[3]
       cc.setLiterals(6, start + i, output + 1 + i, output + 2 + i, output + 3 + i, inputs[0] + 3 + i, inputs[1] + 3 + i);
-      cc.printClause(6,         0,              1,              1,              0,                 0,                 1);
-      cc.printClause(6,         0,              1,              1,              0,                 1,                 0);
+//      cc.printClause(6,         0,              1,              1,              0,                 0,                 1);
+//      cc.printClause(6,         0,              1,              1,              0,                 1,                 0);
     }
 
     for (unsigned i = 0; i < 30; i++) {
@@ -293,6 +334,8 @@ void Add_32::create(Printer* printer) {
       cc.printClause(7,     CC_DC,             0,             1,          CC_DC,              1,                 1,                 0);
       cc.printClause(7,         0,         CC_DC,             1,              1,              1,                 1,                 0);
     }
+
+// ------------------------------------------------------------------------------------------
 
     for (unsigned i = 0; i < 26; i++) {
       // -38 86 -91 -118 -119 -120 -121 -122 0    ->    38 is irrelevant (b_in[5])

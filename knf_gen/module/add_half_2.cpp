@@ -44,7 +44,17 @@ void Add_Half_2::create(Printer* printer) {
     cc.printClause(7, CC_DC,  CC_DC,          1,         0,             1,         0,             1);
 
 #ifdef ADDITIONAL_CLAUSES
-
+    //                  5       6        7           1               2          3             4
+    //               c_out s_out[0]    s_out[1]    a_in[0]        a_in[1]    b_in[0]        b_in[1]
+    cc.printClause(7,     0,  CC_DC,      CC_DC,         1,             1,     CC_DC,         CC_DC);
+    cc.printClause(7,     0,  CC_DC,      CC_DC,         1,         CC_DC,     CC_DC,             1);
+    cc.printClause(7,     0,  CC_DC,          0,         1,         CC_DC,     CC_DC,         CC_DC);
+    cc.printClause(7,     0,  CC_DC,      CC_DC,     CC_DC,             1,         1,         CC_DC);
+    cc.printClause(7,     0,      0,      CC_DC,     CC_DC,             1,     CC_DC,         CC_DC);
+    cc.printClause(7,     0,  CC_DC,          0,     CC_DC,         CC_DC,         1,         CC_DC);
+    cc.printClause(7,     0,      0,          0,     CC_DC,         CC_DC,     CC_DC,         CC_DC);
+    cc.printClause(7,     1,  CC_DC,      CC_DC,         0,             0,         0,         CC_DC);
+    cc.printClause(7, CC_DC,      0,          1,     CC_DC,             0,     CC_DC,             1);
 #endif
 }
 

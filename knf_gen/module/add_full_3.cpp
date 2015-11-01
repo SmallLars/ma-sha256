@@ -74,7 +74,12 @@ void Add_Full_3::create(Printer* printer) {
 #ifdef ADDITIONAL_CLAUSES
     //                   8       9        10          11           1              2             3           4              5             6            7
     //                 c_out  s_out[0]  s_out[1]    s_out[2]    a_in[0]        a_in[1]        a_in[2]    b_in[0]        b_in[1]        b_in[2]       c_in
-
+    cc.printClause(11,     1,  CC_DC,          1,          1,         0,         CC_DC,         CC_DC,     CC_DC,         CC_DC,         CC_DC,         0);
+    cc.printClause(11,     1,      1,          1,      CC_DC,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,         CC_DC,         0);
+    cc.printClause(11,     1,  CC_DC,          1,          1,     CC_DC,         CC_DC,         CC_DC,         0,         CC_DC,         CC_DC,         0);
+    cc.printClause(11,     1,      1,          1,      CC_DC,     CC_DC,         CC_DC,         CC_DC,     CC_DC,         CC_DC,             0,         0);
+    cc.printClause(11, CC_DC,      1,          1,          0,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,             0,         0);
+    cc.printClause(11, CC_DC,      1,          1,          0,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,             1,         0);
 #endif
 }
 
