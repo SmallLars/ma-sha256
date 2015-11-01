@@ -2,8 +2,13 @@
 
 #include "add_half_1.h"
 #include "add_full_1.h"
+#include "add_last_1.h"
+#include "add_half_2.h"
 #include "add_full_2.h"
+#include "add_last_2.h"
+#include "add_half_3.h"
 #include "add_full_3.h"
+#include "add_last_3.h"
 #include "clausecreator.h"
 
 #include "../common/solvertools.h"
@@ -33,11 +38,11 @@ void Add_32::create(Printer* printer) {
     subinputs.clear();
     subinputs.push_back(inputs[0]);
     subinputs.push_back(inputs[1]);
-    Add_Half_1 add_half;
-    add_half.setInputs(subinputs);
-    add_half.setStart(start);
-    add_half.setOutput(output);
-    add_half.create(printer);
+    Add_Half_1 add_half_1;
+    add_half_1.setInputs(subinputs);
+    add_half_1.setStart(start);
+    add_half_1.setOutput(output);
+    add_half_1.create(printer);
 
     // Full adder x30
     for (unsigned i = 1; i < 31; i++) {
@@ -45,18 +50,34 @@ void Add_32::create(Printer* printer) {
         subinputs.push_back(inputs[0] + i);
         subinputs.push_back(inputs[1] + i);
         subinputs.push_back(start - 1 + i);
-        Add_Full_1 add_full;
-        add_full.setInputs(subinputs);
-        add_full.setStart(start + i);
-        add_full.setOutput(output + i);
-        add_full.create(printer);
+        Add_Full_1 add_full_1;
+        add_full_1.setInputs(subinputs);
+        add_full_1.setStart(start + i);
+        add_full_1.setOutput(output + i);
+        add_full_1.create(printer);
     }
 
-    // Final adder (without carry calculation)
-    // XOR ->               !s_out            a_in            b_in        c_in
-    createXOR(printer, output + 31, inputs[0] + 31, inputs[1] + 31, start + 30);
+    // Last adder
+    subinputs.clear();
+    subinputs.push_back(inputs[0] + 31);
+    subinputs.push_back(inputs[1] + 31);
+    subinputs.push_back(start + 30);
+    Add_Last_1 add_last_1;
+    add_last_1.setInputs(subinputs);
+    add_last_1.setOutput(output + 31);
+    add_last_1.create(printer);
 
 #ifdef ADDITIONAL_CLAUSES
+    // Half adder 2
+    subinputs.clear();
+    subinputs.push_back(inputs[0]);
+    subinputs.push_back(inputs[1]);
+    Add_Half_2 add_half_2;
+    add_half_2.setInputs(subinputs);
+    add_half_2.setStart(start + 1);
+    add_half_2.setOutput(output);
+    add_half_2.create(printer);
+
     // Full adder 2 x29
     for (unsigned i = 0; i < 29; i++) {
         subinputs.clear();
@@ -70,6 +91,26 @@ void Add_32::create(Printer* printer) {
         add_full.create(printer);
     }
 
+    // Last adder 2
+    subinputs.clear();
+    subinputs.push_back(inputs[0] + 30);
+    subinputs.push_back(inputs[1] + 30);
+    subinputs.push_back(start + 29);
+    Add_Last_2 add_last_2;
+    add_last_2.setInputs(subinputs);
+    add_last_2.setOutput(output + 30);
+    add_last_2.create(printer);
+
+    // Half adder 3
+    subinputs.clear();
+    subinputs.push_back(inputs[0]);
+    subinputs.push_back(inputs[1]);
+    Add_Half_3 add_half_3;
+    add_half_3.setInputs(subinputs);
+    add_half_3.setStart(start + 2);
+    add_half_3.setOutput(output);
+    add_half_3.create(printer);
+
     // Full adder 3 x28
     for (unsigned i = 0; i < 28; i++) {
         subinputs.clear();
@@ -82,6 +123,16 @@ void Add_32::create(Printer* printer) {
         add_full.setOutput(output + 1 + i);
         add_full.create(printer);
     }
+
+    // Last adder 3
+    subinputs.clear();
+    subinputs.push_back(inputs[0] + 29);
+    subinputs.push_back(inputs[1] + 29);
+    subinputs.push_back(start + 28);
+    Add_Last_3 add_last_3;
+    add_last_3.setInputs(subinputs);
+    add_last_3.setOutput(output + 29);
+    add_last_3.create(printer);
 
     ClauseCreator cc(printer);
     //                      65         66      96          97          1              2         33             34

@@ -12,7 +12,7 @@ espresso/espresso:
 	cp espresso/source/src/espresso espresso/espresso
 
 clean:
-	-rm -f *.cnf
+	-rm -f *.tt *.cnf
 
 clobber: clean
 	-rm -rf espresso
