@@ -21,7 +21,7 @@ ModulDB::~ModulDB() {
 }
 
 void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
-    if (level < 1) return;
+    if (level < 10) return;
 
     ModulEntry newModul;
     newModul.level = level;

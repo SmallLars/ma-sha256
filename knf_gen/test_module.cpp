@@ -13,10 +13,13 @@
 #include "module/ch_32.h"
 #include "module/add_half_1.h"
 #include "module/add_full_1.h"
+#include "module/add_last_1.h"
 #include "module/add_half_2.h"
 #include "module/add_full_2.h"
+#include "module/add_last_2.h"
+#include "module/add_half_3.h"
 #include "module/add_full_3.h"
-#include "module/add_4.h"
+#include "module/add_last_3.h"
 #include "module/add_32.h"
 #include "module/sub_32.h"
 #include "module/constadd_32.h"
@@ -51,10 +54,13 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(Ch_32::test);
     MU_RUN_TEST(Add_Half_1::test);
     MU_RUN_TEST(Add_Full_1::test);
+    MU_RUN_TEST(Add_Last_1::test);
     MU_RUN_TEST(Add_Half_2::test);
     MU_RUN_TEST(Add_Full_2::test);
+    MU_RUN_TEST(Add_Last_2::test);
+    MU_RUN_TEST(Add_Half_3::test);
     MU_RUN_TEST(Add_Full_3::test);
-    MU_RUN_TEST(Add_4::test);
+    MU_RUN_TEST(Add_Last_3::test);
     MU_RUN_TEST(Add_32::test);
     MU_RUN_TEST(Sub_32::test);
     MU_RUN_TEST(ConstAdd_32::test);

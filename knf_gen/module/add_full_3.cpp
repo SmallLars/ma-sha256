@@ -26,65 +26,59 @@ void Add_Full_3::create(Printer* printer) {
     ClauseCreator cc(printer);
     //                 c_out  s_out[0]  s_out[1]    s_out[2]    a_in[0]        a_in[1]        a_in[2]    b_in[0]        b_in[1]        b_in[2]       c_in
     cc.setLiterals(11, start, output, output + 1, output + 2, inputs[0], inputs[0] + 1, inputs[0] + 2, inputs[1], inputs[1] + 1, inputs[1] + 2, inputs[2]);
-    cc.printClause(11, CC_DC,      0,      CC_DC,      CC_DC,         1,         CC_DC,         CC_DC,         1,         CC_DC,         CC_DC,         1);
     cc.printClause(11, CC_DC,      1,      CC_DC,      CC_DC,         0,         CC_DC,         CC_DC,         0,         CC_DC,         CC_DC,         0);
-    cc.printClause(11,     0,  CC_DC,      CC_DC,          0,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,         CC_DC,     CC_DC);
+    cc.printClause(11, CC_DC,      0,      CC_DC,      CC_DC,         1,         CC_DC,         CC_DC,         1,         CC_DC,         CC_DC,         1);
     cc.printClause(11,     1,  CC_DC,      CC_DC,          1,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,         CC_DC,     CC_DC);
-    cc.printClause(11,     0,  CC_DC,          0,      CC_DC,     CC_DC,         CC_DC,         CC_DC,     CC_DC,             1,             1,     CC_DC);
+    cc.printClause(11,     0,  CC_DC,      CC_DC,          0,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,         CC_DC,     CC_DC);
     cc.printClause(11,     1,  CC_DC,          1,      CC_DC,     CC_DC,         CC_DC,         CC_DC,     CC_DC,             0,             0,     CC_DC);
-    cc.printClause(11, CC_DC,      1,      CC_DC,      CC_DC,         0,         CC_DC,         CC_DC,         1,         CC_DC,         CC_DC,         1);
-    cc.printClause(11, CC_DC,      1,      CC_DC,      CC_DC,         1,         CC_DC,         CC_DC,         0,         CC_DC,         CC_DC,         1);
-    cc.printClause(11, CC_DC,      0,      CC_DC,      CC_DC,         0,         CC_DC,         CC_DC,         1,         CC_DC,         CC_DC,         0);
+    cc.printClause(11,     0,  CC_DC,          0,      CC_DC,     CC_DC,         CC_DC,         CC_DC,     CC_DC,             1,             1,     CC_DC);
     cc.printClause(11, CC_DC,      0,      CC_DC,      CC_DC,         1,         CC_DC,         CC_DC,         0,         CC_DC,         CC_DC,         0);
-    cc.printClause(11, CC_DC,  CC_DC,          0,      CC_DC,         1,             1,         CC_DC,         1,             1,         CC_DC,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,          1,      CC_DC,         1,             0,         CC_DC,         1,             1,         CC_DC,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,          1,      CC_DC,         0,             1,         CC_DC,         0,             1,         CC_DC,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,          0,      CC_DC,         1,             0,         CC_DC,         1,             0,         CC_DC,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,          0,      CC_DC,         0,             1,         CC_DC,         0,             0,         CC_DC,     CC_DC);
+    cc.printClause(11, CC_DC,      0,      CC_DC,      CC_DC,         0,         CC_DC,         CC_DC,         1,         CC_DC,         CC_DC,         0);
+    cc.printClause(11, CC_DC,      1,      CC_DC,      CC_DC,         1,         CC_DC,         CC_DC,         0,         CC_DC,         CC_DC,         1);
+    cc.printClause(11, CC_DC,      1,      CC_DC,      CC_DC,         0,         CC_DC,         CC_DC,         1,         CC_DC,         CC_DC,         1);
     cc.printClause(11, CC_DC,  CC_DC,          1,      CC_DC,         0,             0,         CC_DC,         0,             0,         CC_DC,     CC_DC);
-    cc.printClause(11,     0,  CC_DC,      CC_DC,      CC_DC,         1,             1,         CC_DC,         1,         CC_DC,             1,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,          0,          0,     CC_DC,         CC_DC,             1,     CC_DC,             1,             1,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,          1,          1,     CC_DC,         CC_DC,             1,     CC_DC,             0,             1,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,          1,          0,     CC_DC,         CC_DC,             0,     CC_DC,             0,             1,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,          0,      CC_DC,         0,             1,         CC_DC,         0,             0,         CC_DC,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,          0,      CC_DC,         1,             0,         CC_DC,         1,             0,         CC_DC,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,          1,      CC_DC,         0,             1,         CC_DC,         0,             1,         CC_DC,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,          1,      CC_DC,         1,             0,         CC_DC,         1,             1,         CC_DC,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,          0,      CC_DC,         1,             1,         CC_DC,         1,             1,         CC_DC,     CC_DC);
     cc.printClause(11,     1,  CC_DC,      CC_DC,      CC_DC,         0,             0,         CC_DC,         0,         CC_DC,             0,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,          0,          1,     CC_DC,         CC_DC,             1,     CC_DC,             1,             0,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,          0,          0,     CC_DC,         CC_DC,             0,     CC_DC,             1,             0,     CC_DC);
     cc.printClause(11, CC_DC,  CC_DC,          1,          1,     CC_DC,         CC_DC,             0,     CC_DC,             0,             0,     CC_DC);
-    cc.printClause(11, CC_DC,      0,          0,      CC_DC,     CC_DC,             1,         CC_DC,     CC_DC,             1,         CC_DC,         1);
-    cc.printClause(11, CC_DC,      0,          1,      CC_DC,     CC_DC,             0,         CC_DC,     CC_DC,             1,         CC_DC,         1);
-    cc.printClause(11, CC_DC,      0,          0,      CC_DC,     CC_DC,             0,         CC_DC,     CC_DC,             0,         CC_DC,         1);
-    cc.printClause(11,     0,      0,      CC_DC,      CC_DC,     CC_DC,             1,         CC_DC,     CC_DC,         CC_DC,             1,         1);
-    cc.printClause(11, CC_DC,      1,          1,      CC_DC,     CC_DC,             1,         CC_DC,     CC_DC,             1,         CC_DC,         0);
-    cc.printClause(11, CC_DC,      1,          0,      CC_DC,     CC_DC,             1,         CC_DC,     CC_DC,             0,         CC_DC,         0);
+    cc.printClause(11, CC_DC,  CC_DC,          0,          0,     CC_DC,         CC_DC,             0,     CC_DC,             1,             0,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,          0,          1,     CC_DC,         CC_DC,             1,     CC_DC,             1,             0,     CC_DC);
+    cc.printClause(11,     0,  CC_DC,      CC_DC,      CC_DC,         1,             1,         CC_DC,         1,         CC_DC,             1,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,          1,          0,     CC_DC,         CC_DC,             0,     CC_DC,             0,             1,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,          1,          1,     CC_DC,         CC_DC,             1,     CC_DC,             0,             1,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,          0,          0,     CC_DC,         CC_DC,             1,     CC_DC,             1,             1,     CC_DC);
     cc.printClause(11, CC_DC,      1,          1,      CC_DC,     CC_DC,             0,         CC_DC,     CC_DC,             0,         CC_DC,         0);
+    cc.printClause(11, CC_DC,      1,          0,      CC_DC,     CC_DC,             1,         CC_DC,     CC_DC,             0,         CC_DC,         0);
+    cc.printClause(11, CC_DC,      1,          1,      CC_DC,     CC_DC,             1,         CC_DC,     CC_DC,             1,         CC_DC,         0);
     cc.printClause(11,     1,      1,      CC_DC,      CC_DC,     CC_DC,             0,         CC_DC,     CC_DC,         CC_DC,             0,         0);
-    cc.printClause(11, CC_DC,  CC_DC,      CC_DC,          0,         1,             1,             1,         1,         CC_DC,             1,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,      CC_DC,          1,         0,             0,             1,         0,         CC_DC,             1,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,      CC_DC,          0,         0,             0,             0,         0,         CC_DC,             1,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,      CC_DC,          1,         1,             1,             1,         1,         CC_DC,             0,     CC_DC);
-    cc.printClause(11, CC_DC,  CC_DC,      CC_DC,          0,         1,             1,             0,         1,         CC_DC,             0,     CC_DC);
+    cc.printClause(11, CC_DC,      0,          0,      CC_DC,     CC_DC,             0,         CC_DC,     CC_DC,             0,         CC_DC,         1);
+    cc.printClause(11, CC_DC,      0,          1,      CC_DC,     CC_DC,             0,         CC_DC,     CC_DC,             1,         CC_DC,         1);
+    cc.printClause(11, CC_DC,      0,          0,      CC_DC,     CC_DC,             1,         CC_DC,     CC_DC,             1,         CC_DC,         1);
+    cc.printClause(11,     0,      0,      CC_DC,      CC_DC,     CC_DC,             1,         CC_DC,     CC_DC,         CC_DC,             1,         1);
     cc.printClause(11, CC_DC,  CC_DC,      CC_DC,          1,         0,             0,             0,         0,         CC_DC,             0,     CC_DC);
-    cc.printClause(11, CC_DC,      0,      CC_DC,          0,     CC_DC,             1,             1,     CC_DC,         CC_DC,             1,         1);
-    cc.printClause(11, CC_DC,      0,      CC_DC,          1,     CC_DC,             1,             1,     CC_DC,         CC_DC,             0,         1);
-    cc.printClause(11, CC_DC,      0,      CC_DC,          0,     CC_DC,             1,             0,     CC_DC,         CC_DC,             0,         1);
-    cc.printClause(11, CC_DC,      1,      CC_DC,          1,     CC_DC,             0,             1,     CC_DC,         CC_DC,             1,         0);
-    cc.printClause(11, CC_DC,      1,      CC_DC,          0,     CC_DC,             0,             0,     CC_DC,         CC_DC,             1,         0);
+    cc.printClause(11, CC_DC,  CC_DC,      CC_DC,          0,         1,             1,             0,         1,         CC_DC,             0,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,      CC_DC,          1,         1,             1,             1,         1,         CC_DC,             0,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,      CC_DC,          0,         0,             0,             0,         0,         CC_DC,             1,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,      CC_DC,          1,         0,             0,             1,         0,         CC_DC,             1,     CC_DC);
+    cc.printClause(11, CC_DC,  CC_DC,      CC_DC,          0,         1,             1,             1,         1,         CC_DC,             1,     CC_DC);
     cc.printClause(11, CC_DC,      1,      CC_DC,          1,     CC_DC,             0,             0,     CC_DC,         CC_DC,             0,         0);
+    cc.printClause(11, CC_DC,      1,      CC_DC,          0,     CC_DC,             0,             0,     CC_DC,         CC_DC,             1,         0);
+    cc.printClause(11, CC_DC,      1,      CC_DC,          1,     CC_DC,             0,             1,     CC_DC,         CC_DC,             1,         0);
+    cc.printClause(11, CC_DC,      0,      CC_DC,          0,     CC_DC,             1,             0,     CC_DC,         CC_DC,             0,         1);
+    cc.printClause(11, CC_DC,      0,      CC_DC,          1,     CC_DC,             1,             1,     CC_DC,         CC_DC,             0,         1);
+    cc.printClause(11, CC_DC,      0,      CC_DC,          0,     CC_DC,             1,             1,     CC_DC,         CC_DC,             1,         1);
 
 #ifdef ADDITIONAL_CLAUSES
     //                   8       9        10          11           1              2             3           4              5             6            7
     //                 c_out  s_out[0]  s_out[1]    s_out[2]    a_in[0]        a_in[1]        a_in[2]    b_in[0]        b_in[1]        b_in[2]       c_in
-    // -1 -7 8 10 11 0
     cc.printClause(11,     1,  CC_DC,          1,          1,         0,         CC_DC,         CC_DC,     CC_DC,         CC_DC,         CC_DC,         0);
-    // -3 -7 8 9 10 0
     cc.printClause(11,     1,      1,          1,      CC_DC,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,         CC_DC,         0);
-    // -4 -7 8 10 11 0
     cc.printClause(11,     1,  CC_DC,          1,          1,     CC_DC,         CC_DC,         CC_DC,         0,         CC_DC,         CC_DC,         0);
-    // -6 -7 8 9 10 0
     cc.printClause(11,     1,      1,          1,      CC_DC,     CC_DC,         CC_DC,         CC_DC,     CC_DC,         CC_DC,             0,         0);
-    // 3 -6 -7 9 10 -11 0
     cc.printClause(11, CC_DC,      1,          1,          0,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,             0,         0);
-    // -3 6 -7 9 10 -11 0
     cc.printClause(11, CC_DC,      1,          1,          0,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,             1,         0);
 #endif
 }
