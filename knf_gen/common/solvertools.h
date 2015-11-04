@@ -9,4 +9,6 @@ uint32_t solver_readInt(CMSat::SATSolver& solver, unsigned lsb, unsigned bitWidt
 
 void solver_writeInt(CMSat::SATSolver& solver, unsigned lsb, unsigned bitWidth, unsigned value);
 
+uint32_t solver_readInt_msb(CMSat::SATSolver& solver, unsigned msb, unsigned bitWidth);
+
 #endif //__SOLVERTOOLS_H__

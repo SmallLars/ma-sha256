@@ -11,6 +11,7 @@ class Sha256 : public Modul {
 
         unsigned* getStats();
         void create(Printer* printer);
+        void getOutputs(std::vector<unsigned>& outputs);
         MU_TEST_H(test);
     private:
         static unsigned stats[STATS_LENGTH];
