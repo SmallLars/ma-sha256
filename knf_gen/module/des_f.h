@@ -4,14 +4,14 @@
 #include "modul.h"
 #include "../common/minunit.h"
 
-#include "des_box_1.h"
-#include "des_box_2.h"
-#include "des_box_3.h"
-#include "des_box_4.h"
-#include "des_box_5.h"
-#include "des_box_6.h"
-#include "des_box_7.h"
-#include "des_box_8.h"
+#include "des_sbox_1.h"
+#include "des_sbox_2.h"
+#include "des_sbox_3.h"
+#include "des_sbox_4.h"
+#include "des_sbox_5.h"
+#include "des_sbox_6.h"
+#include "des_sbox_7.h"
+#include "des_sbox_8.h"
 
 class Des_F : public Modul {
     public:

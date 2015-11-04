@@ -25,7 +25,7 @@ void Des_SBox_7::create(Printer* printer) {
 
     ClauseCreator cc(printer);
     //                c_out  s_out[0]  s_out[1]    a_in[0]        a_in[1]    b_in[0]        b_in[1]       c_in
-    cc.setLiterals(10, input[0]+0, input[0]+1, input[0]+2, input[0]+3, input[0]+4, input[0]+5, output+0, output+1, output+2, output+3);
+    cc.setLiterals(10, inputs[0]+0, inputs[0]+1, inputs[0]+2, inputs[0]+3, inputs[0]+4, inputs[0]+5, output+0, output+1, output+2, output+3);
     //cc.printClause(10, CC_DC,      0,      CC_DC,         1,         CC_DC,         1,         CC_DC,         1);
 }
 

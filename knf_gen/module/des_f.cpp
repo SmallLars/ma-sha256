@@ -1,5 +1,7 @@
 #include "des_f.h"
 
+#include  <algorithm>
+
 #include "../common/solvertools.h"
 
 using std::vector;
@@ -42,14 +44,14 @@ void Des_F::create(Printer* printer) {
 
     std::vector<unsigned> k_rotated;
     for(int i = 0; i < 56; i++){
-      k_rotated.append(inputs[1] + i);
+      k_rotated.push_back(inputs[1] + i);
     }
     std::vector<unsigned>::iterator c_begin = k_rotated.begin();
     std::vector<unsigned>::iterator c_end = k_rotated.begin()+27;
     std::vector<unsigned>::iterator d_begin = k_rotated.begin()+28;
     std::vector<unsigned>::iterator d_end = k_rotated.end();
 
-    for(int i = 0; i < round; i++){
+    for(unsigned i = 0; i < round; i++){
       if(i == 0 || i == 1 || i == 8 || i == 15){
         std::rotate(c_begin, c_begin+1, c_end);
         std::rotate(d_begin, d_begin+1, d_end);
