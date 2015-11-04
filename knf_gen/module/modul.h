@@ -33,6 +33,8 @@ class Modul {
         unsigned getInputNum();
         unsigned getOutputNum();
 
+        virtual void getOutputs(std::vector<unsigned>& outputs);
+
         unsigned append(CMSat::SATSolver* solver);
         unsigned writeLog(const char* filename);
         unsigned writeDimacs(const char* filename);

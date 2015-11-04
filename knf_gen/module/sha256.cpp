@@ -124,7 +124,6 @@ void Sha256::create(Printer* printer) {
 
     // distance - modulcount + 1 = 3
 /*
-*/
     if (i < 45) {
       if (in_array(i, 17, 2, 5, 8, 9, 12, 15, 16, 17, 19, 23, 25, 29, 31, 40, 42, 43, 44)) {
         // -3582 5639 10949 -16577 0
@@ -152,6 +151,7 @@ void Sha256::create(Printer* printer) {
         cc.printClause(4,             1,                  0,                 1,                   1);
       }
     }
+*/
     if (i < 48) {
       if (in_array(i, 17, 0, 3, 6, 8, 12, 15, 19, 22, 25, 26, 33, 34, 36, 40, 42, 45, 47)) {
         // -2477 -7915 12467 0
@@ -220,20 +220,48 @@ void Sha256::create(Printer* printer) {
   }
 #endif
 
-/*
   ClauseCreator cc(printer);
 
+  for (unsigned r = 0; r < 45; r++) {
+      for (unsigned b = 0; b < 30; b++) {
+        // -3582 5639 10949 -16577 0
+        //                  result[0]                carry[1]               carry[1]                 carry[1]
+        cc.setLiterals(4, coreI[r][4] + b, coreN[r + 3] + 318 + b, coreN[r + 12] + 1 + b, prepN[r + 19] + 128 + b);
+        //cc.printClause(4,               0,                      1,                     1,                       0);
+      }
 
+      for (unsigned b = 0; b < 31; b++) {
+        //                  result[0]                carry[0]           carry[0]                result[0]
+        cc.setLiterals(4, coreI[r][4] + b, coreN[r + 3] + 317 + b, coreN[r + 12] + b, prepN[r + 19] + 158 + b);
 
+        // 1307 -3363 8167 -13320 0
+        // 6997 -9053 15881 -21540 0
+        // 18062 -21130 28211 -33870 0
+//        cc.printClause(4,             1,                  0,                 1,                   0);
 
-  for (unsigned r = 0; r < 64; r++) {
-    if (r < 39) {
+        // 1307 -3363 -8167 13320 0
+        // 6997 -9053 -15881 21540 0
+        // 18062 -21130 -28211 33870 0
+//        cc.printClause(4,             1,                  0,                 0,                   1);
 
+//        cc.printClause(4,             1,                  0,                 0,                   0);
 
-    }
+//        cc.printClause(4,             1,                  0,                 1,                   1);
+      }
   }
-*/
 
+}
+
+void Sha256::getOutputs(std::vector<unsigned>& outputs) {
+    outputs.clear();
+    outputs.push_back(start + 48496);
+    outputs.push_back(start + 47674);
+    outputs.push_back(start + 46852);
+    outputs.push_back(start + 46030);
+    outputs.push_back(start + 48528);
+    outputs.push_back(start + 47706);
+    outputs.push_back(start + 46884);
+    outputs.push_back(start + 46062);
 }
 
 MU_TEST_C(Sha256::test) {
@@ -261,7 +289,8 @@ MU_TEST_C(Sha256::test) {
   mu_assert(ret == l_True, "SHA256 UNSAT");
 
   uint32_t output[8] = {0x27931f0e, 0x7e53670d, 0xdbec1a1c, 0xe23e21b4, 0x663c63c0, 0xd17117ee, 0x1a934bc0, 0xc294dbe9};
-  uint32_t out_lsb[8] = {49264, 48442, 47620, 46798, 49296, 48474, 47652, 46830};
+  vector<unsigned> out_lsb;
+  sha256.getOutputs(out_lsb);
 
   for (unsigned i = 0; i < 8; i++) {
     mu_assert(output[i] - state[i] == solver_readInt(solver, out_lsb[i], 32), "SHA256 failed");

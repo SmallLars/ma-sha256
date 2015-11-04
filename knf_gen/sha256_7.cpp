@@ -120,7 +120,8 @@ int main() {
     cout << "  3 /   4: Kern definiert.\n";
 
     // Ausgabe setzen
-    uint32_t out_lsb[8] = {49264, 48442, 47620, 46798, 49296, 48474, 47652, 46830};
+    vector<unsigned> out_lsb;
+    sha256.getOutputs(out_lsb);
     for (unsigned i = 0; i < 8; i++) {
         Const c(32, output[i]);
         c.setStart(out_lsb[i]);
