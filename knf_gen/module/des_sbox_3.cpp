@@ -130,17 +130,17 @@ MU_TEST_C(Des_SBox_3::test) {
                        0x0b, 0x04, 0x01, 0x0f, 0x02, 0x0e, 0x0c, 0x03,
                        0x05, 0x0b, 0x0a, 0x05, 0x0e, 0x02, 0x07, 0x0c};
 
-    for (unsigned t = 0; t < 1; t++) {
+    for (unsigned t = 0; t < 64; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
 
-        solver_writeInt(solver, 0, 6, in[t]);
+        solver_writeInt_msb(solver, 0, 6, in[t]);
 
         Des_SBox_3 sbox_3;
         sbox_3.append(&solver);
 
         lbool ret = solver.solve();
         mu_assert(ret == l_True, "DES_SBOX_3 UNSAT");
-        mu_assert(out[t] == solver_readInt(solver, 6, 4), "DES_SBOX_3 failed");
+        mu_assert(out[t] == solver_readInt_msb(solver, 6, 4), "DES_SBOX_3 failed");
     }
 }

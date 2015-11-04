@@ -123,18 +123,16 @@ unsigned out[]  = {0x0e, 0x00, 0x04, 0x0f, 0x0d, 0x07, 0x01, 0x04,
                    0x0f, 0x05, 0x0c, 0x0b, 0x09, 0x03, 0x07, 0x0e,
                    0x03, 0x0a, 0x0a, 0x00, 0x05, 0x06, 0x00, 0x0d};
 
-    for (unsigned t = 0; t < 1; t++) {
+    for (unsigned t = 0; t < 64; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
 
-        solver_writeInt(solver, 0, 6, in[t]);
+        solver_writeInt_msb(solver, 0, 6, in[t]);
 
         Des_SBox_1 sbox_1;
         sbox_1.append(&solver);
 
         lbool ret = solver.solve();
-
-        std::cout << "Soll: " << out[t] << " Ist: " << solver_readInt_msb(solver, 6, 4) << "\n";
 
         mu_assert(ret == l_True, "DES_SBOX_1 UNSAT");
         mu_assert(out[t] == solver_readInt_msb(solver, 6, 4), "DES_SBOX_1 failed");

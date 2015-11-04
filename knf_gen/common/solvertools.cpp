@@ -25,3 +25,9 @@ uint32_t solver_readInt_msb(CMSat::SATSolver& solver, unsigned msb, unsigned bit
     }
     return result;
 }
+
+void solver_writeInt_msb(CMSat::SATSolver& solver, unsigned msb, unsigned bitWidth, unsigned value) {
+    Const con(bitWidth, value, false);
+    con.setOutput(msb);
+    con.append(&solver);
+}
