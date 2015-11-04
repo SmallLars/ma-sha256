@@ -106,14 +106,12 @@ void Des_SBox_1::create(Printer* printer) {
 }
 
 MU_TEST_C(Des_SBox_1::test) {
-    unsigned in[]  = {0x1c};
+    unsigned in[]  = {0x25};
     unsigned out[] = {0x8};
 
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
-
-        solver_writeInt(solver, 0, 6, in[t]);
 
         Des_SBox_1 sbox_1;
         sbox_1.append(&solver);
