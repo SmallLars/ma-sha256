@@ -7,8 +7,9 @@ using namespace CMSat;
 
 unsigned Const::stats[STATS_LENGTH];
 
-Const::Const(unsigned bitWidth, uint32_t value) : Modul(bitWidth, 0, 1) {
+Const::Const(unsigned bitWidth, uint32_t value, bool lsb) : Modul(bitWidth, 0, 1) {
     this->value = value;
+    this->lsb = lsb;
     output = 0;
 }
 
@@ -25,33 +26,48 @@ unsigned* Const::getStats() {
 
 void Const::create(Printer* printer) {
     printer->newModul(10, "Const", this);
+
+    if (lsb) {
 /*
-    for (unsigned i = getBitWidth(); i > 0; i--) {
-        vector<Lit> clause;
-        clause.push_back(Lit(output + i - 1, !(value >> (i - 1) & 1)));
-        printer->create(false, clause);
-    }
+      for (unsigned i = getBitWidth(); i > 0; i--) {
+          vector<Lit> clause;
+          clause.push_back(Lit(output + i - 1, !(value >> (i - 1) & 1)));
+          printer->create(false, clause);
+      }
 */
-    for (unsigned i = 0; i < getBitWidth(); i++) {
-        vector<Lit> clause;
-        clause.push_back(Lit(output + i, !(value >> i & 1)));
-        printer->create(false, clause);
-    }
+      for (unsigned i = 0; i < getBitWidth(); i++) {
+          vector<Lit> clause;
+          clause.push_back(Lit(output + i, !(value >> i & 1)));
+          printer->create(false, clause);
+      }
+   } else {
+      for (unsigned i = 0; i < getBitWidth(); i++) {
+          vector<Lit> clause;
+          clause.push_back(Lit(output + i, !(value >> (getBitWidth() - i - 1) & 1)));
+          printer->create(false, clause);
+      }
+   }
 }
 
 MU_TEST_C(Const::test) {
     unsigned value[] = {1234, 5, 0x80000000, 1, 0xFFFFFFFF,   2, 0xFFFFFF, 0x1, 0xFFFF, 0x0};
     unsigned width[] = {  32, 3,         32, 1,         32,   2,       24,   2,     16,   3};
 
-    for (unsigned t = 0; t < 10; t++) {
-        SATSolver solver;
-        solver.log_to_file("test.log");
+    for (unsigned lsb = 0; lsb < 2; lsb++) {
+        for (unsigned t = 0; t < 10; t++) {
+            SATSolver solver;
+            solver.log_to_file("test.log");
 
-        Const c(width[t], value[t]);
-        c.append(&solver);
+            Const c(width[t], value[t], lsb);
+            c.append(&solver);
 
-        lbool ret = solver.solve();
-        mu_assert(ret == l_True, "Adder UNSAT");
-        mu_assert(value[t] == solver_readInt(solver, 0, width[t]), "Adder failed");
+            lbool ret = solver.solve();
+            mu_assert(ret == l_True, "Adder UNSAT");
+            if (lsb) {
+                mu_assert(value[t] == solver_readInt(solver, 0, width[t]), "Adder failed");
+            } else {
+                mu_assert(value[t] == solver_readInt_msb(solver, 0, width[t]), "Adder failed");
+            }
+        }
     }
 }
