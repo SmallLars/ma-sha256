@@ -11,4 +11,6 @@ void solver_writeInt(CMSat::SATSolver& solver, unsigned lsb, unsigned bitWidth, 
 
 uint32_t solver_readInt_msb(CMSat::SATSolver& solver, unsigned msb, unsigned bitWidth);
 
+void solver_writeInt_msb(CMSat::SATSolver& solver, unsigned msb, unsigned bitWidth, unsigned value);
+
 #endif //__SOLVERTOOLS_H__
