@@ -194,7 +194,8 @@ void Sha256::create(Printer* printer) {
 #endif
 
   ClauseCreator cc(printer);
-//  clause_5_39(cc);
+  clause_4_43(cc);
+  clause_4_45(cc);
 
 /*
   for (unsigned r = 0; r < 45; r++) {
@@ -344,57 +345,57 @@ static void clause_4_39(ClauseCreator &cc) {
 }
 
 static void clause_4_43(ClauseCreator &cc) {
-  for (unsigned r = 0; r < 43; r++) {
-    if (in_array(r, 7, 18, 20, 24, 28, 32, 34, 38)) {
-      unsigned carry_0 = (r == 24 || r == 38 ? CC_DC : 1);
+  for (unsigned r = 3; r < 46; r++) {
+    if (in_array(r, 7, 21, 23, 27, 31, 35, 37, 41)) {
+      unsigned carry_0 = (r == 27 || r == 41 ? CC_DC : 1);
 
       // -11486 14237 -21952 22014 -22015 27294 0
       // -13130 15881 -23596 23658 -23659 28938 0
       //                      result[1]          carry[1]             carry[1]             carry[0]             carry[1]            result[1]
-      cc.setLiterals(6, coreI[r][4] + 1, coreN[r + 3] + 1, coreN[r + 12] + 318, coreN[r + 12] + 380, coreN[r + 12] + 381, prepN[r + 19] + 159);
+      cc.setLiterals(6, coreI[r][7] + 1, coreN[r] + 1, coreN[r + 9] + 318, coreN[r + 9] + 380, coreN[r + 9] + 381, prepN[r + 16] + 159);
       cc.printClause(6,               0,                1,                   0,             carry_0,                   0,                   1);
 
       //                  result[0]          carry[1]             carry[1]             carry[0]             carry[1]            result[1]
-      cc.setLiterals(6, coreI[r][4], coreN[r + 3] + 1, coreN[r + 12] + 318, coreN[r + 12] + 380, coreN[r + 12] + 381, prepN[r + 19] + 159);
+      cc.setLiterals(6, coreI[r][7], coreN[r] + 1, coreN[r + 9] + 318, coreN[r + 9] + 380, coreN[r + 9] + 381, prepN[r + 16] + 159);
       cc.printClause(6,           0,                1,                   0,             carry_0,                   0,                   1);
     }
-    if (r == 28) {
+    if (r == 31) {
       //                      result[2]          carry[2]             carry[2]             carry[1]             carry[2]            result[2]
-      cc.setLiterals(6, coreI[r][4] + 2, coreN[r + 3] + 2, coreN[r + 12] + 319, coreN[r + 12] + 381, coreN[r + 12] + 382, prepN[r + 19] + 160);
+      cc.setLiterals(6, coreI[r][7] + 2, coreN[r] + 2, coreN[r + 9] + 319, coreN[r + 9] + 381, coreN[r + 9] + 382, prepN[r + 16] + 160);
       cc.printClause(6,               0,                1,                   0,                   1,                   0,                   1);
 
-      //                  result[1]          carry[2]             carry[2]             carry[1]             carry[2]            result[2]
-      cc.setLiterals(6, coreI[r][4] + 1, coreN[r + 3] + 2, coreN[r + 12] + 319, coreN[r + 12] + 381, coreN[r + 12] + 382, prepN[r + 19] + 160);
+      //                      result[1]          carry[2]             carry[2]             carry[1]             carry[2]            result[2]
+      cc.setLiterals(6, coreI[r][7] + 1, coreN[r] + 2, coreN[r + 9] + 319, coreN[r + 9] + 381, coreN[r + 9] + 382, prepN[r + 16] + 160);
       cc.printClause(6,               0,                1,                   0,                   1,                   0,                   1);
     }
-    if (in_array(r, 8, 0, 1, 11, 15, 22, 26, 37, 39)) {
+    if (in_array(r, 8, 3, 4, 14, 18, 25, 29, 40, 42)) {
       // -14774 17556 -25240 25302 -25303 30582 0
       // -27104 29886 -37570 37632 -37633 42912 0
       //                      result[1]          result[1]             carry[1]             carry[0]             carry[1]            result[1]
-      cc.setLiterals(6, coreI[r][4] + 1, coreN[r + 3] + 32, coreN[r + 12] + 318, coreN[r + 12] + 380, coreN[r + 12] + 381, prepN[r + 19] + 159);
+      cc.setLiterals(6, coreI[r][7] + 1, coreN[r] + 32, coreN[r + 9] + 318, coreN[r + 9] + 380, coreN[r + 9] + 381, prepN[r + 16] + 159);
       cc.printClause(6,               0,                 1,                   0,                   1,                   0,                   1);
 
       // -18061 20844 -28528 28590 -28591 33870 0
       //                  result[0]          result[1]             carry[1]             carry[0]             carry[1]            result[1]
-      cc.setLiterals(6, coreI[r][4], coreN[r + 3] + 32, coreN[r + 12] + 318, coreN[r + 12] + 380, coreN[r + 12] + 381, prepN[r + 19] + 159);
+      cc.setLiterals(6, coreI[r][7], coreN[r] + 32, coreN[r + 9] + 318, coreN[r + 9] + 380, coreN[r + 9] + 381, prepN[r + 16] + 159);
       cc.printClause(6,           0,                 1,                   0,                   1,                   0,                   1);
     }
   }
 }
 
 static void clause_4_45(ClauseCreator &cc) {
-  for (unsigned r = 0; r < 45; r++) {
-    if (in_array(r, 7, 18, 20, 24, 28, 32, 34, 38)) {
+  for (unsigned r = 3; r < 48; r++) {
+    if (in_array(r, 7, 21, 23, 27, 31, 35, 37, 41)) {
       // -11485 14237 -21952 22014 -22015 27294 0
       // -13129 15881 -23596 23658 -23659 28938 0
       //                  result[0]          carry[1]             carry[1]             carry[0]             carry[1]            result[1]
-      cc.setLiterals(6, coreI[r][4], coreN[r + 3] + 1, coreN[r + 12] + 318, coreN[r + 12] + 380, coreN[r + 12] + 381, prepN[r + 19] + 159);
+      cc.setLiterals(6, coreI[r][7], coreN[r] + 1, coreN[r + 9] + 318, coreN[r + 9] + 380, coreN[r + 9] + 381, prepN[r + 16] + 159);
       cc.printClause(6,           0,                1,                   0,                   1,                   0,                   1);
     }
-    if (r == 28) {
-      //                   result[1]       carry[2]         carry[2]         carry[1]         carry[2]        result[2]
-      cc.setLiterals(6, coreI[28][4], coreN[31] + 1, coreN[40] + 318, coreN[40] + 380, coreN[40] + 381, prepN[47] + 159);
-      cc.printClause(6,            0,             1,               0,               1,               0,               1);
+    if (r == 31) {
+      //                      result[1]          carry[2]             carry[2]             carry[1]             carry[2]            result[2]
+      cc.setLiterals(6, coreI[r][7] + 1, coreN[r] + 2, coreN[r + 9] + 319, coreN[r + 9] + 381, coreN[r + 9] + 382, prepN[r + 16] + 160);
+      cc.printClause(6,               0,                1,                   0,                   1,                   0,                   1);
     }
   }
 }
