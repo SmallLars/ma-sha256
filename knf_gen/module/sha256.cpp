@@ -191,7 +191,7 @@ void Sha256::create(Printer* printer) {
   }
 #endif
 
-  ClauseCreator cc(printer);
+//  ClauseCreator cc(printer);
 
 //  clause_4_45(cc);
 

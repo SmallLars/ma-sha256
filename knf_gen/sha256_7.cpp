@@ -144,12 +144,12 @@ int main() {
         printTime(cout, time(0) - start_time);
         cout << "\n  Ausgabe:";
         for (unsigned i = 0; i < 8; i++) {
-            printf(" %08x", state[i] + solver_readInt(solver, out_lsb[i], 32));
+            printf(" %08lx", state[i] + solver_readInt(solver, out_lsb[i], 32));
         }
         cout << "\n  Eingabe:";
         for (unsigned i = 0; i < 16; i++) {
             if (i == 8) cout << "\n          ";
-            printf(" %08x", solver_readInt(solver, i * 32, 32));
+            printf(" %08lx", solver_readInt(solver, i * 32, 32));
         }
         cout << "\n";
 
