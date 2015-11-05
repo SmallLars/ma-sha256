@@ -7,7 +7,7 @@ using namespace CMSat;
 
 unsigned Const::stats[STATS_LENGTH];
 
-Const::Const(unsigned bitWidth, uint32_t value, bool lsb) : Modul(bitWidth, 0, 1) {
+Const::Const(unsigned bitWidth, uint64_t value, bool lsb) : Modul(bitWidth, 0, 1) {
     this->value = value;
     this->lsb = lsb;
     output = 0;
