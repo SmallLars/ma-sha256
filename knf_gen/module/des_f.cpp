@@ -125,23 +125,23 @@ void Des_F::create(Printer* printer) {
 }
 
 MU_TEST_C(Des_F::test) {
-    unsigned r[] = {0, 0, 0, 0};
-    unsigned e[] = {0xcab9cb0c, 0x78dfbec5, 0x031d0cff, 0x5fd82dd7};
-    uint64_t k[] = {0x11e204f2f73b44, 0x4cee32dd2ccb12, 0x54622150f32952, 0x00149c6d6e52df};
-    unsigned out[] = {0xe8018f99, 0x6d4679e4, 0x06342649, 0xbc38bb9d};
+    unsigned r[] = {8, 5, 5, 3};
+    unsigned e[] = {0x71403d56, 0xf8c2c266, 0x26dc105e, 0xb31f338b};
+    uint64_t k[] = {0xd4a0993a012774, 0x9ebc1d5857ed1b, 0x8780ce656956fd, 0x43da3982301645};
+    unsigned out[] = {0x79db12df, 0xff3f0a8e, 0xadbe4cb4, 0x6223b2db};
 
     for (unsigned t = 0; t < 4; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
 
-        solver_writeInt(solver,  0, 32, e[t]);
-        solver_writeInt(solver, 32, 56, k[t]);
+        solver_writeInt_msb(solver,  0, 32, e[t]);
+        solver_writeInt_msb(solver, 32, 56, k[t]);
 
         Des_F des_f_function(r[t]);
         des_f_function.append(&solver);
 
         lbool ret = solver.solve();
         mu_assert(ret == l_True, "DES_F UNSAT");
-        mu_assert(out[t] == solver_readInt(solver, 136, 32), "DES_F failed");
+        mu_assert(out[t] == solver_readInt_msb(solver, 136, 32), "DES_F failed");
     }
 }
