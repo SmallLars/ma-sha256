@@ -142,6 +142,12 @@ MU_TEST_C(Des_F::test) {
 
         lbool ret = solver.solve();
         mu_assert(ret == l_True, "DES_F UNSAT");
+
+        printf("\n");
+        printf("Erwartet    : %08x\n", out[t]);
+        printf("Erhalten LSB: %08lx\n", solver_readInt(solver, 136, 32));
+        printf("Erhalten MSB: %08lx\n", solver_readInt_msb(solver, 136, 32));
+
         mu_assert(out[t] == solver_readInt_msb(solver, 136, 32), "DES_F failed");
     }
 }
