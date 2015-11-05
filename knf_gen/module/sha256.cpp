@@ -28,7 +28,7 @@ static unsigned prepN[64];
 static unsigned coreI[64][9];
 static unsigned coreN[64];
 
-static void clause_5_36(ClauseCreator &cc);
+static void clause_5_39(ClauseCreator &cc);
 static void clause_4_39(ClauseCreator &cc);
 static void clause_4_43(ClauseCreator &cc);
 static void clause_4_45(ClauseCreator &cc);
@@ -104,7 +104,7 @@ void Sha256::create(Printer* printer) {
   ClauseCreator cc(printer);
 
   // distance - modulcount + 1 = 5
-  clause_5_36(cc);
+  clause_5_39(cc);
 
   // distance - modulcount + 1 = 4
   clause_4_39(cc);
@@ -194,13 +194,15 @@ void Sha256::create(Printer* printer) {
 #endif
 
   ClauseCreator cc(printer);
+//  clause_5_39(cc);
 
-
+/*
   for (unsigned r = 0; r < 45; r++) {
       for (unsigned b = 0; b < 31; b++) {
 
       }
   }
+*/
 
 }
 
@@ -249,7 +251,7 @@ MU_TEST_C(Sha256::test) {
   }
 }
 
-static void clause_5_36(ClauseCreator &cc) {
+static void clause_5_39(ClauseCreator &cc) {
 /*
     distance = 8
     modulcount = 4
@@ -262,28 +264,28 @@ static void clause_5_36(ClauseCreator &cc) {
         From 0 or after first one bit:
             Clause with 5 literals is valid if const bit is zero
 
-    valid for r < 36
+    valid for r < 39
 */
-  for (unsigned r = 0; r < 36; r++) {
+  for (unsigned r = 0; r < 39; r++) {
     unsigned b = 0;
-    if ((sha_k[r + 21] & 0x2) == 0) {
+    if ((sha_k[r + 18] & 0x2) == 0) {
       for (; true ; b++) {
-        if ((sha_k[r + 21] >> (b + 2)) & 0x1) {
+        if ((sha_k[r + 18] >> (b + 2)) & 0x1) {
           goto start;
         } else {
           // -15595 -31374 -33144 38772 0
           //                  result[0]                 carry[2]               carry[2]                 carry[2]
-          cc.setLiterals(4, coreI[r][4] + b, prepN[r + 19] + 129 + b, coreN[r + 21] + 2 + b, prepN[r + 28] + 129 + b);
+          cc.setLiterals(4, coreI[r][7] + b, prepN[r + 16] + 129 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 129 + b);
           cc.printClause(4,               0,                       0,                     0,                       1);
         }
       }
     }
     for (; b < 29; b++) {
-      if (((sha_k[r + 21] >> (b + 2)) & 0x1) == 0) {
+      if (((sha_k[r + 18] >> (b + 2)) & 0x1) == 0) {
         start:
         // -1875 -14112 -14143 -15882 21510 0
         //                  result[0]                 carry[2]                result[2]               carry[2]                 carry[2]
-        cc.setLiterals(5, coreI[r][4] + b, prepN[r + 19] + 129 + b, prepN[r + 19] + 160 + b, coreN[r + 21] + 2 + b, prepN[r + 28] + 129 + b);
+        cc.setLiterals(5, coreI[r][7] + b, prepN[r + 16] + 129 + b, prepN[r + 16] + 160 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 129 + b);
         cc.printClause(5,               0,                       0,                       0,                     0,                       1);
       }
     }
