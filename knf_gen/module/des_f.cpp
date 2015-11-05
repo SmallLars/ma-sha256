@@ -125,23 +125,22 @@ void Des_F::create(Printer* printer) {
 }
 
 MU_TEST_C(Des_F::test) {
-    // unsigned a[] = {1234, 5, 0x80000000, 1, 0xFFFFFFFF, 0x2, 0xFFFFFFFF, 0x1, 0xFFFFFFFF, 0x0};
-    // unsigned b[] = {1235, 6, 1, 0x80000000, 0x2, 0xFFFFFFFF, 0x1, 0xFFFFFFFF, 0x0, 0xFFFFFFFF};
+    unsigned e[] = {0xcab9cb0c, 0x78dfbec5, 0x031d0cff, 0x5fd82dd7};
+    unsigned k[] = {0x11e204f2f73b44, 0x4cee32dd2ccb12, 0x54622150f32952, 0x00149c6d6e52df};
+    unsigned out[] = {0xe8018f99, 0x6d4679e4, 0x06342649, 0xbc38bb9d}
 
-    // for (unsigned t = 0; t < 10; t++) {
-    //     SATSolver solver;
-    //     solver.log_to_file("test.log");
+    for (unsigned t = 0; t < 10; t++) {
+        SATSolver solver;
+        solver.log_to_file("test.log");
 
-    //     uint32_t ausgabe = a[t] + b[t];
+        solver_writeInt(solver,  0, 32, e[t]);
+        solver_writeInt(solver, 32, 88, k[t]);
 
-    //     solver_writeInt(solver,  0, 32, a[t]);
-    //     solver_writeInt(solver, 32, 32, b[t]);
+        Des_F des_f_function;
+        des_f_function.append(&solver);
 
-    //     Des_F adder;
-    //     adder.append(&solver);
-
-    //     lbool ret = solver.solve();
-    //     mu_assert(ret == l_True, "Adder UNSAT");
-    //     mu_assert(ausgabe == solver_readInt(solver, 95, 32), "Adder failed");
-    // }
+        lbool ret = solver.solve();
+        mu_assert(ret == l_True, "DES_F UNSAT");
+        mu_assert(out[t] == solver_readInt(solver, 95, 32), "DES_F failed");
+    }
 }
