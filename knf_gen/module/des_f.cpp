@@ -125,10 +125,10 @@ void Des_F::create(Printer* printer) {
 }
 
 MU_TEST_C(Des_F::test) {
-    unsigned r[] = {8, 5, 5, 3};
-    unsigned e[] = {0x71403d56, 0xf8c2c266, 0x26dc105e, 0xb31f338b};
-    uint64_t k[] = {0xd4a0993a012774, 0x9ebc1d5857ed1b, 0x8780ce656956fd, 0x43da3982301645};
-    unsigned out[] = {0x79db12df, 0xff3f0a8e, 0xadbe4cb4, 0x6223b2db};
+    unsigned r[] = {7, 5, 10, 1, 13};
+    unsigned e[] = {0x20f3f8c6, 0x4c908cc2, 0x18002a23, 0xfaf4268e, 0x826e4265};
+    uint64_t k[] = {0x5056c027267bbe, 0xa7134a2d8d43e9, 0xc98857f73219e8, 0xa20237622f24a3, 0xf727033f5d61c5};
+    unsigned out[] = {0x7e268233, 0xe1d7bc02, 0x21ce84b5, 0xd83ae2f1, 0x071b7f72};
 
     for (unsigned t = 0; t < 4; t++) {
         SATSolver solver;
