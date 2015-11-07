@@ -13,7 +13,7 @@ COMMON = $(shell find common/*.cpp -type f | sed "s/.cpp/.o/g")
 MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")
 PRINTER = $(shell find printer/*.cpp -type f | sed "s/.cpp/.o/g")
 
-all: cryptominisat/lib/libcryptominisat4.so cc_miner cc_miner_2 test_module sha256_1 sha256_2 sha256_3 sha256_4 sha256_5 sha256_6 sha256_7 clausecollector clausechecker dimacsprinter modulchecker graphprinter
+all: cryptominisat/lib/libcryptominisat4.so cc_miner cc_miner_2 test_module sha256_1 sha256_2 sha256_3 sha256_4 sha256_5 sha256_6 sha256_7 clausecollector clausechecker dimacsprinter modulchecker graphprinter distancechecker
 
 #%.o: %.c
 #	gcc -c $(CFLAGS) -o $@ $<
@@ -48,8 +48,11 @@ modulchecker: modulchecker.o $(COMMON) $(MODULE) $(PRINTER)
 graphprinter: graphprinter.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
+distancechecker: distancechecker.o $(COMMON) $(MODULE) $(PRINTER)
+	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
+
 clean:
-	-rm -f cc_miner cc_miner_2 test_module sha256_1 sha256_2 sha256_3 sha256_4 sha256_5 sha256_6 sha256_7 clausecollector clausechecker dimacsprinter modulchecker graphprinter *.o common/*.o module/*.o printer/*.o
+	-rm -f cc_miner cc_miner_2 test_module sha256_1 sha256_2 sha256_3 sha256_4 sha256_5 sha256_6 sha256_7 clausecollector clausechecker dimacsprinter modulchecker graphprinter distancechecker *.o common/*.o module/*.o printer/*.o
 
 clobber: clean
 	-rm -rf cryptominisat
