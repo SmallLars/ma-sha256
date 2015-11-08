@@ -2,6 +2,7 @@
 
 #include "add_prepare_32.h"
 #include "shacore_ex1_32.h"
+#include "add_32.h"
 #include "clausecreator.h"
 
 #include "../common/sha256tools.h"
@@ -35,7 +36,10 @@ static void clause_3_39(ClauseCreator &cc);
 static void clause_3_48(ClauseCreator &cc);
 
 Sha256::Sha256() : Modul(32, 24, 8) {
-  output = 0;
+  Add_Prepare_32 prep_add;
+  ShaCore_Ex1_32 core(0);
+  Add_32 adder;
+  output = start + 48 * prep_add.getAdditionalVarCount() + 64 * core.getAdditionalVarCount() + 8 * adder.getAdditionalVarCount() - 256;
 }
 
 Sha256::~Sha256() {
@@ -52,12 +56,12 @@ void Sha256::create(Printer* printer) {
 
   // Status
   unsigned vars[8];
-  for (unsigned i = 16; i < 24; i++) vars[i - 16] = inputs[i];
+  for (unsigned i = 0; i < 8; i++) vars[i] = inputs[i + 16];
 
   // 512 Inputbits und 256 Statebits
   unsigned newvars = 0;
 
-  Add_Prepare_32 adder;
+  Add_Prepare_32 prep_add;
   ShaCore_Ex1_32 core(0);
 
   for (unsigned i = 0; i < 64; i++) {
@@ -75,14 +79,14 @@ void Sha256::create(Printer* printer) {
       prepareinputs.push_back(global_input[i - 15]);
       prepareinputs.push_back(global_input[i -  7]);
       prepareinputs.push_back(global_input[i -  2]);
-      adder.setInputs(prepareinputs);
-      adder.setStart(start + newvars);
+      prep_add.setInputs(prepareinputs);
+      prep_add.setStart(start + newvars);
       prepN[i] = start + newvars;
-      adder.create(printer);
-      newvars += adder.getAdditionalVarCount();
+      prep_add.create(printer);
+      newvars += prep_add.getAdditionalVarCount();
 
-      global_input[i] = adder.getOutput();
-      subinputs.push_back(adder.getOutput());
+      global_input[i] = prep_add.getOutput();
+      subinputs.push_back(prep_add.getOutput());
     }
     coreI[i][8] = global_input[i];
 
@@ -96,6 +100,18 @@ void Sha256::create(Printer* printer) {
     for (unsigned n = 7; n > 0; n--) vars[n] = vars[n - 1];
     vars[0] = core.getOutput();
     vars[4] = core.getOutput() + 32;
+  }
+
+  for (unsigned i = 0; i < 8; i++) {
+    vector<unsigned> subinputs;
+    subinputs.push_back(inputs[i + 16]);
+    subinputs.push_back(vars[i]);
+    Add_32 adder;
+    adder.setInputs(subinputs);
+    adder.setStart(start + newvars);
+    adder.setOutput(output + (i * 32));
+    adder.create(printer);
+    newvars += adder.getAdditionalVarCount() - 32;
   }
 
 #ifdef ADDITIONAL_CLAUSES
@@ -250,18 +266,6 @@ void Sha256::create(Printer* printer) {
 */
 }
 
-void Sha256::getOutputs(std::vector<unsigned>& outputs) {
-  outputs.clear();
-  outputs.push_back(start + 48496);
-  outputs.push_back(start + 47674);
-  outputs.push_back(start + 46852);
-  outputs.push_back(start + 46030);
-  outputs.push_back(start + 48528);
-  outputs.push_back(start + 47706);
-  outputs.push_back(start + 46884);
-  outputs.push_back(start + 46062);
-}
-
 MU_TEST_C(Sha256::test) {
   SolverConf config;
   config.verbosity = 0;//9;
@@ -280,6 +284,8 @@ MU_TEST_C(Sha256::test) {
     solver_writeInt(solver, i * 32, 32, state[i - 16]);
   }
 
+  sha256_calc(state, input);
+
   Sha256 sha256;
   sha256.append(&solver);
 
@@ -287,11 +293,10 @@ MU_TEST_C(Sha256::test) {
   mu_assert(ret == l_True, "SHA256 UNSAT");
 
   uint32_t output[8] = {0x27931f0e, 0x7e53670d, 0xdbec1a1c, 0xe23e21b4, 0x663c63c0, 0xd17117ee, 0x1a934bc0, 0xc294dbe9};
-  vector<unsigned> out_lsb;
-  sha256.getOutputs(out_lsb);
 
   for (unsigned i = 0; i < 8; i++) {
-    mu_assert(output[i] - state[i] == solver_readInt(solver, out_lsb[i], 32), "SHA256 failed");
+    mu_assert(output[i] == solver_readInt(solver, sha256.getOutput() + i * 32, 32), "SHA256 failed");
+    mu_assert(output[i] == state[i], "SHA256 failed");
   }
 }
 

@@ -63,14 +63,14 @@ int main() {
     uint32_t state[8] = {0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19};
 
     uint32_t output[8] = {
-        0x27931f0e - state[0],
-        0x7e53670d - state[1],
-        0xdbec1a1c - state[2],
-        0xe23e21b4 - state[3],
-        0x663c63c0 - state[4],
-        0xd17117ee - state[5],
-        0x1a934bc0 - state[6],
-        0xc294dbe9 - state[7]
+        0x27931f0e,
+        0x7e53670d,
+        0xdbec1a1c,
+        0xe23e21b4,
+        0x663c63c0,
+        0xd17117ee,
+        0x1a934bc0,
+        0xc294dbe9
     };
 
     SolverConf config;
@@ -120,11 +120,9 @@ int main() {
     cout << "  3 /   4: Kern definiert.\n";
 
     // Ausgabe setzen
-    vector<unsigned> out_lsb;
-    sha256.getOutputs(out_lsb);
     for (unsigned i = 0; i < 8; i++) {
         Const c(32, output[i]);
-        c.setStart(out_lsb[i]);
+        c.setStart(sha256.getOutput() + i * 32);
         c.create(&ap);
     }
     cout << "  4 /   4: Ausgabe gesetzt.\n";
@@ -144,7 +142,7 @@ int main() {
         printTime(cout, time(0) - start_time);
         cout << "\n  Ausgabe:";
         for (unsigned i = 0; i < 8; i++) {
-            printf(" %08lx", state[i] + solver_readInt(solver, out_lsb[i], 32));
+            printf(" %08lx", solver_readInt(solver, sha256.getOutput() + i * 32, 32));
         }
         cout << "\n  Eingabe:";
         for (unsigned i = 0; i < 16; i++) {
