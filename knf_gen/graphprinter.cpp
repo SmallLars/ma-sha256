@@ -34,7 +34,13 @@ using std::setw;
 using std::ofstream;
 using namespace CMSat;
 
-int main() {
+int main(int argc, const char* argv[]) {
+    if (argc > 2) {
+        cout << "Usage: graphprinter [FILE]" << "\n";
+        cout << "FILE = Dimacs file with clause to highlight.\n";
+        return 0;
+    }
+
     ModulGraph printer;
 
     for (unsigned i = 0; i < 24; i++) {
@@ -42,53 +48,17 @@ int main() {
         c.setStart(i * 32);
         c.create(&printer);
     }
-
     Sha256 sha256;
     sha256.create(&printer);
 
-    {
-    DimacsParser dp("todo/tocheck.dimacs");
-    vector<Lit> learned;
-    dp.getNextClause(learned);
-    printer.printGraph("sha256.graph", learned);
+    if (argc == 1) {
+        printer.printGraph("sha256.graph");
+    } else {
+        DimacsParser dp(argv[1]);
+        vector<Lit> learned;
+        dp.getNextClause(learned);
+        printer.printGraph("sha256.graph", learned);
     }
-/*
 
-    printer.calcDistances();
-
-    map<signed, unsigned> counter;
-
-    DimacsParser dp("dump/000_irred_outside.dimacs");
-    vector<Lit> learned;
-    while (dp.getNextClause(learned)) {
-        unsigned count = printer.getModulCount(learned);
-        unsigned dist = printer.getDistance(learned);
-
-        counter[dist - count + 1]++;
-
-        char filename[100];
-        snprintf(filename, 100, "dump/000_irred_outside_%d.dimacs", dist - count + 1);
-        ofstream file(filename, std::ofstream::app);
-        printClause(file, learned);
-        file.close();
-
-//        char filename[100];
-//        snprintf(filename, 100, "2015-08-11_dump/000_learned_outside_%u_%u.dimacs", count, dist);
-//        ofstream file(filename, std::ofstream::app);
-//        printClause(file, learned);
-//        file.close();
-
-//        if (dist > count) {
-//            cout << learned.size() << " (" << count << "): " << dist << "\n";
-//        }
-
-        cout << "\r" << learned.size();
-    }
-    cout << "\n";
-
-    for (map<signed, unsigned>::iterator it = counter.begin(); it != counter.end(); ++it) {
-        cout << it->first << ": " << it->second << "\n";
-    }
-*/
     return 0;
 }

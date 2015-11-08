@@ -39,12 +39,6 @@ void ShaCore_32::create(Printer* printer) {
     unsigned newvars = 0;
     vector<unsigned> subinputs;
 
-#if ADDITIONAL_KNOWLEDGE == 1
-    Add_32 rev_adder;
-    Sub_32 rev_subber;
-    newvars = rev_adder.getAdditionalVarCount() + rev_subber.getAdditionalVarCount() - 32;
-#endif
-
     subinputs.clear();
     subinputs.push_back(inputs[0]);
     subinputs.push_back(inputs[1]);
@@ -89,7 +83,7 @@ void ShaCore_32::create(Printer* printer) {
     Add_32 adder4;
     adder4.setInputs(subinputs);
     adder4.setStart(start + newvars);
-    adder4.setOutput(adder4.getOutput() + adder4.getAdditionalVarCount());
+    adder4.setOutput(output + 32);
     adder4.create(printer);
     newvars += adder4.getAdditionalVarCount() - 32;
 
@@ -99,8 +93,30 @@ void ShaCore_32::create(Printer* printer) {
     Add_32 adder3;
     adder3.setInputs(subinputs);
     adder3.setStart(start + newvars);
+    adder3.setOutput(output);
     adder3.create(printer);
-    newvars += adder3.getAdditionalVarCount() + 32;
+    newvars += adder3.getAdditionalVarCount() - 32;
+
+#if ADDITIONAL_KNOWLEDGE == 1
+    subinputs.clear();
+    subinputs.push_back(adder4.getOutput());
+    subinputs.push_back(adderB0Maj.getOutput());
+    Add_32 rev_adder;
+    rev_adder.setInputs(subinputs);
+    rev_adder.setStart(start + newvars);
+    rev_adder.create(printer);
+    newvars += rev_adder.getAdditionalVarCount();
+
+    subinputs.clear();
+    subinputs.push_back(rev_adder.getOutput());
+    subinputs.push_back(adder3.getOutput());
+    Sub_32 rev_subber;
+    rev_subber.setInputs(subinputs);
+    rev_subber.setStart(start + newvars);
+    rev_subber.setOutput(inputs[3]);
+    rev_subber.create(printer);
+    newvars += rev_subber.getAdditionalVarCount() - 32;
+#endif
 
 #ifdef ADDITIONAL_CLAUSES
     // XOR ->             731    289         321          637    
@@ -168,26 +184,6 @@ void ShaCore_32::create(Printer* printer) {
     cc.printClause(6,      CC_DC,       CC_DC,       CC_DC,           0,           0,       CC_DC);
     cc.printClause(6,          0,       CC_DC,       CC_DC,       CC_DC,       CC_DC,           0);
 #endif
-
-#if ADDITIONAL_KNOWLEDGE == 1
-    newvars = 0;
-
-    subinputs.clear();
-    subinputs.push_back(adder4.getOutput());
-    subinputs.push_back(adderB0Maj.getOutput());
-    rev_adder.setInputs(subinputs);
-    rev_adder.setStart(start + newvars);
-    rev_adder.create(printer);
-    newvars += rev_adder.getAdditionalVarCount();
-
-    subinputs.clear();
-    subinputs.push_back(rev_adder.getOutput());
-    subinputs.push_back(adder3.getOutput());
-    rev_subber.setInputs(subinputs);
-    rev_subber.setStart(start + newvars);
-    rev_subber.setOutput(inputs[3]);
-    rev_subber.create(printer);
-#endif
 }
 
 MU_TEST_C(ShaCore_32::test) {
@@ -205,13 +201,13 @@ MU_TEST_C(ShaCore_32::test) {
         SATSolver solver;
         solver.log_to_file("test.log");
 
-		uint32_t S0 = (a[t] >> 2 | a[t] << (32-2)) ^ (a[t] >> 13 | a[t] << (32-13)) ^ (a[t] >> 22 | a[t] << (32-22));
-		uint32_t maj = (a[t] & b[t]) ^ (a[t] & c[t]) ^ (b[t] & c[t]);
-		uint32_t t2 = S0 + maj;
-		uint32_t S1 = (e[t] >> 6 | e[t] << (32-6)) ^ (e[t] >> 11 | e[t] << (32-11)) ^ (e[t] >> 25 | e[t] << (32-25));
-		uint32_t fch = (e[t] & f[t]) ^ ((~e[t]) & g[t]);
-		uint32_t t1 = h[t] + S1 + fch + i[t];
-		uint32_t ausgabe[2] = {t1 + t2, d[t] + t1};
+        uint32_t S0 = (a[t] >> 2 | a[t] << (32-2)) ^ (a[t] >> 13 | a[t] << (32-13)) ^ (a[t] >> 22 | a[t] << (32-22));
+        uint32_t maj = (a[t] & b[t]) ^ (a[t] & c[t]) ^ (b[t] & c[t]);
+        uint32_t t2 = S0 + maj;
+        uint32_t S1 = (e[t] >> 6 | e[t] << (32-6)) ^ (e[t] >> 11 | e[t] << (32-11)) ^ (e[t] >> 25 | e[t] << (32-25));
+        uint32_t fch = (e[t] & f[t]) ^ ((~e[t]) & g[t]);
+        uint32_t t1 = h[t] + S1 + fch + i[t];
+        uint32_t ausgabe[2] = {t1 + t2, d[t] + t1};
 
         solver_writeInt(solver,   0, 32, a[t]);
         solver_writeInt(solver,  32, 32, b[t]);

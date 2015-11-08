@@ -112,11 +112,6 @@ unsigned Modul::getOutputNum() {
     return outputNum;
 }
 
-void Modul::getOutputs(std::vector<unsigned>& outputs) {
-    outputs.clear();
-    outputs.push_back(this->output);
-}
-
 unsigned Modul::append(SATSolver* solver) {
     //std::cout << "Start: " << start << " | Output: " << output << "\n";
     SolverPrinter printer(solver);
