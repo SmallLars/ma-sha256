@@ -46,8 +46,9 @@ void Des_F::create(Printer* printer) {
     for(int i = 0; i < 56; i++){
       k_rotated.push_back(inputs[1] + i);
     }
+
     std::vector<unsigned>::iterator c_begin = k_rotated.begin();
-    std::vector<unsigned>::iterator c_end = k_rotated.begin()+27;
+    std::vector<unsigned>::iterator c_end = k_rotated.begin()+28;
     std::vector<unsigned>::iterator d_begin = k_rotated.begin()+28;
     std::vector<unsigned>::iterator d_end = k_rotated.end();
 
@@ -130,7 +131,7 @@ MU_TEST_C(Des_F::test) {
     uint64_t k[] = {0x00000000000000, 0x5056c027267bbe, 0xa7134a2d8d43e9, 0xc98857f73219e8, 0xa20237622f24a3, 0xf727033f5d61c5};
     unsigned out[] = {0xefa72c4d, 0x7e268233, 0xe1d7bc02, 0x21ce84b5, 0xd83ae2f1, 0x071b7f72};
 
-    for (unsigned t = 0; t < 4; t++) {
+    for (unsigned t = 0; t < 6; t++) {
         SATSolver solver;
         solver.log_to_file("test.log");
 
@@ -142,12 +143,11 @@ MU_TEST_C(Des_F::test) {
 
         lbool ret = solver.solve();
         mu_assert(ret == l_True, "DES_F UNSAT");
-
+/*
         printf("\n");
-        printf("Erwartet    : %08x\n", out[t]);
-        printf("Erhalten LSB: %08lx\n", solver_readInt(solver, 136, 32));
-        printf("Erhalten MSB: %08lx\n", solver_readInt_msb(solver, 136, 32));
-
+        printf("Erwartet: %08x\n", out[t]);
+        printf("Erhalten: %08lx\n", solver_readInt_msb(solver, 136, 32));
+*/
         mu_assert(out[t] == solver_readInt_msb(solver, 136, 32), "DES_F failed");
     }
 }
