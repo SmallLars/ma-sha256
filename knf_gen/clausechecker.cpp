@@ -95,10 +95,12 @@ int main(int argc, const char* argv[]) {
 
     unsigned counter = 0;
     for (unsigned c = 1; dp.getNextClause(learned); ++c) {
+//        if (c <= 928) continue;
+
         for (unsigned i = 0; i < learned.size(); i++) learned[i] ^= 1;
 
         lbool ret = solver.solve(&learned);
-        cout << "\r" << c << " / " << linecount << " (" << ((c - 1) / 62) << " / " << ((c - 1) % 31) << ")" << std::flush;
+        cout << "\r" << c << " / " << linecount << " (" << ((c - 1) / 30) << " / " << ((c - 1) % 30) << ")" << std::flush;
         if (ret == l_False) {
             ++counter;
         } else {
