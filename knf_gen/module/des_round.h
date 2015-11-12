@@ -4,8 +4,6 @@
 #include "modul.h"
 #include "../common/minunit.h"
 
-#include "des_f.h"
-
 class Des_F : public Modul {
     public:
         Des_Round(uint round);
