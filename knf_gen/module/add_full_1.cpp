@@ -31,7 +31,7 @@ void Add_Full_1::create(Printer* printer) {
     cc.printClause(4,     1,         0,     CC_DC,         0);
     cc.printClause(4,     1,     CC_DC,         0,         0);
     cc.printClause(4,     0,         1,     CC_DC,         1);
-    cc.printClause(4,     0,     CC_DC,         1,          1);
+    cc.printClause(4,     0,     CC_DC,         1,         1);
 
     // XOR ->          !s_out       a_in       b_in       c_in
     createXOR(printer, output, inputs[0], inputs[1], inputs[2]);
@@ -51,6 +51,7 @@ void Add_Full_1::create(Printer* printer) {
 #endif
 
 #ifdef ADDITIONAL_CLAUSES
+    //                   4      5           1          2          3
     //                c_out   s_out       a_in       b_in       c_in
     cc.setLiterals(5, start, output, inputs[0], inputs[1], inputs[2]);
     cc.printClause(5,     0,      0,         1,     CC_DC,     CC_DC);
