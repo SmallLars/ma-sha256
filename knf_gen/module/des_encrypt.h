@@ -6,7 +6,7 @@
 
 class Des_Encrypt : public Modul {
     public:
-        Des_Encrypt(uint round);
+        Des_Encrypt();
         ~Des_Encrypt();
 
         unsigned* getStats();

@@ -42,6 +42,7 @@
 #include "module/des_sbox_8.h"
 #include "module/des_f.h"
 #include "module/des_round.h"
+#include "module/des_encrypt.h"
 
 MU_TEST_SUITE(test_suite) {
 	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
@@ -84,6 +85,7 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(Des_SBox_8::test);
     MU_RUN_TEST(Des_F::test);
     MU_RUN_TEST(Des_Round::test);
+    MU_RUN_TEST(Des_Encrypt::test);
 }
 
 int main() {
