@@ -5,9 +5,9 @@
 using namespace CMSat;
 
 uint64_t solver_readInt(SATSolver& solver, unsigned lsb, unsigned bitWidth) {
-    uint32_t result = 0;
+    uint64_t result = 0;
     for (unsigned b = 0; b < bitWidth; b++) {
-        result |= ((solver.get_model()[lsb + b] == l_True? 1 : 0) << b);
+        result |= ((uint64_t)(solver.get_model()[lsb + b] == l_True? 1 : 0) << b);
     }
     return result;
 }
@@ -19,9 +19,9 @@ void solver_writeInt(SATSolver& solver, unsigned lsb, unsigned bitWidth, uint64_
 }
 
 uint64_t solver_readInt_msb(CMSat::SATSolver& solver, unsigned msb, unsigned bitWidth) {
-    uint32_t result = 0;
+    uint64_t result = 0;
     for (unsigned b = 0; b < bitWidth; b++) {
-        result |= ((solver.get_model()[msb + b] == l_True? 1 : 0) << (bitWidth - b - 1));
+        result |= ((uint64_t)(solver.get_model()[msb + b] == l_True? 1 : 0) << (bitWidth - b - 1));
     }
     return result;
 }
