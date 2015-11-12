@@ -42,10 +42,11 @@ void Des_F::create(Printer* printer) {
 }
 
 MU_TEST_C(Des_Round::test) {
-    unsigned r[] = {1, 7, 5, 10, 1, 13};
-    unsigned e[] = {0x00000000, 0x20f3f8c6, 0x4c908cc2, 0x18002a23, 0xfaf4268e, 0x826e4265};
-    uint64_t k[] = {0x00000000000000, 0x5056c027267bbe, 0xa7134a2d8d43e9, 0xc98857f73219e8, 0xa20237622f24a3, 0xf727033f5d61c5};
-    unsigned out[] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
+    unsigned rounds[] = {14, 3, 13, 9, 16};
+    unsigned l[] = {0x9b2804e5, 0x1a9d81a9, 0x1b99583b, 0x4e483c99, 0x2f55f6d4};
+    unsigned r[] = {0xf9b30580, 0x23f531c6, 0x30ca658a, 0xdcccb5e9, 0x5d678ac4};
+    uint64_t k[] = {0xe4b2fe90d41b18, 0x140d1c4cfb54ec, 0x52ae1ba3880752, 0xc195f219da034b, 0xd23e8963f180d7};
+    unsigned out[] = {0x9ce63fc0, 0xa0d07251, 0xe773b792, 0x7608b8be, 0x0560bc23};
 
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
