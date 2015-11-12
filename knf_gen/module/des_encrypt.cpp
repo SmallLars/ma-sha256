@@ -13,9 +13,8 @@ unsigned Des_Encrypt::stats[STATS_LENGTH];
 
 Des_Encrypt::Des_Encrypt() : Modul(64, 2, 1) {
     setInputsBitWidth(64, 56); //plaintext, k
-
     Des_Round des_round(1);
-    output = start + des_round.getAdditionalVarCount() * 16;// - 64;
+    output = start + des_round.getAdditionalVarCount() * 16 - 64;
 }
 
 Des_Encrypt::~Des_Encrypt() {
@@ -38,29 +37,20 @@ void Des_Encrypt::create(Printer* printer) {
         subinputs.push_back(r);
         subinputs.push_back(inputs[1]);
 
-        Des_Round des_round(current_round);
+        Des_Round des_round(current_round + 1);
         des_round.setInputs(subinputs);
         des_round.setStart(start + additional_vars);
-/*
         if (current_round >= 14){
-            des_round.setOutput(output + (current_round - 14) * 32);
+            des_round.setOutput(output + (15 - current_round) * 32);
         }
-*/
-//        if (current_round >= 14) printf("%u: %u\n", current_round, des_round.getOutput());
-
         des_round.create(printer);
 
         additional_vars += des_round.getAdditionalVarCount();
-//        if (current_round >= 14){
-//            additional_vars -= 32;
-//        }
+        if (current_round >= 14) additional_vars -= 32;
 
         l = r;
         r = des_round.getOutput();
     }
-
-
-
 }
 
 MU_TEST_C(Des_Encrypt::test) {
@@ -80,14 +70,11 @@ MU_TEST_C(Des_Encrypt::test) {
 
         lbool ret = solver.solve();
         mu_assert(ret == l_True, "DES_Encrypt UNSAT");
-
+/*
         printf("\n");
-        printf("Erwartet: %08lx\n", out[t]);
-        printf("Erhalten: %08lx\n", solver_readInt_msb(solver, des_encrypt.getOutput(), 64));
-
-        printf("L: %08lx\n", solver_readInt_msb(solver, 1768, 32));
-        printf("R: %08lx\n", solver_readInt_msb(solver, 1880, 32));
-
+        printf("Erwartet: %lx\n", out[t]);
+        printf("Erhalten: %lx\n", solver_readInt_msb(solver, des_encrypt.getOutput(), 64));
+*/
         mu_assert(out[t] == solver_readInt_msb(solver, des_encrypt.getOutput(), 64), "DES_Encrypt failed");
     }
 }
