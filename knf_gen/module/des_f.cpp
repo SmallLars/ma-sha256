@@ -126,10 +126,11 @@ void Des_F::create(Printer* printer) {
     sbox_8.create(printer);
 
     // Hack
-    for (unsigned i = 0; i < 56; i++) {
+    unsigned ignore[8] = {9, 18, 22, 25, 35, 38, 43, 54};
+    for (unsigned i = 0; i < 8; i++) {
         ClauseCreator cc(printer);
-        cc.setLiterals(2, inputs[1] + i, inputs[1] + i);
-        cc.printClause(2,             0,             1);
+        cc.setLiterals(2, k_rotated[ignore[i] - 1], k_rotated[ignore[i] - 1]);
+        cc.printClause(2,                        0,                        1);
     }
 }
 
