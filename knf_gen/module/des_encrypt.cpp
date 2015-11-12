@@ -11,10 +11,11 @@ using namespace CMSat;
 
 unsigned Des_Encrypt::stats[STATS_LENGTH];
 
-Des_Encrypt::Des_Encrypt() : Modul(32, 2, 1) {
-    Des_Round des_round(1);
+Des_Encrypt::Des_Encrypt() : Modul(64, 2, 1) {
     setInputsBitWidth(64, 56); //plaintext, k
-    output = start + des_round.getAdditionalVarCount()*16 - 64; //TODO eventuell 64 abziehen
+
+    Des_Round des_round(1);
+    output = start + des_round.getAdditionalVarCount() * 16;// - 64;
 }
 
 Des_Encrypt::~Des_Encrypt() {
@@ -32,23 +33,27 @@ void Des_Encrypt::create(Printer* printer) {
     unsigned additional_vars = 0;
 
     for(int current_round = 0; current_round < 16; current_round++){
-        Des_Round des_round(current_round);
         vector<unsigned> subinputs;
         subinputs.push_back(l);
         subinputs.push_back(r);
         subinputs.push_back(inputs[1]);
 
+        Des_Round des_round(current_round);
         des_round.setInputs(subinputs);
         des_round.setStart(start + additional_vars);
-        if (current_round == 14 || current_round == 15){
+/*
+        if (current_round >= 14){
             des_round.setOutput(output + (current_round - 14) * 32);
         }
+*/
+//        if (current_round >= 14) printf("%u: %u\n", current_round, des_round.getOutput());
+
         des_round.create(printer);
 
         additional_vars += des_round.getAdditionalVarCount();
-        if (current_round == 14 || current_round == 15){
-            additional_vars -= 32;
-        }
+//        if (current_round >= 14){
+//            additional_vars -= 32;
+//        }
 
         l = r;
         r = des_round.getOutput();
@@ -79,6 +84,9 @@ MU_TEST_C(Des_Encrypt::test) {
         printf("\n");
         printf("Erwartet: %08lx\n", out[t]);
         printf("Erhalten: %08lx\n", solver_readInt_msb(solver, des_encrypt.getOutput(), 64));
+
+        printf("L: %08lx\n", solver_readInt_msb(solver, 1768, 32));
+        printf("R: %08lx\n", solver_readInt_msb(solver, 1880, 32));
 
         mu_assert(out[t] == solver_readInt_msb(solver, des_encrypt.getOutput(), 64), "DES_Encrypt failed");
     }
