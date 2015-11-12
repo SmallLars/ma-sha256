@@ -64,9 +64,9 @@ void Des_Encrypt::create(Printer* printer) {
 }
 
 MU_TEST_C(Des_Encrypt::test) {
-    uint64_t input[] = {0x577b5a24e23b3f33, 0x874ac85243840ef2, 0xae0fd81a8c7e1ac8, 0x4f6bf8188ab7be8d, 0x790527c605332ab5};
-    uint64_t k[] = {0x4573f91f9cda87, 0xd449a7db22d748, 0x5dc2a16228f0cc, 0x6a65b629ac38ad, 0x35b981a78961ba};
-    uint64_t out[] = {0x3ddb2d3e3134c0fa, 0x5c3729e67909bf09, 0xad46290c7de517f2L, 0x14b02ea8f7aeb4d9, 0x2560817f81b8dfa6};
+    uint64_t input[] = {0x5f4fa737c38bc47d, 0xfe099c64b371af98, 0x1b52740ffd6225a5, 0xc5600e0cb0f85e79, 0x51770b0705a373db};
+    uint64_t k[] = {0x6c79ac0d445e39, 0xa067b5d99a49b7, 0x3319690ad91dff, 0xb010c07e36c3fd, 0xf823d812338acf};
+    uint64_t out[] = {0xe73899b620788117, 0x6f6285a606c902ca, 0xc0f1ececf6a017a0, 0xb2605cb8f1c629e9L, 0xbfb32c5460589416};
 
     for (unsigned t = 0; t < 5; t++) {
         SATSolver solver;
