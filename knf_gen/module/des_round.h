@@ -4,7 +4,7 @@
 #include "modul.h"
 #include "../common/minunit.h"
 
-class Des_F : public Modul {
+class Des_Round : public Modul {
     public:
         Des_Round(uint round);
         ~Des_Round();

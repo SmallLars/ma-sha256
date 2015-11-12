@@ -1,6 +1,7 @@
 #include "des_f.h"
 
 #include  <algorithm>
+#include "clausecreator.h"
 
 #include "../common/solvertools.h"
 
@@ -12,7 +13,7 @@ unsigned Des_F::stats[STATS_LENGTH];
 Des_F::Des_F(uint round) : Modul(32, 2, 1) {
     setInputsBitWidth(32, 56);
     this->round = round;
-    output = 136;
+    output = start + 48;
 }
 
 Des_F::~Des_F() {
@@ -123,6 +124,13 @@ void Des_F::create(Printer* printer) {
     sbox_8.setInputs(subinputs);
     sbox_8.setOutput(output + 28);
     sbox_8.create(printer);
+
+    // Hack
+    for (unsigned i = 0; i < 56; i++) {
+        ClauseCreator cc(printer);
+        cc.setLiterals(2, inputs[1] + i, inputs[1] + i);
+        cc.printClause(2,             0,             1);
+    }
 }
 
 MU_TEST_C(Des_F::test) {
@@ -140,6 +148,10 @@ MU_TEST_C(Des_F::test) {
 
         Des_F des_f_function(r[t]);
         des_f_function.append(&solver);
+
+        mu_assert(88 == des_f_function.getInputNum(), "DES_F InputNum");
+        mu_assert(80 == des_f_function.getAdditionalVarCount(), "DES_F AdditionalVarCount");
+        mu_assert(136 == des_f_function.getOutput(), "DES_F Output");
 
         lbool ret = solver.solve();
         mu_assert(ret == l_True, "DES_F UNSAT");

@@ -12,9 +12,9 @@ using namespace CMSat;
 unsigned Des_Round::stats[STATS_LENGTH];
 
 Des_Round::Des_Round(uint round) : Modul(32, 3, 1) {
-    Des_F des_f(round);
     setInputsBitWidth(32, 32, 56); //l, r, k
     this->round = round;
+    Des_F des_f(round);
     output = start + des_f.getAdditionalVarCount();
 }
 
@@ -34,8 +34,12 @@ void Des_Round::create(Printer* printer) {
                            02,  8, 24, 14, 32, 27,  3,  9,
                            19, 13, 30,  6, 22, 11,  4, 25};
 
+    vector<unsigned> subinputs;
+    subinputs.push_back(inputs[1]);
+    subinputs.push_back(inputs[2]);
+
     Des_F f_function(round);
-    f_function.setInputs(inputs[1], inputs[2]);
+    f_function.setInputs(subinputs);
     f_function.setStart(start);
     f_function.create(printer);
 
