@@ -34,8 +34,8 @@ using std::ifstream;
 using namespace CMSat;
 
 int main(int argc, const char* argv[]) {
-    if (argc != 3) {
-        cout << "Usage: clausechecker <MODUL> <FILE>" << "\n";
+    if (argc < 3 || argc > 4) {
+        cout << "Usage: clausechecker <MODUL> <FILE> [INFONUM]" << "\n";
         cout << "MODUL =\n";
         cout << "  1 = SHA256\n";
         cout << "  2 = ShaCore_32\n";
@@ -53,6 +53,7 @@ int main(int argc, const char* argv[]) {
         cout << " 14 = Add_Half_1\n";
         cout << " 15 = Add_Full_1\n";
         cout << "FILE = Dimacs files with conflictclauses to check.\n";
+        cout << "INFONUM = Rowcount and linecount for table.\n";
         return 0;
     }
 
@@ -91,21 +92,28 @@ int main(int argc, const char* argv[]) {
     while (dp.getNextClause(learned)) linecount++;
     dp.reset();
 
+    unsigned rowcount = 30;
+    if (argc == 4) {
+        rowcount = atoi(argv[3]);
+    }
+
     cout << "Start checking " << linecount << " clauses:\n";
 
     unsigned counter = 0;
     for (unsigned c = 1; dp.getNextClause(learned); ++c) {
-//        if (c <= 928) continue;
+//        if (c <= 1120) continue;
 
         for (unsigned i = 0; i < learned.size(); i++) learned[i] ^= 1;
 
         lbool ret = solver.solve(&learned);
-        cout << "\r" << c << " / " << linecount << " (" << ((c - 1) / 30) << " / " << ((c - 1) % 30) << ")" << std::flush;
+        cout << "\r" << c << " / " << linecount << " (" << ((c - 1) / rowcount) << " / " << ((c - 1) % rowcount) << ")" << std::flush;
         if (ret == l_False) {
             ++counter;
-        } else {
-            cout << " FAIL: ";
+            cout << " PASS: ";
             printClause(cout, learned, true);
+        } else {
+//            cout << " FAIL: ";
+//            printClause(cout, learned, true);
         }
     }
     cout << "\nFound " << counter << " valid conflictclauses.\n";
