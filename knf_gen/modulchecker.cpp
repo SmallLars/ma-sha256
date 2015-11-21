@@ -94,6 +94,7 @@ int main() {
 */
         storage[mod->name].insert(normalized);
     }
+    cout << "\n";
 
     for (map<const char*, set<vector<Lit>, compareClause> >::iterator it = storage.begin(); it != storage.end(); ++it) {
         char filename[100];

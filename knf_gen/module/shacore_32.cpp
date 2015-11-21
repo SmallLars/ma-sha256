@@ -178,11 +178,12 @@ void ShaCore_32::create(Printer* printer) {
     cc.printClause(6,     0,     CC_DC,          0,      CC_DC,      CC_DC,           0);
     cc.printClause(6, CC_DC,         1,      CC_DC,          0,          1,           0);
     cc.printClause(6, CC_DC,         0,      CC_DC,          0,          0,           0);
-    //                       353          416          448          480          606          700
-    cc.setLiterals(6, start + 64, start + 127, start + 159, start + 191, start + 317, start + 411);
-    cc.printClause(6,      CC_DC,           1,           1,       CC_DC,           0,       CC_DC);
-    cc.printClause(6,      CC_DC,       CC_DC,       CC_DC,           0,           0,       CC_DC);
-    cc.printClause(6,          0,       CC_DC,       CC_DC,       CC_DC,       CC_DC,           0);
+    //                       353          416          448          480          543          606          700
+    cc.setLiterals(7, start + 64, start + 127, start + 159, start + 191, start + 254, start + 317, start + 411);
+    cc.printClause(7,      CC_DC,           1,           1,       CC_DC,       CC_DC,           0,       CC_DC);
+    cc.printClause(7,      CC_DC,       CC_DC,       CC_DC,           0,       CC_DC,           0,       CC_DC);
+    cc.printClause(7,          0,       CC_DC,       CC_DC,       CC_DC,       CC_DC,       CC_DC,           0);
+    cc.printClause(7,      CC_DC,       CC_DC,       CC_DC,       CC_DC,           0,           0,       CC_DC);
 #endif
 }
 

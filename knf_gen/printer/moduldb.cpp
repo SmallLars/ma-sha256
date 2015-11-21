@@ -11,6 +11,7 @@ using std::ostream;
 using namespace CMSat;
 
 ModulDB::ModulDB() {
+    lvl10_start = 0;
 }
 
 ModulDB::~ModulDB() {
@@ -60,9 +61,12 @@ void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
 
 ModulEntry* ModulDB::isInSingleModul(vector<Lit>& clause) {
     bool deepcheck = false;
-    unsigned m = 0;
+    unsigned m = lvl10_start;
 
-    for (m = 0; module[m].level < 10; m++);
+    if (m == 0) {
+        for (m = 0; module[m].level < 10; m++);
+        lvl10_start = m;
+    }
 
     while (m < module.size()) {
         bool isInside;

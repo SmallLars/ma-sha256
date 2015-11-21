@@ -17,12 +17,14 @@
 #include "module/ssig0_32.h"
 #include "module/ssig1_32.h"
 #include "module/bsig0_32.h"
+#include "module/bsig1_32.h"
 #include "module/maj_32.h"
 #include "module/bsig1_32.h"
 #include "module/ch_32.h"
 #include "module/add_32.h"
 #include "module/add_half_1.h"
 #include "module/add_full_1.h"
+#include "module/add_last_1.h"
 
 #include "printer/solverprinter.h"
 
@@ -46,12 +48,14 @@ int main(int argc, const char* argv[]) {
         cout << "  7 = Ssig0_32\n";
         cout << "  8 = Ssig1_32\n";
         cout << "  9 = Bsig0_32\n";
-        cout << " 10 = Maj_32\n";
-        cout << " 11 = Bsig1_32\n";
-        cout << " 12 = Ch_32\n";
-        cout << " 13 = Add_32\n";
-        cout << " 14 = Add_Half_1\n";
-        cout << " 15 = Add_Full_1\n";
+        cout << " 10 = Bsig1_32\n";
+        cout << " 11 = Maj_32\n";
+        cout << " 12 = Bsig1_32\n";
+        cout << " 13 = Ch_32\n";
+        cout << " 14 = Add_32\n";
+        cout << " 15 = Add_Half_1\n";
+        cout << " 16 = Add_Full_1\n";
+        cout << " 17 = Add_Last_1\n";
         cout << "FILE = Dimacs files with conflictclauses to check.\n";
         cout << "INFONUM = Rowcount and linecount for table.\n";
         return 0;
@@ -75,12 +79,14 @@ int main(int argc, const char* argv[]) {
         case  7: modul = new Ssig0_32; break;
         case  8: modul = new Ssig1_32; break;
         case  9: modul = new Bsig0_32; break;
-        case 10: modul = new Maj_32; break;
-        case 11: modul = new Bsig1_32; break;
-        case 12: modul = new Ch_32; break;
-        case 13: modul = new Add_32; break;
-        case 14: modul = new Add_Half_1; break;
-        case 15: modul = new Add_Full_1; break;
+        case 10: modul = new Bsig1_32; break;
+        case 11: modul = new Maj_32; break;
+        case 12: modul = new Bsig1_32; break;
+        case 13: modul = new Ch_32; break;
+        case 14: modul = new Add_32; break;
+        case 15: modul = new Add_Half_1; break;
+        case 16: modul = new Add_Full_1; break;
+        case 17: modul = new Add_Last_1; break;
         default: cout << "Unknown Modul\n"; return 0;
     }
     modul->create(&printer);
