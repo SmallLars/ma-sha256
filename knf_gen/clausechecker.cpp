@@ -107,7 +107,7 @@ int main(int argc, const char* argv[]) {
 
     unsigned counter = 0;
     for (unsigned c = 1; dp.getNextClause(learned); ++c) {
-//        if (c <= 840) continue;
+//        if (c <= 580) continue;
 
         for (unsigned i = 0; i < learned.size(); i++) learned[i] ^= 1;
 
