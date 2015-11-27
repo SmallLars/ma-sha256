@@ -67,8 +67,14 @@ MU_TEST_SUITE(test_suite) {
 }
 
 int main() {
-//    Add_4 adder;
-//    adder.writeTT("adder.tt");
+//    Add_Full_2 adder;
+//    adder.writeDimacs("add_full_2.dimacs");
+
+//    Add_Full_3 adder;
+//    adder.writeDimacs("add_full_3.dimacs");
+
+//    Add_Last_3 adder;
+//    adder.writeDimacs("add_last_3.dimacs");
 
 //    ConstAdd_32 adder(0xFFFFFFFF);
 //    adder.writeDimacs("constadd.dimacs");

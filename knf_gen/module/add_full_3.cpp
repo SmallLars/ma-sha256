@@ -80,6 +80,14 @@ void Add_Full_3::create(Printer* printer) {
     cc.printClause(11,     1,      1,          1,      CC_DC,     CC_DC,         CC_DC,         CC_DC,     CC_DC,         CC_DC,             0,         0);
     cc.printClause(11, CC_DC,      1,          1,          0,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,             0,         0);
     cc.printClause(11, CC_DC,      1,          1,          0,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,             1,         0);
+
+
+    cc.printClause(11,     1,      1,          1,          1,         0,         CC_DC,         CC_DC,     CC_DC,         CC_DC,         CC_DC,     CC_DC);
+    cc.printClause(11,     0,      0,          0,      CC_DC,     CC_DC,         CC_DC,         CC_DC,         1,         CC_DC,             1,     CC_DC);
+    cc.printClause(11,     1,      1,          1,          1,     CC_DC,         CC_DC,         CC_DC,     CC_DC,         CC_DC,         CC_DC,         0);
+    cc.printClause(11, CC_DC,      1,          1,          1,         0,         CC_DC,             0,     CC_DC,         CC_DC,             0,     CC_DC);
+    cc.printClause(11, CC_DC,      1,          1,          1,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,             1,         0);
+    cc.printClause(11, CC_DC,      1,          1,          1,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,             0,         0);
 #endif
 }
 

@@ -1,7 +1,7 @@
 #CFLAGS = -Wall -g -Icryptominisat/include -DADDITIONAL_CLAUSES
 #CFLAGS = -Wall -g -Icryptominisat/include -DXOR_SUPPORT -DADDITIONAL_CLAUSES
 #CFLAGS = -Wall -g -Icryptominisat/include -DXOR_OPTIMIZATION -DADDITIONAL_CLAUSES
-CFLAGS = -Wall -g -Icryptominisat/include -DXOR_SUPPORT -DXOR_OPTIMIZATION# -DADDITIONAL_CLAUSES
+CFLAGS = -Wall -g -Icryptominisat/include -DXOR_SUPPORT -DXOR_OPTIMIZATION -DADDITIONAL_CLAUSES
 LFLAGS = -Wl,-rpath=./cryptominisat/lib -Lcryptominisat/lib
 LIBS = -lcryptominisat4 -lpthread
 COMP = g++
@@ -13,10 +13,7 @@ COMMON = $(shell find common/*.cpp -type f | sed "s/.cpp/.o/g")
 MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")
 PRINTER = $(shell find printer/*.cpp -type f | sed "s/.cpp/.o/g")
 
-all: cryptominisat/lib/libcryptominisat4.so cc_miner cc_miner_2 test_module sha256_1 sha256_2 sha256_3 sha256_4 sha256_5 sha256_6 sha256_7 clausecollector clausechecker dimacsprinter modulchecker graphprinter distancechecker bitcoin
-
-#%.o: %.c
-#	gcc -c $(CFLAGS) -o $@ $<
+all: cryptominisat/lib/libcryptominisat4.so $(patsubst %.cpp,%,$(wildcard *.cpp))
 
 %.o: %.cpp
 	$(COMP) -c $(CFLAGS) -o $@ $<
@@ -27,13 +24,13 @@ cc_miner: cc_miner.o $(COMMON) $(MODULE) $(PRINTER)
 cc_miner_2: cc_miner_2.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
-test_module: test_module.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -lrt -lm -o $@ $^ $(LIBS)
-
 sha256_%: sha256_%.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clausecollector: clausecollector.o $(COMMON) $(MODULE) $(PRINTER)
+	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
+
+clausesorter: clausesorter.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clausechecker: clausechecker.o $(COMMON) $(MODULE) $(PRINTER)
@@ -54,8 +51,11 @@ distancechecker: distancechecker.o $(COMMON) $(MODULE) $(PRINTER)
 bitcoin: bitcoin.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
+test_module: test_module.o $(COMMON) $(MODULE) $(PRINTER)
+	$(COMP) $(LFLAGS) -lrt -lm -o $@ $^ $(LIBS)
+
 clean:
-	-rm -f cc_miner cc_miner_2 test_module sha256_1 sha256_2 sha256_3 sha256_4 sha256_5 sha256_6 sha256_7 clausecollector clausechecker dimacsprinter modulchecker graphprinter distancechecker bitcoin *.o common/*.o module/*.o printer/*.o
+	-rm -f $(patsubst %.cpp,%,$(wildcard *.cpp)) *.o common/*.o module/*.o printer/*.o
 
 clobber: clean
 	-rm -rf cryptominisat

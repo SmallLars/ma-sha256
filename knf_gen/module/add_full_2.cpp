@@ -56,6 +56,17 @@ void Add_Full_2::create(Printer* printer) {
     //                c_out  s_out[0]  s_out[1]    a_in[0]        a_in[1]    b_in[0]        b_in[1]       c_in
     cc.printClause(8,     1,      1,      CC_DC,     CC_DC,             0,     CC_DC,         CC_DC,         0);
     cc.printClause(8,     0,      0,          0,     CC_DC,         CC_DC,     CC_DC,         CC_DC,         1);
+    cc.printClause(8,     1,      1,          1,     CC_DC,         CC_DC,     CC_DC,         CC_DC,         0);
+    cc.printClause(8, CC_DC,  CC_DC,          0,         1,             1,     CC_DC,             1,         1);
+    cc.printClause(8, CC_DC,  CC_DC,          0,         1,             0,     CC_DC,             0,         1);
+    cc.printClause(8, CC_DC,  CC_DC,          1,         0,             1,     CC_DC,             1,         0);
+    cc.printClause(8, CC_DC,  CC_DC,          1,         0,             0,     CC_DC,             0,         0);
+    cc.printClause(8,     0,   CC_DC,          0,         1,         CC_DC,         1,         CC_DC,     CC_DC);
+    cc.printClause(8,     1,   CC_DC,          1,         0,         CC_DC,         0,         CC_DC,     CC_DC);
+    cc.printClause(8,     0,       0,      CC_DC,     CC_DC,             1,     CC_DC,         CC_DC,         1);
+    cc.printClause(8,     0,       0,          0,     CC_DC,         CC_DC,         1,         CC_DC,     CC_DC);
+    cc.printClause(8,     1,       1,          1,     CC_DC,         CC_DC,         0,         CC_DC,     CC_DC);
+    cc.printClause(8,     1,       1,          1,     CC_DC,         CC_DC,     CC_DC,         CC_DC,         0);
 #endif
 }
 
