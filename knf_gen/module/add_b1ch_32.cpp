@@ -93,7 +93,38 @@ void Add_B1Ch_32::create(Printer* printer) {
         cc.printClause(7,             1,         CC_DC,             1,         0,              1,              1,              0);
         cc.printClause(7,             0,             1,         CC_DC,         0,              1,              1,              0);
     }
+
+    for (unsigned i = 0; i < 29; i++) {
+        //                            3                 35             161             163             193
+        cc.setLiterals(5, inputs[0] + 2 + i, inputs[1] + 2 + i, start + 64 + i, start + 66 + i, output + 1 + i);
+        cc.printClause(5,                 0,                 1,              1,              0,              0);
+    }
+
+    for (unsigned i = 0; i < 30; i++) {
+        //                            2                 34             98             161             162
+        cc.setLiterals(5, inputs[0] + 1 + i, inputs[1] + 1 + i, start + 1 + i, start + 64 + i, start + 65 + i);
+        cc.printClause(5,                 0,                 1,             0,              1,              0);
+    }
+
+    for (unsigned i = 0; i < 29; i++) {
+        //                            3                 67             161             163             193
+        cc.setLiterals(5, inputs[0] + 2 + i, inputs[2] + 2 + i, start + 64 + i, start + 66 + i, output + 1 + i);
+        cc.printClause(5,                 1,                 1,              1,              0,              0);
+    }
+
+    for (unsigned i = 0; i < 30; i++) {
+        //                            2                 66             98             161             162
+        cc.setLiterals(5, inputs[0] + 1 + i, inputs[2] + 1 + i, start + 1 + i, start + 64 + i, start + 65 + i);
+        cc.printClause(5,                 1,                 1,             0,              1,              0);
+    }
 #endif
+// inputs[0]     1 -  32
+// inputs[1]    33 -  64
+// inputs[2]    65 -  96
+// Bsig1 Res    97 - 128    start
+// CH    Res   129 - 160    start + 32
+// Add Carry   161 - 191    start + 64
+// Output      192 - 223    output
 }
 
 MU_TEST_C(Add_B1Ch_32::test) {
