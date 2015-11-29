@@ -94,6 +94,9 @@ int main() {
 //    Add_Ssig_32 adder;
 //    adder.writeDimacs("add_ssig_32.dimacs");
 
+    Add_Prepare_32 adder;
+    adder.writeDimacs("add_prepare_32.dimacs");
+
 //    ShaCore_32 shacore;
 //    shacore.writeDimacs("shacore_32.dimacs");
 
