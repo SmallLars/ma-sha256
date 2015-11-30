@@ -1,3 +1,5 @@
+// TODO Remove 6 redundant clauses
+
 #include "add_prepare_32.h"
 
 #include "add_32.h"
@@ -62,31 +64,6 @@ void Add_Prepare_32::create(Printer* printer) {
     mirror_block(cc, inputs[0],  inputs[2],  95, 127);
     mirror_block(cc,     start, start + 32, 158,  64);
 #endif
-
-//    ClauseCreator cc(printer);
-
-//    for (unsigned i = 0; i < 1; i++) {
-
-//    }
-
-// inputs[1]     inputs[3]     inputs[0]     inputs[2]
-//  33 -  64      97 - 128       1 -  32      65 -  96
-//     |             |             |             |
-//   ssig0         ssig1           |             |
-//   start      start +  32
-// 129 - 160     161 - 192         |             |
-//     |            |              |             |
-//           add                         add
-//       start +  64                 start + 127
-//        193 - 223                   256 - 286
-//       start +  95                 start + 158
-//        224 - 255                   287 - 318
-//            |                           |
-//                         add
-//                     start + 190
-//                      319 - 349
-//                       output
-//                      350 - 381
 }
 
 MU_TEST_C(Add_Prepare_32::test) {
@@ -117,13 +94,36 @@ MU_TEST_C(Add_Prepare_32::test) {
     }
 }
 
+//                                                    inputs[0],  inputs[2],         95,        127
+//                                                        start, start + 32,        158,         64
 void Add_Prepare_32::mirror_block(ClauseCreator &cc, unsigned i, unsigned j, unsigned x, unsigned y) {
+    // inputs[1]     inputs[3]     inputs[0]     inputs[2]
+    //  33 -  64      97 - 128       1 -  32      65 -  96
+    //     |             |             |             |
+    //   ssig0         ssig1           |             |
+    //   start      start +  32
+    // 129 - 160     161 - 192         |             |
+    //     |            |              |             |
+    //           add                         add
+    //       start +  64                 start + 127
+    //        193 - 223                   256 - 286
+    //       start +  95                 start + 158
+    //        224 - 255                   287 - 318
+    //            |                           |
+    //                         add
+    //                     start + 190
+    //                      319 - 349
+    //                       output
+    //                      350 - 381
+
     for (unsigned b = 0; b < 2; b++) {
         //                 1        65       224         256                  319         350
         //               129       161       287         193                  319         350
         //         result[0] result[0] result[0]    carry[0]             carry[0]   result[0]
         cc.setLiterals(6, i + b, j + b, start + x + b, start + y + b, start + 190 + b, output + b);
         cc.printClause(6, CC_DC, CC_DC,         CC_DC,             0,               0,          0);
+        cc.printClause(6,     0,     0,         CC_DC,         CC_DC,               0,          0);
+        cc.printClause(6,     0,     0,             1,         CC_DC,               0,      CC_DC);
         if (b == 1) continue;
         cc.printClause(6,      1,CC_DC,         CC_DC,             0,               0,      CC_DC);
         cc.printClause(6,  CC_DC,    1,         CC_DC,             0,               0,      CC_DC);
@@ -131,24 +131,19 @@ void Add_Prepare_32::mirror_block(ClauseCreator &cc, unsigned i, unsigned j, uns
     }
 
     for (unsigned b = 0; b < 2; b++) {
-        //             1        65        256            224                  319         350
-        //           129       161        193            287                  319         350
-        //     result[0] result[0]   carry[0]      result[0]             carry[0]   result[0]
-        cc.setLiterals(6, i + b, j + b, start + y + b, start + x + b, start + 190 + b, output + b);
-        cc.printClause(6, CC_DC, CC_DC,             0,         CC_DC,               0,          0);
+        //                  1         2        65         66        257                  320
+        //                129       130       161        162        194                  320
+        //          result[0] result[1] result[0]  result[1]   carry[1]             carry[1]
+        cc.setLiterals(6, i + b, i + 1 + b, j + b, j + 1 + b, start + 1 + y + b, start + 191 + b);
+        cc.printClause(6,     1,         1, CC_DC,     CC_DC,                 0,               0);
+        cc.printClause(6, CC_DC,     CC_DC,     1,         1,                 0,               0);
+        cc.printClause(6,     1,     CC_DC, CC_DC,         1,                 0,               0);
+        cc.printClause(6, CC_DC,         1,     1,     CC_DC,                 0,               0);
         if (b == 1) continue;
-        cc.printClause(6,     1, CC_DC,             0,         CC_DC,               0,      CC_DC);
-        cc.printClause(6, CC_DC,     1,             0,         CC_DC,               0,      CC_DC);
-        cc.printClause(6, CC_DC, CC_DC,             0,             1,               0,      CC_DC);
-    }
-
-    for (unsigned b = 0; b < 2; b++) {
-        //                 1         2            257                  320
-        //         result[0] result[1]       carry[1]             carry[1]
-        cc.setLiterals(4, i + b, i + 1 + b, start + 1 + y + b, start + 191 + b);
-        cc.printClause(4,     1,         1,                 0,               0);
-        if (b == 1) continue;
-        cc.printClause(4,     0,         1,                 0,               0);
+        cc.printClause(6,     0,         1, CC_DC,     CC_DC,                 0,               0);
+        cc.printClause(6, CC_DC,     CC_DC,     0,         1,                 0,               0);
+        cc.printClause(6,     0,     CC_DC, CC_DC,         1,                 0,               0);
+        cc.printClause(6, CC_DC,         1,     0,     CC_DC,                 0,               0);
     }
 
     //                    2        225            257              320         351
@@ -159,13 +154,14 @@ void Add_Prepare_32::mirror_block(ClauseCreator &cc, unsigned i, unsigned j, uns
     cc.printClause(5,     1,             1,             0,       CC_DC,          0);
     cc.printClause(5,     0,         CC_DC,             0,           0,          0);
 
-    //                   66        225            257              320         351
-    //                  162        288            194              320         351
-    //            result[1]  result[1]       carry[1]         carry[1]   result[1]
-    cc.setLiterals(5, j + 1, start + 1 + x, start + 1 + y, start + 191, output + 1);
-    cc.printClause(5,     0,             1,             0,           0,      CC_DC);
-    cc.printClause(5,     1,             1,             0,       CC_DC,          0);
-    cc.printClause(5,     0,         CC_DC,             0,           0,          0);
+    //                66       224            225            257              320         351
+    //               162       287            288            194              320         351
+    //         result[1] result[0]      result[1]       carry[1]         carry[1]   result[1]
+    cc.setLiterals(6, j + 1, start + x, start + 1 + x, start + 1 + y, start + 191, output + 1);
+    cc.printClause(6,     0,     CC_DC,             1,             0,           0,      CC_DC);
+    cc.printClause(6,     1,     CC_DC,             1,             0,       CC_DC,          0);
+    cc.printClause(6,     0,     CC_DC,         CC_DC,             0,           0,          0);
+    cc.printClause(6,     1,         0,         CC_DC,             0,           0,      CC_DC);
 
     //                   67        225            258              321         351
     //                  163        288            195              321         351
@@ -215,4 +211,36 @@ void Add_Prepare_32::mirror_block(ClauseCreator &cc, unsigned i, unsigned j, uns
     cc.setLiterals(6, i + 2, j + 1, start + 2 + x, start + 2 + y, start + 192, output + 2);
     cc.printClause(6,     1, CC_DC,             1,             0,           0,      CC_DC);
     cc.printClause(6,     1, CC_DC,         CC_DC,             0,           0,          0);
+
+    //                      225        256            257              319          320         351
+    //                      288        193            194              319          320         351
+    //                result[1]   carry[0]       carry[1]         carry[0]     carry[1]   result[1]
+    cc.setLiterals(6, start + 1 + x, start + y, start + 1 + y, start + 190, start + 191, output + 1);
+    cc.printClause(6,             1,         0,             1,       CC_DC,       CC_DC,          1);
+    cc.printClause(6,             0,         0,             1,       CC_DC,       CC_DC,          0);
+    cc.printClause(6,             0,     CC_DC,             0,           0,       CC_DC,          0);
+    cc.printClause(6,             0,     CC_DC,             0,       CC_DC,           0,          0);
+
+    //                      225            226            258              321         351         352
+    //                      288            289            195              321         351         352
+    //                result[1]      result[2]       carry[2]         carry[2]   result[1]   result[2]
+    cc.setLiterals(6, start + 1 + x, start + 2 + x, start + 2 + y, start + 192, output + 1, output + 2);
+    cc.printClause(6,             1,         CC_DC,             0,           0,      CC_DC,          0);
+    cc.printClause(6,             1,             1,             0,           0,      CC_DC,      CC_DC);
+    cc.printClause(6,         CC_DC,             1,             0,           0,          0,      CC_DC);
+    cc.printClause(6,         CC_DC,         CC_DC,             0,           0,          0,          0);
+
+    //                      225            257              319          321         351         352
+    //                      288            194              319          321         351         352
+    //                result[1]       carry[1]         carry[0]     carry[2]   result[1]   result[2]
+    cc.setLiterals(6, start + 1 + x, start + 1 + y, start + 190, start + 192, output + 1, output + 2);
+    cc.printClause(6,             1,             0,           0,       CC_DC,          1,      CC_DC);
+    cc.printClause(6,         CC_DC,             0,       CC_DC,           0,          0,          0);
+
+    //                      194                 225        256            257              320
+    //                      257                 288        193            194              320
+    //                 carry[1]           result[1]   carry[0]       carry[1]         carry[1]
+    cc.setLiterals(6, start + 1 + x - 31, start + 1 + x, start + y, start + 1 + y, start + 191);
+    cc.printClause(6,                  0,             1,     CC_DC,             0,           0);
+    cc.printClause(6,                  0,         CC_DC,         1,             0,           0);
 }
