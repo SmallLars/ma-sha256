@@ -33,28 +33,34 @@ using std::setw;
 using std::ofstream;
 using namespace CMSat;
 
-#define USE_IRRED 1
+static const char* const INPUT_FILE[3]    = {"", "dump/000_irred.dimacs",         "dump/000_learned.dimacs"};
+static const char* const OUTPUT_FILE[3]   = {"", "dump/000_irred_outside.dimacs", "dump/000_learned_outside.dimacs"};
+static const char* const OUTPUT_PREFIX[3] = {"", "dump/000_irred_",               "dump/000_learned_"};
 
-#ifdef USE_IRRED
-    #define INPUT_FILE "dump/000_irred.dimacs"
-    #define OUTPUT_FILE "dump/000_irred_outside.dimacs"
-    #define OUTPUT_PREFIX "dump/000_irred_"
-#else
-    #define INPUT_FILE "dump/000_learned.dimacs"
-    #define OUTPUT_FILE "dump/000_learned_outside.dimacs"
-    #define OUTPUT_PREFIX "dump/000_learned_"
-#endif
+int main(int argc, const char* argv[]) {
+    if (argc != 2) {
+        cout << "Usage: modulchecker <MODE>" << "\n";
+        cout << "MODE =\n";
+        cout << "  1 = irred\n";
+        cout << "  2 = learned\n";
+        return 0;
+    }
 
-int main() {
+    int mode = atoi(argv[1]);
+    if (mode < 1 || mode > 2) {
+        cout << "Mode needs to be1 or 2\n";
+        return 0;
+    }
+
     ModulDB printer;
     Sha256 sha256;
     sha256.create(&printer);
 
-    ofstream outsideFile(OUTPUT_FILE);
+    ofstream outsideFile(OUTPUT_FILE[mode]);
     map<const char*, set<vector<Lit>, compareClause> > storage;
 
     unsigned linecount = 0;
-    DimacsParser dp(INPUT_FILE);
+    DimacsParser dp(INPUT_FILE[mode]);
     vector<Lit> learned;
     while (dp.getNextClause(learned)) linecount++;
     dp.reset();
@@ -98,7 +104,7 @@ int main() {
 
     for (map<const char*, set<vector<Lit>, compareClause> >::iterator it = storage.begin(); it != storage.end(); ++it) {
         char filename[100];
-        snprintf(filename, 100, "%s%s.dimacs", OUTPUT_PREFIX, it->first);
+        snprintf(filename, 100, "%s%s.dimacs", OUTPUT_PREFIX[mode], it->first);
         ofstream file(filename);
         for (set<vector<Lit>, compareClause>::iterator it1 = it->second.begin(); it1 != it->second.end(); it1++) {
             printClause(file, *it1);

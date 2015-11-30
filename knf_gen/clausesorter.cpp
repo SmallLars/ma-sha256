@@ -35,7 +35,12 @@ int main(int argc, const char* argv[]) {
     vector<Lit> clause;
     while (parser.getNextClause(clause)) {
         counter++;
-        clause_pool.insert(clause);
+        if (clause_pool.find(clause) != clause_pool.end()) {
+            cout << "REDUNDANT: ";
+            printClause(cout, clause);
+        } else {
+            clause_pool.insert(clause);
+        }
     }
 
     set< vector<Lit> >::iterator it;
