@@ -52,6 +52,8 @@ unsigned* Sha256::getStats() {
 }
 
 void Sha256::create(Printer* printer) {
+  printer->newModul(30, "Sha256", this);
+
   // Input
   unsigned global_input[64];
   for (unsigned i = 0; i < 16; i++) global_input[i] = inputs[i];

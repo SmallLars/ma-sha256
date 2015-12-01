@@ -48,7 +48,7 @@ int main(int argc, const char* argv[]) {
 
     int mode = atoi(argv[1]);
     if (mode < 1 || mode > 2) {
-        cout << "Mode needs to be1 or 2\n";
+        cout << "Mode needs to be 1 (irred) or 2 (leanred)\n";
         return 0;
     }
 

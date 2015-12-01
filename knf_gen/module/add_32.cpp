@@ -228,11 +228,11 @@ void Add_32::create(Printer* printer) {
     for (unsigned i = 0; i < 30; i++) {
         //                   65             66             67              97              98
         //             c_out[0]       c_out[1]       c_out[2]        s_out[1]        s_out[2]
-        cc.setLiterals(6, start + i, start + 1 + i, start + 2 + i, output + 1 + i, output + 2 + i);
-        cc.printClause(6,         1,             0,         CC_DC,              0,              1);
-        cc.printClause(6,         0,             1,         CC_DC,              1,              0);
+        cc.setLiterals(5, start + i, start + 1 + i, start + 2 + i, output + 1 + i, output + 2 + i);
+        cc.printClause(5,         1,             0,         CC_DC,              0,              1);
+        cc.printClause(5,         0,             1,         CC_DC,              1,              0);
         if (i == 29) break;
-        cc.printClause(6,         1,             0,             1,              0,          CC_DC);
+        cc.printClause(5,         1,             0,             1,              0,          CC_DC);
     }
 
     for (unsigned i = 0; i < 30; i++) {
@@ -262,9 +262,9 @@ void Add_32::create(Printer* printer) {
     for (unsigned i = 0; i < 30; i++) {
         //                       65         66              97              1             33
         //                 c_out[0]   c_out[1]        s_out[1]        a_in[0]        b_in[0]
-        cc.setLiterals(6, start + i, start + 1 + i, output + 1 + i, inputs[0] + i, inputs[1] + i);
-        cc.printClause(6,         0,             1,              1,             0,             0);
-        cc.printClause(6,         1,             0,              0,             1,             1);
+        cc.setLiterals(5, start + i, start + 1 + i, output + 1 + i, inputs[0] + i, inputs[1] + i);
+        cc.printClause(5,         0,             1,              1,             0,             0);
+        cc.printClause(5,         1,             0,              0,             1,             1);
     }
 
     for (unsigned i = 0; i < 30; i++) {
@@ -278,15 +278,15 @@ void Add_32::create(Printer* printer) {
     for (unsigned i = 0; i < 29; i++) {
         //                   65             67              97              98              99
         //             c_out[0]       c_out[2]        s_out[1]        s_out[2]        s_out[3]
-        cc.setLiterals(6, start + i, start + 2 + i, output + 1 + i, output + 2 + i, output + 3 + i);
-        cc.printClause(6,         0,             1,              1,              1,              0);
+        cc.setLiterals(5, start + i, start + 2 + i, output + 1 + i, output + 2 + i, output + 3 + i);
+        cc.printClause(5,         0,             1,              1,              1,              0);
     }
 
     for (unsigned i = 0; i < 29; i++) {
         //                   65             66             67              97              98
         //             c_out[0]       c_out[1]       c_out[2]        s_out[1]        s_out[2]
-        cc.setLiterals(6, start + i, start + 1 + i, start + 2 + i, output + 1 + i, output + 2 + i);
-        cc.printClause(6,         0,             0,             1,              1,              1);
+        cc.setLiterals(5, start + i, start + 1 + i, start + 2 + i, output + 1 + i, output + 2 + i);
+        cc.printClause(5,         0,             0,             1,              1,              1);
     }
 #endif
 }
