@@ -192,9 +192,10 @@ void ShaCore_32::create(Printer* printer) {
     cc.printClause(7,          0,       CC_DC,       CC_DC,       CC_DC,       CC_DC,       CC_DC,           0);
     cc.printClause(7,      CC_DC,       CC_DC,       CC_DC,       CC_DC,           0,           0,       CC_DC);
     cc.printClause(7,      CC_DC,           0,           0,       CC_DC,       CC_DC,           0,       CC_DC);
-    //                        534          575          606
-    cc.setLiterals(3, start + 255, start + 286, start + 317);
-    cc.printClause(3,           0,           0,           0);
+    //                        534          575          576          606          608          702
+    cc.setLiterals(6, start + 255, start + 286, start + 287, start + 317, start + 319, start + 413);
+    cc.printClause(6,           0,           0,       CC_DC,           0,       CC_DC,       CC_DC);
+    cc.printClause(6,       CC_DC,           1,           1,       CC_DC,           0,           0);
     //                           97             98         384         385          670          701         732          764
     cc.setLiterals(8, inputs[3] + 0, inputs[3] + 1, start + 95, start + 96, start + 381, start + 412, output + 1, output + 33);
     cc.printClause(8,             0,             0,      CC_DC,      CC_DC,           1,           0,      CC_DC,       CC_DC);
@@ -213,6 +214,7 @@ void ShaCore_32::create(Printer* printer) {
     cc.printClause(7,             0,           1,       CC_DC,           0,           0,       CC_DC,       CC_DC);
     cc.printClause(7,             0,       CC_DC,           1,           0,           0,       CC_DC,       CC_DC);
     cc.printClause(7,             1,       CC_DC,           1,           0,       CC_DC,       CC_DC,           0);
+    cc.printClause(7,         CC_DC,           1,           1,       CC_DC,       CC_DC,           0,           0);
     //                           98         385          637          670          701     731          763          764
     cc.setLiterals(8, inputs[3] + 1, start + 96, start + 348, start + 381, start + 412, output, output + 32, output + 33);
     cc.printClause(8,             1,      CC_DC,           1,       CC_DC,           0,  CC_DC,       CC_DC,           1);
@@ -257,15 +259,34 @@ void ShaCore_32::create(Printer* printer) {
     cc.printClause(8,      CC_DC,          1,          0,       CC_DC,       CC_DC,           0,          0,      CC_DC);
     cc.printClause(8,      CC_DC,      CC_DC,          0,       CC_DC,       CC_DC,           0,          0,          0);
     cc.printClause(8,      CC_DC,      CC_DC,          0,           1,           1,           0,      CC_DC,      CC_DC);
-    //                       385          512          576          607          608          702         732
-    cc.setLiterals(7, start + 96, start + 223, start + 287, start + 318, start + 319, start + 413, output + 1);
-    cc.printClause(7,          1,           1,       CC_DC,           0,       CC_DC,       CC_DC,          0);
-    cc.printClause(7,          1,       CC_DC,           1,       CC_DC,           0,           0,      CC_DC);
-    //                        417          418          449          482          576          608          638
-    cc.setLiterals(7, start + 128, start + 129, start + 160, start + 193, start + 287, start + 319, start + 349);
-    cc.printClause(7,           1,       CC_DC,       CC_DC,           0,           1,           0,       CC_DC);
-    cc.printClause(7,       CC_DC,           1,           1,           0,       CC_DC,           0,       CC_DC);
-    cc.printClause(7,       CC_DC,           1,       CC_DC,           0,       CC_DC,           0,           0);
+    //                       385          512          513          576          607          608          702         732
+    cc.setLiterals(8, start + 96, start + 223, start + 224, start + 287, start + 318, start + 319, start + 413, output + 1);
+    cc.printClause(8,          1,           1,       CC_DC,       CC_DC,           0,       CC_DC,       CC_DC,          0);
+    cc.printClause(8,          1,       CC_DC,       CC_DC,           1,       CC_DC,           0,           0,      CC_DC);
+    cc.printClause(8,      CC_DC,           1,           1,       CC_DC,       CC_DC,           0,           0,      CC_DC);
+    //                        417          418          449          450          482          576          608          638
+    cc.setLiterals(8, start + 128, start + 129, start + 160, start + 161, start + 193, start + 287, start + 319, start + 349);
+    cc.printClause(8,           1,       CC_DC,       CC_DC,       CC_DC,           0,           1,           0,       CC_DC);
+    cc.printClause(8,       CC_DC,           1,           1,       CC_DC,           0,       CC_DC,           0,       CC_DC);
+    cc.printClause(8,       CC_DC,           1,       CC_DC,       CC_DC,           0,       CC_DC,           0,           0);
+    cc.printClause(8,       CC_DC,       CC_DC,           1,       CC_DC,           0,           1,           0,       CC_DC);
+    cc.printClause(8,       CC_DC,       CC_DC,           1,           1,           0,       CC_DC,           0,       CC_DC);
+    cc.printClause(8,       CC_DC,       CC_DC,       CC_DC,           1,           0,       CC_DC,           0,           0);
+    //                        449          450          481          482          575          608          638
+    cc.setLiterals(7, start + 160, start + 161, start + 192, start + 193, start + 286, start + 319, start + 349);
+    cc.printClause(7,       CC_DC,           1,       CC_DC,           0,           1,           0,       CC_DC);
+    cc.printClause(7,           1,       CC_DC,           0,       CC_DC,           1,       CC_DC,           0);
+    //                        513          545          576          608          638          671          764
+    cc.setLiterals(7, start + 224, start + 256, start + 287, start + 319, start + 349, start + 382, output + 33);
+    cc.printClause(7,           1,           0,       CC_DC,           0,           0,       CC_DC,       CC_DC);
+    cc.printClause(7,           1,       CC_DC,       CC_DC,           0,       CC_DC,           0,           0);
+    cc.printClause(7,       CC_DC,       CC_DC,           1,           0,       CC_DC,           0,           0);
+    //                        670          701     731         732          763          764
+    cc.setLiterals(6, start + 381, start + 412, output, output + 1, output + 32, output + 33);
+    cc.printClause(6,           1,           0,  CC_DC,          0,           1,       CC_DC);
+    cc.printClause(6,           1,           0,  CC_DC,      CC_DC,           1,           1);
+    cc.printClause(6,           0,           1,      1,          1,       CC_DC,       CC_DC);
+    cc.printClause(6,           0,           1,      1,      CC_DC,       CC_DC,           0);
 #endif
 }
 
