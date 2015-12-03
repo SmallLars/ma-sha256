@@ -137,20 +137,77 @@ void Sha256::create(Printer* printer) {
 /*
   ClauseCreator cc(printer);
 
-  for (unsigned r = 0; r < 46; r++) {
+  for (unsigned r = 0; r < 39; r++) {
     {
 
       unsigned valid[46][30] = {
-        {1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,1,0},
-        {1,0,1,1,0,0,1,1,0,0,0,1,1,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0}
+        {0,0,0,0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,1,0,0}
       };
 
-      for (unsigned b = 0; b < 30; b++) {
+      for (unsigned b = 0; b < 29; b++) {
         if (valid[r][b] == 0) continue;
 
 
       }
     }
+  }
+*/
+
+/* 4 DIST 4
+  for (unsigned r = 0; r < 39; r++) {
+      for (unsigned b = 0; b < 29; b++) {
+        // -713 -10832 -10863 -12570 -12601 18230 0
+        // -1321 -13305 -13336 -15043 -15074 20703 0
+        // -1323 -13307 -13338 -15045 -15076 20705 0    as examples and 120 more
+        //                  result[0]                 carry[2]                result[2]
+        cc.setLiterals(3, coreI[r][7] + b, prepN[r + 16] + 129 + b, prepN[r + 16] + 160 + b);
+        //                           result[2]               carry[1]                 carry[2]
+        cc.addLiterals(3, coreI[r + 18][8] + 2 + b, coreN[r + 18] + 1 + b, prepN[r + 25] + 129 + b);
+        cc.printClause(6, 0, 0, 0, 0, 0, 1);
+      }
+  }
+*/
+
+/* 5 DIST 4
+  for (unsigned r = 0; r < 48; r++) {
+      for (unsigned b = 0; b < 30; b++) {
+        // -16417 19169 -26884 26946 -26947 32226 0
+        // -27925 30677 -38392 38454 -38455 43734 0
+        //                  result[0]          carry[1]                carry[1]
+        cc.setLiterals(3, coreI[r][7] + b, coreN[r] + 1 + b, coreN[r + 9] + 318 + b);
+        //                          carry[0]                carry[1]                result[1]
+        cc.addLiterals(3, coreN[r + 9] + 380 + b, coreN[r + 9] + 381 + b, prepN[r + 16] + 159 + b);
+        cc.printClause(6, 0, 1, 0, 1, 0, 1);
+      }
+  }
+*/
+
+/* 6 DIST 4
+  for (unsigned r = 0; r < 39; r++) {
+      for (unsigned b = 0; b < 29; b++) {
+        // -25477 35596 -41256 -41287 -43026 48653 0
+        // -25484 35603 -41263 -41294 -43033 48660 0
+        //                  result[0]                result[2]                 carry[2]
+        cc.setLiterals(3, coreI[r][7] + b, coreI[r + 9][8] + 2 + b, prepN[r + 16] + 129 + b);
+        //                          result[2]               carry[2]                 carry[1]
+        cc.addLiterals(3, prepN[r + 16] + 160 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 128 + b);
+        cc.printClause(6, 0, 1, 0, 0, 0, 1);
+      }
+  }
+*/
+
+/* 7 DIST 4
+  for (unsigned r = 0; r < 39; r++) {
+      for (unsigned b = 0; b < 29; b++) {
+        // -25477 35595 35596 -41256 -41287 -43026 48652 0
+        // -25484 35602 35603 -41263 -41294 -43033 48659 0
+        //                  result[0]                result[1]                result[2]                 carry[2]
+        cc.setLiterals(4, coreI[r][7] + b, coreI[r + 9][8] + 1 + b, coreI[r + 9][8] + 2 + b, prepN[r + 16] + 129 + b);
+        //                          result[2]               carry[2]                 carry[0]
+        cc.addLiterals(3, prepN[r + 16] + 160 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 127 + b);
+        cc.printClause(7, 0, 1, 1, 0, 0, 0, 1);
+      }
   }
 */
 
@@ -209,93 +266,116 @@ MU_TEST_C(Sha256::test) {
 }
 
 static void clause_5_39(ClauseCreator &cc) {
-/*
-    distance = 8
-    modulcount = 4
-
-    For every bit from 0 to 28 do:
-        If round const bit 2 is zero:
-            While zero bits follow:
-                Clause with 4 literals is valid
-            On first one bit clause with 5 literals is valid
-        From 0 or after first one bit:
-            Clause with 5 literals is valid if const bit is zero
-
-    valid for r < 39
-*/
   for (unsigned r = 0; r < 39; r++) {
-    unsigned b = 0;
-    if ((sha_k[r + 18] & 0x2) == 0) {
-      for (; true ; b++) {
-        if ((sha_k[r + 18] >> (b + 2)) & 0x1) {
-          goto start;
-        } else {
-          // -15595 -31374 -33144 38772 0
-          //                  result[0]                 carry[2]               carry[2]                 carry[2]
-          cc.setLiterals(4, coreI[r][7] + b, prepN[r + 16] + 129 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 129 + b);
-          cc.printClause(4,               0,                       0,                     0,                       1);
+    {
+      // distance = 8
+      // modulcount = 4
+      //
+      // For every bit from 0 to 28 do:
+      //     If round const bit 2 is zero:
+      //         While zero bits follow:
+      //             Clauses .1 and .3 are valid
+      //         On first one bit clauses .2 and .4 are valid
+      //     From 0 or after first one bit:
+      //         Clauses .2 and .4 are valid if const bit is zero
+      unsigned b = 0;
+      if ((sha_k[r + 18] & 0x2) == 0) {
+        for (; true ; b++) {
+          if ((sha_k[r + 18] >> (b + 2)) & 0x1) {
+            goto start;
+          } else {
+            // .1
+            // -15595 -31374 -33144 38772 0
+            //                  result[0]                 carry[2]               carry[2]                 carry[2]
+            cc.setLiterals(4, coreI[r][7] + b, prepN[r + 16] + 129 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 129 + b);
+            cc.printClause(4,               0,                       0,                     0,                       1);
+            // .3
+            //                  result[0]                 carry[2]               carry[2]                 carry[1]                result[2]
+            cc.setLiterals(5, coreI[r][7] + b, prepN[r + 16] + 129 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 128 + b, prepN[r + 25] + 160 + b);
+            cc.printClause(5,               0,                       0,                     0,                       1,                       0);
+          }
+        }
+      }
+      for (; b < 29; b++) {
+        if (((sha_k[r + 18] >> (b + 2)) & 0x1) == 0) {
+          start:
+          // .2
+          // -1875 -14112 -14143 -15882 21510 0
+          //                  result[0]                 carry[2]                result[2]               carry[2]                 carry[2]
+          cc.setLiterals(5, coreI[r][7] + b, prepN[r + 16] + 129 + b, prepN[r + 16] + 160 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 129 + b);
+          cc.printClause(5,               0,                       0,                       0,                     0,                       1);
+          // .4
+          // -24661 -40440 -40471 -42210 47837 -47869 0
+          //                  result[0]                 carry[2]                result[2]
+          cc.setLiterals(3, coreI[r][7] + b, prepN[r + 16] + 129 + b, prepN[r + 16] + 160 + b);
+          //                         carry[2]                 carry[1]                result[2]
+          cc.addLiterals(3, coreN[r + 18] + 2 + b, prepN[r + 25] + 128 + b, prepN[r + 25] + 160 + b);
+          cc.printClause(6, 0, 0, 0, 0, 1, 0);
         }
       }
     }
-    for (; b < 29; b++) {
-      if (((sha_k[r + 18] >> (b + 2)) & 0x1) == 0) {
-        start:
-        // -1875 -14112 -14143 -15882 21510 0
-        //                  result[0]                 carry[2]                result[2]               carry[2]                 carry[2]
-        cc.setLiterals(5, coreI[r][7] + b, prepN[r + 16] + 129 + b, prepN[r + 16] + 160 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 129 + b);
-        cc.printClause(5,               0,                       0,                       0,                     0,                       1);
-      }
+    {
     }
   }
 }
 
 static void clause_4_39(ClauseCreator &cc) {
-/*
-    distance = 8
-    modulcount = 5
-
-    Clause with 4 literals is valid on bit -2
-    While zero bits follow:
-        Clause with 4 literals is valid
-    If bit > 0:
-        Clause with 5 literals is valid
-    For every bit from max(0, bit) to 28 do:
-         Clause with 5 literals is valid if const bit is zero
-
-    valid for r < 39
-*/
   for (unsigned r = 0; r < 39; r++) {
-    signed b = -2;
-    for (; true ; b++) {
-      // 7916 -19866 -21636 27264 0
-      // 15377 -28086 -29856 35484 0
-      //                      carry[2]                 carry[2]               carry[2]                 carry[2]
-      cc.setLiterals(4, coreN[r] + 319 + b, prepN[r + 16] + 129 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 129 + b);
-      cc.printClause(4,                  1,                       0,                     0,                       1);
-      if ((sha_k[r + 18] >> (b + 3)) & 0x1) {
+    {
+      // distance = 8
+      // modulcount = 5
+
+      // Clause .1 is valid on bit -2
+      // While zero bits follow:
+      //     Clauses .1 and .3 are valid
+      // On first one bit if bit >= 0 clause .2 is valid
+      // For every bit from max(0, bit) to 28 do:
+      //     Clause .2 is valid if const bit is zero
+      signed b = -2;
+      while (true) {
+        // .1
+        // 7916 -19866 -21636 27264 0
+        // 15377 -28086 -29856 35484 0
+        //                      carry[2]                 carry[2]               carry[2]                 carry[2]
+        cc.setLiterals(4, coreN[r] + 319 + b, prepN[r + 16] + 129 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 129 + b);
+        cc.printClause(4,                  1,                       0,                     0,                       1);
+
         b++;
-        goto start;
+        if (b >= 0) {
+          // .3
+          // -15595 -31374 -33112 -33143 38772 0
+          //                  result[0]                 carry[2]                 result[2]               carry[1]                 carry[2]
+          cc.setLiterals(5, coreI[r][7] + b, prepN[r + 16] + 129 + b, coreI[r + 18][8] + 2 + b, coreN[r + 18] + 1 + b, prepN[r + 25] + 129 + b);
+          cc.printClause(5,               0,                       0,                        0,                     0,                       1);
+        }
+
+        if ((sha_k[r + 18] >> (b + 2)) & 0x1) {
+          goto start;
+        }
+      }
+      for (; b < 29; b++) {
+        // Exceptions
+        if (r ==  0 && b ==  0) goto start;
+        if (r == 10 && b ==  2) goto start;
+        if (r == 11 && b == 10) goto start;
+        if (r == 13 && b ==  3) goto start;
+        if (r == 15 && b == 14) goto start;
+        if (r == 17 && b == 17) goto start;
+        if (r == 27 && b ==  7) goto start;
+        if (r == 28 && b ==  5) goto start;
+
+        if (((sha_k[r + 18] >> (b + 2)) & 0x1) == 0) {
+          start:
+          if (b < 0) continue;
+          // .2
+          // -737 1088 -10002 -10033 -11772 17400 0
+          //                  result[0]            carry[2]                 carry[2]                result[2]               carry[2]                 carry[2]
+          cc.setLiterals(6, coreI[r][7] + b, coreN[r] + 319 + b, prepN[r + 16] + 129 + b, prepN[r + 16] + 160 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 129 + b);
+          cc.printClause(6,               0,                  1,                       0,                       0,                     0,                       1);
+        }
       }
     }
-    for (; b < 29; b++) {
-      // Exceptions
-      if (r ==  0 && b ==  0) goto start;
-      if (r == 10 && b ==  2) goto start;
-      if (r == 11 && b == 10) goto start;
-      if (r == 13 && b ==  3) goto start;
-      if (r == 15 && b == 14) goto start;
-      if (r == 17 && b == 17) goto start;
-      if (r == 27 && b ==  7) goto start;
-      if (r == 28 && b ==  5) goto start;
-
-      if (((sha_k[r + 18] >> (b + 2)) & 0x1) == 0) {
-        start:
-        if (b < 0) continue;
-        // -737 1088 -10002 -10033 -11772 17400 0
-        //                  result[0]            carry[2]                 carry[2]                result[2]               carry[2]                 carry[2]
-        cc.setLiterals(6, coreI[r][7] + b, coreN[r] + 319 + b, prepN[r + 16] + 129 + b, prepN[r + 16] + 160 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 129 + b);
-        cc.printClause(6,               0,                  1,                       0,                       0,                     0,                       1);
-      }
+    {
     }
   }
 }
@@ -355,11 +435,72 @@ static void clause_4_46(ClauseCreator &cc) {
       for (unsigned b = 0; b < 30; b++) {
         if (valid[r][b] == 0) continue;
 
-        // .XXX
+        // .1
         // -775 10006 10036 11775 0    as example and 224 more
         //                    carry[1]                 carry[1]                result[0]           carry[0]
         cc.setLiterals(4, coreN[r] + 1 + b, prepN[r + 16] + 128 + b, prepN[r + 16] + 158 + b, coreN[r + 18] + b);
         cc.printClause(4,                0,                       1,                       1,                 1);
+      }
+    }
+    {
+      unsigned valid[46][30] = {
+        {0,0,0,0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,1},
+        {1,1,1,0,0,0,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
+        {0,0,0,0,0,0,1,1,1,0,1,1,0,0,1,1,0,1,0,1,1,0,0,1,0,0,0,0,0,1},
+        {1,0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0},
+        {0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,1,0,0},
+        {0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,1,0,1,1,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
+        {1,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1},
+        {0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0},
+        {0,0,1,1,1,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,0,0,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
+        {0,0,0,0,0,1,0,1,0,0,1,1,0,0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0},
+        {0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0},
+        {1,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,1,0,1,1,0,0},
+        {1,1,0,0,1,1,0,0,0,0,0,0,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,0,0,1,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1},
+        {1,1,0,0,0,0,1,1,0,1,1,1,0,0,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0},
+        {0,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,0,1,0,1,0},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
+        {0,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0},
+        {1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,1,0,0,0,1},
+        {1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,0},
+        {0,0,1,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
+        {1,1,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,1,0,0,0,0,1,1,1,1,1,0},
+        {1,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0},
+        {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0},
+        {1,1,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0},
+        {1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,1,0,0,0},
+        {0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,1,1,1,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0},
+        {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,0},
+        {1,1,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,1,1,0,1,1,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,1,1,0,0,0,1},
+        {0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0},
+        {0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,1,0,0}
+      };
+
+      for (unsigned b = 0; b < 30; b++) {
+        if (valid[r][b] == 0) continue;
+
+        // .2
+        // 29034 36431 -42060 -43830 0
+        // 30679 38076 -43705 -45475 0
+        //                    carry[1]          carry[0]                 carry[1]               carry[1]
+        cc.setLiterals(4, coreN[r] + 1 + b, coreN[r + 9] + b, prepN[r + 16] + 128 + b, coreN[r + 18] + 1 + b);
+        cc.printClause(4,                1,                1,                       0,                     0);
       }
     }
     {
