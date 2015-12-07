@@ -73,16 +73,11 @@ int main(int argc, const char* argv[]) {
         return 0;
     }
 
-    SolverConf config;
-    config.verbosity = 0;
-    SATSolver solver(config);
-//    solver.set_num_threads(4);
-
-    SolverPrinter printer(&solver);
+    bool singleSolver = true;
 
     Modul* modul;
     switch (atoi(argv[1])) {
-        case  1: modul = new Sha256; break;
+        case  1: modul = new Sha256; singleSolver = false; break;
         case  2: modul = new ShaCore_32; break;
         case  3: modul = new Add_Prepare_32; break;
         case  4: modul = new Add_Ssig_32; break;
@@ -107,7 +102,20 @@ int main(int argc, const char* argv[]) {
         case 23: modul = new Add_Last_3; break;
         default: cout << "Unknown Modul\n"; return 0;
     }
-    modul->create(&printer);
+
+    SolverConf config;
+    config.verbosity = 0;
+
+    SATSolver solver_1(config);
+    SolverPrinter printer_1(&solver_1);
+    modul->create(&printer_1);
+
+    SATSolver solver_2(config);
+    if (!singleSolver) {
+        SolverPrinter printer_2(&solver_2);
+        modul->create(&printer_2);
+    }
+
     delete modul;
 
     unsigned linecount = 0;
@@ -121,15 +129,20 @@ int main(int argc, const char* argv[]) {
         rowcount = atoi(argv[3]);
     }
 
-    cout << "Start checking " << linecount << " clauses:\n";
+    cout << "Start checking " << linecount << " clauses with " << (singleSolver ? 1 : 2) << " SAT-Instances:\n";
 
     unsigned counter = 0;
     for (unsigned c = 1; dp.getNextClause(learned); ++c) {
-//        if (c <= 580) continue;
+//        if (c <= 840) continue;
 
         for (unsigned i = 0; i < learned.size(); i++) learned[i] ^= 1;
 
-        lbool ret = solver.solve(&learned);
+        lbool ret;
+        if (singleSolver || c <= linecount / 2) {
+          ret = solver_1.solve(&learned);
+        } else {
+          ret = solver_2.solve(&learned);
+        }
         cout << "\r" << c << " / " << linecount << " (" << ((c - 1) / rowcount) << " / " << ((c - 1) % rowcount) << ")" << std::flush;
         if (ret == l_False) {
             ++counter;
