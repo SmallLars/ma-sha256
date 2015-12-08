@@ -92,8 +92,8 @@ MU_TEST_C(Add_Prepare_32::test) {
     }
 }
 
-//                                                    inputs[0],  inputs[2],         95,        127
-//                                                        start, start + 32,        158,         64
+//                                                            1,         65,        224,        256
+//                                                          129,        161,        287,        193
 void Add_Prepare_32::mirror_block(ClauseCreator &cc, unsigned i, unsigned j, unsigned x, unsigned y) {
     // inputs[1]     inputs[3]     inputs[0]     inputs[2]
     //  33 -  64      97 - 128       1 -  32      65 -  96
@@ -220,4 +220,10 @@ void Add_Prepare_32::mirror_block(ClauseCreator &cc, unsigned i, unsigned j, uns
     //                 carry[1]        carry[0]       carry[1]         carry[1]
     cc.setLiterals(4, start + 1 + x - 31, start + y, start + 1 + y, start + 191);
     cc.printClause(4,                  0,         1,             0,           0);
+
+    //                 2         3        258              321
+    //               130       131        195              321
+    //         result[1] result[2]   carry[2]         carry[2]
+    cc.setLiterals(4, i + 1, i + 2, start + 2 + y, start + 192);
+    cc.printClause(4,     1,     1,             0,           0);
 }

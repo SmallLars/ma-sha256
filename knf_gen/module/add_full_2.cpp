@@ -67,6 +67,7 @@ void Add_Full_2::create(Printer* printer) {
     cc.printClause(8,     0,       0,          0,     CC_DC,         CC_DC,         1,         CC_DC,     CC_DC);
     cc.printClause(8,     1,       1,          1,     CC_DC,         CC_DC,         0,         CC_DC,     CC_DC);
     cc.printClause(8,     1,       1,          1,     CC_DC,         CC_DC,     CC_DC,         CC_DC,         0);
+    cc.printClause(8,     1,       1,          1,         0,         CC_DC,     CC_DC,         CC_DC,     CC_DC);
 #endif
 }
 

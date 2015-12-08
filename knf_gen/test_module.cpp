@@ -70,6 +70,9 @@ int main() {
 //    Add_Full_2 adder;
 //    adder.writeDimacs("add_full_2.dimacs");
 
+//    Add_Half_3 adder;
+//    adder.writeDimacs("add_half_3.dimacs");
+
 //    Add_Full_3 adder;
 //    adder.writeDimacs("add_full_3.dimacs");
 
@@ -97,8 +100,8 @@ int main() {
 //    Add_Prepare_32 adder;
 //    adder.writeDimacs("add_prepare_32.dimacs");
 
-    ShaCore_32 shacore;
-    shacore.writeDimacs("shacore_32.dimacs");
+//    ShaCore_32 shacore;
+//    shacore.writeDimacs("shacore_32.dimacs");
 
 	MU_RUN_SUITE(test_suite);
 	MU_REPORT();

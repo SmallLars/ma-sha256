@@ -34,7 +34,24 @@ using std::setw;
 using std::ofstream;
 using namespace CMSat;
 
-int main() {
+static const char* const INPUT_FILE[3]    = {"", "dump/000_irred_outside.dimacs",    "dump/000_learned_outside.dimacs"};
+static const char* const OUTPUT_FILE[3]   = {"", "dump/000_irred_outside_%d.dimacs", "dump/000_learned_outside_%d.dimacs"};
+
+int main(int argc, const char* argv[]) {
+    if (argc != 2) {
+        cout << "Usage: distancechecker <MODE>" << "\n";
+        cout << "MODE =\n";
+        cout << "  1 = irred\n";
+        cout << "  2 = learned\n";
+        return 0;
+    }
+
+    int mode = atoi(argv[1]);
+    if (mode < 1 || mode > 2) {
+        cout << "Mode needs to be 1 (irred) or 2 (leanred)\n";
+        return 0;
+    }
+
     ModulGraph printer;
 
     for (unsigned i = 0; i < 24; i++) {
@@ -50,7 +67,7 @@ int main() {
 
     map<signed, unsigned> counter;
 
-    DimacsParser dp("dump/000_irred_outside.dimacs");
+    DimacsParser dp(INPUT_FILE[mode]);
     vector<Lit> learned;
     while (dp.getNextClause(learned)) {
         unsigned count = printer.getModulCount(learned);
@@ -59,7 +76,7 @@ int main() {
         counter[dist - count + 1]++;
 
         char filename[100];
-        snprintf(filename, 100, "dump/000_irred_outside_%d.dimacs", dist - count + 1);
+        snprintf(filename, 100, OUTPUT_FILE[mode], dist - count + 1);
         ofstream file(filename, std::ofstream::app);
         printClause(file, learned);
         file.close();

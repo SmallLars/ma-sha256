@@ -52,7 +52,7 @@ unsigned* Sha256::getStats() {
 }
 
 void Sha256::create(Printer* printer) {
-  printer->newModul(30, "Sha256", this);
+//  printer->newModul(30, "Sha256", this);
 
   // Input
   unsigned global_input[64];
