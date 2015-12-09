@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <fstream>
 #include <string.h>
+#include <stdlib.h>
 
 #include "cryptominisat4/cryptominisat.h"
 

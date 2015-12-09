@@ -78,11 +78,12 @@ MU_TEST_C(Add_Ssig_32::test) {
 
     for (unsigned t = 0; t < 2; t++) {
         SATSolver solver;
+        solver.set_verbosity(0);
         solver.log_to_file("test.log");
 
-		uint32_t s0 = (a[t] >> 7 | a[t] << (32-7)) ^ (a[t] >> 18 | a[t] << (32-18)) ^ (a[t] >> 3);
-		uint32_t s1 = (b[t] >> 17 | b[t] << (32-17)) ^ (b[t] >> 19 | b[t] << (32-19)) ^ (b[t] >> 10);
-		uint32_t ausgabe = s0 + s1;
+        uint32_t s0 = (a[t] >> 7 | a[t] << (32-7)) ^ (a[t] >> 18 | a[t] << (32-18)) ^ (a[t] >> 3);
+        uint32_t s1 = (b[t] >> 17 | b[t] << (32-17)) ^ (b[t] >> 19 | b[t] << (32-19)) ^ (b[t] >> 10);
+        uint32_t ausgabe = s0 + s1;
 
         solver_writeInt(solver,  0, 32, a[t]);
         solver_writeInt(solver, 32, 32, b[t]);

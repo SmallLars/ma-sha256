@@ -66,11 +66,12 @@ MU_TEST_C(Add_B0Maj_32::test) {
 
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
+        solver.set_verbosity(0);
         solver.log_to_file("test.log");
 
-		uint32_t S0 = (a[t] >> 2 | a[t] << (32-2)) ^ (a[t] >> 13 | a[t] << (32-13)) ^ (a[t] >> 22 | a[t] << (32-22));
-		uint32_t maj = (a[t] & b[t]) ^ (a[t] & c[t]) ^ (b[t] & c[t]);
-		uint32_t ausgabe = S0 + maj;
+        uint32_t S0 = (a[t] >> 2 | a[t] << (32-2)) ^ (a[t] >> 13 | a[t] << (32-13)) ^ (a[t] >> 22 | a[t] << (32-22));
+        uint32_t maj = (a[t] & b[t]) ^ (a[t] & c[t]) ^ (b[t] & c[t]);
+        uint32_t ausgabe = S0 + maj;
 
         solver_writeInt(solver,  0, 32, a[t]);
         solver_writeInt(solver, 32, 32, b[t]);

@@ -53,6 +53,7 @@ MU_TEST_C(Ch_32::test) {
 
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
+        solver.set_verbosity(0);
         solver.log_to_file("test.log");
 
         uint32_t ausgabe = (a[t] & b[t]) ^ ((~a[t]) & c[t]);

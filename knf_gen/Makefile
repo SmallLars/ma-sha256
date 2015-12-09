@@ -7,7 +7,9 @@ LIBS = -lcryptominisat4 -lpthread
 COMP = g++
 #COMP = clang++-3.5
 
-SOLVERVERSION = 4.2.0
+#SOLVERVERSION = 4.2.0
+#SOLVERVERSION = 4.4.0
+SOLVERVERSION = 4.5.3
 
 COMMON = $(shell find common/*.cpp -type f | sed "s/.cpp/.o/g")
 MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")

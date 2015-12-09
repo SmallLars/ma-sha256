@@ -37,10 +37,7 @@ void signalHandler(int signum) {
 }
 
 void *calculate(void* producer) {
-    SolverConf config;
-    config.doSQL = false;
-
-    SATSolver solver(config);
+    SATSolver solver;
 //    solver.log_to_file("solver.log");
 
     MODUL modul;

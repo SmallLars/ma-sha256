@@ -2,6 +2,7 @@
 #include <vector>
 #include <iomanip>
 #include <fstream>
+#include <stdlib.h>
 
 #include "cryptominisat4/cryptominisat.h"
 
@@ -103,14 +104,13 @@ int main(int argc, const char* argv[]) {
         default: cout << "Unknown Modul\n"; return 0;
     }
 
-    SolverConf config;
-    config.verbosity = 0;
-
-    SATSolver solver_1(config);
+    SATSolver solver_1;
+    solver_1.set_verbosity(0);
     SolverPrinter printer_1(&solver_1);
     modul->create(&printer_1);
 
-    SATSolver solver_2(config);
+    SATSolver solver_2;
+    solver_1.set_verbosity(0);
     if (!singleSolver) {
         SolverPrinter printer_2(&solver_2);
         modul->create(&printer_2);

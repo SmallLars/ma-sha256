@@ -134,11 +134,12 @@ MU_TEST_C(Add_B1Ch_32::test) {
 
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
+        solver.set_verbosity(0);
         solver.log_to_file("test.log");
 
-		uint32_t S1 = (a[t] >> 6 | a[t] << (32-6)) ^ (a[t] >> 11 | a[t] << (32-11)) ^ (a[t] >> 25 | a[t] << (32-25));
-		uint32_t ch = (a[t] & b[t]) ^ ((~a[t]) & c[t]);
-		uint32_t ausgabe = S1 + ch;
+        uint32_t S1 = (a[t] >> 6 | a[t] << (32-6)) ^ (a[t] >> 11 | a[t] << (32-11)) ^ (a[t] >> 25 | a[t] << (32-25));
+        uint32_t ch = (a[t] & b[t]) ^ ((~a[t]) & c[t]);
+        uint32_t ausgabe = S1 + ch;
 
         solver_writeInt(solver,  0, 32, a[t]);
         solver_writeInt(solver, 32, 32, b[t]);

@@ -1,5 +1,7 @@
 #include "dimacsparser.h"
 
+#include <stdlib.h>
+
 using std::ifstream;
 using std::string;
 using std::vector;

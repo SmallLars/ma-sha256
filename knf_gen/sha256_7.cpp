@@ -73,18 +73,14 @@ int main() {
         0xc294dbe9
     };
 
-    SolverConf config;
-    config.verbosity = 0; // 3
-    config.printFullStats = 1;
-    config.doSQL = true;
-    config.do_bva = false;
-
     long numCPU = sysconf( _SC_NPROCESSORS_ONLN );
     cout << "CPUNUM: " << numCPU << "\n";
 
-    SATSolver solver(config);
-//    solver.log_to_file("solver.txt");
+    SATSolver solver;
     solver.set_num_threads(numCPU);
+    solver.set_verbosity(0);
+    solver.set_no_bva();
+//    solver.log_to_file("solver.txt");
 
     time_t rawtime;
     time(&rawtime);

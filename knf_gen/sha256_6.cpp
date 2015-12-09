@@ -95,15 +95,11 @@ int main() {
 
     unsigned varCount = 0;
 
-    SolverConf config;
-    config.verbosity = 0; // 3
-    config.printFullStats = 1;
-    config.doSQL = true;
-    config.do_bva = false;
-
-    SATSolver solver(config);
-//    solver.log_to_file("solver.txt");
+    SATSolver solver;
     solver.set_num_threads(8);
+    solver.set_verbosity(0);
+    solver.set_no_bva();
+//    solver.log_to_file("solver.txt");
 
     time_t rawtime;
     time(&rawtime);

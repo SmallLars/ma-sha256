@@ -27,9 +27,8 @@ void signalHandler(int signum) {
 void *calculate(void* producer) {
     Sha256 sha256;
 
-    SolverConf config;
-    config.doSQL = false;
-    SATSolver solver(config);
+    SATSolver solver;
+    solver.set_verbosity(0);
 //    solver.log_to_file("solver.log");
     SolverPrinter printer(&solver);
     sha256.create(&printer);

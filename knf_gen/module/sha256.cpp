@@ -176,10 +176,8 @@ void Sha256::create(Printer* printer) {
 }
 
 MU_TEST_C(Sha256::test) {
-  SolverConf config;
-  config.verbosity = 0;//9;
-
-  SATSolver solver(config);
+  SATSolver solver;
+  solver.set_verbosity(0);
   solver.log_to_file("test.log");
 
   uint32_t input[16];
