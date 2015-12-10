@@ -3,7 +3,9 @@
 #include "des_round.h"
 
 #include  <algorithm>
+#include <string.h>
 
+#include "../common/destools.h"
 #include "../common/solvertools.h"
 
 using std::vector;
@@ -76,5 +78,43 @@ MU_TEST_C(Des_Encrypt::test) {
         printf("Erhalten: %lx\n", solver_readInt_msb(solver, des_encrypt.getOutput(), 64));
 */
         mu_assert(out[t] == solver_readInt_msb(solver, des_encrypt.getOutput(), 64), "DES_Encrypt failed");
+    }
+
+    const char* plaintext[] = {"LarsJens"};
+    const char* key[] = {"KeorM`rr", "JensLars"};
+    const char* ciphertext[] = {"\x70\xD8\x08\x26\xB1\x59\xEE\x30"};
+
+    for (unsigned t = 0; t < 1; t++) {
+        SATSolver solver;
+        solver.log_to_file("test.log");
+
+        solver_writeInt_msb(solver,  0, 64, initial_permutation(str_to_int(plaintext[t])));
+        solver_writeInt_msb(solver, 64, 56, key_initial_permutation(str_to_int(key[t])));
+
+        Des_Encrypt des_encrypt;
+        des_encrypt.append(&solver);
+
+        lbool ret = solver.solve();
+        mu_assert(ret == l_True, "DES_Encrypt UNSAT");
+
+        uint64_t value;
+        char str[9];
+        str[8] = 0;
+        printf("\n");
+
+        value = solver_readInt_msb(solver, 0, 64);
+        int_to_str(str, initial_permutation_reverse(value));
+        printf("Plaintext: %s\n", str);
+
+        value = solver_readInt_msb(solver, 64, 56);
+        int_to_str(str, key_initial_permutation_reverse(value));
+        printf("Key: %s\n", str);
+
+        value = solver_readInt_msb(solver, des_encrypt.getOutput(), 64);
+        int_to_str(str, final_permutation(value));
+        printf("Ciphertext: %s (%016lx)\n", str, final_permutation(value));
+
+        value = final_permutation_reverse(str_to_int(ciphertext[t]));
+        mu_assert(value == solver_readInt_msb(solver, des_encrypt.getOutput(), 64), "DES_Encrypt failed");
     }
 }

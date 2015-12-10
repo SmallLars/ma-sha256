@@ -1,6 +1,8 @@
 #include "destools.h"
 
 #include <iostream>
+#include <stdio.h>
+#include <string.h>
 
 int pc1_table[] = { 57, 49, 41, 33, 25, 17,  9,  1,
                     58, 50, 42, 34, 26, 18, 10,  2,
@@ -64,7 +66,7 @@ uint64_t final_permutation_reverse(uint64_t ciphertext){
 }
 
 uint64_t key_initial_permutation(uint64_t key){
-    return permute(key, pc1_table, 56);
+    return permute(key, pc1_table, 64);
 }
 
 uint64_t key_initial_permutation_reverse(uint64_t key_without_paritybits){
@@ -87,7 +89,23 @@ uint64_t key_set_parity_bits(uint64_t key_with_wrong_paritybits){
     return result;
 }
 
-int main(){
+uint64_t str_to_int(const char str[8]) {
+    uint64_t result = 0;
+    for (int i = 0; i < 8; i++) {
+        result <<= 8;
+        result += str[i];
+    }
+    return result;
+}
+
+void int_to_str(char* str, uint64_t value) {
+    for (int i = 0; i < 8; i++) {
+        str[7 - i] = value & 0xFF;
+        value >>= 8;
+    }
+}
+
+void main() {
     printf("%016llx\n", initial_permutation(0xAAAAAAAAAAAAAAAA));
     printf("%016llx\n", initial_permutation_reverse(initial_permutation(0xAAAAAAAAAAAAAAAA)));
     printf("%016llx\n", final_permutation_reverse(final_permutation(0xAAAAAAAAAAAAAAAA)));
@@ -95,4 +113,16 @@ int main(){
     printf("key initial permutation: %016llx\n", key_initial_permutation(0xA0B1C0D1E1F0F0F0));
     printf("key with wrong parity bits: %016lx\nkey with corrected parity bits: %016llx\n", 0xA1B1C1D1E1F1F0F1, key_set_parity_bits(0xA1B1C1D1E1F1F0F1));
     printf("%016llx\n", key_initial_permutation_reverse(key_initial_permutation(0xA0B1C0D1E1F0F0F0)));
+    printf("\n");
+    printf("expected: 4c6172734a656e73 - result: %016llx\n", str_to_int("LarsJens"));
+    printf("expected: ff8c61aa00ee51dc - result: %016llx\n", initial_permutation(str_to_int("LarsJens")));
+    printf("expected: 4c6172734a656e73 - result: %016llx\n", initial_permutation_reverse(initial_permutation(str_to_int("LarsJens"))));
+    char str[8];
+    int_to_str(str, str_to_int("LarsJens"));
+    printf("expected: LarsJens - result: %s\n", str);
+    printf("\n");
+    printf("expected: 4a656e734c617273 - result: %016llx\n", str_to_int("JensLars"));
+    printf("expected: 0000ffeeccd16158 - result: %016llx\n", key_initial_permutation(str_to_int("JensLars")));
+    printf("expected: 0000ffeeccd16158 - result: %016llx\n", key_initial_permutation(str_to_int("KeorM`rr")));
+    printf("expected: 4a656e734c617273 - result: %016llx\n", key_initial_permutation_reverse(key_initial_permutation(str_to_int("LarsJens"))));
 }
