@@ -31,47 +31,46 @@ int final_permutation_table[] = {   40, 8, 48, 16, 56, 24, 64, 32,
                                     34, 2, 42, 10, 50, 18, 58, 26,
                                     33, 1, 41,  9, 49, 17, 57, 25};
 
-uint64_t permute(uint64_t input, int* permutation_table, unsigned output_length){
+uint64_t permute(uint64_t input, int* permutation_table, unsigned output_length, unsigned input_length){
     uint64_t result = 0;
     for (int i = 0; i < output_length; ++i){
-        uint64_t plaintext_bit = (input >> (permutation_table[i] - 1) ) & 0x1;
-        result |= plaintext_bit << i;
+        uint64_t plaintext_bit = (input >> (input_length - 1 - ( permutation_table[i] - 1))) & 0x1;
+        result |= plaintext_bit << (output_length - i - 1);
     }
     return result;
 }
 
-uint64_t reverse_permute(uint64_t input, int* permutation_table, unsigned output_length){
+uint64_t reverse_permute(uint64_t input, int* permutation_table, unsigned output_length, unsigned input_length){
     uint64_t result = 0;
     for (int i = 0; i < output_length; ++i){
-        uint64_t current_bit = (input >> i) & 0x1;
-        result |= current_bit << (permutation_table[i] - 1);
+        uint64_t current_bit = (input >> (input_length - 1 - i)) & 0x1;
+        result |= current_bit << (output_length - 1 - (permutation_table[i] - 1));
     }
     return result;
 }
 
 uint64_t initial_permutation(uint64_t plaintext){
-    return permute(plaintext, initial_permutation_table, 64);
+    return permute(plaintext, initial_permutation_table, 64, 64);
 }
 
 uint64_t initial_permutation_reverse(uint64_t intermediate_text){
-    return reverse_permute(intermediate_text, initial_permutation_table, 64);
+    return reverse_permute(intermediate_text, initial_permutation_table, 64, 64);
 }
 
 uint64_t final_permutation(uint64_t intermediate_text){
-    return permute(intermediate_text, final_permutation_table, 64);
+    return permute(intermediate_text, final_permutation_table, 64, 64);
 }
 
 uint64_t final_permutation_reverse(uint64_t ciphertext){
-    return reverse_permute(ciphertext, final_permutation_table, 64);
+    return reverse_permute(ciphertext, final_permutation_table, 64, 64);
 }
 
 uint64_t key_initial_permutation(uint64_t key){
-    return permute(key, pc1_table, 64);
+    return permute(key, pc1_table, 56, 64);
 }
 
 uint64_t key_initial_permutation_reverse(uint64_t key_without_paritybits){
-    uint64_t permute_result = reverse_permute(key_without_paritybits, pc1_table, 64);
-    printf("before setting the parity bits: %016llx\n", permute_result);
+    uint64_t permute_result = reverse_permute(key_without_paritybits, pc1_table, 64, 56);
     return key_set_parity_bits(permute_result);
 }
 
@@ -105,10 +104,21 @@ void int_to_str(char* str, uint64_t value) {
     }
 }
 
-void main() {
+int main() {
     printf("%016llx\n", initial_permutation(0xAAAAAAAAAAAAAAAA));
+    printf("%016llx\n", initial_permutation(0x0000000000000001));
+    printf("%016llx\n", initial_permutation(0x0000000000000002));
     printf("%016llx\n", initial_permutation_reverse(initial_permutation(0xAAAAAAAAAAAAAAAA)));
     printf("%016llx\n", final_permutation_reverse(final_permutation(0xAAAAAAAAAAAAAAAA)));
+    printf("%016llx\n", initial_permutation_reverse(initial_permutation(0x4b656f724d607272)));
+    printf("%016llx\n", final_permutation_reverse(final_permutation(0x4b656f724d607272)));
+    printf("%016llx\n", key_initial_permutation(0xF0F0F0F0F0F0F0F0));
+    printf("%016llx\n", key_initial_permutation(0x0000000000000001));
+    printf("%016llx\n", key_initial_permutation(0x0000000000000002));
+    printf("%016llx\n", key_initial_permutation(0x4b656f724d607272));
+    printf("%016llx\n\n", key_initial_permutation(0x4a656e734c617273));
+
+    printf("%016llx\n", key_initial_permutation_reverse(0x00fffffff000000f));
     printf("%016llx\n", key_initial_permutation_reverse(key_initial_permutation(0xF0F0F0F0F0F0F0F0)));
     printf("key initial permutation: %016llx\n", key_initial_permutation(0xA0B1C0D1E1F0F0F0));
     printf("key with wrong parity bits: %016lx\nkey with corrected parity bits: %016llx\n", 0xA1B1C1D1E1F1F0F1, key_set_parity_bits(0xA1B1C1D1E1F1F0F1));
