@@ -135,4 +135,7 @@ int main() {
     printf("expected: 0000ffeeccd16158 - result: %016llx\n", key_initial_permutation(str_to_int("JensLars")));
     printf("expected: 0000ffeeccd16158 - result: %016llx\n", key_initial_permutation(str_to_int("KeorM`rr")));
     printf("expected: 4a656e734c617273 - result: %016llx\n", key_initial_permutation_reverse(key_initial_permutation(str_to_int("LarsJens"))));
+    printf("\n");
+    printf("expected: 63b3483052d96648 - result: %016llx\n", final_permutation_reverse(0x70d80826b159ee30));
+    printf("expected: 63b3483052d96648 - result: %016llx\n", final_permutation_reverse(str_to_int("\x70\xD8\x08\x26\xB1\x59\xEE\x30")));
 }

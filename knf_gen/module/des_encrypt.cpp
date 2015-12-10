@@ -115,6 +115,9 @@ MU_TEST_C(Des_Encrypt::test) {
         printf("Ciphertext: %s (%016lx)\n", str, final_permutation(value));
 
         value = final_permutation_reverse(str_to_int(ciphertext[t]));
+        printf("CipherInt: %016lx\n", str_to_int(ciphertext[t]));
+        printf("SatRevInt: %016lx\n", value);
+        printf("SatInt   : %016lx\n", solver_readInt_msb(solver, des_encrypt.getOutput(), 64));
         mu_assert(value == solver_readInt_msb(solver, des_encrypt.getOutput(), 64), "DES_Encrypt failed");
     }
 }
