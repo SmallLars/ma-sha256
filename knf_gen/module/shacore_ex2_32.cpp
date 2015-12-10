@@ -81,17 +81,18 @@ MU_TEST_C(ShaCore_Ex2_32::test) {
 
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
+        solver.set_verbosity(0);
         solver.log_to_file("test.log");
 
-		uint32_t p0 = (input2[t] >> 7 | input2[t] << (32-7)) ^ (input2[t] >> 18 | input2[t] << (32-18)) ^ (input2[t] >> 3);
-		uint32_t p1 = (input4[t] >> 17 | input4[t] << (32-17)) ^ (input4[t] >> 19 | input4[t] << (32-19)) ^ (input4[t] >> 10);
-		uint32_t S0 = (a[t] >> 2 | a[t] << (32-2)) ^ (a[t] >> 13 | a[t] << (32-13)) ^ (a[t] >> 22 | a[t] << (32-22));
-		uint32_t maj = (a[t] & b[t]) ^ (a[t] & c[t]) ^ (b[t] & c[t]);
-		uint32_t t2 = S0 + maj;
-		uint32_t S1 = (e[t] >> 6 | e[t] << (32-6)) ^ (e[t] >> 11 | e[t] << (32-11)) ^ (e[t] >> 25 | e[t] << (32-25));
-		uint32_t fch = (e[t] & f[t]) ^ ((~e[t]) & g[t]);
-		uint32_t t1 = h[t] + S1 + fch + cons[t] + input1[t] + p0 + input3[t] + p1;
-		uint32_t ausgabe[2] = {t1 + t2, d[t] + t1};
+        uint32_t p0 = (input2[t] >> 7 | input2[t] << (32-7)) ^ (input2[t] >> 18 | input2[t] << (32-18)) ^ (input2[t] >> 3);
+        uint32_t p1 = (input4[t] >> 17 | input4[t] << (32-17)) ^ (input4[t] >> 19 | input4[t] << (32-19)) ^ (input4[t] >> 10);
+        uint32_t S0 = (a[t] >> 2 | a[t] << (32-2)) ^ (a[t] >> 13 | a[t] << (32-13)) ^ (a[t] >> 22 | a[t] << (32-22));
+        uint32_t maj = (a[t] & b[t]) ^ (a[t] & c[t]) ^ (b[t] & c[t]);
+        uint32_t t2 = S0 + maj;
+        uint32_t S1 = (e[t] >> 6 | e[t] << (32-6)) ^ (e[t] >> 11 | e[t] << (32-11)) ^ (e[t] >> 25 | e[t] << (32-25));
+        uint32_t fch = (e[t] & f[t]) ^ ((~e[t]) & g[t]);
+        uint32_t t1 = h[t] + S1 + fch + cons[t] + input1[t] + p0 + input3[t] + p1;
+        uint32_t ausgabe[2] = {t1 + t2, d[t] + t1};
 
         solver_writeInt(solver,   0, 32, a[t]);
         solver_writeInt(solver,  32, 32, b[t]);

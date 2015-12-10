@@ -64,14 +64,10 @@ int main() {
 
     unsigned varCount = 0;
 
-    SolverConf config;
-    config.verbosity = 0; // 3
-    config.printFullStats = 1;
-    config.doSQL = false;
-
-    SATSolver solver(config);
-    solver.log_to_file("solver.log");
+    SATSolver solver;
+    solver.set_verbosity(0);
     solver.set_num_threads(16);
+    solver.log_to_file("solver.log");
 
 //    Counter printer;
     SolverPrinter printer(&solver);

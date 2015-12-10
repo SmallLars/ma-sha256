@@ -40,14 +40,10 @@ int main() {
 
     unsigned varCount = 0;
 
-    SolverConf config;
-    config.verbosity = 2;
-    config.printFullStats = 1;
-    config.doSQL = false;
-
-    SATSolver solver(config);
-//    solver.log_to_file("solver.log");
+    SATSolver solver;
+    solver.set_verbosity(2);
     solver.set_num_threads(4);
+//    solver.log_to_file("solver.log");
 
     for (unsigned i = 0; i < 16; i++) {
 //        if (i != 11) {

@@ -89,18 +89,19 @@ MU_TEST_C(Prepare_32::test) {
 
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
+        solver.set_verbosity(0);
         solver.log_to_file("test.log");
 
-	    uint32_t ausgabe[64];
-	    for (unsigned i = 0; i < 16; i++) ausgabe[i] = values[i][t];
-	    for (unsigned i = 16; i < 64; i++) {
-		    uint32_t s0 = (ausgabe[i-15] >> 7 | ausgabe[i-15] << (32-7)) ^ (ausgabe[i-15] >> 18 | ausgabe[i-15] << (32-18)) ^ (ausgabe[i-15] >> 3);
-		    uint32_t s1 = (ausgabe[i-2] >> 17 | ausgabe[i-2] << (32-17)) ^ (ausgabe[i-2] >> 19 | ausgabe[i-2] << (32-19)) ^ (ausgabe[i-2] >> 10);
-		    ausgabe[i] = ausgabe[i-16] + s0 + ausgabe[i-7] + s1;
-	    }
-	    for (unsigned i = 0; i < 64; i++) {
+        uint32_t ausgabe[64];
+        for (unsigned i = 0; i < 16; i++) ausgabe[i] = values[i][t];
+        for (unsigned i = 16; i < 64; i++) {
+            uint32_t s0 = (ausgabe[i-15] >> 7 | ausgabe[i-15] << (32-7)) ^ (ausgabe[i-15] >> 18 | ausgabe[i-15] << (32-18)) ^ (ausgabe[i-15] >> 3);
+            uint32_t s1 = (ausgabe[i-2] >> 17 | ausgabe[i-2] << (32-17)) ^ (ausgabe[i-2] >> 19 | ausgabe[i-2] << (32-19)) ^ (ausgabe[i-2] >> 10);
+            ausgabe[i] = ausgabe[i-16] + s0 + ausgabe[i-7] + s1;
+        }
+        for (unsigned i = 0; i < 64; i++) {
             ausgabe[i] += sha_k[i];
-	    }
+        }
 
         for (unsigned i = 0; i < 16; i++) {
             solver_writeInt(solver, i * 32, 32, values[i][t]);

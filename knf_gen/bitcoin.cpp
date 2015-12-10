@@ -74,16 +74,13 @@ int main() {
     }
     printf("\n");
 
-    SolverConf config;
-    config.verbosity = 0; // 3
-    config.printFullStats = 1;
-
     long numCPU = sysconf( _SC_NPROCESSORS_ONLN );
     cout << "CPUNUM: " << numCPU << "\n";
 
-    SATSolver solver(config);
-//    solver.log_to_file("solver.txt");
+    SATSolver solver;
+    solver.set_verbosity(0);
     solver.set_num_threads(numCPU);
+//    solver.log_to_file("solver.txt");
 
     time_t rawtime;
     time(&rawtime);

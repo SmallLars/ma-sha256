@@ -7,16 +7,15 @@ LIBS = -lcryptominisat4 -lpthread
 COMP = g++
 #COMP = clang++-3.5
 
-SOLVERVERSION = 4.2.0
+#SOLVERVERSION = 4.2.0
+#SOLVERVERSION = 4.4.0
+SOLVERVERSION = 4.5.3
 
 COMMON = $(shell find common/*.cpp -type f | sed "s/.cpp/.o/g")
 MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")
 PRINTER = $(shell find printer/*.cpp -type f | sed "s/.cpp/.o/g")
 
-all: cryptominisat/lib/libcryptominisat4.so cc_miner cc_miner_2 test_module sha256_1 sha256_2 sha256_3 sha256_4 sha256_5 sha256_6 sha256_7 clausecollector clausechecker dimacsprinter modulchecker graphprinter distancechecker bitcoin
-
-#%.o: %.c
-#	gcc -c $(CFLAGS) -o $@ $<
+all: cryptominisat/lib/libcryptominisat4.so $(patsubst %.cpp,%,$(wildcard *.cpp))
 
 %.o: %.cpp
 	$(COMP) -c $(CFLAGS) -o $@ $<
@@ -27,13 +26,13 @@ cc_miner: cc_miner.o $(COMMON) $(MODULE) $(PRINTER)
 cc_miner_2: cc_miner_2.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
-test_module: test_module.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -lrt -lm -o $@ $^ $(LIBS)
-
 sha256_%: sha256_%.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clausecollector: clausecollector.o $(COMMON) $(MODULE) $(PRINTER)
+	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
+
+clausesorter: clausesorter.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clausechecker: clausechecker.o $(COMMON) $(MODULE) $(PRINTER)
@@ -54,8 +53,11 @@ distancechecker: distancechecker.o $(COMMON) $(MODULE) $(PRINTER)
 bitcoin: bitcoin.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
+test_module: test_module.o $(COMMON) $(MODULE) $(PRINTER)
+	$(COMP) $(LFLAGS) -lrt -lm -o $@ $^ $(LIBS)
+
 clean:
-	-rm -f cc_miner cc_miner_2 test_module sha256_1 sha256_2 sha256_3 sha256_4 sha256_5 sha256_6 sha256_7 clausecollector clausechecker dimacsprinter modulchecker graphprinter distancechecker bitcoin *.o common/*.o module/*.o printer/*.o
+	-rm -f $(patsubst %.cpp,%,$(wildcard *.cpp)) *.o common/*.o module/*.o printer/*.o
 
 clobber: clean
 	-rm -rf cryptominisat

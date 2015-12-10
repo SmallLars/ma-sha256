@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fstream>
+#include <stdlib.h>
 
 #include "cryptominisat4/cryptominisat.h"
 

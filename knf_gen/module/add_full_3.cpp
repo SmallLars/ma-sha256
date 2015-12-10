@@ -80,6 +80,12 @@ void Add_Full_3::create(Printer* printer) {
     cc.printClause(11,     1,      1,          1,      CC_DC,     CC_DC,         CC_DC,         CC_DC,     CC_DC,         CC_DC,             0,         0);
     cc.printClause(11, CC_DC,      1,          1,          0,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,             0,         0);
     cc.printClause(11, CC_DC,      1,          1,          0,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,             1,         0);
+    cc.printClause(11,     1,      1,          1,          1,         0,         CC_DC,         CC_DC,     CC_DC,         CC_DC,         CC_DC,     CC_DC);
+    cc.printClause(11,     0,      0,          0,      CC_DC,     CC_DC,         CC_DC,         CC_DC,         1,         CC_DC,             1,     CC_DC);
+    cc.printClause(11,     1,      1,          1,          1,     CC_DC,         CC_DC,         CC_DC,     CC_DC,         CC_DC,         CC_DC,         0);
+    cc.printClause(11, CC_DC,      1,          1,          1,         0,         CC_DC,             0,     CC_DC,         CC_DC,             0,     CC_DC);
+    cc.printClause(11, CC_DC,      1,          1,          1,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,             1,         0);
+    cc.printClause(11, CC_DC,      1,          1,          1,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,             0,         0);
 #endif
 }
 
@@ -88,6 +94,7 @@ MU_TEST_C(Add_Full_3::test) {
         for (unsigned b = 0; b < 8; b++) {
             for (unsigned c = 0; c < 2; c++) {
                 SATSolver solver;
+                solver.set_verbosity(0);
                 solver.log_to_file("test.log");
 
                 uint32_t ausgabe = a + b + c;

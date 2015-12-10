@@ -1,6 +1,7 @@
 #include "moduldb.h"
 
 #include <algorithm>
+#include <string.h>
 
 #include "../module/modul.h"
 
@@ -10,6 +11,7 @@ using std::ostream;
 using namespace CMSat;
 
 ModulDB::ModulDB() {
+    lvl10_start = 0;
 }
 
 ModulDB::~ModulDB() {
@@ -21,8 +23,6 @@ ModulDB::~ModulDB() {
 }
 
 void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
-    if (level < 10) return;
-
     ModulEntry newModul;
     newModul.level = level;
     newModul.name = name;
@@ -60,7 +60,15 @@ void ModulDB::newModul(unsigned level, const char* name, Modul* modul) {
 }
 
 ModulEntry* ModulDB::isInSingleModul(vector<Lit>& clause) {
-    for (unsigned m = 0; m < module.size(); m++) {
+    bool deepcheck = false;
+    unsigned m = lvl10_start;
+
+    if (m == 0) {
+        for (m = 0; module[m].level < 10; m++);
+        lvl10_start = m;
+    }
+
+    while (m < module.size()) {
         bool isInside;
         for (unsigned lit = 0; lit < clause.size(); lit++) {
             isInside = false;
@@ -72,7 +80,14 @@ ModulEntry* ModulDB::isInSingleModul(vector<Lit>& clause) {
             }
             if (!isInside) break;
         }
-        if (isInside) return &module[m];
+        if (isInside) {
+            if (deepcheck || strcmp(module[m].name, "Add_32")) return &module[m];
+
+            deepcheck = true;
+            m = 0;
+            continue;
+        }
+        m++;
     }
     return NULL;
 }

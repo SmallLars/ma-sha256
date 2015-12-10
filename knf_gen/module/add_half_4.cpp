@@ -39,6 +39,7 @@ MU_TEST_C(Add_Half_4::test) {
     for (unsigned a = 0; a < 16; a++) {
         for (unsigned b = 0; b < 16; b++) {
             SATSolver solver;
+            solver.set_verbosity(0);
             solver.log_to_file("test.log");
 
             uint32_t ausgabe = a + b;

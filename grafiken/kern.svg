@@ -4,16 +4,16 @@
 <svg xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
      version="1.1" baseProfile="full"
-     width="945" height="470" viewBox="-10 -10 945 470">
+     width="970" height="570" viewBox="-10 -10 970 570">
 
   <title>Kern</title>
 
-  <line x1="100" y1="50" x2="200" y2="400" style="stroke:grey;stroke-width:5" />
-  <line x1="200" y1="50" x2="300" y2="400" style="stroke:grey;stroke-width:5" />
-  <line x1="300" y1="50" x2="400" y2="400" style="stroke:grey;stroke-width:5" />
-  <line x1="500" y1="50" x2="600" y2="400" style="stroke:grey;stroke-width:5" />
-  <line x1="600" y1="50" x2="700" y2="400" style="stroke:grey;stroke-width:5" />
-  <line x1="700" y1="50" x2="800" y2="400" style="stroke:grey;stroke-width:5" />
+  <line x1="100" y1="50" x2="200" y2="500" style="stroke:grey;stroke-width:5" />
+  <line x1="200" y1="50" x2="300" y2="500" style="stroke:grey;stroke-width:5" />
+  <line x1="300" y1="50" x2="400" y2="500" style="stroke:grey;stroke-width:5" />
+  <line x1="500" y1="50" x2="600" y2="500" style="stroke:grey;stroke-width:5" />
+  <line x1="600" y1="50" x2="700" y2="500" style="stroke:grey;stroke-width:5" />
+  <line x1="700" y1="50" x2="800" y2="500" style="stroke:grey;stroke-width:5" />
 
   <rect x="75" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
   <rect x="175" y="0" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
@@ -44,40 +44,47 @@
   <text x="450" y="135" text-anchor="middle" style="font-family: Arial; font-size: 32px;">BSIG1</text>
   <text x="600" y="135" text-anchor="middle" style="font-family: Arial; font-size: 32px;">CH</text>
 
-  <!-- H/I -->
-  <rect x="800" y="100" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <text x="850" y="135" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
+  <rect x="850" y="100" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="900" y="135" text-anchor="middle" style="font-family: Arial; font-size: 32px;">C+</text>
 
   <!-- BSIG0/MAJ -->
   <rect x="25" y="200" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <text x="75" y="235" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>>
+  <text x="75" y="235" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
+
+  <!-- BSIG1/CH -->
+  <rect x="525" y="200" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="575" y="235" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
+
+  <!-- H/I -->
+  <rect x="775" y="200" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="825" y="235" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
 
   <!-- BSIG1/CH/(H/I) -->
-  <rect x="550" y="200" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <text x="600" y="235" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
+  <rect x="550" y="300" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="600" y="335" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
 
-  <rect x="50" y="300" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <text x="100" y="335" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
+  <rect x="50" y="400" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="100" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
 
-  <rect x="450" y="300" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <text x="500" y="335" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
+  <rect x="450" y="400" width="100" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="500" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">+</text>
 
-  <rect x="75" y="400" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <rect x="175" y="400" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <rect x="275" y="400" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <rect x="375" y="400" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <rect x="475" y="400" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <rect x="575" y="400" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <rect x="675" y="400" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <rect x="775" y="400" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
-  <text x="100" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">A'</text>
-  <text x="200" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">B'</text>
-  <text x="300" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">C'</text>
-  <text x="400" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">D'</text>
-  <text x="500" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">E'</text>
-  <text x="600" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">F'</text>
-  <text x="700" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">G'</text>
-  <text x="800" y="435" text-anchor="middle" style="font-family: Arial; font-size: 32px;">H'</text>
+  <rect x="75" y="500" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <rect x="175" y="500" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <rect x="275" y="500" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <rect x="375" y="500" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <rect x="475" y="500" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <rect x="575" y="500" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <rect x="675" y="500" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <rect x="775" y="500" width="50" height="50" style="fill:white;stroke-width:2;stroke:black" />
+  <text x="100" y="535" text-anchor="middle" style="font-family: Arial; font-size: 32px;">A'</text>
+  <text x="200" y="535" text-anchor="middle" style="font-family: Arial; font-size: 32px;">B'</text>
+  <text x="300" y="535" text-anchor="middle" style="font-family: Arial; font-size: 32px;">C'</text>
+  <text x="400" y="535" text-anchor="middle" style="font-family: Arial; font-size: 32px;">D'</text>
+  <text x="500" y="535" text-anchor="middle" style="font-family: Arial; font-size: 32px;">E'</text>
+  <text x="600" y="535" text-anchor="middle" style="font-family: Arial; font-size: 32px;">F'</text>
+  <text x="700" y="535" text-anchor="middle" style="font-family: Arial; font-size: 32px;">G'</text>
+  <text x="800" y="535" text-anchor="middle" style="font-family: Arial; font-size: 32px;">H'</text>
 
   <!-- A -->
   <line x1="100" y1="50" x2="100" y2="75" style="stroke:black;stroke-width:2" />
@@ -97,7 +104,7 @@
   <!-- D -->
   <line x1="375" y1="50" x2="375" y2="225" style="stroke:black;stroke-width:2" />
   <line x1="375" y1="225" x2="475" y2="225" style="stroke:black;stroke-width:2" />
-  <line x1="475" y1="225" x2="475" y2="300" style="stroke:black;stroke-width:2" />
+  <line x1="475" y1="225" x2="475" y2="400" style="stroke:black;stroke-width:2" />
 
   <!-- E -->
   <line x1="500" y1="50" x2="500" y2="75" style="stroke:black;stroke-width:2" />
@@ -115,22 +122,10 @@
   <line x1="625" y1="75" x2="625" y2="100" style="stroke:black;stroke-width:2" />
 
   <!-- H -->
-  <line x1="800" y1="50" x2="800" y2="75" style="stroke:black;stroke-width:2" />
-  <line x1="800" y1="75" x2="825" y2="75" style="stroke:black;stroke-width:2" />
-  <line x1="825" y1="75" x2="825" y2="100" style="stroke:black;stroke-width:2" />
+  <line x1="800" y1="50" x2="800" y2="200" style="stroke:black;stroke-width:2" />
 
   <!-- I -->
-  <line x1="900" y1="50" x2="900" y2="75" style="stroke:black;stroke-width:2" />
-  <line x1="875" y1="75" x2="900" y2="75" style="stroke:black;stroke-width:2" />
-  <line x1="875" y1="75" x2="875" y2="100" style="stroke:black;stroke-width:2" />
-
-  <!-- BSIG1 -->
-  <line x1="450" y1="150" x2="450" y2="175" style="stroke:black;stroke-width:2" />
-  <line x1="450" y1="175" x2="575" y2="175" style="stroke:black;stroke-width:2" />
-  <line x1="575" y1="175" x2="575" y2="200" style="stroke:black;stroke-width:2" />
-
-  <!-- CH -->
-  <line x1="600" y1="150" x2="600" y2="200" style="stroke:black;stroke-width:2" />
+  <line x1="900" y1="50" x2="900" y2="100" style="stroke:black;stroke-width:2" />
 
   <!-- BSIG0 -->
   <line x1="50" y1="150" x2="50" y2="200" style="stroke:black;stroke-width:2" />
@@ -140,25 +135,41 @@
   <line x1="200" y1="175" x2="100" y2="175" style="stroke:black;stroke-width:2" />
   <line x1="100" y1="175" x2="100" y2="200" style="stroke:black;stroke-width:2" />
 
-  <!-- + H/I -->
-  <line x1="850" y1="150" x2="850" y2="175" style="stroke:black;stroke-width:2" />
-  <line x1="625" y1="175" x2="850" y2="175" style="stroke:black;stroke-width:2" />
-  <line x1="625" y1="175" x2="625" y2="200" style="stroke:black;stroke-width:2" />
+  <!-- BSIG1 -->
+  <line x1="450" y1="150" x2="450" y2="175" style="stroke:black;stroke-width:2" />
+  <line x1="450" y1="175" x2="550" y2="175" style="stroke:black;stroke-width:2" />
+  <line x1="550" y1="175" x2="550" y2="200" style="stroke:black;stroke-width:2" />
+
+  <!-- CH -->
+  <line x1="600" y1="150" x2="600" y2="200" style="stroke:black;stroke-width:2" />
+
+  <!-- C+ -->
+  <line x1="900" y1="150" x2="900" y2="175" style="stroke:black;stroke-width:2" />
+  <line x1="850" y1="175" x2="900" y2="175" style="stroke:black;stroke-width:2" />
+  <line x1="850" y1="175" x2="850" y2="200" style="stroke:black;stroke-width:2" />
 
   <!-- + BSIG0/MAJ-->
-  <line x1="75" y1="250" x2="75" y2="300" style="stroke:black;stroke-width:2" />
+  <line x1="75" y1="250" x2="75" y2="400" style="stroke:black;stroke-width:2" />
+
+  <!-- + BSIG1/CH-->
+  <line x1="575" y1="250" x2="575" y2="300" style="stroke:black;stroke-width:2" />
+
+  <!-- + H/I -->
+  <line x1="825" y1="250" x2="825" y2="275" style="stroke:black;stroke-width:2" />
+  <line x1="625" y1="275" x2="825" y2="275" style="stroke:black;stroke-width:2" />
+  <line x1="625" y1="275" x2="625" y2="300" style="stroke:black;stroke-width:2" />
 
   <!-- + (BSIG1/CH)/(H/I) -->
-  <line x1="600" y1="250" x2="600" y2="275" style="stroke:black;stroke-width:2" />
-  <line x1="125" y1="275" x2="600" y2="275" style="stroke:black;stroke-width:2" />
-  <line x1="125" y1="275" x2="125" y2="300" style="stroke:black;stroke-width:2" />
-  <line x1="525" y1="275" x2="525" y2="300" style="stroke:black;stroke-width:2" />
-  <circle cx ="525" cy ="275" r ="5" />
+  <line x1="600" y1="350" x2="600" y2="375" style="stroke:black;stroke-width:2" />
+  <line x1="125" y1="375" x2="600" y2="375" style="stroke:black;stroke-width:2" />
+  <line x1="125" y1="375" x2="125" y2="400" style="stroke:black;stroke-width:2" />
+  <line x1="525" y1="375" x2="525" y2="400" style="stroke:black;stroke-width:2" />
+  <circle cx ="525" cy ="375" r ="5" />
 
   <!-- A -->
-  <line x1="100" y1="350" x2="100" y2="400" style="stroke:black;stroke-width:2" />
+  <line x1="100" y1="450" x2="100" y2="500" style="stroke:black;stroke-width:2" />
 
   <!-- E -->
-  <line x1="500" y1="350" x2="500" y2="400" style="stroke:black;stroke-width:2" />
+  <line x1="500" y1="450" x2="500" y2="500" style="stroke:black;stroke-width:2" />
 
 </svg>

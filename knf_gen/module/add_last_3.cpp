@@ -74,6 +74,7 @@ void Add_Last_3::create(Printer* printer) {
     //               s_out[0]    s_out[1]    s_out[2]    a_in[0]        a_in[1]        a_in[2]    b_in[0]        b_in[1]        b_in[2]       c_in
     cc.printClause(10,      1,          1,          0,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,             0,         0);
     cc.printClause(10,      1,          1,          0,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,             1,         0);
+    cc.printClause(10,      1,          1,          1,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,             1,         0);
 #endif
 }
 
@@ -82,6 +83,7 @@ MU_TEST_C(Add_Last_3::test) {
         for (unsigned b = 0; b < 8; b++) {
             for (unsigned c = 0; c < 2; c++) {
                 SATSolver solver;
+                solver.set_verbosity(0);
                 solver.log_to_file("test.log");
 
                 uint32_t ausgabe = a + b + c;

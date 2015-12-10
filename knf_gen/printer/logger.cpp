@@ -9,8 +9,8 @@ using std::setfill;
 using namespace CMSat;
 
 Logger::Logger(const char* filename) : FilePrinter(filename) {
-    getStream() << "| Level |           Name |                                 Inputs |     Start |   Output |\n";
-    getStream() << "|-------|----------------|----------------------------------------|-----------|----------|\n";
+    getStream() << "| Level |           Name |                                 Inputs |       Start |    Output |\n";
+    getStream() << "|-------|----------------|----------------------------------------|-------------|-----------|\n";
 }
 
 Logger::~Logger() {
@@ -24,7 +24,8 @@ void Logger::newModul(unsigned level, const char* name, Modul* modul) {
 
     for (unsigned i = 0; i < 4; i++) {
         if (i == 3 && modul->getInputs().size() > 4) {
-            getStream() << "  ........";
+            // getStream().setf(std::ios::showpos);  TODO          + dont work yet :S
+            getStream() << "  " << setfill('.') << setw(8) << /*std::internal << std::showpos <<*/ modul->getInputs().size() - 3;
             break;
         }
         if (i < modul->getInputs().size()) {
@@ -36,14 +37,14 @@ void Logger::newModul(unsigned level, const char* name, Modul* modul) {
     }
 
     if (modul->getAdditionalVarCount() - modul->getOutputNum() == 0) {
-        getStream() << " |          ";
+        getStream() << " |            ";
     } else {
         getStream() << " | " << setfill(' ') << setw(5) << modul->getStart() + 1;
-        getStream() << "-" << setfill('0') << setw(3) << modul->getAdditionalVarCount() - modul->getOutputNum();
+        getStream() << "-" << setfill('0') << setw(5) << modul->getAdditionalVarCount() - modul->getOutputNum();
     }
 
     getStream() << " | " << setfill(' ') << setw(5) << modul->getOutput() + 1;
-    getStream() << "-" << setfill('0') << setw(2) << modul->getOutputNum();
+    getStream() << "-" << setfill('0') << setw(3) << modul->getOutputNum();
 
     getStream() << " |\n" << std::flush;
 }

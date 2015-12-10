@@ -24,6 +24,7 @@ class ModulDB : public Printer {
         ModulEntry* isInSingleModul(std::vector<CMSat::Lit>& clause);
     private:
         std::vector<ModulEntry> module;
+        unsigned lvl10_start;
 };
 
 #endif //__MODULDB_H__

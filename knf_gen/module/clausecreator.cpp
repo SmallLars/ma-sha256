@@ -25,6 +25,15 @@ void ClauseCreator::setLiterals(unsigned n_args, ...) {
     va_end(ap);
 }
 
+void ClauseCreator::addLiterals(unsigned n_args, ...) {
+    va_list ap;
+    va_start(ap, n_args);
+    for (unsigned i = 0; i < n_args; i++) {
+        literals.push_back(va_arg(ap, unsigned));
+    }
+    va_end(ap);
+}
+
 void ClauseCreator::printClause(unsigned n_args, ...) {
     assert(literals.size() == n_args);
     vector<Lit> clause;

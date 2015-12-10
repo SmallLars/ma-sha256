@@ -11,6 +11,11 @@ bool compareClause::operator() (const vector<Lit>& lhs, const vector<Lit>& rhs) 
         return lhs.size() < rhs.size();
 
     for (unsigned i = 0; i < lhs.size(); i++) {
+       if (lhs[i].var() != rhs[i].var())
+           return lhs[i].var() < rhs[i].var();
+    }
+
+    for (unsigned i = 0; i < lhs.size(); i++) {
        if (lhs[i].toInt() != rhs[i].toInt())
            return lhs[i].toInt() < rhs[i].toInt();
     }

@@ -13,6 +13,7 @@ class ClauseCreator {
         ~ClauseCreator();
 
         void setLiterals(unsigned n_args, ...);
+        void addLiterals(unsigned n_args, ...);
         void printClause(unsigned n_args, ...);
     protected:
 

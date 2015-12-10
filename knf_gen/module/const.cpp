@@ -56,6 +56,7 @@ MU_TEST_C(Const::test) {
     for (unsigned lsb = 0; lsb < 2; lsb++) {
         for (unsigned t = 0; t < 10; t++) {
             SATSolver solver;
+            solver.set_verbosity(0);
             solver.log_to_file("test.log");
 
             Const c(width[t], value[t], lsb);
