@@ -92,7 +92,7 @@ uint64_t str_to_int(const char str[8]) {
     uint64_t result = 0;
     for (int i = 0; i < 8; i++) {
         result <<= 8;
-        result += str[i];
+        result |= (str[i] & 0xFF);
     }
     return result;
 }
@@ -104,7 +104,7 @@ void int_to_str(char* str, uint64_t value) {
     }
 }
 
-int main() {
+int test() {
     printf("%016llx\n", initial_permutation(0xAAAAAAAAAAAAAAAA));
     printf("%016llx\n", initial_permutation(0x0000000000000001));
     printf("%016llx\n", initial_permutation(0x0000000000000002));
@@ -138,4 +138,5 @@ int main() {
     printf("\n");
     printf("expected: 63b3483052d96648 - result: %016llx\n", final_permutation_reverse(0x70d80826b159ee30));
     printf("expected: 63b3483052d96648 - result: %016llx\n", final_permutation_reverse(str_to_int("\x70\xD8\x08\x26\xB1\x59\xEE\x30")));
+    printf("expected: 70d80826b159ee30 - result: %016llx\n", str_to_int("\x70\xD8\x08\x26\xB1\x59\xEE\x30"));
 }

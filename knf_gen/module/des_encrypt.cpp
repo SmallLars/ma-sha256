@@ -81,7 +81,7 @@ MU_TEST_C(Des_Encrypt::test) {
     }
 
     const char* plaintext[] = {"LarsJens"};
-    const char* key[] = {"KeorM`rr", "JensLars"};
+    const char* key[] = {"KeorM`rr"};
     const char* ciphertext[] = {"\x70\xD8\x08\x26\xB1\x59\xEE\x30"};
 
     for (unsigned t = 0; t < 1; t++) {
@@ -98,26 +98,17 @@ MU_TEST_C(Des_Encrypt::test) {
         mu_assert(ret == l_True, "DES_Encrypt UNSAT");
 
         uint64_t value;
-        char str[9];
-        str[8] = 0;
-        printf("\n");
 
-        value = solver_readInt_msb(solver, 0, 64);
-        int_to_str(str, initial_permutation_reverse(value));
-        printf("Plaintext: %s\n", str);
+        value = initial_permutation_reverse(solver_readInt_msb(solver, 0, 64));
+        mu_assert(value = str_to_int(plaintext[t]), "DES_Encrypt failed");
 
-        value = solver_readInt_msb(solver, 64, 56);
-        int_to_str(str, key_initial_permutation_reverse(value));
-        printf("Key: %s\n", str);
+        value = key_initial_permutation_reverse(solver_readInt_msb(solver, 64, 56));
+        mu_assert(value = str_to_int(key[t]), "DES_Encrypt failed");
 
-        value = solver_readInt_msb(solver, des_encrypt.getOutput(), 64);
-        int_to_str(str, final_permutation(value));
-        printf("Ciphertext: %s (%016lx)\n", str, final_permutation(value));
+        value = final_permutation(solver_readInt_msb(solver, des_encrypt.getOutput(), 64));
+        mu_assert(value = str_to_int(ciphertext[t]), "DES_Encrypt failed");
 
         value = final_permutation_reverse(str_to_int(ciphertext[t]));
-        printf("CipherInt: %016lx\n", str_to_int(ciphertext[t]));
-        printf("SatRevInt: %016lx\n", value);
-        printf("SatInt   : %016lx\n", solver_readInt_msb(solver, des_encrypt.getOutput(), 64));
         mu_assert(value == solver_readInt_msb(solver, des_encrypt.getOutput(), 64), "DES_Encrypt failed");
     }
 }
