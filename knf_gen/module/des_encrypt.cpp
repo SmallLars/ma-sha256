@@ -80,9 +80,12 @@ MU_TEST_C(Des_Encrypt::test) {
         mu_assert(out[t] == solver_readInt_msb(solver, des_encrypt.getOutput(), 64), "DES_Encrypt failed");
     }
 
-    const char* plaintext[] = {"LarsJens"};
-    const char* key[] = {"KeorM`rr"};
-    const char* ciphertext[] = {"\x70\xD8\x08\x26\xB1\x59\xEE\x30"};
+    const char* plaintext[] = {"LarsJens", "01234567", "hummhumm", "\x13\x37\xDE\xAD\xBE\xEF\x20\x15"};
+    const char* key[] = {"KeorM`rr", "ABCDEFGH", "morsmors", "password"};
+    const char* ciphertext[] = {"\x70\xD8\x08\x26\xB1\x59\xEE\x30",
+                                "\x5B\xD7\xDE\x16\x5B\xB6\x9D\x60",
+                                "\x48\x73\xE2\x6C\x64\x45\xE9\x52",
+                                "\x04\x63\xFE\x85\xBD\x09\x89\xAF"};
 
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
@@ -103,7 +106,7 @@ MU_TEST_C(Des_Encrypt::test) {
         mu_assert(value = str_to_int(plaintext[t]), "DES_Encrypt failed");
 
         value = key_initial_permutation_reverse(solver_readInt_msb(solver, 64, 56));
-        mu_assert(value = str_to_int(key[t]), "DES_Encrypt failed");
+        mu_assert(value = key_set_parity_bits(str_to_int(key[t])), "DES_Encrypt failed");
 
         value = final_permutation(solver_readInt_msb(solver, des_encrypt.getOutput(), 64));
         mu_assert(value = str_to_int(ciphertext[t]), "DES_Encrypt failed");
