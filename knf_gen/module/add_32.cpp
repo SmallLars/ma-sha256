@@ -136,7 +136,7 @@ void Add_32::create(Printer* printer) {
     add_last_3.setInputs(subinputs);
     add_last_3.setOutput(output + 29);
     add_last_3.create(printer);
-/*
+
     // Half adder 4
     subinputs.clear();
     subinputs.push_back(inputs[0]);
@@ -169,7 +169,6 @@ void Add_32::create(Printer* printer) {
     add_last_4.setInputs(subinputs);
     add_last_4.setOutput(output + 28);
     add_last_4.create(printer);
-*/
 
     ClauseCreator cc(printer);
     //                      65         66      96          97          1              2         33             34

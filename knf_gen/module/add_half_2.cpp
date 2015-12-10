@@ -55,6 +55,9 @@ void Add_Half_2::create(Printer* printer) {
     cc.printClause(7,     0,      0,          0,     CC_DC,         CC_DC,     CC_DC,         CC_DC);
     cc.printClause(7,     1,  CC_DC,      CC_DC,         0,             0,         0,         CC_DC);
     cc.printClause(7, CC_DC,      0,          1,     CC_DC,             0,     CC_DC,             1);
+    cc.printClause(7,     1,  CC_DC,          1,         0,         CC_DC,         0,         CC_DC);
+    cc.printClause(7,     1,      1,          1,         0,         CC_DC,     CC_DC,         CC_DC);
+    cc.printClause(7,     1,      1,          1,     CC_DC,         CC_DC,         0,         CC_DC);
 #endif
 }
 

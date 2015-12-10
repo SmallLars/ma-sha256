@@ -199,6 +199,7 @@ void Add_Prepare_32::mirror_block(ClauseCreator &cc, unsigned i, unsigned j, uns
     cc.printClause(5,             1,         0,             1,       CC_DC,          1);
     cc.printClause(5,             0,         0,             1,       CC_DC,          0);
     cc.printClause(5,             0,     CC_DC,             0,           0,          0);
+    cc.printClause(5,         CC_DC,         0,         CC_DC,           0,      CC_DC);
 
     //                      225            226            258              321         351         352
     //                      288            289            195              321         351         352
