@@ -86,6 +86,7 @@ MU_TEST_C(Des_Encrypt::test) {
 
     for (unsigned t = 0; t < 1; t++) {
         SATSolver solver;
+        solver.set_verbosity(0);
         solver.log_to_file("test.log");
 
         solver_writeInt_msb(solver,  0, 64, initial_permutation(str_to_int(plaintext[t])));

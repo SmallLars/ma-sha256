@@ -1,6 +1,8 @@
 #ifndef __DES_F_H__
 #define __DES_F_H__
 
+#include <stdint.h>
+
 #include "modul.h"
 #include "../common/minunit.h"
 
@@ -15,14 +17,14 @@
 
 class Des_F : public Modul {
     public:
-        Des_F(uint round);
+        Des_F(uint32_t round);
         ~Des_F();
 
         unsigned* getStats();
         void create(Printer* printer);
         MU_TEST_H(test);
     private:
-        uint round;
+        uint32_t round;
         static unsigned stats[STATS_LENGTH];
 };
 

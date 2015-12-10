@@ -128,6 +128,7 @@ MU_TEST_C(Des_SBox_8::test) {
 
     for (unsigned t = 0; t < 64; t++) {
         SATSolver solver;
+        solver.set_verbosity(0);
         solver.log_to_file("test.log");
 
         solver_writeInt_msb(solver, 0, 6, in[t]);

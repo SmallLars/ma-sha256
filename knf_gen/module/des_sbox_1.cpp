@@ -125,6 +125,7 @@ unsigned out[]  = {0x0e, 0x00, 0x04, 0x0f, 0x0d, 0x07, 0x01, 0x04,
 
     for (unsigned t = 0; t < 64; t++) {
         SATSolver solver;
+        solver.set_verbosity(0);
         solver.log_to_file("test.log");
 
         solver_writeInt_msb(solver, 0, 6, in[t]);

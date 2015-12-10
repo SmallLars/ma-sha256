@@ -11,7 +11,7 @@ using namespace CMSat;
 
 unsigned Des_Round::stats[STATS_LENGTH];
 
-Des_Round::Des_Round(uint round) : Modul(32, 3, 1) {
+Des_Round::Des_Round(uint32_t round) : Modul(32, 3, 1) {
     setInputsBitWidth(32, 32, 56); //l, r, k
     this->round = round;
     Des_F des_f(round);
@@ -57,6 +57,7 @@ MU_TEST_C(Des_Round::test) {
 
     for (unsigned t = 0; t < 5; t++) {
         SATSolver solver;
+        solver.set_verbosity(0);
         solver.log_to_file("test.log");
 
         solver_writeInt_msb(solver,  0, 32, l[t]);
