@@ -7,6 +7,7 @@
 using namespace CMSat;
 
 unsigned Add_Full_4::stats[STATS_LENGTH];
+static bool fullCNF = false;
 
 Add_Full_4::Add_Full_4() : Modul(3, 3, 1) {
     setInputsBitWidth(4, 4, 1);
@@ -30,6 +31,12 @@ void Add_Full_4::create(Printer* printer) {
     cc.addLiterals(4, inputs[0], inputs[0] + 1, inputs[0] + 2, inputs[0] + 3);
     //                  b_in[0]        b_in[1]        b_in[2]        b_in[3]       c_in
     cc.addLiterals(5, inputs[1], inputs[1] + 1, inputs[1] + 2, inputs[1] + 3, inputs[2]);
+
+    //                    10     11     12     13     14      1      2      3      4      5      6      7      8      9
+    cc.printClause(14,     0, CC_DC, CC_DC, CC_DC,     0,     1,     1, CC_DC, CC_DC,     1, CC_DC, CC_DC,     1, CC_DC);
+    cc.printClause(14,     0, CC_DC,     0, CC_DC,     0, CC_DC,     1, CC_DC, CC_DC, CC_DC, CC_DC, CC_DC,     1,     1);
+
+    if (!fullCNF) return;
 
     cc.printClause(14, CC_DC,     0, CC_DC,     0,     0, CC_DC,     1, CC_DC,     1, CC_DC, CC_DC, CC_DC,     1,     1);
     cc.printClause(14, CC_DC, CC_DC, CC_DC,     0,     0,     1,     1, CC_DC,     1,     1, CC_DC, CC_DC,     1, CC_DC);
@@ -105,10 +112,6 @@ void Add_Full_4::create(Printer* printer) {
     cc.printClause(14,     0, CC_DC, CC_DC, CC_DC, CC_DC, CC_DC, CC_DC, CC_DC,     1, CC_DC, CC_DC, CC_DC,     1, CC_DC);
     cc.printClause(14, CC_DC,     0, CC_DC, CC_DC, CC_DC,     1, CC_DC, CC_DC, CC_DC,     1, CC_DC, CC_DC, CC_DC,     1);
     cc.printClause(14, CC_DC,     1, CC_DC, CC_DC, CC_DC,     0, CC_DC, CC_DC, CC_DC,     0, CC_DC, CC_DC, CC_DC,     0);
-
-#ifdef ADDITIONAL_CLAUSES
-
-#endif
 }
 
 MU_TEST_C(Add_Full_4::test) {
@@ -126,7 +129,9 @@ MU_TEST_C(Add_Full_4::test) {
                 solver_writeInt(solver, 8, 1, c);
 
                 Add_Full_4 adder;
+                fullCNF = true;
                 adder.append(&solver);
+                fullCNF = false;
 
                 lbool ret = solver.solve();
                 mu_assert(ret == l_True, "FullAdder UNSAT");

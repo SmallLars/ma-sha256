@@ -23,31 +23,38 @@ void Add_Half_1::create(Printer* printer) {
     printer->newModul(0, "Add_Half_1", this);
 
     ClauseCreator cc(printer);
-#ifdef XOR_OPTIMIZATION
+    //                c_out   s_out       a_in       b_in
+    cc.setLiterals(4, start, output, inputs[0], inputs[1]);
+
+#ifdef XOR_SUPPORT
     // AND ->          c_out       a_in       b_in
     createAND(printer, start, inputs[0], inputs[1]);
 
     // XOR ->          !s_out       a_in       b_in
     createXOR(printer, output, inputs[0], inputs[1]);
+
+    #ifdef ADDITIONAL_CLAUSES
+        //                    3       4          1          2
+        cc.printClause(4,     0,      0,     CC_DC,     CC_DC);
+        cc.printClause(4,     1,      1,         0,     CC_DC);
+        cc.printClause(4,     1,      1,     CC_DC,         0);
+    #endif
 #else
-    //                 c_out  s_out       a_in       b_in
-    cc.setLiterals(4, start, output, inputs[0], inputs[1]);
+    //                    3       4          1          2
     cc.printClause(4, CC_DC,      0,         1,         1);
     cc.printClause(4,     0,      0,     CC_DC,     CC_DC);
     cc.printClause(4,     0,  CC_DC,     CC_DC,         1);
     cc.printClause(4,     1,  CC_DC,         0,         0);
     cc.printClause(4, CC_DC,      1,         1,         0);
     cc.printClause(4, CC_DC,      1,         0,         1);
-#endif
 
-#ifdef ADDITIONAL_CLAUSES
-    //                   3      4           1          2
-    //                 c_out  s_out       a_in       b_in
-    cc.setLiterals(4, start, output, inputs[0], inputs[1]);
-    cc.printClause(4,     1,      1,         0,     CC_DC);
-    cc.printClause(4,     0,  CC_DC,         1,         0);
-    cc.printClause(4,     0,  CC_DC,         0,         1);
-    cc.printClause(4,     1,      1,     CC_DC,         0);
+    #ifdef ADDITIONAL_CLAUSES
+        //                    3       4          1          2
+        cc.printClause(4,     0,  CC_DC,         1,     CC_DC);
+        cc.printClause(4, CC_DC,      0,         0,         0);
+        cc.printClause(4,     1,      1,         0,     CC_DC);
+        cc.printClause(4,     1,      1,     CC_DC,         0);
+    #endif
 #endif
 }
 

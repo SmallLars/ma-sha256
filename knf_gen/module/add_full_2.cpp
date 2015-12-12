@@ -7,6 +7,7 @@
 using namespace CMSat;
 
 unsigned Add_Full_2::stats[STATS_LENGTH];
+static bool fullCNF = false;
 
 Add_Full_2::Add_Full_2() : Modul(2, 3, 1) {
     setInputsBitWidth(2, 2, 1);
@@ -26,6 +27,70 @@ void Add_Full_2::create(Printer* printer) {
     ClauseCreator cc(printer);
     //                c_out  s_out[0]  s_out[1]    a_in[0]        a_in[1]    b_in[0]        b_in[1]       c_in
     cc.setLiterals(8, start, output, output + 1, inputs[0], inputs[0] + 1, inputs[1], inputs[1] + 1, inputs[2]);
+
+    //                    6       7           8          1              2          3              4          5
+    cc.printClause(8,     0,  CC_DC,      CC_DC,         1,             1,         1,         CC_DC,     CC_DC);
+    cc.printClause(8,     0,      0,      CC_DC,         1,             1,     CC_DC,         CC_DC,     CC_DC);
+    cc.printClause(8,     0,  CC_DC,      CC_DC,         1,         CC_DC,         1,             1,     CC_DC);
+    cc.printClause(8,     1,  CC_DC,      CC_DC,         0,         CC_DC,         0,             0,     CC_DC);
+    cc.printClause(8,     0,  CC_DC,          0,         1,         CC_DC,         1,         CC_DC,     CC_DC);
+    cc.printClause(8,     1,  CC_DC,          1,         0,         CC_DC,         0,         CC_DC,     CC_DC);
+    cc.printClause(8,     0,  CC_DC,      CC_DC,         1,         CC_DC,     CC_DC,             1,         1);
+    cc.printClause(8,     1,  CC_DC,      CC_DC,         0,         CC_DC,     CC_DC,             0,         0);
+    cc.printClause(8,     0,  CC_DC,          0,         1,         CC_DC,     CC_DC,         CC_DC,         1);
+    cc.printClause(8,     0,      0,          0,         1,         CC_DC,     CC_DC,         CC_DC,     CC_DC);
+    cc.printClause(8,     1,      1,          1,         0,         CC_DC,     CC_DC,         CC_DC,     CC_DC);
+    cc.printClause(8,     0,      0,      CC_DC,     CC_DC,             1,         1,         CC_DC,     CC_DC);
+    cc.printClause(8,     0,      0,      CC_DC,     CC_DC,             1,     CC_DC,         CC_DC,         1);
+    cc.printClause(8,     1,      1,      CC_DC,     CC_DC,             0,     CC_DC,         CC_DC,         0);
+    cc.printClause(8,     0,      0,      CC_DC,     CC_DC,         CC_DC,         1,             1,     CC_DC);
+    cc.printClause(8,     1,      1,      CC_DC,     CC_DC,         CC_DC,         0,             0,     CC_DC);
+    cc.printClause(8,     0,      0,          0,     CC_DC,         CC_DC,         1,         CC_DC,     CC_DC);
+    cc.printClause(8,     1,      1,          1,     CC_DC,         CC_DC,         0,         CC_DC,     CC_DC);
+    cc.printClause(8,     0,      0,      CC_DC,     CC_DC,         CC_DC,     CC_DC,             1,         1);
+    cc.printClause(8,     1,      1,      CC_DC,     CC_DC,         CC_DC,     CC_DC,             0,         0);
+    cc.printClause(8,     0,      0,          0,     CC_DC,         CC_DC,     CC_DC,         CC_DC,         1);
+    cc.printClause(8,     1,      1,          1,     CC_DC,         CC_DC,     CC_DC,         CC_DC,         0);
+    cc.printClause(8, CC_DC,  CC_DC,          0,         1,             1,         1,             1,     CC_DC);
+    cc.printClause(8, CC_DC,  CC_DC,          1,         1,             1,         1,             0,     CC_DC);
+    cc.printClause(8, CC_DC,  CC_DC,          1,         1,             0,         1,             1,     CC_DC);
+    cc.printClause(8, CC_DC,  CC_DC,          0,         1,             0,         1,             0,     CC_DC);
+    cc.printClause(8, CC_DC,  CC_DC,          1,         0,             1,         0,             1,     CC_DC);
+    cc.printClause(8, CC_DC,  CC_DC,          0,         0,             1,         0,             0,     CC_DC);
+    cc.printClause(8, CC_DC,  CC_DC,          0,         0,             0,         0,             1,     CC_DC);
+    cc.printClause(8, CC_DC,  CC_DC,          1,         0,             0,         0,             0,     CC_DC);
+    cc.printClause(8, CC_DC,  CC_DC,          0,         1,             1,     CC_DC,             1,         1);
+    cc.printClause(8, CC_DC,  CC_DC,          1,         1,             1,     CC_DC,             0,         1);
+    cc.printClause(8, CC_DC,  CC_DC,          0,         1,             0,     CC_DC,             0,         1);
+    cc.printClause(8, CC_DC,  CC_DC,          1,         0,             1,     CC_DC,             1,         0);
+    cc.printClause(8, CC_DC,  CC_DC,          0,         0,             0,     CC_DC,             1,         0);
+    cc.printClause(8, CC_DC,  CC_DC,          1,         0,             0,     CC_DC,             0,         0);
+    cc.printClause(8, CC_DC,      0,          0,         1,             1,     CC_DC,             1,     CC_DC);
+    cc.printClause(8, CC_DC,      0,          1,         1,             0,     CC_DC,             1,     CC_DC);
+    cc.printClause(8, CC_DC,      0,          0,         1,             0,     CC_DC,             0,     CC_DC);
+    cc.printClause(8, CC_DC,      1,          0,         0,             0,     CC_DC,             1,     CC_DC);
+    cc.printClause(8, CC_DC,  CC_DC,          0,     CC_DC,             1,         1,             1,         1);
+    cc.printClause(8, CC_DC,  CC_DC,          1,     CC_DC,             0,         1,             1,         1);
+    cc.printClause(8, CC_DC,  CC_DC,          0,     CC_DC,             0,         1,             0,         1);
+    cc.printClause(8, CC_DC,      0,          0,     CC_DC,             1,         1,             1,     CC_DC);
+    cc.printClause(8, CC_DC,      0,          1,     CC_DC,             1,         1,             0,     CC_DC);
+    cc.printClause(8, CC_DC,      1,          1,     CC_DC,             1,         0,             1,     CC_DC);
+    cc.printClause(8, CC_DC,      1,          0,     CC_DC,             1,         0,             0,     CC_DC);
+    cc.printClause(8, CC_DC,      0,          1,     CC_DC,             0,         1,             1,     CC_DC);
+    cc.printClause(8, CC_DC,      0,          0,     CC_DC,             0,         1,             0,     CC_DC);
+    cc.printClause(8, CC_DC,      1,          0,     CC_DC,             0,         0,             1,     CC_DC);
+    cc.printClause(8, CC_DC,      1,          1,     CC_DC,             0,         0,             0,     CC_DC);
+    cc.printClause(8, CC_DC,      0,          0,     CC_DC,             1,     CC_DC,             1,         1);
+    cc.printClause(8, CC_DC,      1,          1,     CC_DC,             1,     CC_DC,             1,         0);
+    cc.printClause(8, CC_DC,      0,          1,     CC_DC,             1,     CC_DC,             0,         1);
+    cc.printClause(8, CC_DC,      1,          0,     CC_DC,             1,     CC_DC,             0,         0);
+    cc.printClause(8, CC_DC,      0,          1,     CC_DC,             0,     CC_DC,             1,         1);
+    cc.printClause(8, CC_DC,      1,          0,     CC_DC,             0,     CC_DC,             1,         0);
+    cc.printClause(8, CC_DC,      0,          0,     CC_DC,             0,     CC_DC,             0,         1);
+    cc.printClause(8, CC_DC,      1,          1,     CC_DC,             0,     CC_DC,             0,         0);
+
+    if (!fullCNF) return;
+
     cc.printClause(8, CC_DC,      1,      CC_DC,         0,         CC_DC,         0,         CC_DC,         0);
     cc.printClause(8, CC_DC,      0,      CC_DC,         1,         CC_DC,         1,         CC_DC,         1);
     cc.printClause(8,     1,  CC_DC,          1,     CC_DC,             0,     CC_DC,         CC_DC,     CC_DC);
@@ -50,30 +115,6 @@ void Add_Full_2::create(Printer* printer) {
     cc.printClause(8, CC_DC,      0,          0,     CC_DC,             0,     CC_DC,             0,         1);
     cc.printClause(8, CC_DC,      0,          1,     CC_DC,             1,     CC_DC,             0,         1);
     cc.printClause(8, CC_DC,      0,          0,     CC_DC,             1,     CC_DC,             1,         1);
-
-#ifdef ADDITIONAL_CLAUSES
-    //                  6       7        8          1                 2        3             4             5
-    //                c_out  s_out[0]  s_out[1]    a_in[0]        a_in[1]    b_in[0]        b_in[1]       c_in
-    cc.printClause(8,     1,      1,      CC_DC,     CC_DC,             0,     CC_DC,         CC_DC,         0);
-    cc.printClause(8,     0,      0,          0,     CC_DC,         CC_DC,     CC_DC,         CC_DC,         1);
-    cc.printClause(8,     1,      1,          1,     CC_DC,         CC_DC,     CC_DC,         CC_DC,         0);
-    cc.printClause(8, CC_DC,  CC_DC,          0,         1,             1,     CC_DC,             1,         1);
-    cc.printClause(8, CC_DC,  CC_DC,          0,         1,             0,     CC_DC,             0,         1);
-    cc.printClause(8, CC_DC,  CC_DC,          1,         0,             1,     CC_DC,             1,         0);
-    cc.printClause(8, CC_DC,  CC_DC,          1,         0,             0,     CC_DC,             0,         0);
-    cc.printClause(8,     0,   CC_DC,          0,         1,         CC_DC,         1,         CC_DC,     CC_DC);
-    cc.printClause(8,     1,   CC_DC,          1,         0,         CC_DC,         0,         CC_DC,     CC_DC);
-    cc.printClause(8,     0,       0,      CC_DC,     CC_DC,             1,     CC_DC,         CC_DC,         1);
-    cc.printClause(8,     0,       0,          0,     CC_DC,         CC_DC,         1,         CC_DC,     CC_DC);
-    cc.printClause(8,     1,       1,          1,     CC_DC,         CC_DC,         0,         CC_DC,     CC_DC);
-    cc.printClause(8,     1,       1,          1,     CC_DC,         CC_DC,     CC_DC,         CC_DC,         0);
-    cc.printClause(8,     1,       1,          1,         0,         CC_DC,     CC_DC,         CC_DC,     CC_DC);
-    cc.printClause(8,     0,   CC_DC,          0,         1,         CC_DC,     CC_DC,         CC_DC,         1);
-    cc.printClause(8,     0,   CC_DC,      CC_DC,         1,         CC_DC,     CC_DC,             1,         1);
-    cc.printClause(8,     1,   CC_DC,      CC_DC,         0,         CC_DC,     CC_DC,             0,         0);
-    cc.printClause(8, CC_DC,   CC_DC,          1,         1,             1,     CC_DC,             0,         1);
-    cc.printClause(8, CC_DC,   CC_DC,          0,         0,             0,     CC_DC,             1,         0);
-#endif
 }
 
 MU_TEST_C(Add_Full_2::test) {
@@ -91,7 +132,9 @@ MU_TEST_C(Add_Full_2::test) {
                 solver_writeInt(solver, 4, 1, c);
 
                 Add_Full_2 adder;
+                fullCNF = true;
                 adder.append(&solver);
+                fullCNF = false;
 
                 lbool ret = solver.solve();
                 mu_assert(ret == l_True, "FullAdder UNSAT");
