@@ -26,8 +26,8 @@ using std::flush;
 using namespace CMSat;
 
 int main(int argc, const char* argv[]) {
-    if (argc != 3) {
-        cout << "Usage: clausesorter <IN_FILE> <OUT_FILE>\n";
+    if (argc != 4) {
+        cout << "Usage: clausesorter <IN_FILE> <OUT_FILE> <DUP_FILE>\n";
         return 0;
     }
 
@@ -51,8 +51,9 @@ int main(int argc, const char* argv[]) {
         cout << flush;
     }
     cout << "\nFinished reading. Try to remove useless clauses.\n";
-    counter = counter - clause_pool.size();
+    counter -= clause_pool.size();
 
+    ofstream dup_out(argv[3]);
     unsigned counter1 = 0;
     set< vector<Lit> >::reverse_iterator rit;
     set< vector<Lit> >::iterator it;
@@ -67,16 +68,16 @@ int main(int argc, const char* argv[]) {
                 }
             }
             if (check) {
-                // cout << "USELESS: ";
-                // printClause(cout, *rit);
+                printClause(dup_out, *rit);
                 clause_pool.erase(*(rit--));
                 it = clause_pool.end();
             }
         }
-        printf("\r%u / %zu - Already removed %zu useless clauses.", counter1, clause_pool.size(), linecount - counter - clause_pool.size());
+        printf("\r%u / %u - Already removed %zu useless clauses.", counter1, linecount - counter, linecount - counter - clause_pool.size());
         printf(" Working on Clause with %zu literals.", rit->size());
         cout << flush;
     }
+    dup_out.close();
 
     ofstream i_out(argv[2]);
     for (it = clause_pool.begin(); it != clause_pool.end(); ++it) {
