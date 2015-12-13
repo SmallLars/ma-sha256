@@ -46,12 +46,12 @@ void Add_Full_1::create(Printer* printer) {
         cc.printClause(5,     1,      1,     CC_DC,         0,     CC_DC);
         cc.printClause(5,     0,      0,     CC_DC,     CC_DC,         1);
         cc.printClause(5,     1,      1,     CC_DC,     CC_DC,         0);
-        cc.printClause(5,     0,  CC_DC,         1,         1,         0);
-        cc.printClause(5,     0,  CC_DC,         1,         0,         1);
-        cc.printClause(5,     1,  CC_DC,         1,         0,         0);
-        cc.printClause(5,     0,  CC_DC,         0,         1,         1);
-        cc.printClause(5,     1,  CC_DC,         0,         1,         0);
-        cc.printClause(5,     1,  CC_DC,         0,         0,         1);
+        //XXX cc.printClause(5,     0,  CC_DC,         1,         1,         0);
+        //XXX cc.printClause(5,     0,  CC_DC,         1,         0,         1);
+        //XXX cc.printClause(5,     1,  CC_DC,         1,         0,         0);
+        //XXX cc.printClause(5,     0,  CC_DC,         0,         1,         1);
+        //XXX cc.printClause(5,     1,  CC_DC,         0,         1,         0);
+        //XXX cc.printClause(5,     1,  CC_DC,         0,         0,         1);
     #endif
 #else
     //                    4       5          1          2          3
@@ -76,12 +76,12 @@ void Add_Full_1::create(Printer* printer) {
         cc.printClause(5,     1,  CC_DC,     CC_DC,         0,         0);
         cc.printClause(5,     0,      0,     CC_DC,         1,     CC_DC);
         cc.printClause(5,     1,      1,     CC_DC,         0,     CC_DC);
-        cc.printClause(5,     0,  CC_DC,         1,         1,         0);
-        cc.printClause(5,     0,  CC_DC,         1,         0,         1);
-        cc.printClause(5,     1,  CC_DC,         1,         0,         0);
-        cc.printClause(5,     0,  CC_DC,         0,         1,         1);
-        cc.printClause(5,     1,  CC_DC,         0,         1,         0);
-        cc.printClause(5,     1,  CC_DC,         0,         0,         1);
+        //XXX cc.printClause(5,     0,  CC_DC,         1,         1,         0);
+        //XXX cc.printClause(5,     0,  CC_DC,         1,         0,         1);
+        //XXX cc.printClause(5,     1,  CC_DC,         1,         0,         0);
+        //XXX cc.printClause(5,     0,  CC_DC,         0,         1,         1);
+        //XXX cc.printClause(5,     1,  CC_DC,         0,         1,         0);
+        //XXX cc.printClause(5,     1,  CC_DC,         0,         0,         1);
         cc.printClause(5, CC_DC,      1,         1,         1,         0);
         cc.printClause(5, CC_DC,      0,         0,         0,         1);
     #endif
