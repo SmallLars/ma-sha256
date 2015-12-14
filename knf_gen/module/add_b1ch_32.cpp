@@ -62,36 +62,40 @@ void Add_B1Ch_32::create(Printer* printer) {
 #ifdef ADDITIONAL_CLAUSES
     ClauseCreator cc(printer);
     for (unsigned i = 0; i < 31; i++) {
+        //                        1             33             65         97             160             161
         cc.setLiterals(6, inputs[0] + i, inputs[1] + i, inputs[2] + i, start + i, start + 63 + i, start + 64 + i);
-        cc.printClause(6,             0,             1,         CC_DC,         1,          CC_DC,              0);
-        cc.printClause(6,             1,         CC_DC,             1,         1,          CC_DC,              0);
         cc.printClause(6,             0,             0,         CC_DC,         0,          CC_DC,              1);
         cc.printClause(6,             1,         CC_DC,             0,         0,          CC_DC,              1);
         cc.printClause(6,             0,             1,         CC_DC,     CC_DC,              1,              0);
         cc.printClause(6,             1,         CC_DC,             1,     CC_DC,              1,              0);
         if (i == 0) continue;
+        cc.printClause(6,             0,             1,         CC_DC,         1,          CC_DC,              0);
+        cc.printClause(6,             1,         CC_DC,             1,         1,          CC_DC,              0);
         cc.printClause(6,             0,             0,         CC_DC,     CC_DC,              0,              1);
         cc.printClause(6,             1,         CC_DC,             0,     CC_DC,              0,              1);
     }
 
     for (unsigned i = 0; i < 32; i++) {
+        //                        1             33             65         97             160         192
         cc.setLiterals(6, inputs[0] + i, inputs[1] + i, inputs[2] + i, start + i, start + 63 + i, output + i);
         cc.printClause(6,             1,         CC_DC,             1,         0,              1,          1);
         cc.printClause(6,             0,             1,         CC_DC,         0,              1,          1);
     }
 
     for (unsigned i = 0; i < 32; i++) {
+        //                        1             33             65         97             129             160
         cc.setLiterals(6, inputs[0] + i, inputs[1] + i, inputs[2] + i, start + i, start + 32 + i, start + 63 + i);
-        cc.printClause(6,             1,         CC_DC,             1,         0,              0,              1);
-        cc.printClause(6,             1,         CC_DC,             0,         1,              1,              0);
-        cc.printClause(6,             0,             1,         CC_DC,         0,              0,              1);
-        cc.printClause(6,             0,             0,         CC_DC,         1,              1,              0);
+        //cc.printClause(6,             1,         CC_DC,             1,         0,              0,              1);
+        //cc.printClause(6,             1,         CC_DC,             0,         1,              1,              0);
+        //cc.printClause(6,             0,             1,         CC_DC,         0,              0,              1);
+        //cc.printClause(6,             0,             0,         CC_DC,         1,              1,              0);
     }
 
     for (unsigned i = 0; i < 31; i++) {
+        //                        1             33             65         97             129             160             161
         cc.setLiterals(7, inputs[0] + i, inputs[1] + i, inputs[2] + i, start + i, start + 32 + i, start + 63 + i, start + 64 + i);
-        cc.printClause(7,             1,         CC_DC,             1,         0,              1,              1,              0);
-        cc.printClause(7,             0,             1,         CC_DC,         0,              1,              1,              0);
+        //XXX cc.printClause(7,             1,         CC_DC,             1,         0,              1,              1,              0);
+        //XXX cc.printClause(7,             0,             1,         CC_DC,         0,              1,              1,              0);
     }
 
     for (unsigned i = 0; i < 29; i++) {
@@ -103,7 +107,7 @@ void Add_B1Ch_32::create(Printer* printer) {
     for (unsigned i = 0; i < 30; i++) {
         //                            2                 34             98             161             162
         cc.setLiterals(5, inputs[0] + 1 + i, inputs[1] + 1 + i, start + 1 + i, start + 64 + i, start + 65 + i);
-        cc.printClause(5,                 0,                 1,             0,              1,              0);
+        //XXX cc.printClause(5,                 0,                 1,             0,              1,              0);
     }
 
     for (unsigned i = 0; i < 29; i++) {
@@ -115,7 +119,7 @@ void Add_B1Ch_32::create(Printer* printer) {
     for (unsigned i = 0; i < 30; i++) {
         //                            2                 66             98             161             162
         cc.setLiterals(5, inputs[0] + 1 + i, inputs[2] + 1 + i, start + 1 + i, start + 64 + i, start + 65 + i);
-        cc.printClause(5,                 1,                 1,             0,              1,              0);
+        //XXX cc.printClause(5,                 1,                 1,             0,              1,              0);
     }
 #endif
 // inputs[0]     1 -  32

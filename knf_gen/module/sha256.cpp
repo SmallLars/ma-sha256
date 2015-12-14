@@ -345,7 +345,7 @@ static void clause_4_39(ClauseCreator &cc) {
       cc.setLiterals(4, coreI[r][7] + b, coreI[r + 9][8] + 1 + b, coreI[r + 9][8] + 2 + b, prepN[r + 16] + 129 + b);
       //                          result[2]               carry[2]                 carry[0]
       cc.addLiterals(3, prepN[r + 16] + 160 + b, coreN[r + 18] + 2 + b, prepN[r + 25] + 127 + b);
-      cc.printClause(7, 0, 1, 1, 0, 0, 0, 1);
+      //XXX cc.printClause(7, 0, 1, 1, 0, 0, 0, 1);
     }
     {
       unsigned valid[39][4] = {

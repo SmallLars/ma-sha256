@@ -115,7 +115,8 @@ void Add_Prepare_32::mirror_block(ClauseCreator &cc, unsigned i, unsigned j, uns
     //                       output
     //                      350 - 381
 
-    for (unsigned b = 0; b < 2; b++) {
+    for (unsigned b = 1; b < 2; b++) {
+        //XXX b == 0 is useless
         //                 1        65       224         256                  319         350
         //               129       161       287         193                  319         350
         //         result[0] result[0] result[0]    carry[0]             carry[0]   result[0]
@@ -132,8 +133,8 @@ void Add_Prepare_32::mirror_block(ClauseCreator &cc, unsigned i, unsigned j, uns
     //                     130       161        288            194              320         351
     //               result[1] result[0]  result[1]       carry[1]         carry[1]   result[1]
     cc.setLiterals(6,    i + 1,        j, start + 1 + x, start + 1 + y, start + 191, output + 1);
-    cc.printClause(6,        1,        1,         CC_DC,             0,           0,      CC_DC);
-    cc.printClause(6,        1,        0,         CC_DC,             0,           0,      CC_DC);
+    //XXX cc.printClause(6,        1,        1,         CC_DC,             0,           0,      CC_DC);
+    //XXX cc.printClause(6,        1,        0,         CC_DC,             0,           0,      CC_DC);
     cc.printClause(6,        1,    CC_DC,             1,             0,       CC_DC,          0);
 
     //                66       224            225            257              320         351
@@ -141,7 +142,7 @@ void Add_Prepare_32::mirror_block(ClauseCreator &cc, unsigned i, unsigned j, uns
     //         result[1] result[0]      result[1]       carry[1]         carry[1]   result[1]
     cc.setLiterals(6, j + 1, start + x, start + 1 + x, start + 1 + y, start + 191, output + 1);
     cc.printClause(6,     1,     CC_DC,             1,             0,       CC_DC,          0);
-    cc.printClause(6,     1,         0,         CC_DC,             0,           0,      CC_DC);
+    //XXX cc.printClause(6,     1,         0,         CC_DC,             0,           0,      CC_DC);
 
     //                   67        225            258              321         351
     //                  163        288            195              321         351

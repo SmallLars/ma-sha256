@@ -1,5 +1,6 @@
 #include <vector>
 #include <set>
+#include <map>
 #include <stdio.h>
 #include <iomanip>
 #include <signal.h>
@@ -16,6 +17,7 @@
 
 using std::cout;
 using std::set;
+using std::map;
 using std::setw;
 using std::vector;
 using std::set;
@@ -41,41 +43,66 @@ int main(int argc, const char* argv[]) {
     set<vector<Lit>, compareClause> clause_pool;
     while (dp.getNextClause(clause)) {
         counter++;
-        if (clause_pool.find(clause) != clause_pool.end()) {
+        // if (clause_pool.find(clause) != clause_pool.end()) {
             // cout << "REDUNDANT: ";
             // printClause(cout, clause);
-        } else {
+        // } else {
             clause_pool.insert(clause);
-        }
+        // }
+        if (counter != linecount && counter % 100) continue;
         printf("\r%u / %u - Already removed %zu redundant clauses.", counter, linecount, counter - clause_pool.size());
         cout << flush;
     }
     cout << "\nFinished reading. Try to remove useless clauses.\n";
     counter -= clause_pool.size();
 
-    ofstream dup_out(argv[3]);
-    unsigned counter1 = 0;
-    set< vector<Lit> >::reverse_iterator rit;
+    map< Lit, vector< const vector<Lit>* > > lookup_table;
     set< vector<Lit> >::iterator it;
-    for (rit = clause_pool.rbegin(); rit != clause_pool.rend(); ++rit) {
+    for (it = clause_pool.begin(); it != clause_pool.end(); ++it) {
+        for (unsigned i = 0; i < it->size(); ++i) {
+            lookup_table[it->at(i)].push_back(&*it);
+        }
+    }
+
+    set<vector<Lit>, compareClause> dup_clauses;
+    unsigned counter1 = 0;
+    for (it = clause_pool.begin(); it != clause_pool.end(); ++it) {
         counter1++;
-        for (it = clause_pool.begin(); it->size() < rit->size(); ++it) {
-            bool check = true;
-            for (unsigned i = 0; i < it->size(); ++i) {
-                if (find(rit->begin(), rit->end(), it->at(i)) == rit->end()) {
-                    check = false;
-                    break;
+        for (unsigned i = 0; i < it->size(); ++i) {
+            vector< const vector<Lit>* >::iterator clause;
+            clause = lookup_table[it->at(i)].begin();
+            while (clause != lookup_table[it->at(i)].end()) {
+                if ((*clause)->size() >= it->size()) {
+                    ++clause;
+                    continue;
                 }
-            }
-            if (check) {
-                printClause(dup_out, *rit);
-                clause_pool.erase(*(rit--));
-                it = clause_pool.end();
+
+                bool check = true;
+                for (unsigned l = 0; l < (*clause)->size(); ++l) {
+                    if (find(it->begin(), it->end(), (*clause)->at(l)) == it->end()) {
+                        check = false;
+                        break;
+                    }
+                }
+                if (!check) {
+                    ++clause;
+                    continue;
+                }
+
+                dup_clauses.insert(*it);
+                i = it->size() - 1;
+                break;
             }
         }
-        printf("\r%u / %u - Already removed %zu useless clauses.", counter1, linecount - counter, linecount - counter - clause_pool.size());
-        printf(" Working on Clause with %zu literals.", rit->size());
+        if (counter1 != linecount - counter && counter1 % 100) continue;
+        printf("\r%u / %u - Already removed %zu useless clauses.", counter1, linecount - counter, dup_clauses.size());
         cout << flush;
+    }
+
+    ofstream dup_out(argv[3]);
+    for (it = dup_clauses.begin(); it != dup_clauses.end(); ++it) {
+        clause_pool.erase(*it);
+        printClause(dup_out, *it);
     }
     dup_out.close();
 
@@ -85,7 +112,7 @@ int main(int argc, const char* argv[]) {
     }
     i_out.close();
 
-    cout << "Read " << linecount << " clauses, wrote " << clause_pool.size() << " clauses.\n";
+    cout << "\nRead " << linecount << " clauses, wrote " << clause_pool.size() << " clauses.\n";
 
     return 0;
 }
