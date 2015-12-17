@@ -20,6 +20,9 @@
 #include "module/add_half_3.h"
 #include "module/add_full_3.h"
 #include "module/add_last_3.h"
+#include "module/add_half_4.h"
+#include "module/add_full_4.h"
+#include "module/add_last_4.h"
 #include "module/add_32.h"
 #include "module/sub_32.h"
 #include "module/constadd_32.h"
@@ -63,6 +66,9 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(Add_Half_3::test);
     MU_RUN_TEST(Add_Full_3::test);
     MU_RUN_TEST(Add_Last_3::test);
+    MU_RUN_TEST(Add_Half_4::test);
+    MU_RUN_TEST(Add_Full_4::test);
+    MU_RUN_TEST(Add_Last_4::test);
     MU_RUN_TEST(Add_32::test);
     MU_RUN_TEST(Sub_32::test);
     MU_RUN_TEST(ConstAdd_32::test);
@@ -89,8 +95,20 @@ MU_TEST_SUITE(test_suite) {
 }
 
 int main() {
+//    Add_Half_1 adder;
+//    adder.writeDimacs("add_half_1.dimacs");
+
+//    Add_Full_1 adder;
+//    adder.writeDimacs("add_full_1.dimacs");
+
+//    Add_Half_2 adder;
+//    adder.writeDimacs("add_half_2.dimacs");
+
 //    Add_Full_2 adder;
 //    adder.writeDimacs("add_full_2.dimacs");
+
+//    Add_Last_2 adder;
+//    adder.writeDimacs("add_last_2.dimacs");
 
 //    Add_Half_3 adder;
 //    adder.writeDimacs("add_half_3.dimacs");
@@ -100,6 +118,15 @@ int main() {
 
 //    Add_Last_3 adder;
 //    adder.writeDimacs("add_last_3.dimacs");
+
+//    Add_Half_4 adder;
+//    adder.writeDimacs("add_half_4.dimacs");
+
+//    Add_Full_4 adder;
+//    adder.writeDimacs("add_full_4.dimacs");
+
+//    Add_Last_4 adder;
+//    adder.writeDimacs("add_last_4.dimacs");
 
 //    ConstAdd_32 adder(0xFFFFFFFF);
 //    adder.writeDimacs("constadd.dimacs");

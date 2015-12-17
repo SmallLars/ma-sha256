@@ -39,8 +39,8 @@ int main(int argc, const char* argv[]) {
     set<vector<Lit>, compareClause> irreducible;
     set<vector<Lit>, compareClause> reducible;
 
-    const char* filename[4] = {"00_sha256.dimacs", "01_sha256.dimacs", "10_sha256.dimacs", "11_sha256.dimacs"};
-    for (unsigned i = 0; i < 4; i++) {
+    const char* filename[2] = {"0_sha256.dimacs", "1_sha256.dimacs"};
+    for (unsigned i = 0; i < 2; i++) {
         DimacsParser parser(filename[i]);
         vector<Lit> clause;
         while (parser.getNextClause(clause)) {

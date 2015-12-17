@@ -139,15 +139,15 @@ void ShaCore_32::create(Printer* printer) {
     cc.printClause(8,     CC_DC,          1,          0,      CC_DC,       CC_DC,       CC_DC,       CC_DC,           0);
     cc.printClause(8,     CC_DC,      CC_DC,          0,      CC_DC,       CC_DC,           1,       CC_DC,           0);
     cc.printClause(8,     CC_DC,      CC_DC,      CC_DC,          1,           0,       CC_DC,       CC_DC,           0);
-    cc.printClause(8,         1,      CC_DC,          0,          0,       CC_DC,           0,       CC_DC,       CC_DC);
+    //XXX cc.printClause(8,         1,      CC_DC,          0,          0,       CC_DC,           0,       CC_DC,       CC_DC);
     cc.printClause(8,         1,      CC_DC,          0,      CC_DC,       CC_DC,           0,           0,       CC_DC);
-    cc.printClause(8,     CC_DC,          1,          0,          0,       CC_DC,           0,       CC_DC,       CC_DC);
+    //XXX cc.printClause(8,     CC_DC,          1,          0,          0,       CC_DC,           0,       CC_DC,       CC_DC);
     cc.printClause(8,     CC_DC,          1,          0,      CC_DC,       CC_DC,           0,           0,       CC_DC);
-    cc.printClause(8,     CC_DC,      CC_DC,          0,          0,       CC_DC,           1,           0,       CC_DC);
-    cc.printClause(8,         1,          0,      CC_DC,          1,       CC_DC,           0,           0,       CC_DC);
+    //XXX cc.printClause(8,     CC_DC,      CC_DC,          0,          0,       CC_DC,           1,           0,       CC_DC);
+    //XXX cc.printClause(8,         1,          0,      CC_DC,          1,       CC_DC,           0,           0,       CC_DC);
     cc.printClause(8,         0,          1,      CC_DC,          1,       CC_DC,           0,           0,       CC_DC);
-    cc.printClause(8,         0,          0,      CC_DC,          0,       CC_DC,           1,           0,       CC_DC);
-    cc.printClause(8,     CC_DC,      CC_DC,          0,          0,       CC_DC,           0,           0,       CC_DC);
+    //XXX cc.printClause(8,         0,          0,      CC_DC,          0,       CC_DC,           1,           0,       CC_DC);
+    //XXX cc.printClause(8,     CC_DC,      CC_DC,          0,          0,       CC_DC,           0,           0,       CC_DC);
     //                        417          449          481          575          606          607          638          670          764
     cc.setLiterals(9, start + 128, start + 160, start + 192, start + 286, start + 317, start + 318, start + 349, start + 381, output + 33);
     cc.printClause(9,           1,       CC_DC,           0,       CC_DC,       CC_DC,           0,       CC_DC,       CC_DC,       CC_DC);
@@ -177,7 +177,7 @@ void ShaCore_32::create(Printer* printer) {
     cc.setLiterals(6, inputs[3] + 0, start + 318, start + 348, start + 349, start + 380, start + 411);
     cc.printClause(6,         CC_DC,           0,       CC_DC,           0,           0,       CC_DC);
     cc.printClause(6,         CC_DC,           0,       CC_DC,           0,       CC_DC,           0);
-    cc.printClause(6,             0,           0,           0,           0,       CC_DC,       CC_DC);
+    //XXX cc.printClause(6,             0,           0,           0,           0,       CC_DC,       CC_DC);
     //                  289        290         321         322        354         385          700
     cc.setLiterals(7, start, start + 1, start + 32, start + 33,start + 65, start + 96, start + 411);
     cc.printClause(7,     1,     CC_DC,          1,      CC_DC,     CC_DC,      CC_DC,           0);

@@ -54,7 +54,7 @@ void ConstAdd_32::create(Printer* printer) {
             add_half.setOutput(output + i);
             add_half.create(printer);
         } else {
-#ifdef XOR_OPTIMIZATION
+#ifdef XOR_SUPPORT
             // OR ->              c_out           a_in           c_in
             createOR(printer, start + i, inputs[0] + i, start - 1 + i);
 
