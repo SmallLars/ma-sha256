@@ -29,7 +29,6 @@ static unsigned prepN[64];
 static unsigned coreI[64][9];
 static unsigned coreN[64];
 
-static void clause_6_55_M(ClauseCreator &cc);
 static void clause_5_39(ClauseCreator &cc);
 static void clause_5_46_M(ClauseCreator &cc);
 static void clause_4_39(ClauseCreator &cc);
