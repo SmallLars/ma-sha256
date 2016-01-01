@@ -36,8 +36,10 @@ void Add_Full_4::create(Printer* printer) {
     //XXX cc.printClause(14,     0, CC_DC, CC_DC, CC_DC,     0,     1,     1, CC_DC, CC_DC,     1, CC_DC, CC_DC,     1, CC_DC);
     //XXX cc.printClause(14,     0, CC_DC,     0, CC_DC,     0, CC_DC,     1, CC_DC, CC_DC, CC_DC, CC_DC, CC_DC,     1,     1);
 
-    cc.setLiterals(2, start, start);
-    cc.printClause(2,     0,     1);
+    if (!fullCNF) {
+        cc.setLiterals(2, start, start);
+        cc.printClause(2,     0,     1);
+    }
 
     if (!fullCNF) return;
 
