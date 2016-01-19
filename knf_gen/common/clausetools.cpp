@@ -4,6 +4,8 @@
 
 using std::ostream;
 using std::vector;
+using std::set;
+using std::map;
 using namespace CMSat;
 
 bool compareClause::operator() (const vector<Lit>& lhs, const vector<Lit>& rhs) const {
@@ -31,4 +33,41 @@ void printClause(ostream& out, const vector<Lit>& clause, bool revert) {
         out << (sorted[i].var() + 1) << " ";
     }
     out << "0\n";
+}
+
+void createLookup(map< Lit, vector< const vector<Lit>* > >& lookup_table, const set<vector<Lit>, compareClause>& clause_pool) {
+    for (set< vector<Lit> >::iterator it = clause_pool.begin(); it != clause_pool.end(); ++it) {
+        for (unsigned i = 0; i < it->size(); ++i) {
+            lookup_table[it->at(i)].push_back(&*it);
+        }
+    }
+}
+
+bool hasSubClause(const vector<Lit>& clause, map< Lit, vector< const vector<Lit>* > >& lookup_table) {
+    for (unsigned i = 0; i < clause.size(); ++i) {
+        vector< const vector<Lit>* >::iterator to_check;
+        to_check = lookup_table[clause.at(i)].begin();
+        while (to_check != lookup_table[clause.at(i)].end()) {
+            if ((*to_check)->size() >= clause.size()) {
+                ++to_check;
+                continue;
+            }
+
+            bool check = true;
+            for (unsigned l = 0; l < (*to_check)->size(); ++l) {
+                if (find(clause.begin(), clause.end(), (*to_check)->at(l)) == clause.end()) {
+                    check = false;
+                    break;
+                }
+            }
+            if (!check) {
+                ++to_check;
+                continue;
+            }
+
+            return true;
+        }
+    }
+
+    return false;
 }

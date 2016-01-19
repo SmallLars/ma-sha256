@@ -123,8 +123,12 @@ int main(int argc, const char* argv[]) {
 
     delete modul;
 
+    char fileprefix[256];
+    strncpy(fileprefix, argv[2], 256);
+    *strrchr(fileprefix, '.') = 0;
+
     char filename[256];
-    snprintf(filename, 256, "%s.dimacs", argv[2]);
+    snprintf(filename, 256, "%s.dimacs", fileprefix);
 
     unsigned linecount = 0;
     DimacsParser dp(filename);
@@ -137,10 +141,10 @@ int main(int argc, const char* argv[]) {
         rowcount = atoi(argv[3]);
     }
 
-    snprintf(filename, 256, "%s.txt", argv[2]);
+    snprintf(filename, 256, "%s.txt", fileprefix);
     ofstream bin_out(filename);
     bin_out << "{";
-    snprintf(filename, 256, "%s.xls", argv[2]);
+    snprintf(filename, 256, "%s.xls", fileprefix);
     ofstream excel_out(filename);
     excel_out_init(excel_out, argv[2], rowcount);
 

@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <vector>
+#include <set>
+#include <map>
 
 #include "cryptominisat4/cryptominisat.h"
 
@@ -11,5 +13,9 @@ struct compareClause {
 };
 
 void printClause(std::ostream& out, const std::vector<CMSat::Lit>& clause, bool revert = false);
+
+void createLookup(std::map< CMSat::Lit, std::vector< const std::vector<CMSat::Lit>* > >& lookup_table, const std::set<std::vector<CMSat::Lit>, compareClause>& clause_pool);
+
+bool hasSubClause(const std::vector<CMSat::Lit>& clause, std::map< CMSat::Lit, std::vector< const std::vector<CMSat::Lit>* > >& lookup_table);
 
 #endif //__CLAUSETOOLS_H__

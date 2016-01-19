@@ -166,7 +166,7 @@ void Sha256::create(Printer* printer) {
       };
 
       for (unsigned b = 0; b < 31; b++) {
-        if (valid[r][b] == 0) continue;
+        // if (valid[r][b] == 0) continue;
 
 
       }
