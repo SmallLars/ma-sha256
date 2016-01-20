@@ -146,7 +146,7 @@ int main(int argc, const char* argv[]) {
     bin_out << "{";
     snprintf(filename, 256, "%s.xls", fileprefix);
     ofstream excel_out(filename);
-    excel_out_init(excel_out, argv[2], rowcount);
+    excel_out_init(excel_out, fileprefix, rowcount);
 
     cout << "Start checking " << linecount << " clauses with " << (singleSolver ? 1 : 2) << " SAT-Instances:\n";
 
