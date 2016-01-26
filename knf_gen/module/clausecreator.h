@@ -12,6 +12,7 @@ class ClauseCreator {
         ClauseCreator(Printer* printer);
         ~ClauseCreator();
 
+        Printer* getPrinter();
         void setLiterals(unsigned n_args, ...);
         void addLiterals(unsigned n_args, ...);
         void printClause(unsigned n_args, ...);

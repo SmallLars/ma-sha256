@@ -14,6 +14,10 @@ ClauseCreator::ClauseCreator(Printer* printer) {
 ClauseCreator::~ClauseCreator() {
 }
 
+Printer* ClauseCreator::getPrinter() {
+    return printer;
+}
+
 void ClauseCreator::setLiterals(unsigned n_args, ...) {
     literals.clear();
 
