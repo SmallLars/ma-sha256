@@ -27,6 +27,7 @@ class Sha256 : public Modul {
         void clause_3_39(ClauseCreator &cc);
         void clause_3_43(ClauseCreator &cc);
         void clause_3_48(ClauseCreator &cc);
+        void clause_2_39(ClauseCreator &cc);
         void clause_2_48(ClauseCreator &cc);
         void clause_1_48(ClauseCreator &cc);
 };
