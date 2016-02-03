@@ -94,12 +94,14 @@ int main(int argc, const char* argv[]) {
     set< vector<Lit> >::iterator it;
 
 //-----------------------
-
+/*
     cout << "Subklauselprüfung:\n";
+    unsigned progress = 0;
 
     map< Lit, vector< const vector<Lit>* > > lookup_table;
     createLookup(lookup_table, original);
 
+    progress = 0;
     counter = 0;
     for (it = irreducible.begin(); it != irreducible.end(); ) {
         if (hasSubClause(*it, lookup_table)) {
@@ -108,9 +110,12 @@ int main(int argc, const char* argv[]) {
         } else {
           ++it;
         }
+        progress++;
+        cout << progress << " / " << irreducible.size() + counter << "\r" << flush;
     }
     cout << "irreducible size: " << irreducible.size() << " killed: " << counter  << "\n";
 
+    progress = 0;
     counter = 0;
     for (it = reducible.begin(); it != reducible.end(); ) {
         if (hasSubClause(*it, lookup_table)) {
@@ -119,9 +124,11 @@ int main(int argc, const char* argv[]) {
         } else {
           ++it;
         }
+        progress++;
+        cout << progress << " / " << reducible.size() + counter << "\r" << flush;
     }
     cout << "reducible size: " << reducible.size() << " killed: " << counter  << "\n";
-
+*/
 //-----------------------
 
     ofstream i_out("dump/000_irred.dimacs");

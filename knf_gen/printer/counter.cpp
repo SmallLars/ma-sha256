@@ -12,7 +12,7 @@ Counter::~Counter() {
 }
 
 unsigned Counter::getMaxVar() {
-    return *(varSet.rbegin()) + 1;
+    return *(varSet.rbegin());
 }
 
 unsigned Counter::getVarCount() {

@@ -57,6 +57,7 @@ class Modul {
         void createOR(Printer* printer, unsigned out, unsigned in1, unsigned in2);
 
         void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert = false);
+        void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3, unsigned in4, bool invert = false);
     private:
         unsigned bitWidth;
         unsigned inputCount;

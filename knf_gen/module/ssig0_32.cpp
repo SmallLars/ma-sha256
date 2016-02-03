@@ -35,6 +35,15 @@ void Ssig0_32::create(Printer* printer) {
                   inputs[0] + ((i + 18) % 32)
         );
     }
+
+#ifdef ADDITIONAL_CLAUSES
+    for (unsigned i = 0; i < 1; i++) {
+        createXOR(printer, inputs[0] + i, inputs[0] + 10 + i, output + 3 + i, output + 14 + i, output + 31 + i);
+    }
+    for (unsigned i = 0; i < 2; i++) {
+        createXOR(printer, inputs[0] + 8 + i, inputs[0] + 30 + i, output + 1 + i, output + 12 + i, output + 29 + i);
+    }
+#endif
 }
 
 MU_TEST_C(Ssig0_32::test) {

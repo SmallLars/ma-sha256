@@ -57,7 +57,12 @@ void Add_Last_3::create(Printer* printer) {
     cc.printClause(10,      1,          1,          0,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,             0,         0);
     cc.printClause(10,      1,          1,          0,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,             1,         0);
 
-    if (!fullCNF) return;
+    if (!fullCNF) {
+        cc.setLiterals(2, inputs[1] + 1, inputs[1] + 1);
+        cc.printClause(2,             0,             1);
+
+        return;
+    }
 
     cc.printClause(10,      1,      CC_DC,      CC_DC,         0,         CC_DC,         CC_DC,         0,         CC_DC,         CC_DC,         0);
     cc.printClause(10,      0,      CC_DC,      CC_DC,         1,         CC_DC,         CC_DC,         1,         CC_DC,         CC_DC,         1);

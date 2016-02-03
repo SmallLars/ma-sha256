@@ -292,6 +292,9 @@ void ShaCore_32::create(Printer* printer) {
     cc.printClause(6,           1,           0,  CC_DC,      CC_DC,           1,           1);
     cc.printClause(6,           0,           1,      1,          1,       CC_DC,       CC_DC);
     cc.printClause(6,           0,           1,      1,      CC_DC,       CC_DC,           0);
+    //                       355          638          702         733
+    cc.setLiterals(4, start + 66, start + 349, start + 413, output + 2);
+    cc.printClause(4,          0,           1,           0,          0);
 #endif
 }
 

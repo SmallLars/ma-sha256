@@ -45,7 +45,12 @@ void Add_Half_4::create(Printer* printer) {
     cc.printClause(13, CC_DC,     1, CC_DC, CC_DC,     0, CC_DC,     0,     0,     0,     0, CC_DC, CC_DC,     1);
     cc.printClause(13, CC_DC,     1, CC_DC, CC_DC,     1, CC_DC,     0,     0,     0,     0, CC_DC, CC_DC,     0);
 
-    if (!fullCNF) return;
+    if (!fullCNF) {
+        cc.setLiterals(4, output + 1, output + 1, output + 2, inputs[1] + 2);
+        cc.printClause(4,          0,          1,          1,             1);
+
+        return;
+    }
 
     cc.printClause(13, CC_DC, CC_DC,     0, CC_DC, CC_DC,     0,     0, CC_DC, CC_DC,     0,     1, CC_DC, CC_DC);
     cc.printClause(13, CC_DC,     1, CC_DC, CC_DC,     1, CC_DC,     0,     0,     1,     0, CC_DC, CC_DC,     1);

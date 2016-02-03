@@ -23,6 +23,19 @@ unsigned Add_32::stats[STATS_LENGTH];
 
 Add_32::Add_32() : Modul(32, 2, 1) {
     output = 95;
+
+    { Add_Half_1 adder; adder.getMaxVar(); }
+    { Add_Full_1 adder; adder.getMaxVar(); }
+    { Add_Last_1 adder; adder.getMaxVar(); }
+    { Add_Half_2 adder; adder.getMaxVar(); }
+    { Add_Full_2 adder; adder.getMaxVar(); }
+    { Add_Last_2 adder; adder.getMaxVar(); }
+    { Add_Half_3 adder; adder.getMaxVar(); }
+    { Add_Full_3 adder; adder.getMaxVar(); }
+    { Add_Last_3 adder; adder.getMaxVar(); }
+    { Add_Half_4 adder; adder.getMaxVar(); }
+    { Add_Full_4 adder; adder.getMaxVar(); }
+    { Add_Last_4 adder; adder.getMaxVar(); }
 }
 
 Add_32::~Add_32() {

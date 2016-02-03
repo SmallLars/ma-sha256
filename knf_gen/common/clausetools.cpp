@@ -44,6 +44,38 @@ void createLookup(map< Lit, vector< const vector<Lit>* > >& lookup_table, const 
 }
 
 bool hasSubClause(const vector<Lit>& clause, map< Lit, vector< const vector<Lit>* > >& lookup_table) {
+    set< const vector<Lit>* > check_list;
+    for (unsigned i = 0; i < clause.size(); ++i) {
+        check_list.insert(lookup_table[clause.at(i)].begin(), lookup_table[clause.at(i)].end());
+    }
+
+    set< const vector<Lit>* >::iterator to_check;
+    to_check = check_list.begin();
+    while (to_check != check_list.end()) {
+        if ((*to_check)->size() >= clause.size()) {
+            ++to_check;
+            continue;
+        }
+
+        bool check = true;
+        for (unsigned l = 0; l < (*to_check)->size(); ++l) {
+            if (find(clause.begin(), clause.end(), (*to_check)->at(l)) == clause.end()) {
+                check = false;
+                break;
+            }
+        }
+        if (!check) {
+            ++to_check;
+            continue;
+        }
+
+        return true;
+    }
+
+    return false;
+}
+/*
+bool hasSubClause(const vector<Lit>& clause, map< Lit, vector< const vector<Lit>* > >& lookup_table) {
     for (unsigned i = 0; i < clause.size(); ++i) {
         vector< const vector<Lit>* >::iterator to_check;
         to_check = lookup_table[clause.at(i)].begin();
@@ -71,3 +103,4 @@ bool hasSubClause(const vector<Lit>& clause, map< Lit, vector< const vector<Lit>
 
     return false;
 }
+*/
