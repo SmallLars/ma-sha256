@@ -1,3 +1,17 @@
 \section{Funktionen}
 
 \TODO{erledigen}
+
+\subsection{Choose (CH)}
+$ CH( x, y, z) = (x~AND~y)~XOR~( (NOT~x)~AND~z) $
+
+\subsection{Majority (MAJ)}
+$ MAJ( x, y, z) = (x~AND~y)~XOR~(x~AND~z)~XOR~(y~AND~z) $
+
+\subsection{Big Sigma (BSIG)}
+$ BSIG0(x) = ROTR^{2}(x)~XOR~ROTR^{13}(x)~XOR~ROTR^{22}(x) $\\
+$ BSIG1(x) = ROTR^{6}(x)~XOR~ROTR^{11}(x)~XOR~ROTR^{25}(x) $
+
+\subsection{Small Sigma (SSIG)}
+$ SSIG0(x) = ROTR^{7}(x)~XOR~ROTR^{18}(x)~XOR~SHR^{3}(x) $\\
+$ SSIG1(x) = ROTR^{17}(x)~XOR~ROTR^{19}(x)~XOR~SHR^{10}(x) $
