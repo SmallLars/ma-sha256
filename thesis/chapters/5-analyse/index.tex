@@ -1,0 +1,16 @@
+\chapter{Analyse mit CryptoMiniSat}
+\label{chp:analyse}
+
+mehrere durchläufe mit cryptominisat\\
+ein durchlauf besteht aus mehreren lösungsversuchen mit jeweils einem bit vorgabe mehr\\
+reale werte nur per assumptions, um allgemeine klauseln zu erhalten\\
+bei jeder lösung werden klauseln rausgeschrieben\\
+kein unterschied zwischen redundant und irredundant - beides wird analysiert\\
+statistiken aus sql einfügen: anteil der klauseln länge x an propagation und wieviele literale konnten festgelegt werden\\
+im folgenden die schritte der analyse:
+
+\input{chapters/5-analyse/1-bekanntes.tex}
+\input{chapters/5-analyse/2-module.tex}
+\input{chapters/5-analyse/3-distanz.tex}
+\input{chapters/5-analyse/4-subklausel.tex}
+\input{chapters/5-analyse/5-ueberblick.tex}

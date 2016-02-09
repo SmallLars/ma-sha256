@@ -158,9 +158,11 @@
 
   <!-- + BSIG0/MAJ-->
   <line x1="75" y1="250" x2="75" y2="400" style="stroke:red;stroke-width:4" />
+  <text x="85" y="335" text-anchor="left" style="font-family: Arial; font-size: 32px; font-weight: bold; fill: red">X</text>
 
   <!-- + BSIG1/CH-->
-  <line x1="575" y1="250" x2="575" y2="300" style="stroke:black;stroke-width:2" />
+  <line x1="575" y1="250" x2="575" y2="300" style="stroke:green;stroke-width:4" />
+  <text x="585" y="285" text-anchor="left" style="font-family: Arial; font-size: 32px; font-weight: bold; fill: green">Z</text>
 
   <!-- + H/I -->
   <line x1="825" y1="250" x2="825" y2="275" style="stroke:black;stroke-width:2" />
@@ -168,11 +170,12 @@
   <line x1="625" y1="275" x2="625" y2="300" style="stroke:black;stroke-width:2" />
 
   <!-- + (BSIG1/CH)/(H/I) -->
-  <line x1="600" y1="350" x2="600" y2="375" style="stroke:black;stroke-width:2" />
-  <line x1="125" y1="375" x2="600" y2="375" style="stroke:black;stroke-width:2" />
-  <line x1="125" y1="375" x2="125" y2="400" style="stroke:black;stroke-width:2" />
-  <line x1="525" y1="375" x2="525" y2="400" style="stroke:black;stroke-width:2" />
-  <circle cx ="525" cy ="375" r ="5" />
+  <line x1="600" y1="350" x2="600" y2="375" style="stroke:blue;stroke-width:4" />
+  <line x1="125" y1="375" x2="600" y2="375" style="stroke:blue;stroke-width:4" />
+  <line x1="125" y1="375" x2="125" y2="400" style="stroke:blue;stroke-width:4" />
+  <line x1="525" y1="375" x2="525" y2="400" style="stroke:blue;stroke-width:4" />
+  <circle cx ="525" cy ="375" r ="5" style="fill: blue" />
+  <text x="420" y="365" text-anchor="middle" style="font-family: Arial; font-size: 32px; font-weight: bold; fill: blue">Y</text>
 
   <!-- A -->
   <line x1="100" y1="450" x2="100" y2="500" style="stroke:black;stroke-width:2" />
