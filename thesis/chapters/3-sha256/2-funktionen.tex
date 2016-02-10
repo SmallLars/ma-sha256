@@ -1,17 +1,28 @@
 \section{Funktionen}
+\label{sec:sha256:funktionen}
 
-\TODO{erledigen}
-
-\subsection{Choose (CH)}
-$ CH( x, y, z) = (x~AND~y)~XOR~( (NOT~x)~AND~z) $
-
-\subsection{Majority (MAJ)}
-$ MAJ( x, y, z) = (x~AND~y)~XOR~(x~AND~z)~XOR~(y~AND~z) $
-
-\subsection{Big Sigma (BSIG)}
-$ BSIG0(x) = ROTR^{2}(x)~XOR~ROTR^{13}(x)~XOR~ROTR^{22}(x) $\\
-$ BSIG1(x) = ROTR^{6}(x)~XOR~ROTR^{11}(x)~XOR~ROTR^{25}(x) $
+Sowohl bei der Erweiterung der Eingabe als auch bei der Rundenfunktion werden einige Funktionen verwendet, die im folgendem Erläutert werden.
+Die Funktion "`Small Sigma"' wird bei der Erweiterung der Eingabe verwendet, während die Funktionen "`Choose"', "`Majority"' und "`Big Sigma"' in der Rundenfunktion
+verwendet werden.
 
 \subsection{Small Sigma (SSIG)}
-$ SSIG0(x) = ROTR^{7}(x)~XOR~ROTR^{18}(x)~XOR~SHR^{3}(x) $\\
-$ SSIG1(x) = ROTR^{17}(x)~XOR~ROTR^{19}(x)~XOR~SHR^{10}(x) $
+\begin{eqnarray}
+\sigma_0(x) = \text{ROTR}^{7}(x)~\oplus~\text{ROTR}^{18}(x)~\oplus~\text{SHR}^{3}(x)\\
+\sigma_1(x) = \text{ROTR}^{17}(x)~\oplus~\text{ROTR}^{19}(x)~\oplus~\text{SHR}^{10}(x)
+\end{eqnarray}
+
+\subsection{Choose (CH)}
+\begin{equation}
+\text{CH}( x, y, z) = (x~\wedge~y)~\oplus~( \neg~x~\wedge~z)
+\end{equation}
+
+\subsection{Majority (MAJ)}
+\begin{equation}
+\text{MAJ}( x, y, z) = (x~\wedge~y)~\oplus~(x~\wedge~z)~\oplus~(y~\wedge~z)
+\end{equation}
+
+\subsection{Big Sigma (BSIG)}
+\begin{eqnarray}
+\Sigma_0(x) = \text{ROTR}^{2}(x)~\oplus~\text{ROTR}^{13}(x)~\oplus~\text{ROTR}^{22}(x)\\
+\Sigma_1(x) = \text{ROTR}^{6}(x)~\oplus~\text{ROTR}^{11}(x)~\oplus~\text{ROTR}^{25}(x)
+\end{eqnarray}

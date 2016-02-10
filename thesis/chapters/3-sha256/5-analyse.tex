@@ -1,10 +1,11 @@
 \section{Analyse}
+\label{sec:sha256:analyse}
 
 \TODO{erledigen}
 
 \subsection{Rundenfunktion}
 
-\begin{figure}[ht]
+\begin{figure}[!h]
   \centering
   \includegraphics[scale=0.4]{images/sha256coreA}
   \caption{Analyse einer SHA256-Runde}
@@ -13,7 +14,7 @@
 
 D = E' + \textcolor{red}{\textbf{X}} - A'
 
-\subsection{Angriffsvectoren}
+\subsection{Angriffsvektoren}
 
 A bis H bei gegebenem Hash und Eingabe berechnen.\\
 I jeweils bekannt jedoch fehlt A' bis H' da durch Addition mit Geheimnis "`maskiert"'.\\
