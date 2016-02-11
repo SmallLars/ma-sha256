@@ -1,28 +1,52 @@
 \section{Funktionen}
 \label{sec:sha256:funktionen}
 
-Sowohl bei der Erweiterung der Eingabe als auch bei der Rundenfunktion werden einige Funktionen verwendet, die im folgendem Erläutert werden.
+Die Funktion, die in SHA-$256$ am häufigsten verwendet wird, ist die modulare 32-Bit Addition (siehe Abschnitt \ref{sec:grundlagen_add}).
+Darüber hinaus werden sowohl bei der Erweiterung der Eingabe als auch bei der Rundenfunktion einige Funktionen verwendet, die im folgendem Erläutert werden.
 Die Funktion "`Small Sigma"' wird bei der Erweiterung der Eingabe verwendet, während die Funktionen "`Choose"', "`Majority"' und "`Big Sigma"' in der Rundenfunktion
-verwendet werden.
+verwendet werden. Alle genannten Funktionen operieren auf einer Datenwortbreite von 32 Bit.
 
-\subsection{Small Sigma (SSIG)}
-\begin{eqnarray}
-\sigma_0(x) = \text{ROTR}^{7}(x)~\oplus~\text{ROTR}^{18}(x)~\oplus~\text{SHR}^{3}(x)\\
-\sigma_1(x) = \text{ROTR}^{17}(x)~\oplus~\text{ROTR}^{19}(x)~\oplus~\text{SHR}^{10}(x)
-\end{eqnarray}
+Während die Aufgabe der Funktionen "`Choose"' und "`Majority"' die Konfusion ist, ist die Aufgabe der Sigma-Funktionen die Diffusion.
+Bei der Konfusion geht es darum, den Zusammenhang zwischen unterschiedlichen Werten zu verschleiern. Die Diffusion bewirkt den Einfluss
+eines Eingabebits auf viel Ausgabebits, um statistische Eigenschaften der Eingabe zu verstecken \cite[57]{crypto1}.
 
 \subsection{Choose (CH)}
-\begin{equation}
-\text{CH}( x, y, z) = (x~\wedge~y)~\oplus~( \neg~x~\wedge~z)
-\end{equation}
+\begin{figure}[!h]
+  \begin{align}
+  \text{CH}( x, y, z) &= (x~\wedge~y)~\oplus~( \neg~x~\wedge~z) \nonumber
+  \end{align}
+  \caption{Choose (CH)}
+  \label{eq:ch}
+\end{figure}
 
 \subsection{Majority (MAJ)}
-\begin{equation}
-\text{MAJ}( x, y, z) = (x~\wedge~y)~\oplus~(x~\wedge~z)~\oplus~(y~\wedge~z)
-\end{equation}
+\begin{figure}[!h]
+  \begin{align}
+  \text{MAJ}( x, y, z) &= (x~\wedge~y)~\oplus~(x~\wedge~z)~\oplus~(y~\wedge~z) \nonumber
+  \end{align}
+  \caption{Majority (MAJ)}
+  \label{eq:maj}
+\end{figure}
 
-\subsection{Big Sigma (BSIG)}
-\begin{eqnarray}
-\Sigma_0(x) = \text{ROTR}^{2}(x)~\oplus~\text{ROTR}^{13}(x)~\oplus~\text{ROTR}^{22}(x)\\
-\Sigma_1(x) = \text{ROTR}^{6}(x)~\oplus~\text{ROTR}^{11}(x)~\oplus~\text{ROTR}^{25}(x)
-\end{eqnarray}
+\subsection{Sigma (SIG)}
+Die Sigma-Funktionen werden in den \acr{rfc}s der \acr{ietf} mit SSIG und BSIG beschrieben, das vermutlich aus "`Small Sigma"' und "`Big Sigma"' abgeleitet wurde
+um Sonderzeichen zu vermeiden. Jedes Bit der Ausgabe wir dabei aus zwei bis drei Eingabebits berechnet. Da die Funktion 32 Bit auf 32 Bit abbildet, werden somit alle
+Eingabebits für zwei bis drei Ausgabebits verwendet. Dargestellt sind alle vier Sigma-Funktionen in Abbildung \eqref{eq:sig}. 
+
+Innerhalb der Funktionen wird die Rotation nach rechts (ROTR) und die Verschiebung nach rechts (SHR) verwendet. Im Unterschied zur Rotation, bei der die Bits,
+die aus dem Register geschoben werden, auf der anderen Seite wieder eingefügt werden, werden die Bits bei der Verschiebung mit "`$0$"'en aufgefüllt.
+
+Während bei den $\Sigma$-Funktionen konsequent drei Eingabebits mit dem XOR-Operator verknüpft werden um ein Ausgabebit zu berechnen, werden bei den $\sigma$-Funktionen
+einige Bits durch die Verschiebung verworfen, was einem Angreifer die Analyse erschwert.
+
+\begin{figure}[!h]
+  \begin{align}
+  \sigma_0(x) &= \text{ROTR}^{7}(x)~\oplus~\text{ROTR}^{18}(x)~\oplus~\text{SHR}^{3}(x) \nonumber\\
+  \sigma_1(x) &= \text{ROTR}^{17}(x)~\oplus~\text{ROTR}^{19}(x)~\oplus~\text{SHR}^{10}(x) \nonumber\\
+  \nonumber\\
+  \Sigma_0(x) &= \text{ROTR}^{2}(x)~\oplus~\text{ROTR}^{13}(x)~\oplus~\text{ROTR}^{22}(x) \nonumber\\
+  \Sigma_1(x) &= \text{ROTR}^{6}(x)~\oplus~\text{ROTR}^{11}(x)~\oplus~\text{ROTR}^{25}(x) \nonumber
+  \end{align}
+  \caption{Sigma (SIG)}
+  \label{eq:sig}
+\end{figure}

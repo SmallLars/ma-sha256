@@ -302,33 +302,26 @@
       \begin{itemize}
         \setlength{\itemsep}{20pt}
         \item Vorwärtsberechnung funktioniert
-        \pause
         \item Rückwärtsberechnung funktioniert nicht
-        \pause
         \item Rückwärtsberechnung funktioniert mit Runden 1 - 18
-        \pause
         \item Rückwärtsberechnung ohne Runden 17 - 20 funktioniert
-        \pause
         \item Rückwärtsberechnung ohne Erweiterung 17 - 24 funktioniert
       \end{itemize}
     \end{frame}
   \subsection{Sat-Solving 2 - Iterative Lösungsversuche}
     \begin{frame}{Iterative Lösungsversuche}
       \begin{itemize}
-        \setlength{\itemsep}{20pt}
-        \item Rückwärtsbrechnung funktioniert mit bis zu 19 Bits
-        \pause
-        \item Rückwärtsberechnung mit 1,3 Gigabyte Konfliktklauseln:\\ Funktioniert mit bis zu 23 Bits
-        \pause
+        \item Werte ausschließlich mit Assumptions vorgeben\newline
+        $ \Rightarrow $ Gelernte Klauseln sind allgemeingültig
+        \item Rückwärtsbrechnung funktioniert mit bis zu 25 Bits $ \Rightarrow $ Zufällig
+        \item Rückwärtsberechnung mit Konfliktklauseln aus vorherigem Lauf:\\Beschleunigt die Berechnung ABER wie weit bleibt zufällig\newline
         $ \Rightarrow $ Zusätzliche Klauseln begrenzen den Lösungsraum und helfen dem SAT-Solver
-        \pause
         \item $ \Rightarrow $ Konfliktklausel-Mining
       \end{itemize}
     \end{frame}
     \begin{frame}{Konfliktklausel-Mining}
       \begin{itemize}
        \item Konfliktklausel ausdenken und Literale einzeln negiert in die SAT-Instanz einfügen:\\Falls nicht lösbar ist die Konfliktklausel gültig
-       \pause
        \item Scheitert an den Komplexität.\\Beispiel für Klauseln mit 2 Literalen:
        \item Bei 50.000 Literalen ergeben sich\\ 50.000 $ \cdot $ 49.999 = 2.499.950.000 Kombinationen
        \item Klauseln mit 2 Literalen können 4 Belegungen abbilden:\\ 2.499.950.000 $ \cdot $ = 9.999.800.000 Klauseln
@@ -340,15 +333,17 @@
         \setlength{\itemsep}{20pt}
         \item Entfernen schon bekannter Klauseln
         \item Identifizierung und Normalisierung modulspezifischer Klauseln
-        \pause
         \item Bewertung der modulübergreifenden Klauseln:
         \begin{itemize}
           \item SHA256 als ungerichter Graph mit ca. 1000 Knoten
           \item Berechnung der Distanz der Knoten zueinander mit Dijkstra
           \item Klauselbewertung ergibt sich durch: max\_dist - module + 1
+          \item Der Wert beschreibt, wie viele Knoten übersprungen werden
         \end{itemize}
+        \item Prüfen auf kürzere/längere Klauseln
       \end{enumerate}
     \end{frame}
+  \subsection{Sat-Solving 4 - Weitere Konfliktklauseln testen}
     \begin{frame}{Weitere Konfliktklauseln testen}
       \begin{itemize}
         \setlength{\itemsep}{20pt}
@@ -357,14 +352,54 @@
           \item Vorhergehende oder Nachfolgende Runden
           \item Vorhergehende oder Nachfolgende Bits
         \end{itemize}
+        \item Erzeugte Klauseln auf Gültigkeit überprüfen
         \item Bei der Hälfte der Klauseln sehr erfolgreich
       \end{itemize}
-      \pause
-      ~\\
-      Mit 22 Megabyte Klauseln:\\
-      Rückwärtsbrechnung funktioniert mit bis zu 25 Bits
+    \end{frame}
+  \subsection{Sat-Solving 5 - Zahlen/Evaluation}
+    \begin{frame}{Ermittelte Klauseln}
+      \begin{itemize}
+        \item Insgesamt über 2.000.000
+        \item Die meisten in den Addierern: Lassen sich durch Carry-Look-Ahead-Addiere unterschiedlicher Bitbreite in mehreren Ebenen beschreiben
+        \item Klauseln über Distanz:\newline
+        \begin{tabular}{rrrr}
+          Distanz & Gesamt & Redundant & Verbleibend\\
+          \hline
+                1 &    840 &       114 &   726\\
+                2 &   4985 &      1475 &  3510\\
+                3 &  11440 &      3305 &  8135\\
+                4 &  10047 &      3324 &  6723\\
+                5 &   2403 &       207 &  2196\\
+          \hline
+                  &        &           & 21290
+        \end{tabular}
+      \end{itemize}
+    \end{frame}
+    \begin{frame}{Geplante Evaluation}
+      \begin{itemize}
+        \item Unterschiedliche Teilmengen der gelernten Klauseln nutzen und in mehreren Versuchen Geschwindigkeit und Fortschritt ermitteln.
+        \begin{itemize}
+          \item Test ohne Zusatzklauseln als Vergleichsbasis
+          \begin{itemize}
+            \item Inkrementell
+            \item Absolut
+          \end{itemize}
+          \item Test mit allen Klauseln
+          \item Test mit zusätzlichen Addiererklauseln
+          \begin{itemize}
+            \item Test mit modulinternen Klauseln
+            \item Test mit Distanzklauseln
+          \end{itemize}
+          \item Test ohne zusätzliche Addiererklauseln
+          \begin{itemize}
+            \item Test mit modulinternen Klauseln
+            \item Test mit Distanzklauseln
+          \end{itemize}
+        \end{itemize}
+      \end{itemize}
     \end{frame}
 
+\section{Schluss}
 \begin{frame}{}
   \begin{center}
     \begin{LARGE}
