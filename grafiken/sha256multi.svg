@@ -96,14 +96,14 @@
       <line x1="500" y1="325" x2="525" y2="325" style="stroke:black;stroke-width:2" />
       <use xlink:href="#pfeil" transform="translate(512, 325) rotate(180)"/>
       <rect x="525" y="300" width="50" height="50" style="fill:khaki;stroke-width:2;stroke:black" />
-      <text x="550" y="332" text-anchor="middle" style="font-family: Arial; font-size: 20px;">E1</text>
+      <text x="550" y="332" text-anchor="middle" style="font-family: Arial; font-size: 20px;">I17</text>
 
       <text x="550" y="400" text-anchor="middle" style="font-family: Arial; font-size: 20px;">...</text>
 
       <line x1="500" y1="475" x2="525" y2="475" style="stroke:black;stroke-width:2" />
       <use xlink:href="#pfeil" transform="translate(512, 475) rotate(180)"/>
       <rect x="525" y="450" width="50" height="50" style="fill:khaki;stroke-width:2;stroke:black" />
-      <text x="550" y="482" text-anchor="middle" style="font-family: Arial; font-size: 20px;">E48</text>
+      <text x="550" y="482" text-anchor="middle" style="font-family: Arial; font-size: 20px;">I64</text>
     </g>
   </defs>
 
