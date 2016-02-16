@@ -165,9 +165,10 @@
   <text x="585" y="285" text-anchor="left" style="font-family: Arial; font-size: 32px; font-weight: bold; fill: green">Z</text>
 
   <!-- + H/I -->
-  <line x1="825" y1="250" x2="825" y2="275" style="stroke:black;stroke-width:2" />
-  <line x1="625" y1="275" x2="825" y2="275" style="stroke:black;stroke-width:2" />
-  <line x1="625" y1="275" x2="625" y2="300" style="stroke:black;stroke-width:2" />
+  <line x1="825" y1="250" x2="825" y2="275" style="stroke:orange;stroke-width:4" />
+  <line x1="625" y1="275" x2="825" y2="275" style="stroke:orange;stroke-width:4" />
+  <line x1="625" y1="275" x2="625" y2="300" style="stroke:orange;stroke-width:4" />
+  <text x="675" y="265" text-anchor="left" style="font-family: Arial; font-size: 32px; font-weight: bold; fill: orange">W</text>
 
   <!-- + (BSIG1/CH)/(H/I) -->
   <line x1="600" y1="350" x2="600" y2="375" style="stroke:blue;stroke-width:4" />
