@@ -60,7 +60,7 @@ int main(int argc, const char* argv[]) {
         DimacsParser parser(filename);
         vector<Lit> clause;
         while (parser.getNextClause(clause)) {
-            if (original.find(clause) != original.end()) {
+            if (clause.size() > 10 || original.find(clause) != original.end()) {
                 counter++;
                 continue;
             }
@@ -77,11 +77,7 @@ int main(int argc, const char* argv[]) {
         DimacsParser parser(filename);
         vector<Lit> clause;
         while (parser.getNextClause(clause)) {
-            if (original.find(clause) != original.end()) {
-                counter++;
-                continue;
-            }
-            if (irreducible.find(clause) != irreducible.end()) {
+            if (clause.size() > 10 || original.find(clause) != original.end() || irreducible.find(clause) != irreducible.end()) {
                 counter++;
                 continue;
             }

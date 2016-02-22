@@ -153,6 +153,7 @@ int main() {
         sprintf(irred_name, "dump/%03u_irred.dimacs", r - 352);
         solver.open_file_and_dump_red_clauses(red_name);
         solver.open_file_and_dump_irred_clauses(irred_name);
+
     }
 
     solver.print_stats();
