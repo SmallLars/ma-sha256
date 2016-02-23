@@ -34,13 +34,14 @@ Erstmal veröffentlicht wurde SHA-$256$ vom \acr{nist} im August 2002 \cite{nist
 Begleitet wurden die Veröffentlichungen des \acr{nist} von der \acr{ietf}. Mit den \acr{rfc} 3174 \cite{rfc3174}, 4634 \cite{rfc4634} und 6234 \cite{rfc6234}
 verfolgt die \acr{ietf} das Ziel, den Quellcode zur Berechnung der Hash-Algorithmen der Internet-Gemeinde auf eine einfache Art und Weise zur Verfügung zu stellen.
 
-SHA-$256$ besteht aus mehreren Teilen die in den folgenden Abschnitten im Detail erläutert werden. Eine Übersicht ist in Abbildung \ref{fig:sha256single} dargestellt.
-Die Abbildung zeigt die Berechnung für den Algorithmus bei einer Eingabe bis zu 447 Bit. Am Anfang stehen acht 32 Bit breite Konstanten die durch den Algorithmus
-in 64 Runden (siehe Abschnitt \ref{sec:sha256:runde}) unter Berücksichtigung der Eingabe zum Hash entwickelt werden. Die Eingabe wird dafür mit Hilfe des Paddings
-(siehe Abschnitt \ref{sec:sha256:padding}) auf 512 Bit erweitert. 512 Bit entsprechen sechzehn 32 Bit Blöcken, die direkt in den ersten 16 Runden verwendet werden.
-Für die verbleibenden 48 Runden werden jeweils 4 vorhergehende 32 Bit Blöcke genutzt um die Eingabe zu erweitern (siehe Abschnitt \ref{sec:sha256:erweiterung}).
-Um eine Cryptoanalyse zu erschweren, wird in jeder Runde eine andere Konstante auf die jeweilige Eingabe addiert, so dass der Einfluss der jeweiligen Eingabe
-auf die Entwicklung der Konstanten ein anderer ist. Abschließend werden die acht Konstanten noch einmal auf das Ergebnis addiert.
+Die Kompressionsfunktion von SHA-$256$ besteht aus mehreren Teilen die in den folgenden Abschnitten im Detail erläutert werden. Eine Übersicht ist in Abbildung
+\ref{fig:sha256single} dargestellt. Die Abbildung zeigt die Berechnung durch die Kompressionsfunktion bei einer Eingabe bis zu 447 Bit. Am Anfang stehen acht
+32 Bit breite Konstanten die durch die Kompressionsfunktion in 64 Runden (siehe Abschnitt \ref{sec:sha256:runde}) unter Berücksichtigung der Eingabe zum Hash
+entwickelt werden. Die Eingabe wird dafür mit Hilfe des Paddings (siehe Abschnitt \ref{sec:sha256:padding}) auf 512 Bit erweitert. 512 Bit entsprechen sechzehn
+32 Bit Blöcken, die direkt in den ersten 16 Runden verwendet werden. Für die verbleibenden 48 Runden werden jeweils 4 vorhergehende 32 Bit Blöcke genutzt um die
+Eingabe zu erweitern (siehe Abschnitt \ref{sec:sha256:erweiterung}). Um eine Cryptoanalyse zu erschweren, wird in jeder Runde eine andere Konstante auf die
+jeweilige Eingabe addiert, so dass der Einfluss der jeweiligen Eingabe auf die Entwicklung der Konstanten ein anderer ist. Abschließend werden die acht Konstanten
+noch einmal auf das Ergebnis addiert.
 
 \begin{figure}[!h]
   \centering
@@ -49,9 +50,9 @@ auf die Entwicklung der Konstanten ein anderer ist. Abschließend werden die ach
   \label{fig:sha256single}
 \end{figure}
 
-Ist die Eingabe länger als 447 Bit, wird sie mit Hilfe des Paddings auf ein Vielfaches von 512 Bit erweitert. Der Algorithmus wird dann entsprechend oft ausgeführt,
-wobei die acht 32 Bit breite Konstanten nur Eingang in die erste Berechnung finden. Das Ergebnis der ersten Berechnung dient dann als Startpunkt für die nächste
-Berechnung. Dieses Schema ist in Abbildung \ref{fig:sha256multi} dargestellt.
+Ist die Eingabe länger als 447 Bit, wird sie mit Hilfe des Paddings auf ein Vielfaches von 512 Bit erweitert. Die Kompressionsfunktion wird dann entsprechend oft
+ausgeführt, wobei die acht 32 Bit breite Konstanten nur für den ersten Funktionsaufruf genutzt werden. Das Ergebnis des ersten Aufrufs dient als Eingabe für
+den nächsten Funktionsaufruf. Dieses Schema ist in Abbildung \ref{fig:sha256multi} dargestellt.
 
 \begin{figure}[!h]
   \centering

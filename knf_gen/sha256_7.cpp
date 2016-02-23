@@ -128,6 +128,7 @@ int main() {
         cout << setw(3) << r - 352 << " / " << assumptions.size() - 352 << ":" << flush;
 
         vector<Lit> as(assumptions.begin(), assumptions.begin() + r);
+        time_t round_time = time(0);
         lbool ret = solver.solve(&as);
         if (ret == l_False) {
             cout << "Nicht lösbar.\n";
@@ -136,7 +137,9 @@ int main() {
 
         cout << " Lösung gefunden zum Zeitpunkt ";
         printTime(cout, time(0) - start_time);
-        cout << "\n  Ausgabe:";
+        cout << " (";
+        printTime(cout, time(0) - round_time);
+        cout << ")\n  Ausgabe:";
         for (unsigned i = 0; i < 8; i++) {
             printf(" %08lx", solver_readInt(solver, sha256.getOutput() + i * 32, 32));
         }

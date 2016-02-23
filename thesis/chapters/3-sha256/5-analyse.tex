@@ -1,7 +1,7 @@
 \section{Analyse}
 \label{sec:sha256:analyse}
 
-In dieser Analyse geht es um eine oberflächliche Betrachtung der Rundenfunktion und des vollständigen Algorithmus.
+In dieser Analyse geht es um eine oberflächliche Betrachtung der Rundenfunktion und der Kompressionsfunktion.
 Ziel ist es ein Verständnis dafür zu entwickeln, was eine Umkehrung der Berechnung verhindert und welche Folgen es
 hätte, wenn die Berechnungen gelingt.
 
@@ -38,18 +38,19 @@ Schließlich lässt sich auch \textcolor{orange}{\textbf{W}} berechnen (\textcol
 es jedoch nicht möglich weiter zu rechnen. Da weder H noch I bekannt sind, gibt es $2^{32}$ Möglichkeiten die Summe \textcolor{orange}{\textbf{W}} zu bilden.
 
 \subsection{Urbildberechnung}
-Ausgehend davon, dass das Ergebnis von \glos{sha256} eine Länge von 256 Bit hat, und die Eingabe bei einer einzelnen Ausführung bis zu 447 Bit lang werden kann,
-ist es wahrscheinlich, dass jeder Hash durch eine einzelne Ausführung erzeugt werden kann. Um mit vollständigen Bytes zu arbeiten, wird in diesem Angriffsvektor
-versucht eine Eingabe mit 440 Bit zu finden. Im Mittel gibt es somit für jeden Hash $2^{440-256} = 2^{184}$ mögliche Eingaben die jeweils zu einer Kollisionen führen.
+Ausgehend davon, dass das Ergebnis von \glos{sha256} eine Länge von 256 Bit hat, und die Eingabe bei einer einzelnen Anwendung der Kompressionsfunktion bis zu
+447 Bit lang werden kann, ist es wahrscheinlich, dass jeder Hash durch eine einzelne Anwendung der Kompressionsfunktion erzeugt werden kann. Um mit vollständigen
+Bytes zu arbeiten, wird in diesem Angriffsvektor versucht eine Eingabe mit 440 Bit zu finden. Im Mittel gibt es somit für jeden Hash $2^{440-256} = 2^{184}$
+mögliche Eingaben die jeweils zu einer Kollisionen führen.
 
-Bei einer einzelnen Ausführung werden acht Konstanten zum Hash entwickelt. Da diese bekannt sind und der Hash ebenfalls vorgegeben ist, lässt sich die abschließende Addition
-berechnen (siehe Abbildung \ref{fig:sha256single}). Dadurch sind A' bis H' der letzten Runden bekannt. Wie im vorherigen Abschnitt beschrieben, müssen in jeder Runde
-H's und I's gefunden werden, die zu den vorgegebene Konstanten führen und eine gültige Eingabe bilden. Zu beachten ist, dass die letzten neun Byte durch das \glos{padding}
-(siehe Abschnitt \ref{sec:sha256:padding}) vorgegeben sind. Das führt in den Runden 15 und 16 dazu, dass das I vollständig bekannt ist, während es in der Runde 14
-teilweise bekannt ist.
+Bei einer einzelnen Anwendung der Kompressionsfunktion werden acht Konstanten zum Hash entwickelt. Da diese bekannt sind und der Hash ebenfalls vorgegeben ist,
+lässt sich die abschließende Addition berechnen (siehe Abbildung \ref{fig:sha256single}). Dadurch sind A' bis H' der letzten Runden bekannt. Wie im vorherigen
+Abschnitt beschrieben, müssen in jeder Runde H's und I's gefunden werden, die zu den vorgegebene Konstanten führen und eine gültige Eingabe bilden. Zu beachten
+ist, dass die letzten neun Byte durch das \glos{padding} (siehe Abschnitt \ref{sec:sha256:padding}) vorgegeben sind. Das führt in den Runden 15 und 16 dazu, dass
+das I vollständig bekannt ist, während es in der Runde 14 teilweise bekannt ist.
 
-Sollte diese Berechnung gelingen, können auch Eingaben beliebiger Länge erzeugt werden. Dazu kann \glos{sha256} beliebig oft mit einer selbst gewählten Eingabe ohne
-\glos{padding} ausgeführt werden. Der daraus resultierende Hash geht als Initialwert in die letzte Runde ein, deren Eingabe wie oben beschrieben berechnet werden könnte.
+Sollte diese Berechnung gelingen, können auch Eingaben beliebiger Länge erzeugt werden. Dazu kann die Kompressionsfunktion beliebig oft mit einer selbst gewählten Eingabe
+ohne \glos{padding} ausgeführt werden. Der daraus resultierende Hash geht als Initialwert in die letzte Runde ein, deren Eingabe wie oben beschrieben berechnet werden könnte.
 
 Eine Urbildberechnung würde es somit ermöglichen, zu hinterlegten Passwort-Hashes gültige Passwörter zu berechnen. Das fälschen einer Signatur eines längeren Dokuments
 wäre jedoch noch schwierig, da der letzte Block Eingaben enthalten kann, die im gefälschten Dokument auffallen könnten. Um auch dieses Problem zu lösen, wird der nächste
@@ -67,11 +68,12 @@ Sollte diese Berechnung gelingen, wäre es möglich, ein Dokument zu erstellen, 
 Grafik oder einen sichtbaren QR-Code enthält. Die Hash-Berechnung könnte dann bis inklusive der einleitenden Bilddaten durchgeführt werden.
 Die abschließenden Bilddaten und das Dokumentende würden als Eingabe für die letzte Ausführung dienen, für die der Initialwert berechnet wird.
 Für die vorletzte Ausführung, die die Bilddaten verarbeitet, müsste so eine Urbildberechnung durchgeführt werden, für die keinerlei Anforderungen
-an die Eingabe gestellt werden muss.
+an die Eingabe gestellt werden braucht.
 
-\subsection{Kollisionen finden}
-
-\glos{satsolver} ermöglicht gleichsetzten von werten\\
-keine vorgabe notwendig: werte bleiben dem zufall überlassen\\
-ausgabe gleichsetzten und unterschied bei eingabe fordern\\
-Geburtstagsparadoxon wird ausgenutzt
+\subsection{Kollisionsberechnung}
+Im Gegensatz zu den Berechnungen in den beiden vorigen Abschnitten hat die Kollisionsberechnung keine praktische Anwendung, da keine Anforderung an
+den Hash gestellt sind. Ziel ist es lediglich 2 beliebige Eingaben zu finden, die zu einem gleichen Hash führen. Mit Hilfe eines Sat-Solvers
+(siehe Abschnitt \ref{chp:satsolver}) lässt dich dieses Problem einfach formulieren. Dazu werden 2 Instanzen des Hash-Algorithmus in den Sat-Solver eingefügt
+und in einer Miter-Schaltung \cite{mitergraph} verknüpft. In dieser Schaltung werden die Ausgänge (Hahes) gleichgesetzt und ein Unterschied in mindestens
+einem Eingabebit gefordert. So kann der SAT-Solver nach einer Lösung suchen ohne dass ein Hash vorgegeben wurde. Das Geburtstagsparadoxon findet somit
+praktische Anwendung.
