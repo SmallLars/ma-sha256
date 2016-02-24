@@ -1,7 +1,37 @@
 \chapter{Die Komponenten in konjunktiver Normalform}
 \label{chp:knf}
 
-\input{chapters/4-knf/1-architektur.tex}
+Erst Architektur erläutern\\
+Entwurfsmuster Besucher\\
+visitor pattern\\
+\cite[301]{visitor}\\
+~\\
+besucherhat 2 funktionen:\\
+klauseln sammeln und informationen sammeln\\
+~\\
+support für mit und ohne xor\\
+immer xor nutzen: bei bedarf rückwandeln: einfacher und compakter als andersrum\\
+klasueln sammeln und analysieren ist aufwendig
+~\\
+hilfsmittel clauseprinter:\\
+ermöglicht: literale brauchen nur einmal eingebeben werden:\\
+werden durch konkrete belegung erzeugt\\
+~\\
+baum\\
+hierarchie durch level:\\
+subaddierer bekommen ihre ebene: 1 bis 4\\
+module aus grafik ebene 10\\
+11\\
+20\\
+21\\
+sha als ganzes: 30\\
+~\\
+betrachtung der erweiterung als teil der runden 17 bis 64\\
+~\\
+moduletests\\
+https://github.com/siu/minunit mit minimaler anpassung für c++
+
+\input{chapters/4-knf/1-gatter.tex}
 \input{chapters/4-knf/2-addierer.tex}
 \input{chapters/4-knf/3-konstadd.tex}
 \input{chapters/4-knf/4-ch.tex}
