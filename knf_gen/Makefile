@@ -12,7 +12,7 @@ SOLVERVERSION = 4.5.3
 
 COMMON = $(shell find common/*.cpp -type f | sed "s/.cpp/.o/g")
 MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")
-PRINTER = $(shell find printer/*.cpp -type f | sed "s/.cpp/.o/g")
+PRINTER = $(shell find collector/*.cpp -type f | sed "s/.cpp/.o/g")
 
 all: cryptominisat/lib/libcryptominisat4.so $(patsubst %.cpp,%,$(wildcard *.cpp))
 
@@ -59,7 +59,7 @@ test_module: test_module.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -lrt -lm -o $@ $^ $(LIBS)
 
 clean:
-	-rm -f $(patsubst %.cpp,%,$(wildcard *.cpp)) *.o common/*.o module/*.o printer/*.o
+	-rm -f $(patsubst %.cpp,%,$(wildcard *.cpp)) *.o common/*.o module/*.o collector/*.o
 
 clobber: clean
 	-rm -rf cryptominisat

@@ -6,9 +6,9 @@
 #include "module/add_prepare_32.h"
 #include "module/shacore_ex1_32.h"
 
-#include "printer/counter.h"
-#include "printer/solverprinter.h"
-#include "printer/bufferedsolverprinter.h"
+#include "collector/counter.h"
+#include "collector/solverprinter.h"
+#include "collector/bufferedsolverprinter.h"
 
 using std::cout;
 using std::vector;

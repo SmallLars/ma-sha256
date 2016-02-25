@@ -34,7 +34,7 @@
 #include "module/add_full_3.h"
 #include "module/add_last_3.h"
 
-#include "printer/solverprinter.h"
+#include "collector/solverprinter.h"
 
 using std::cout;
 using std::string;

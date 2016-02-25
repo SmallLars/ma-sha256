@@ -8,7 +8,7 @@
 #include "../common/solvertools.h"
 #include "../common/general.h"
 
-#include "../printer/dimacsfileprinter.h"
+#include "../collector/dimacsfileprinter.h"
 
 using std::vector;
 using namespace CMSat;

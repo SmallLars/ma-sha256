@@ -7,11 +7,11 @@
 
 #include "clausecreator.h"
 
-#include "../printer/solverprinter.h"
-#include "../printer/logger.h"
-#include "../printer/dimacsfileprinter.h"
-#include "../printer/ttfileprinter.h"
-#include "../printer/counter.h"
+#include "../collector/solverprinter.h"
+#include "../collector/logger.h"
+#include "../collector/dimacsfileprinter.h"
+#include "../collector/ttfileprinter.h"
+#include "../collector/counter.h"
 
 using std::vector;
 using namespace CMSat;

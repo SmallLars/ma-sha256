@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "../printer/collector.h"
+#include "../collector/collector.h"
 
 #define STATS_LENGTH 3
 #define STATS_MAXVAR 0

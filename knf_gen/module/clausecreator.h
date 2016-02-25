@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "../printer/collector.h"
+#include "../collector/collector.h"
 
 #define CC_DC 2
 
