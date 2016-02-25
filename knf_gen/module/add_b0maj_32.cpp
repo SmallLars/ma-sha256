@@ -25,8 +25,8 @@ unsigned* Add_B0Maj_32::getStats() {
     return stats;
 }
 
-void Add_B0Maj_32::create(Printer* printer) {
-    printer->newModul(11, "Add_B0Maj_32", this);
+void Add_B0Maj_32::create(Collector* collector) {
+    collector->newModul(11, "Add_B0Maj_32", this);
 
     unsigned newvars = 0;
     vector<unsigned> subinputs;
@@ -36,7 +36,7 @@ void Add_B0Maj_32::create(Printer* printer) {
     Bsig0_32 bsig0;
     bsig0.setInputs(subinputs);
     bsig0.setStart(start + newvars);
-    bsig0.create(printer);
+    bsig0.create(collector);
     newvars += bsig0.getAdditionalVarCount();
 
     subinputs.clear();
@@ -46,7 +46,7 @@ void Add_B0Maj_32::create(Printer* printer) {
     Maj_32 maj;
     maj.setInputs(subinputs);
     maj.setStart(start + newvars);
-    maj.create(printer);
+    maj.create(collector);
     newvars += maj.getAdditionalVarCount();
 
     subinputs.clear();
@@ -55,7 +55,7 @@ void Add_B0Maj_32::create(Printer* printer) {
     Add_32 adder;
     adder.setInputs(subinputs);
     adder.setStart(start + newvars);
-    adder.create(printer);
+    adder.create(collector);
     newvars += adder.getAdditionalVarCount();
 }
 

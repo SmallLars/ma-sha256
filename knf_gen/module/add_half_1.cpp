@@ -19,19 +19,19 @@ unsigned* Add_Half_1::getStats() {
     return stats;
 }
 
-void Add_Half_1::create(Printer* printer) {
-    printer->newModul(0, "Add_Half_1", this);
+void Add_Half_1::create(Collector* collector) {
+    collector->newModul(0, "Add_Half_1", this);
 
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
     //                c_out   s_out       a_in       b_in
     cc.setLiterals(4, start, output, inputs[0], inputs[1]);
 
 #ifdef XOR_SUPPORT
     // AND ->          c_out       a_in       b_in
-    createAND(printer, start, inputs[0], inputs[1]);
+    createAND(collector, start, inputs[0], inputs[1]);
 
     // XOR ->          !s_out       a_in       b_in
-    createXOR(printer, output, inputs[0], inputs[1]);
+    createXOR(collector, output, inputs[0], inputs[1]);
 
     #ifdef ADDITIONAL_CLAUSES
         //                    3       4          1          2

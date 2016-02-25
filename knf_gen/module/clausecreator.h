@@ -3,16 +3,16 @@
 
 #include <vector>
 
-#include "../printer/printer.h"
+#include "../printer/collector.h"
 
 #define CC_DC 2
 
 class ClauseCreator {
     public:
-        ClauseCreator(Printer* printer);
+        ClauseCreator(Collector* collector);
         ~ClauseCreator();
 
-        Printer* getPrinter();
+        Collector* getCollector();
         void setLiterals(unsigned n_args, ...);
         void addLiterals(unsigned n_args, ...);
         void printClause(unsigned n_args, ...);
@@ -20,7 +20,7 @@ class ClauseCreator {
 
     private:
         std::vector<unsigned> literals;
-        Printer* printer;
+        Collector* collector;
 };
 
 #endif //__CLAUSECREATOR_H__

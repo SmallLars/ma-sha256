@@ -44,8 +44,8 @@ unsigned* Sha256::getStats() {
   return stats;
 }
 
-void Sha256::create(Printer* printer) {
-//  printer->newModul(30, "Sha256", this);
+void Sha256::create(Collector* collector) {
+//  collector->newModul(30, "Sha256", this);
 
   // Input
   unsigned global_input[64];
@@ -79,7 +79,7 @@ void Sha256::create(Printer* printer) {
       prep_add.setInputs(prepareinputs);
       prep_add.setStart(start + newvars);
       prepN[i] = start + newvars;
-      prep_add.create(printer);
+      prep_add.create(collector);
       newvars += prep_add.getAdditionalVarCount();
 
       global_input[i] = prep_add.getOutput();
@@ -91,7 +91,7 @@ void Sha256::create(Printer* printer) {
     core.setInputs(subinputs);
     core.setStart(start + newvars);
     coreN[i] = start + newvars;
-    core.create(printer);
+    core.create(collector);
     newvars += core.getAdditionalVarCount();
 
     for (unsigned n = 7; n > 0; n--) vars[n] = vars[n - 1];
@@ -107,12 +107,12 @@ void Sha256::create(Printer* printer) {
     adder.setInputs(subinputs);
     adder.setStart(start + newvars);
     adder.setOutput(output + (i * 32));
-    adder.create(printer);
+    adder.create(collector);
     newvars += adder.getAdditionalVarCount() - 32;
   }
 
 #ifdef ADDITIONAL_CLAUSES
-  ClauseCreator cc(printer);
+  ClauseCreator cc(collector);
 
   // distance - modulcount + 1 = 5
   clause_5_39(cc);
@@ -4409,7 +4409,7 @@ void Sha256::clause_2_48(ClauseCreator &cc) {
       // -35639 -43037 -48665 0
 
       //                             result[0]          result[0]            result[0]
-      createXOR(cc.getPrinter(), coreN[r] + 31, coreN[r + 9] + 31, prepN[r + 16] + 158, (bool) valid[r]);
+      createXOR(cc.getCollector(), coreN[r] + 31, coreN[r + 9] + 31, prepN[r + 16] + 158, (bool) valid[r]);
     }
     {
       unsigned valid[48][24] = {
@@ -4465,7 +4465,7 @@ void Sha256::clause_2_48(ClauseCreator &cc) {
 
       if (valid[r][0] == 1) {
         // .5
-        createXOR(cc.getPrinter(), coreN[r], coreN[r + 9], prepN[r + 16] + 158);
+        createXOR(cc.getCollector(), coreN[r], coreN[r + 9], prepN[r + 16] + 158);
       }
 
       for (unsigned b = 0; b < 4; b++) {
@@ -4859,7 +4859,7 @@ void Sha256::clause_2_48(ClauseCreator &cc) {
         if (valid[r][b] == 1 && valid[r][b + 4] == 1) {
           // .14.1 - .14.4
           //                             result[0]               carry[0]                result[0]
-          createXOR(cc.getPrinter(), coreN[r] + 31 + b, coreN[r + 9] + 31 + b, prepN[r + 16] + 158 + b, true);
+          createXOR(cc.getCollector(), coreN[r] + 31 + b, coreN[r + 9] + 31 + b, prepN[r + 16] + 158 + b, true);
         } else {
           if (valid[r][b] == 1) {
             // .14.1
@@ -4914,7 +4914,7 @@ void Sha256::clause_2_48(ClauseCreator &cc) {
         if (valid[r][b + 8] == 1 && valid[r][b + 12] == 1) {
           // .14.5 - .14.8
           //                             result[0]               carry[0]                result[0]
-          createXOR(cc.getPrinter(), coreN[r] + 31 + b, coreN[r + 9] + 31 + b, prepN[r + 16] + 158 + b, false);
+          createXOR(cc.getCollector(), coreN[r] + 31 + b, coreN[r + 9] + 31 + b, prepN[r + 16] + 158 + b, false);
         } else {
           if (valid[r][b + 8] == 1) {
             // .14.5
@@ -4995,7 +4995,7 @@ void Sha256::clause_2_48(ClauseCreator &cc) {
         if (valid[r][b] == 1 && valid[r][b + 4] == 1) {
           // .15.1 - .15.4
           //                         carry[0]              result[0]                result[0]
-          createXOR(cc.getPrinter(), coreN[r] + b, coreN[r + 9] + 31 + b, prepN[r + 16] + 158 + b, false);
+          createXOR(cc.getCollector(), coreN[r] + b, coreN[r + 9] + 31 + b, prepN[r + 16] + 158 + b, false);
         } else {
           if (valid[r][b] == 1) {
             // .15.1
@@ -5042,7 +5042,7 @@ void Sha256::clause_2_48(ClauseCreator &cc) {
         if (valid[r][b + 8] == 1 && valid[r][b + 12] == 1) {
           // .15.5 - .15.8
           //                         carry[0]              result[0]                result[0]
-          createXOR(cc.getPrinter(), coreN[r] + b, coreN[r + 9] + 31 + b, prepN[r + 16] + 158 + b, true);
+          createXOR(cc.getCollector(), coreN[r] + b, coreN[r + 9] + 31 + b, prepN[r + 16] + 158 + b, true);
         } else {
           if (valid[r][b + 8] == 1) {
             // .15.5

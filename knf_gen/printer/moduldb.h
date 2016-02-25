@@ -1,7 +1,7 @@
 #ifndef __MODULDB_H__
 #define __MODULDB_H__
 
-#include "printer.h"
+#include "collector.h"
 
 #include <utility>
 #include <iostream>
@@ -14,7 +14,7 @@ struct ModulEntry {
     void print(std::ostream& out);
 };
 
-class ModulDB : public Printer {
+class ModulDB : public Collector {
     public:
         ModulDB();
         ~ModulDB();

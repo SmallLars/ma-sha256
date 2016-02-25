@@ -27,10 +27,10 @@ unsigned* Ch_32::getStats() {
     return stats;
 }
 
-void Ch_32::create(Printer* printer) {
-    printer->newModul(10, "Ch_32", this);
+void Ch_32::create(Collector* collector) {
+    collector->newModul(10, "Ch_32", this);
 
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
 
     for (unsigned i = 0; i < 32; i++) {
         //                     r_out           a_in           b_in           c_in

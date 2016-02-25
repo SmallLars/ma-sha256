@@ -1,9 +1,9 @@
 #ifndef __ASSUMPTIONPRINTER_H__
 #define __ASSUMPTIONPRINTER_H__
 
-#include "printer.h"
+#include "collector.h"
 
-class AssumptionPrinter : public Printer {
+class AssumptionPrinter : public Collector {
     public:
         AssumptionPrinter(std::vector<CMSat::Lit>* lits);
         ~AssumptionPrinter();

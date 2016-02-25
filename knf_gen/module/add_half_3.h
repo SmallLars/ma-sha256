@@ -10,7 +10,7 @@ class Add_Half_3 : public Modul {
         ~Add_Half_3();
 
         unsigned* getStats();
-        void create(Printer* printer);
+        void create(Collector* collector);
         MU_TEST_H(test);
     private:
         static unsigned stats[STATS_LENGTH];

@@ -26,15 +26,15 @@ Ein Hash-Algorithmus sollte die drei folgenden Eigenschaften erfüllen um als si
                          müssen um eine Kollision zu finden.                         
 \end{description}
 
-In dieser Arbeit wird SHA-$256$ betrachtet. Nach SHA-$0$ und SHA-$1$ gehört dieser zur dritten Generation, zu der auch SHA-$224$, SHA-$384$ und SHA-$512$ gehören.
+In dieser Arbeit wird \glos{sha256} betrachtet. Nach SHA-$0$ und SHA-$1$ gehört dieser zur dritten Generation, zu der auch SHA-$224$, SHA-$384$ und SHA-$512$ gehören.
 Genau wie SHA-$224$ werden maximale Eingaben von $ 2^{64} - 1$ Bit unterstützt, was $ 2^{61} - 1 $ Byte (vergleiche 1 \acr{gib} = $ 1^{30} $ Byte) entspricht.
 Der berechnete Fingerabdruck ist gemäß dem Namen 256 Bit lang.
 
-Erstmal veröffentlicht wurde SHA-$256$ vom \acr{nist} im August 2002 \cite{nist1802}. Die aktuellste Version wurde im August 2015 veröffentlicht \cite{nist1804}.
+Erstmal veröffentlicht wurde \glos{sha256} vom \acr{nist} im August 2002 \cite{nist1802}. Die aktuellste Version wurde im August 2015 veröffentlicht \cite{nist1804}.
 Begleitet wurden die Veröffentlichungen des \acr{nist} von der \acr{ietf}. Mit den \acr{rfc} 3174 \cite{rfc3174}, 4634 \cite{rfc4634} und 6234 \cite{rfc6234}
 verfolgt die \acr{ietf} das Ziel, den Quellcode zur Berechnung der Hash-Algorithmen der Internet-Gemeinde auf eine einfache Art und Weise zur Verfügung zu stellen.
 
-Die Kompressionsfunktion von SHA-$256$ besteht aus mehreren Teilen die in den folgenden Abschnitten im Detail erläutert werden. Eine Übersicht ist in Abbildung
+Die Kompressionsfunktion von \glos{sha256} besteht aus mehreren Teilen die in den folgenden Abschnitten im Detail erläutert werden. Eine Übersicht ist in Abbildung
 \ref{fig:sha256single} dargestellt. Die Abbildung zeigt die Berechnung durch die Kompressionsfunktion bei einer Eingabe bis zu 447 Bit. Am Anfang stehen acht
 32 Bit breite Konstanten die durch die Kompressionsfunktion in 64 Runden (siehe Abschnitt \ref{sec:sha256:runde}) unter Berücksichtigung der Eingabe zum Hash
 entwickelt werden. Die Eingabe wird dafür mit Hilfe des Paddings (siehe Abschnitt \ref{sec:sha256:padding}) auf 512 Bit erweitert. 512 Bit entsprechen sechzehn

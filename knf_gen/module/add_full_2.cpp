@@ -21,10 +21,10 @@ unsigned* Add_Full_2::getStats() {
     return stats;
 }
 
-void Add_Full_2::create(Printer* printer) {
-    printer->newModul(1, "Add_Full_2", this);
+void Add_Full_2::create(Collector* collector) {
+    collector->newModul(1, "Add_Full_2", this);
 
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
     //                c_out  s_out[0]  s_out[1]    a_in[0]        a_in[1]    b_in[0]        b_in[1]       c_in
     cc.setLiterals(8, start, output, output + 1, inputs[0], inputs[0] + 1, inputs[1], inputs[1] + 1, inputs[2]);
 

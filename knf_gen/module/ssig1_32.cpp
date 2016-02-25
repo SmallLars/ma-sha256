@@ -17,11 +17,11 @@ unsigned* Ssig1_32::getStats() {
     return stats;
 }
 
-void Ssig1_32::create(Printer* printer) {
-    printer->newModul(10, "Ssig1_32", this);
+void Ssig1_32::create(Collector* collector) {
+    collector->newModul(10, "Ssig1_32", this);
 
     for (unsigned i = 0; i < 22; i++) {
-        createXOR(printer,
+        createXOR(collector,
                   output + i, 
                   inputs[0] + ((i + 17) % 32),
                   inputs[0] + ((i + 19) % 32),
@@ -29,7 +29,7 @@ void Ssig1_32::create(Printer* printer) {
         );
     }
     for (unsigned i = 22; i < 32; i++) {
-        createXOR(printer,
+        createXOR(collector,
                   output + i, 
                   inputs[0] + ((i + 17) % 32),
                   inputs[0] + ((i + 19) % 32)
@@ -38,7 +38,7 @@ void Ssig1_32::create(Printer* printer) {
 
 #ifdef ADDITIONAL_CLAUSES
     for (unsigned i = 0; i < 7; i++) {
-        createXOR(printer, inputs[0] + 17 + i, inputs[0] + 21 + i, output + i, output + 2 + i, output + 25 + i);
+        createXOR(collector, inputs[0] + 17 + i, inputs[0] + 21 + i, output + i, output + 2 + i, output + 25 + i);
     }
 #endif
 }

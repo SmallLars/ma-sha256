@@ -33,8 +33,8 @@ unsigned* Prepare_32::getStats() {
     return stats;
 }
 
-void Prepare_32::create(Printer* printer) {
-    printer->newModul(20, "Prepare_32", this);
+void Prepare_32::create(Collector* collector) {
+    collector->newModul(20, "Prepare_32", this);
 
     unsigned newvars = 0;
     vector<unsigned> subinputs;
@@ -50,7 +50,7 @@ void Prepare_32::create(Printer* printer) {
         Add_Prepare_32 adder;
         adder.setInputs(subinputs);
         adder.setStart(start + newvars);
-        adder.create(printer);
+        adder.create(collector);
         results[i] = adder.getOutput();
         newvars += adder.getAdditionalVarCount();
     }
@@ -62,7 +62,7 @@ void Prepare_32::create(Printer* printer) {
         adder.setInputs(subinputs);
         adder.setStart(start + newvars);
         adder.setOutput(output + i * 32);
-        adder.create(printer);
+        adder.create(collector);
         newvars += adder.getAdditionalVarCount() - 32;
     }
 }

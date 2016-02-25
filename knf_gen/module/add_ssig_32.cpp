@@ -26,8 +26,8 @@ unsigned* Add_Ssig_32::getStats() {
     return stats;
 }
 
-void Add_Ssig_32::create(Printer* printer) {
-    printer->newModul(11, "Add_Ssig_32", this);
+void Add_Ssig_32::create(Collector* collector) {
+    collector->newModul(11, "Add_Ssig_32", this);
 
     unsigned newvars = 0;
     vector<unsigned> subinputs;
@@ -37,7 +37,7 @@ void Add_Ssig_32::create(Printer* printer) {
     Ssig0_32 ssig0;
     ssig0.setInputs(subinputs);
     ssig0.setStart(start + newvars);
-    ssig0.create(printer);
+    ssig0.create(collector);
     newvars += ssig0.getAdditionalVarCount();
 
     subinputs.clear();
@@ -45,7 +45,7 @@ void Add_Ssig_32::create(Printer* printer) {
     Ssig1_32 ssig1;
     ssig1.setInputs(subinputs);
     ssig1.setStart(start + newvars);
-    ssig1.create(printer);
+    ssig1.create(collector);
     newvars += ssig1.getAdditionalVarCount();
 
     subinputs.clear();
@@ -54,11 +54,11 @@ void Add_Ssig_32::create(Printer* printer) {
     Add_32 adder;
     adder.setInputs(subinputs);
     adder.setStart(start + newvars);
-    adder.create(printer);
+    adder.create(collector);
     newvars += adder.getAdditionalVarCount();
 
 #ifdef ADDITIONAL_CLAUSES
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
     //                        93         156         157             46              48
     cc.setLiterals(5, start + 28, start + 91, start + 92, inputs[1]+ 13, inputs[1] + 15);
     cc.printClause(5,          1,      CC_DC,          0,             1,              1);

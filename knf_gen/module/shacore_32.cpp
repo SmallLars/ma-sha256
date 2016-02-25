@@ -33,8 +33,8 @@ unsigned* ShaCore_32::getStats() {
     return stats;
 }
 
-void ShaCore_32::create(Printer* printer) {
-    printer->newModul(20, "ShaCore_32", this);
+void ShaCore_32::create(Collector* collector) {
+    collector->newModul(20, "ShaCore_32", this);
 
     unsigned newvars = 0;
     vector<unsigned> subinputs;
@@ -46,7 +46,7 @@ void ShaCore_32::create(Printer* printer) {
     Add_B0Maj_32 adderB0Maj;
     adderB0Maj.setInputs(subinputs);
     adderB0Maj.setStart(start + newvars);
-    adderB0Maj.create(printer);
+    adderB0Maj.create(collector);
     newvars += adderB0Maj.getAdditionalVarCount();
 
     subinputs.clear();
@@ -56,7 +56,7 @@ void ShaCore_32::create(Printer* printer) {
     Add_B1Ch_32 adderB1Ch;
     adderB1Ch.setInputs(subinputs);
     adderB1Ch.setStart(start + newvars);
-    adderB1Ch.create(printer);
+    adderB1Ch.create(collector);
     newvars += adderB1Ch.getAdditionalVarCount();
 
     subinputs.clear();
@@ -65,7 +65,7 @@ void ShaCore_32::create(Printer* printer) {
     Add_32 adder1;
     adder1.setInputs(subinputs);
     adder1.setStart(start + newvars);
-    adder1.create(printer);
+    adder1.create(collector);
     newvars += adder1.getAdditionalVarCount();
 
     subinputs.clear();
@@ -74,7 +74,7 @@ void ShaCore_32::create(Printer* printer) {
     Add_32 adder2;
     adder2.setInputs(subinputs);
     adder2.setStart(start + newvars);
-    adder2.create(printer);
+    adder2.create(collector);
     newvars += adder2.getAdditionalVarCount();
 
     subinputs.clear();
@@ -84,7 +84,7 @@ void ShaCore_32::create(Printer* printer) {
     adder4.setInputs(subinputs);
     adder4.setStart(start + newvars);
     adder4.setOutput(output + 32);
-    adder4.create(printer);
+    adder4.create(collector);
     newvars += adder4.getAdditionalVarCount() - 32;
 
     subinputs.clear();
@@ -94,7 +94,7 @@ void ShaCore_32::create(Printer* printer) {
     adder3.setInputs(subinputs);
     adder3.setStart(start + newvars);
     adder3.setOutput(output);
-    adder3.create(printer);
+    adder3.create(collector);
     newvars += adder3.getAdditionalVarCount() - 32;
 
 #if ADDITIONAL_KNOWLEDGE == 1
@@ -104,7 +104,7 @@ void ShaCore_32::create(Printer* printer) {
     Add_32 rev_adder;
     rev_adder.setInputs(subinputs);
     rev_adder.setStart(start + newvars);
-    rev_adder.create(printer);
+    rev_adder.create(collector);
     newvars += rev_adder.getAdditionalVarCount();
 
     subinputs.clear();
@@ -114,17 +114,17 @@ void ShaCore_32::create(Printer* printer) {
     rev_subber.setInputs(subinputs);
     rev_subber.setStart(start + newvars);
     rev_subber.setOutput(inputs[3]);
-    rev_subber.create(printer);
+    rev_subber.create(collector);
     newvars += rev_subber.getAdditionalVarCount() - 32;
 #endif
 
 #ifdef ADDITIONAL_CLAUSES
     // XOR ->             731    289         321          637    
-    createXOR(printer, output, start, start + 32, start + 348);
+    createXOR(collector, output, start, start + 32, start + 348);
     // XOR ->                  637          416          448          574    
-    createXOR(printer, start + 348, start + 127, start + 159, start + 285);
+    createXOR(collector, start + 348, start + 127, start + 159, start + 285);
 
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
     //                          226            258          481          512          544          607          638
     cc.setLiterals(7, inputs[7] + 1, inputs[8] + 1, start + 192, start + 223, start + 255, start + 318, start + 349);
     cc.printClause(7,             1,         CC_DC,       CC_DC,       CC_DC,           0,           0,       CC_DC);

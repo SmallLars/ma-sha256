@@ -21,10 +21,10 @@ unsigned* Add_Last_4::getStats() {
     return stats;
 }
 
-void Add_Last_4::create(Printer* printer) {
-    printer->newModul(3, "Add_Last_4", this);
+void Add_Last_4::create(Collector* collector) {
+    collector->newModul(3, "Add_Last_4", this);
 
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
     //               s_out[0]    s_out[1]    s_out[2]    s_out[3]
     cc.setLiterals(4, output, output + 1, output + 2, output + 3);
     //                  a_in[0]        a_in[1]        a_in[2]        a_in[3]

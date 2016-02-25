@@ -12,7 +12,7 @@ Bei dem Versuch, die Funktion umzukehren, ist sofort ersichtlich, dass A bis C u
 \begin{figure}[!h]
   \centering
   \includegraphics[scale=0.4]{images/sha256coreA}
-  \caption{Analyse einer SHA256-Runde}
+  \caption{Analyse einer \glos{sha256}-Runde}
   \label{fig:sha256coreA}
 \end{figure}
 
@@ -73,7 +73,7 @@ an die Eingabe gestellt werden braucht.
 \subsection{Kollisionsberechnung}
 Im Gegensatz zu den Berechnungen in den beiden vorigen Abschnitten hat die Kollisionsberechnung keine praktische Anwendung, da keine Anforderung an
 den Hash gestellt sind. Ziel ist es lediglich 2 beliebige Eingaben zu finden, die zu einem gleichen Hash führen. Mit Hilfe eines Sat-Solvers
-(siehe Abschnitt \ref{chp:satsolver}) lässt dich dieses Problem einfach formulieren. Dazu werden 2 Instanzen des Hash-Algorithmus in den Sat-Solver eingefügt
+(siehe Abschnitt \ref{sec:satsolver}) lässt dich dieses Problem einfach formulieren. Dazu werden 2 Instanzen des Hash-Algorithmus in den Sat-Solver eingefügt
 und in einer Miter-Schaltung \cite{mitergraph} verknüpft. In dieser Schaltung werden die Ausgänge (Hahes) gleichgesetzt und ein Unterschied in mindestens
 einem Eingabebit gefordert. So kann der SAT-Solver nach einer Lösung suchen ohne dass ein Hash vorgegeben wurde. Das Geburtstagsparadoxon findet somit
 praktische Anwendung.

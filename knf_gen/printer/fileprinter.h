@@ -1,11 +1,11 @@
 #ifndef __FILEPRINTER_H__
 #define __FILEPRINTER_H__
 
-#include "printer.h"
+#include "collector.h"
 
 #include <fstream>
 
-class FilePrinter : public Printer {
+class FilePrinter : public Collector {
     public:
         FilePrinter(const char* filename);
         ~FilePrinter();

@@ -17,11 +17,11 @@ unsigned* Bsig0_32::getStats() {
     return stats;
 }
 
-void Bsig0_32::create(Printer* printer) {
-    printer->newModul(10, "Bsig0_32", this);
+void Bsig0_32::create(Collector* collector) {
+    collector->newModul(10, "Bsig0_32", this);
 
     for (unsigned i = 0; i < 32; i++) {
-        createXOR(printer,
+        createXOR(collector,
                   output + i, 
                   inputs[0] + ((i +  2) % 32),
                   inputs[0] + ((i + 13) % 32),

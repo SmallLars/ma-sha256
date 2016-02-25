@@ -30,8 +30,8 @@ unsigned* ShaCore_Ex2_32::getStats() {
     return stats;
 }
 
-void ShaCore_Ex2_32::create(Printer* printer) {
-    printer->newModul(22, "ShaCore_Ex2_32", this);
+void ShaCore_Ex2_32::create(Collector* collector) {
+    collector->newModul(22, "ShaCore_Ex2_32", this);
 
     unsigned newvars = 0;
     vector<unsigned> subinputs;
@@ -44,7 +44,7 @@ void ShaCore_Ex2_32::create(Printer* printer) {
     Add_Prepare_32 adder;
     adder.setInputs(subinputs);
     adder.setStart(start + newvars);
-    adder.create(printer);
+    adder.create(collector);
     newvars += adder.getAdditionalVarCount();
 
     subinputs.clear();
@@ -60,7 +60,7 @@ void ShaCore_Ex2_32::create(Printer* printer) {
     ShaCore_Ex1_32 shacore(value);
     shacore.setInputs(subinputs);
     shacore.setStart(start + newvars);
-    shacore.create(printer);
+    shacore.create(collector);
     newvars += shacore.getAdditionalVarCount();
 }
 

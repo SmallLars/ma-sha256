@@ -1,11 +1,11 @@
 #ifndef __COUNTER_H__
 #define __COUNTER_H__
 
-#include "printer.h"
+#include "collector.h"
 
 #include <set>
 
-class Counter : public Printer {
+class Counter : public Collector {
     public:
         Counter();
         ~Counter();

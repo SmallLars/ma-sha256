@@ -1,9 +1,9 @@
 #ifndef __SOLVERPRINTER_H__
 #define __SOLVERPRINTER_H__
 
-#include "printer.h"
+#include "collector.h"
 
-class SolverPrinter : public Printer {
+class SolverPrinter : public Collector {
     public:
         SolverPrinter(CMSat::SATSolver* solver);
         ~SolverPrinter();

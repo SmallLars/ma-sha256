@@ -11,7 +11,7 @@ class Sha256 : public Modul {
         ~Sha256();
 
         unsigned* getStats();
-        void create(Printer* printer);
+        void create(Collector* collector);
         MU_TEST_H(test);
     private:
         static unsigned stats[STATS_LENGTH];

@@ -19,11 +19,11 @@ unsigned* Add_Last_1::getStats() {
     return stats;
 }
 
-void Add_Last_1::create(Printer* printer) {
-    printer->newModul(0, "Add_Last_1", this);
+void Add_Last_1::create(Collector* collector) {
+    collector->newModul(0, "Add_Last_1", this);
 
     // XOR ->          !s_out       a_in       b_in       c_in
-    createXOR(printer, output, inputs[0], inputs[1], inputs[2]);
+    createXOR(collector, output, inputs[0], inputs[1], inputs[2]);
 
 #ifdef ADDITIONAL_CLAUSES
 

@@ -1,7 +1,7 @@
 #ifndef __MODULGRAPH_H__
 #define __MODULGRAPH_H__
 
-#include "printer.h"
+#include "collector.h"
 
 #include <list>
 #include <set>
@@ -19,7 +19,7 @@ struct Node {
     std::map<unsigned, unsigned> distance;
 };
 
-class ModulGraph : public Printer {
+class ModulGraph : public Collector {
     public:
         ModulGraph();
         ~ModulGraph();
