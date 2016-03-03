@@ -16,59 +16,81 @@ Dabei entstehen jedoch vergleichsweise viele lange Klauseln.
 Um sowohl Kontrolle über die Erzeugung der konjunktiven Normalform zu bekommen als auch Informationen zu sammeln um eine Analyse zu ermöglichen, wird ein Programm
 erstellt, dass das Entwurfsmuster "`Besucher"' \cite[301]{visitor} verwendet. Besucher sind dabei Instanzen von Klassen, die unterschiedlichste Aufgaben erfüllen können.
 Eine Aufgabe kann es dabei sein, die konjunktive Normalform zu erzeugen während eine andere Aufgabe das Zählen von Literalen und Klauseln sein kann.
-Besucht wird dabei eine Struktur, deren Objekte das Verhalten von \glos{sha256} beschreiben. Die Objekte der Struktur werden im folgenden als Modul bezeichnet.
+Besucht wird dabei eine Struktur, deren Objekte das Verhalten von \glos{sha256} beschreiben. Die Objekte der Struktur werden im Folgenden als Modul bezeichnet.
 Ein Modul kann sowohl die vollständige Kompressionsfunktion von \glos{sha256} sein, als auch ein kleiner Baustein wie ein Halbaddierer. Dabei kann ein Modul
 auch andere Module verwenden. Es zeigt ich, dass acht grundlegende Module ausreichen um \glos{sha256} vollständig zu beschreiben. Diese werden in den Abschnitten
 \ref{sec:knf:addierer} bis \ref{sec:knf:sig} erläutert. Alle weiteren Module setzen sich aus diesen zusammen und werden in Abschnitt \ref{sec:knf:module} erläutert.
 
 Alle notwendigen allgemeinen Funktionen für ein Modul sind in einer Basisklasse hinterlegt, von der jedes konkrete Modul erben muss. Ein konkretes Modul wird
-dadurch realisiert, dass die bis dato virtuelle Funktion create(Printer* printer) implementiert wird.
+dadurch realisiert, dass die bis dato rein virtuelle Funktion create(Collector* collector) implementiert wird. Über diese Funktion wird der Besucher in das Modul
+übergeben, dessen Basisklasse im Folgenden Collector genannt wird, da dieser Informationen über die besuchten Module sammelt. Der Collector stellt 2 virtuelle
+Funktionen bereit, die ein konkreter Collector implementieren kann.
+\begin{description}
+  \item[newModul(unsigned level, const char* name, Modul* modul)] muss von jedem Modul aufgerufen werden und dient der Registrierung im Collector.
+       Übergeben wird dabei ein selbstgewähltes Level und ein eindeutiger Name. Das Level muss dabei immer höher sein, als alle Level der im Modul
+       benutzen Module, so dass Module eines Levels keine gemeinsamen Literale verwenden. Der Name dient als Identifizierung um eine mehrfache
+       Verwendung eines Moduls zu erkennen und gelerntes Wissen zuordnen zu können. Als weiterer Parameter wird noch ein Pointer auf das Modul
+       selbst übergeben, so dass der Collector bei Bedarf weitere Informationen abrufen kann.
+  \item[create(bool xOR, const std::vector<CMSat::Lit>\& vars)] kann von einem Modul mehrfach aufgerufen werden, um Klauseln zu generieren.
+       Im Fall von \glos{sha256} wird diese Funktion nur von den acht grundlegenden Modulen aufgerufen. Alle weiteren Module setzen sich aus
+       diesen zusammen und reichen den Collector lediglich weiter. Der erste Paramter gibt an, ob es sich um eine normale Klausel handelt,
+       deren Literale durch ein OR verknüpft sind, oder ob es sich um eine Klausel handelt deren Literale durch ein XOR verknüpft sind.
+       Ein SAT-Solver wie CryptoMiniSat kann XOR-Klauseln direkt verarbeiten. Für SAT-Solver ohne Unterstützung der XOR-Klauseln ist eine
+       Transformation in OR-Klauseln einfach möglich. Eine Transformation in die andere Richtung würde das Sammeln und Analysieren der
+       OR-Klauseln erfordern und wäre dadurch wesentlich aufwendiger.
+\end{description}
+Die für die Analyse notwendigen konkreten Collectoren werden in Kapitel \ref{chp:analyse} erläutert.
 
+Als Hilfsmittel für die Generierung der Klauseln wird die Klasse ClauseCreator genutzt. Die Verwendung ist in einem Beispiel in Abbildung \ref{fig:clausecreator} dargestellt.
+Initialisiert wird der ClauseCreator durch die Übergabe des Collectors, an den die Klauseln übergeben werden sollen. Im Anschluss werden die Nummern der Literale gesetzt.
+Dadurch ist es möglich mit diesen Literalen beliebig viele Klauseln zu erzeugen, wobei nur noch die Polarität angegeben werden muss. 1 führt zu einer Negation während
+das Makro CC\_DC ein Dont-Care signalisiert und das Literal in der Klausel unterdrückt wird.
+\begin{figure}[!h]
+  \centering
+  \begin{minipage}[c]{7.5cm}
+    \begin{lstlisting}[language=c]
+	ClauseCreator cc(collector);
+	cc.setLiterals(4,     0,     1,     2,     3);
+	cc.printClause(4,     0,     1, CC_DC, CC_DC);
+	cc.printClause(4,     1,     0,     1,     0);
+	cc.printClause(4, CC_DC, CC_DC,     1, CC_DC);
+    \end{lstlisting}
+  \end{minipage}
+  \begin{minipage}[c]{2cm}
+    ~~~~~~~~~~~~$ \Rightarrow $   
+  \end{minipage}
+  \begin{minipage}[c]{2cm}
+    \begin{align*}
+      & (\overline{0} \vee 1) ~ \wedge \\
+      & (0 \vee \overline{1} \vee 2 \vee \overline{3}) ~ \wedge \\
+      & (2) \nonumber
+    \end{align*}
+  \end{minipage}
+  \caption{Verwendung des ClauseCreators}
+  \label{fig:clausecreator}
+\end{figure}
 
+Um die Funktion aller Module sicherzustellen, werden diese mit MinUnit \cite{minunit} getestet. MinUnit ist eine minimale Testumgebung und
+wurde ursprünglich für den Test von C-Programmen entwickelt. Da es unter der MIT-Lizenz veröffentlicht wurde kann es ohne Einschränkungen
+direkt in den Programmcode eingebunden und angepasst werden. Ausgeliefert wird MinUnit in einer einzigen Header-Datei. Das führt zu einem
+Problem wenn der Linker mehrere Objekt-Dateien zusammenführt, da MinUnit mehrfach eingebunden wurde. Um dieses Problem zu vermeiden, wird
+der Programmcode von MinUnit in eine Header- und eine Quelltext-Datei aufgeteilt.
 
-In der Implementierung wird der Besucher printer genannt, weil der erste besucher ein dimacsprinter war.
+\TODO{erledigen}
 
-
-
-modul:\\
-void create(Printer* printer)\\
-~\\
-besucher:\\
-void newModul(unsigned level, const char* name, Modul* modul)\\
-void create(bool xOR, const std::vector<CMSat::Lit>\& vars)
-
-
-
-
-
-Ziele:  nicht nur knf generieren\\
-auch wissen darüber sammeln\\
-besucher (printer) benötigt methode um klauseln zu sammeln.
-~\\
-besucherhat 2 funktionen:\\
-klauseln sammeln und informationen sammeln\\
-~\\
-support für mit und ohne xor\\
-immer xor nutzen: bei bedarf rückwandeln: einfacher und compakter als andersrum\\
-klasueln sammeln und analysieren ist aufwendig
-~\\
-hilfsmittel clauseprinter:\\
-ermöglicht: literale brauchen nur einmal eingebeben werden:\\
-werden durch konkrete belegung erzeugt\\
-~\\
-baum\\
-hierarchie durch level:\\
-subaddierer bekommen ihre ebene: 1 bis 4\\
-module aus grafik ebene 10\\
-11\\
-20\\
-21\\
-sha als ganzes: 30\\
-~\\
-betrachtung der erweiterung als teil der runden 17 bis 64\\
-~\\
-moduletests\\
-https://github.com/siu/minunit mit minimaler anpassung für c++
+Bei Verwendung von eqntott und espresso:\\
+eqntott kennt kein == oder xor, deswegen definieren\\
+\begin{figure}[!h]
+  \centering
+  \begin{minipage}[c]{14.5cm}
+    \begin{lstlisting}[]
+  #define xor(a,b) ((a)&!(b) | !(a)&(b))
+  #define eq(a,b) ((a)&(b) | !(a)&!(b))
+    \end{lstlisting}
+  \end{minipage}
+  \caption{Gattergleichungen - Kopf}
+  \label{fig:gatter_equations_head}
+\end{figure}
 
 \input{chapters/4-knf/1-gatter.tex}
 \input{chapters/4-knf/2-addierer.tex}

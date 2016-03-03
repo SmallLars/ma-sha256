@@ -163,12 +163,20 @@ void Modul::createNEQ(Collector* collector, unsigned out, unsigned in) {
     collector->create(true, clause);
 }
 
-void Modul::createAND(Collector* collector, unsigned out, unsigned in1, unsigned in2) {
+void Modul::createAND(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert) {
     ClauseCreator cc(collector);
-    cc.setLiterals(3,   out,   in1,   in2);
-    cc.printClause(3,     1,     0,     0);
-    cc.printClause(3,     0,     1, CC_DC);
-    cc.printClause(3,     0, CC_DC,     1);
+    cc.setLiterals(3,     out,   in1,   in2);
+    cc.printClause(3, !invert,     0,     0);
+    cc.printClause(3,  invert,     1, CC_DC);
+    cc.printClause(3,  invert, CC_DC,     1);
+}
+
+void Modul::createOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert) {
+    ClauseCreator cc(collector);
+    cc.setLiterals(3,     out,   in1,   in2);
+    cc.printClause(3,  invert,     1,     1);
+    cc.printClause(3, !invert,     0, CC_DC);
+    cc.printClause(3, !invert, CC_DC,     0);
 }
 
 void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert) {
@@ -177,14 +185,6 @@ void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned
     clause.push_back(Lit(in1, false));
     clause.push_back(Lit(in2, false));
     collector->create(true, clause);
-}
-
-void Modul::createOR(Collector* collector, unsigned out, unsigned in1, unsigned in2) {
-    ClauseCreator cc(collector);
-    cc.setLiterals(3,   out,   in1,   in2);
-    cc.printClause(3,     0,     1,     1);
-    cc.printClause(3,     1,     0, CC_DC);
-    cc.printClause(3,     1, CC_DC,     0);
 }
 
 void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert) {

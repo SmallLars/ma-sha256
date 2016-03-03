@@ -52,10 +52,10 @@ class Modul {
         void createEQ(Collector* collector, unsigned out, unsigned in);
         void createNEQ(Collector* collector, unsigned out, unsigned in);
 
-        void createAND(Collector* collector, unsigned out, unsigned in1, unsigned in2);
-        void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert = false);
-        void createOR(Collector* collector, unsigned out, unsigned in1, unsigned in2);
+        void createAND(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert = false);
+        void createOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert = false);
 
+        void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert = false);
         void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert = false);
         void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, unsigned in4, bool invert = false);
     private:

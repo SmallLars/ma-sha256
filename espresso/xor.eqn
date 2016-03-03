@@ -1,0 +1,8 @@
+#define xor(a,b) ((a)&!(b) | !(a)&(b))
+#define eq(a,b) ((a)&(b) | !(a)&!(b))
+
+NAME = XOR;
+INORDER = r_out a_in b_in;
+OUTORDER = z;
+
+z = eq(r_out, xor(a_in, b_in));
