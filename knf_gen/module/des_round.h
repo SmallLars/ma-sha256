@@ -12,7 +12,7 @@ class Des_Round : public Modul {
         ~Des_Round();
 
         unsigned* getStats();
-        void create(Printer* printer);
+        void create(Collector* collector);
         MU_TEST_H(test);
     private:
         uint32_t round;

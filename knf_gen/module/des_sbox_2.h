@@ -10,7 +10,7 @@ class Des_SBox_2 : public Modul {
         ~Des_SBox_2();
 
         unsigned* getStats();
-        void create(Printer* printer);
+        void create(Collector* collector);
         MU_TEST_H(test);
     private:
         static unsigned stats[STATS_LENGTH];

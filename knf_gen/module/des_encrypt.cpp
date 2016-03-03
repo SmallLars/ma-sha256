@@ -26,8 +26,8 @@ unsigned* Des_Encrypt::getStats() {
     return stats;
 }
 
-void Des_Encrypt::create(Printer* printer) {
-    printer->newModul(30, "Des_Encrypt", this);
+void Des_Encrypt::create(Collector* collector) {
+    collector->newModul(30, "Des_Encrypt", this);
 
     unsigned l = inputs[0];
     unsigned r = inputs[0] + 32;
@@ -45,7 +45,7 @@ void Des_Encrypt::create(Printer* printer) {
         if (current_round >= 14){
             des_round.setOutput(output + (15 - current_round) * 32);
         }
-        des_round.create(printer);
+        des_round.create(collector);
 
         additional_vars += des_round.getAdditionalVarCount();
         if (current_round >= 14) additional_vars -= 32;

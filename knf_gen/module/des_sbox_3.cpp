@@ -20,10 +20,10 @@ unsigned* Des_SBox_3::getStats() {
     return stats;
 }
 
-void Des_SBox_3::create(Printer* printer) {
-    printer->newModul(0, "Des_SBox_3", this);
+void Des_SBox_3::create(Collector* collector) {
+    collector->newModul(0, "Des_SBox_3", this);
 
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
     cc.setLiterals(10, inputs[0]+0, inputs[0]+1, inputs[0]+2, inputs[0]+3, inputs[0]+4, inputs[0]+5, output+0, output+1, output+2, output+3);
     cc.printClause(10,     1,     0, CC_DC,     0, CC_DC,     0,     0, CC_DC,     1, CC_DC);
     cc.printClause(10,     1,     1, CC_DC, CC_DC,     0,     1,     0, CC_DC, CC_DC,     0);

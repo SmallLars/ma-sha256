@@ -23,8 +23,8 @@ unsigned* Des_F::getStats() {
     return stats;
 }
 
-void Des_F::create(Printer* printer) {
-    printer->newModul(10, "Des_F", this);
+void Des_F::create(Collector* collector) {
+    collector->newModul(10, "Des_F", this);
 
     // E expansion
     int e_permutation[] = {32,  1,  2,  3,  4,  5,
@@ -64,7 +64,7 @@ void Des_F::create(Printer* printer) {
     }
 
     for(int i = 0; i < 48; i++){
-      createXOR(printer, start + i, inputs[0] + e_permutation[i] - 1, k_rotated[pc_2[i] - 1]);
+      createXOR(collector, start + i, inputs[0] + e_permutation[i] - 1, k_rotated[pc_2[i] - 1]);
     }
 
     vector<unsigned> subinputs;
@@ -74,61 +74,61 @@ void Des_F::create(Printer* printer) {
     Des_SBox_1 sbox_1;
     sbox_1.setInputs(subinputs);
     sbox_1.setOutput(output + 0);
-    sbox_1.create(printer);
+    sbox_1.create(collector);
 
     // SBox2
     subinputs[0] += 6;
     Des_SBox_2 sbox_2;
     sbox_2.setInputs(subinputs);
     sbox_2.setOutput(output + 4);
-    sbox_2.create(printer);
+    sbox_2.create(collector);
 
     // SBox3
     subinputs[0] += 6;
     Des_SBox_3 sbox_3;
     sbox_3.setInputs(subinputs);
     sbox_3.setOutput(output + 8);
-    sbox_3.create(printer);
+    sbox_3.create(collector);
 
      // SBox4
     subinputs[0] += 6;
     Des_SBox_4 sbox_4;
     sbox_4.setInputs(subinputs);
     sbox_4.setOutput(output + 12);
-    sbox_4.create(printer);
+    sbox_4.create(collector);
 
      // SBox5
     subinputs[0] += 6;
     Des_SBox_5 sbox_5;
     sbox_5.setInputs(subinputs);
     sbox_5.setOutput(output + 16);
-    sbox_5.create(printer);
+    sbox_5.create(collector);
 
      // SBox6
     subinputs[0] += 6;
     Des_SBox_6 sbox_6;
     sbox_6.setInputs(subinputs);
     sbox_6.setOutput(output + 20);
-    sbox_6.create(printer);
+    sbox_6.create(collector);
 
      // SBox7
     subinputs[0] += 6;
     Des_SBox_7 sbox_7;
     sbox_7.setInputs(subinputs);
     sbox_7.setOutput(output + 24);
-    sbox_7.create(printer);
+    sbox_7.create(collector);
 
      // SBox8
     subinputs[0] += 6;
     Des_SBox_8 sbox_8;
     sbox_8.setInputs(subinputs);
     sbox_8.setOutput(output + 28);
-    sbox_8.create(printer);
+    sbox_8.create(collector);
 
     // Hack
     unsigned ignore[8] = {9, 18, 22, 25, 35, 38, 43, 54};
     for (unsigned i = 0; i < 8; i++) {
-        ClauseCreator cc(printer);
+        ClauseCreator cc(collector);
         cc.setLiterals(2, k_rotated[ignore[i] - 1], k_rotated[ignore[i] - 1]);
         cc.printClause(2,                        0,                        1);
     }

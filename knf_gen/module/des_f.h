@@ -21,7 +21,7 @@ class Des_F : public Modul {
         ~Des_F();
 
         unsigned* getStats();
-        void create(Printer* printer);
+        void create(Collector* collector);
         MU_TEST_H(test);
     private:
         uint32_t round;

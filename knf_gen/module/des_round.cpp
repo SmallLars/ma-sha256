@@ -25,8 +25,8 @@ unsigned* Des_Round::getStats() {
     return stats;
 }
 
-void Des_Round::create(Printer* printer) {
-    printer->newModul(20, "Des_Round", this);
+void Des_Round::create(Collector* collector) {
+    collector->newModul(20, "Des_Round", this);
 
     // E expansion
     int p_permutation[] = {16,  7, 20, 21, 29, 12, 28, 17,
@@ -41,10 +41,10 @@ void Des_Round::create(Printer* printer) {
     Des_F f_function(round);
     f_function.setInputs(subinputs);
     f_function.setStart(start);
-    f_function.create(printer);
+    f_function.create(collector);
 
     for(int i = 0; i < 32; i++){
-      createXOR(printer, output + i, inputs[0] + i, f_function.getOutput() + p_permutation[i] - 1);
+      createXOR(collector, output + i, inputs[0] + i, f_function.getOutput() + p_permutation[i] - 1);
     }
 }
 
