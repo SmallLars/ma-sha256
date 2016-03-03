@@ -20,10 +20,10 @@ unsigned* Add_Half_4::getStats() {
     return stats;
 }
 
-void Add_Half_4::create(Printer* printer) {
-    printer->newModul(3, "Add_Half_4", this);
+void Add_Half_4::create(Collector* collector) {
+    collector->newModul(3, "Add_Half_4", this);
 
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
     //                c_out s_out[0]    s_out[1]    s_out[2]    s_out[3]
     cc.setLiterals(5, start, output, output + 1, output + 2, output + 3);
     //                  a_in[0]        a_in[1]        a_in[2]        a_in[3]
@@ -45,7 +45,12 @@ void Add_Half_4::create(Printer* printer) {
     cc.printClause(13, CC_DC,     1, CC_DC, CC_DC,     0, CC_DC,     0,     0,     0,     0, CC_DC, CC_DC,     1);
     cc.printClause(13, CC_DC,     1, CC_DC, CC_DC,     1, CC_DC,     0,     0,     0,     0, CC_DC, CC_DC,     0);
 
-    if (!fullCNF) return;
+    if (!fullCNF) {
+        cc.setLiterals(4, output + 1, output + 1, output + 2, inputs[1] + 2);
+        cc.printClause(4,          0,          1,          1,             1);
+
+        return;
+    }
 
     cc.printClause(13, CC_DC, CC_DC,     0, CC_DC, CC_DC,     0,     0, CC_DC, CC_DC,     0,     1, CC_DC, CC_DC);
     cc.printClause(13, CC_DC,     1, CC_DC, CC_DC,     1, CC_DC,     0,     0,     1,     0, CC_DC, CC_DC,     1);

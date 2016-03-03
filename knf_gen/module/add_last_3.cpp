@@ -21,10 +21,10 @@ unsigned* Add_Last_3::getStats() {
     return stats;
 }
 
-void Add_Last_3::create(Printer* printer) {
-    printer->newModul(2, "Add_Last_3", this);
+void Add_Last_3::create(Collector* collector) {
+    collector->newModul(2, "Add_Last_3", this);
 
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
     //               s_out[0]    s_out[1]    s_out[2]    a_in[0]        a_in[1]        a_in[2]    b_in[0]        b_in[1]        b_in[2]       c_in
     cc.setLiterals(10, output, output + 1, output + 2, inputs[0], inputs[0] + 1, inputs[0] + 2, inputs[1], inputs[1] + 1, inputs[1] + 2, inputs[2]);
 
@@ -57,7 +57,12 @@ void Add_Last_3::create(Printer* printer) {
     cc.printClause(10,      1,          1,          0,     CC_DC,         CC_DC,             1,     CC_DC,         CC_DC,             0,         0);
     cc.printClause(10,      1,          1,          0,     CC_DC,         CC_DC,             0,     CC_DC,         CC_DC,             1,         0);
 
-    if (!fullCNF) return;
+    if (!fullCNF) {
+        cc.setLiterals(2, inputs[1] + 1, inputs[1] + 1);
+        cc.printClause(2,             0,             1);
+
+        return;
+    }
 
     cc.printClause(10,      1,      CC_DC,      CC_DC,         0,         CC_DC,         CC_DC,         0,         CC_DC,         CC_DC,         0);
     cc.printClause(10,      0,      CC_DC,      CC_DC,         1,         CC_DC,         CC_DC,         1,         CC_DC,         CC_DC,         1);

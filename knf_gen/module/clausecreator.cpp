@@ -7,11 +7,15 @@
 using std::vector;
 using namespace CMSat;
 
-ClauseCreator::ClauseCreator(Printer* printer) {
-    this->printer = printer;
+ClauseCreator::ClauseCreator(Collector* collector) {
+    this->collector = collector;
 }
 
 ClauseCreator::~ClauseCreator() {
+}
+
+Collector* ClauseCreator::getCollector() {
+    return collector;
 }
 
 void ClauseCreator::setLiterals(unsigned n_args, ...) {
@@ -45,5 +49,5 @@ void ClauseCreator::printClause(unsigned n_args, ...) {
         if (value < 2) clause.push_back(Lit(literals[i], value == 0 ? true : false));
     }
     va_end(ap);
-    printer->create(false, clause);
+    collector->create(false, clause);
 }

@@ -17,11 +17,11 @@
 #include "module/const.h"
 #include "module/sha256.h"
 
-#include "printer/counter.h"
-#include "printer/logger.h"
-#include "printer/solverprinter.h"
-#include "printer/bufferedsolverprinter.h"
-#include "printer/assumptionprinter.h"
+#include "collector/counter.h"
+#include "collector/logger.h"
+#include "collector/solverprinter.h"
+#include "collector/bufferedsolverprinter.h"
+#include "collector/assumptionprinter.h"
 
 using std::cout;
 using std::vector;
@@ -128,6 +128,7 @@ int main() {
         cout << setw(3) << r - 352 << " / " << assumptions.size() - 352 << ":" << flush;
 
         vector<Lit> as(assumptions.begin(), assumptions.begin() + r);
+        time_t round_time = time(0);
         lbool ret = solver.solve(&as);
         if (ret == l_False) {
             cout << "Nicht lösbar.\n";
@@ -136,7 +137,9 @@ int main() {
 
         cout << " Lösung gefunden zum Zeitpunkt ";
         printTime(cout, time(0) - start_time);
-        cout << "\n  Ausgabe:";
+        cout << " (";
+        printTime(cout, time(0) - round_time);
+        cout << ")\n  Ausgabe:";
         for (unsigned i = 0; i < 8; i++) {
             printf(" %08lx", solver_readInt(solver, sha256.getOutput() + i * 32, 32));
         }
@@ -153,6 +156,7 @@ int main() {
         sprintf(irred_name, "dump/%03u_irred.dimacs", r - 352);
         solver.open_file_and_dump_red_clauses(red_name);
         solver.open_file_and_dump_irred_clauses(irred_name);
+
     }
 
     solver.print_stats();

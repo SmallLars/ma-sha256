@@ -17,11 +17,11 @@ unsigned* Ssig0_32::getStats() {
     return stats;
 }
 
-void Ssig0_32::create(Printer* printer) {
-    printer->newModul(10, "Ssig0_32", this);
+void Ssig0_32::create(Collector* collector) {
+    collector->newModul(10, "Ssig0_32", this);
 
     for (unsigned i = 0; i < 29; i++) {
-        createXOR(printer,
+        createXOR(collector,
                   output + i, 
                   inputs[0] + ((i +  7) % 32),
                   inputs[0] + ((i + 18) % 32),
@@ -29,12 +29,21 @@ void Ssig0_32::create(Printer* printer) {
         );
     }
     for (unsigned i = 29; i < 32; i++) {
-        createXOR(printer,
+        createXOR(collector,
                   output + i, 
                   inputs[0] + ((i +  7) % 32),
                   inputs[0] + ((i + 18) % 32)
         );
     }
+
+#ifdef ADDITIONAL_CLAUSES
+    for (unsigned i = 0; i < 1; i++) {
+        createXOR(collector, inputs[0] + i, inputs[0] + 10 + i, output + 3 + i, output + 14 + i, output + 31 + i);
+    }
+    for (unsigned i = 0; i < 2; i++) {
+        createXOR(collector, inputs[0] + 8 + i, inputs[0] + 30 + i, output + 1 + i, output + 12 + i, output + 29 + i);
+    }
+#endif
 }
 
 MU_TEST_C(Ssig0_32::test) {

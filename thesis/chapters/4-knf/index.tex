@@ -1,8 +1,80 @@
-\chapter{Die Komponenten in KNF}
+\chapter{Erzeugung der konjunktiven Normalform}
 \label{chp:knf}
 
-\input{chapters/4-knf/1-addierer.tex}
-\input{chapters/4-knf/2-sig.tex}
-\input{chapters/4-knf/3-ch.tex}
-\input{chapters/4-knf/4-maj.tex}
-\input{chapters/4-knf/5-vergleich.tex}
+Der einfachste Weg eine konjunktive Normalform zu erzeugen, die erfüllbarkeitsäquivalent zu \glos{sha256} ist, führt vermutlich über die Verwendung vom \acr{cbmc}
+(siehe Abschnitt \ref{sec:cbmc}). \acr{cbmc} erzeugt zur Verifikation von Aussagen über C-Programmcode eine konjunktive Normalform und übergibt diese direkt
+einem SAT-Solver (siehe Abschnitt \ref{sec:satsolver}). Es besteht jedoch auch die Möglichkeit die generierte konjunktive Normalform im DIMACS-Format auszugeben,
+so dass ein C-Programm automatisch übersetzt werden kann. Dabei gehen jedoch jegliche Informationen über den Aufbau und die Bedeutung einzelner Literale verloren,
+so dass es nicht möglich ist, erworbenes Wissen über Literale einzelnen Berechnungen zuzuordnen. Ausgehend von der Addition, die in der Kompressionsfunktion von
+\glos{sha256} am häufigsten verwendet wird, ist es somit nicht möglich, erworbenes Wissen darüber zuzuordnen und auf alle weiteren Additionen zu übertragen.
+Außerdem ist es nicht möglich Einfluss auf die Anzahl und Verwendung der Literale zu nehmen. Für einen Addierer liegt die Entscheidung somit bei \acr{cbmc},
+wie dieser realisiert wird und ob und wie viele zusätzliche Literale verwendet werden. Das eine Extrem wäre die Verwendung eines Carry-Ripple-Addieres, dessen einzelne
+Volladdierer in Gatter zerlegt werden, die dann einzeln in die konjunktive Normalform überführt werden. Das führt zu vergleichsweise vielen Literalen mit wenig
+kurzen Klauseln. Das andere Extrem wäre der Versuch, eine konjunktive Normalform zu erzeugen, die ausschließlich Literale für die Summanden und die Summe erzeugt.
+Dabei entstehen jedoch vergleichsweise viele lange Klauseln.
+
+Um sowohl Kontrolle über die Erzeugung der konjunktiven Normalform zu bekommen als auch Informationen zu sammeln um eine Analyse zu ermöglichen, wird ein Programm
+erstellt, dass das Entwurfsmuster "`Besucher"' \cite[301]{visitor} verwendet. Besucher sind dabei Instanzen von Klassen, die unterschiedlichste Aufgaben erfüllen können.
+Eine Aufgabe kann es dabei sein, die konjunktive Normalform zu erzeugen während eine andere Aufgabe das Zählen von Literalen und Klauseln sein kann.
+Besucht wird dabei eine Struktur, deren Objekte das Verhalten von \glos{sha256} beschreiben. Die Objekte der Struktur werden im folgenden als Modul bezeichnet.
+Ein Modul kann sowohl die vollständige Kompressionsfunktion von \glos{sha256} sein, als auch ein kleiner Baustein wie ein Halbaddierer. Dabei kann ein Modul
+auch andere Module verwenden. Es zeigt ich, dass acht grundlegende Module ausreichen um \glos{sha256} vollständig zu beschreiben. Diese werden in den Abschnitten
+\ref{sec:knf:addierer} bis \ref{sec:knf:sig} erläutert. Alle weiteren Module setzen sich aus diesen zusammen und werden in Abschnitt \ref{sec:knf:module} erläutert.
+
+Alle notwendigen allgemeinen Funktionen für ein Modul sind in einer Basisklasse hinterlegt, von der jedes konkrete Modul erben muss. Ein konkretes Modul wird
+dadurch realisiert, dass die bis dato virtuelle Funktion create(Printer* printer) implementiert wird.
+
+
+
+In der Implementierung wird der Besucher printer genannt, weil der erste besucher ein dimacsprinter war.
+
+
+
+modul:\\
+void create(Printer* printer)\\
+~\\
+besucher:\\
+void newModul(unsigned level, const char* name, Modul* modul)\\
+void create(bool xOR, const std::vector<CMSat::Lit>\& vars)
+
+
+
+
+
+Ziele:  nicht nur knf generieren\\
+auch wissen darüber sammeln\\
+besucher (printer) benötigt methode um klauseln zu sammeln.
+~\\
+besucherhat 2 funktionen:\\
+klauseln sammeln und informationen sammeln\\
+~\\
+support für mit und ohne xor\\
+immer xor nutzen: bei bedarf rückwandeln: einfacher und compakter als andersrum\\
+klasueln sammeln und analysieren ist aufwendig
+~\\
+hilfsmittel clauseprinter:\\
+ermöglicht: literale brauchen nur einmal eingebeben werden:\\
+werden durch konkrete belegung erzeugt\\
+~\\
+baum\\
+hierarchie durch level:\\
+subaddierer bekommen ihre ebene: 1 bis 4\\
+module aus grafik ebene 10\\
+11\\
+20\\
+21\\
+sha als ganzes: 30\\
+~\\
+betrachtung der erweiterung als teil der runden 17 bis 64\\
+~\\
+moduletests\\
+https://github.com/siu/minunit mit minimaler anpassung für c++
+
+\input{chapters/4-knf/1-gatter.tex}
+\input{chapters/4-knf/2-addierer.tex}
+\input{chapters/4-knf/3-konstadd.tex}
+\input{chapters/4-knf/4-ch.tex}
+\input{chapters/4-knf/5-maj.tex}
+\input{chapters/4-knf/6-sig.tex}
+\input{chapters/4-knf/7-gesamt.tex}
+\input{chapters/4-knf/8-vergleich.tex}

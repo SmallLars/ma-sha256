@@ -49,11 +49,11 @@
     Auffüllen der Eingabe auf ein Vielfaches von 512 Bit.\\
     ~\\
     Allgemeines Padding:\\
-    \includegraphics[width=300pt]{padding.pdf}\\
+    \includegraphics[width=300pt]{padding}\\
     \pause~\\
     Mögliche Lösung für SAT-Berechnung\\
     - Länge von 55 Byte vorgeben:\\
-    \includegraphics[width=300pt]{padding-allgemein.pdf}
+    \includegraphics[width=300pt]{padding-allgemein}
   \end{frame}
 \subsection{Funktionen}
   \begin{frame}
@@ -119,30 +119,30 @@
     Jeder Block der Länge 512 Bit wird auf 2048 Bit erweitert.\\
     ~\\
     Die zusätzliche Bits werden wie folgt generiert:\\
-    \includegraphics[width=300pt]{extend.pdf}
+    \includegraphics[width=300pt]{extend}
   \end{frame}
 \subsection{Berechnung}
 \subsubsection{Verfahren}
   \begin{frame}
     \frametitle{Verfahren}
-    \includegraphics[width=300pt]{verfahren.pdf}
+    \includegraphics[width=300pt]{verfahren}
   \end{frame}
 \subsubsection{Mischen}
   \begin{frame}
     \frametitle{Mischen}
-    \includegraphics[width=300pt]{sha256.pdf}
+    \includegraphics[width=300pt]{sha256}
   \end{frame}
 \subsubsection{Kern}
   \begin{frame}
     \frametitle{Kern}
-    \includegraphics[width=300pt]{kern.pdf}
+    \includegraphics[width=300pt]{sha25core}
   \end{frame}
 \section{Bitcoin}
 \subsection{Aufgabe}
   \begin{frame}
     \frametitle{Aufgabe}
     Aufbau eines Bitcoinblocks:
-    \includegraphics[width=300pt]{bitcoinblock.pdf}\\
+    \includegraphics[width=300pt]{bitcoinblock}\\
     ~\\
     Aufgabe:\\
     Finde eine Nonce, so dass SHA256(SHA256(Block))\\
@@ -155,17 +155,17 @@
   \begin{frame}
     \frametitle{Padding}
     Eingabe für die erste Hashberechnung:
-    \includegraphics[width=300pt]{blockpadding.pdf}\\
+    \includegraphics[width=300pt]{blockpadding}\\
     ~\\
     Eingabe für die zweite Hashberechnung:
-    \includegraphics[width=300pt]{blockpadding2.pdf}\\
+    \includegraphics[width=300pt]{blockpadding2}\\
   \end{frame}
 \section{Architektur}
 \subsection{Modul}
   \begin{frame}
     \frametitle{Modul}
     \begin{wrapfigure}{l}{85pt}
-    \fbox{\includegraphics[width=75pt]{arch_modul.pdf}}
+    \fbox{\includegraphics[width=75pt]{arch_modul}}
     %\caption{Bildbezeichnung}
     %\label{fig:bild}
     \end{wrapfigure}
@@ -181,7 +181,7 @@
   \begin{frame}
     \frametitle{Modul}
     \begin{wrapfigure}{l}{85pt}
-    \fbox{\includegraphics[width=75pt]{arch_modul.pdf}}
+    \fbox{\includegraphics[width=75pt]{arch_modul}}
     %\caption{Bildbezeichnung}
     %\label{fig:bild}
     \end{wrapfigure}
@@ -198,7 +198,7 @@
 \subsection{Printer}
   \begin{frame}
     \frametitle{Printer}
-    \includegraphics[width=250pt]{arch_printer.pdf}\\
+    \includegraphics[width=250pt]{arch_printer}\\
     \texttt{virtual void create(bool xOR, const std::vector{\textless}CMSat::Lit{\textgreater}\& vars) = 0;}
   \end{frame}
   \begin{frame}
@@ -265,6 +265,6 @@
 \subsection{Analyse}
   \begin{frame}
     \frametitle{Kern}
-    \includegraphics[width=300pt]{analyse_kern.pdf}
+    \includegraphics[width=300pt]{analyse_kern}
   \end{frame}
 \end{document}

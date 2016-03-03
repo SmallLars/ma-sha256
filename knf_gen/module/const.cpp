@@ -24,8 +24,8 @@ unsigned* Const::getStats() {
     return stats;
 }
 
-void Const::create(Printer* printer) {
-    printer->newModul(10, "Const", this);
+void Const::create(Collector* collector) {
+    collector->newModul(10, "Const", this);
 
     if (lsb) {
 /*
@@ -38,13 +38,13 @@ void Const::create(Printer* printer) {
       for (unsigned i = 0; i < getBitWidth(); i++) {
           vector<Lit> clause;
           clause.push_back(Lit(output + i, !(value >> i & 1)));
-          printer->create(false, clause);
+          collector->create(false, clause);
       }
    } else {
       for (unsigned i = 0; i < getBitWidth(); i++) {
           vector<Lit> clause;
           clause.push_back(Lit(output + i, !(value >> (getBitWidth() - i - 1) & 1)));
-          printer->create(false, clause);
+          collector->create(false, clause);
       }
    }
 }

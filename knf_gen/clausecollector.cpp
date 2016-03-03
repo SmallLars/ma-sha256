@@ -1,5 +1,6 @@
 #include <vector>
 #include <set>
+#include <map>
 #include <stdio.h>
 #include <iomanip>
 #include <signal.h>
@@ -17,8 +18,10 @@
 using std::cout;
 using std::set;
 using std::setw;
+using std::flush;
 using std::vector;
 using std::set;
+using std::map;
 using std::ofstream;
 
 using namespace CMSat;
@@ -57,7 +60,7 @@ int main(int argc, const char* argv[]) {
         DimacsParser parser(filename);
         vector<Lit> clause;
         while (parser.getNextClause(clause)) {
-            if (original.find(clause) != original.end()) {
+            if (clause.size() > 10 || original.find(clause) != original.end()) {
                 counter++;
                 continue;
             }
@@ -74,11 +77,7 @@ int main(int argc, const char* argv[]) {
         DimacsParser parser(filename);
         vector<Lit> clause;
         while (parser.getNextClause(clause)) {
-            if (original.find(clause) != original.end()) {
-                counter++;
-                continue;
-            }
-            if (irreducible.find(clause) != irreducible.end()) {
+            if (clause.size() > 10 || original.find(clause) != original.end() || irreducible.find(clause) != irreducible.end()) {
                 counter++;
                 continue;
             }
@@ -89,6 +88,44 @@ int main(int argc, const char* argv[]) {
     cout << "\nreducible (learned) size: " << reducible.size() << " killed: " << counter << "\n";
 
     set< vector<Lit> >::iterator it;
+
+//-----------------------
+/*
+    cout << "Subklauselprüfung:\n";
+    unsigned progress = 0;
+
+    map< Lit, vector< const vector<Lit>* > > lookup_table;
+    createLookup(lookup_table, original);
+
+    progress = 0;
+    counter = 0;
+    for (it = irreducible.begin(); it != irreducible.end(); ) {
+        if (hasSubClause(*it, lookup_table)) {
+          counter++;
+          irreducible.erase(it++);
+        } else {
+          ++it;
+        }
+        progress++;
+        cout << progress << " / " << irreducible.size() + counter << "\r" << flush;
+    }
+    cout << "irreducible size: " << irreducible.size() << " killed: " << counter  << "\n";
+
+    progress = 0;
+    counter = 0;
+    for (it = reducible.begin(); it != reducible.end(); ) {
+        if (hasSubClause(*it, lookup_table)) {
+          counter++;
+          reducible.erase(it++);
+        } else {
+          ++it;
+        }
+        progress++;
+        cout << progress << " / " << reducible.size() + counter << "\r" << flush;
+    }
+    cout << "reducible size: " << reducible.size() << " killed: " << counter  << "\n";
+*/
+//-----------------------
 
     ofstream i_out("dump/000_irred.dimacs");
     for (it = irreducible.begin(); it != irreducible.end(); ++it) {

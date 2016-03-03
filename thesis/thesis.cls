@@ -45,6 +45,7 @@
 % thesis color scheme
 \RequirePackage[table]{xcolor}
 \xdefinecolor{Strong Blue}{RGB}{6,64,194}
+\xdefinecolor{Strong Green}{RGB}{60,128,49}
 \xdefinecolor{Dark Blue}{RGB}{6,46,139}
 \xdefinecolor{Night Blue}{RGB}{0,0,89}
 \xdefinecolor{Beige}{RGB}{219,212,192}

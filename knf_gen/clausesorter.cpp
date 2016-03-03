@@ -57,43 +57,18 @@ int main(int argc, const char* argv[]) {
     counter -= clause_pool.size();
 
     map< Lit, vector< const vector<Lit>* > > lookup_table;
-    set< vector<Lit> >::iterator it;
-    for (it = clause_pool.begin(); it != clause_pool.end(); ++it) {
-        for (unsigned i = 0; i < it->size(); ++i) {
-            lookup_table[it->at(i)].push_back(&*it);
-        }
-    }
+    createLookup(lookup_table, clause_pool);
 
+    set< vector<Lit> >::iterator it;
     set<vector<Lit>, compareClause> dup_clauses;
     unsigned counter1 = 0;
     for (it = clause_pool.begin(); it != clause_pool.end(); ++it) {
         counter1++;
-        for (unsigned i = 0; i < it->size(); ++i) {
-            vector< const vector<Lit>* >::iterator clause;
-            clause = lookup_table[it->at(i)].begin();
-            while (clause != lookup_table[it->at(i)].end()) {
-                if ((*clause)->size() >= it->size()) {
-                    ++clause;
-                    continue;
-                }
 
-                bool check = true;
-                for (unsigned l = 0; l < (*clause)->size(); ++l) {
-                    if (find(it->begin(), it->end(), (*clause)->at(l)) == it->end()) {
-                        check = false;
-                        break;
-                    }
-                }
-                if (!check) {
-                    ++clause;
-                    continue;
-                }
-
-                dup_clauses.insert(*it);
-                i = it->size() - 1;
-                break;
-            }
+        if (hasSubClause(*it, lookup_table)) {
+          dup_clauses.insert(*it);
         }
+
         if (counter1 != linecount - counter && counter1 % 100) continue;
         printf("\r%u / %u - Already removed %zu useless clauses.", counter1, linecount - counter, dup_clauses.size());
         cout << flush;

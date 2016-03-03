@@ -26,19 +26,19 @@ unsigned* ConstAdd_32::getStats() {
     return stats;
 }
 
-void ConstAdd_32::create(Printer* printer) {
-    printer->newModul(10, "ConstAdd_32", this);
+void ConstAdd_32::create(Collector* collector) {
+    collector->newModul(10, "ConstAdd_32", this);
 
     vector<unsigned> subinputs;
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
 
     // Half adder
     if ((value & 1) == 0) {
-        createFalse(printer, start);
-        createEQ(printer, output, inputs[0]);
+        createFalse(collector, start);
+        createEQ(collector, output, inputs[0]);
     } else {
-        createEQ(printer, start, inputs[0]);
-        createNEQ(printer, output, inputs[0]);
+        createEQ(collector, start, inputs[0]);
+        createNEQ(collector, output, inputs[0]);
     }
 
     // Full adder x30
@@ -52,14 +52,14 @@ void ConstAdd_32::create(Printer* printer) {
             add_half.setInputs(subinputs);
             add_half.setStart(start + i);
             add_half.setOutput(output + i);
-            add_half.create(printer);
+            add_half.create(collector);
         } else {
 #ifdef XOR_SUPPORT
             // OR ->              c_out           a_in           c_in
-            createOR(printer, start + i, inputs[0] + i, start - 1 + i);
+            createOR(collector, start + i, inputs[0] + i, start - 1 + i);
 
             // XOR ->               s_out           a_in           c_in
-            createXOR(printer, output + i, inputs[0] + i, start - 1 + i, true);
+            createXOR(collector, output + i, inputs[0] + i, start - 1 + i, true);
 #else
             //                    c_out       s_out           a_in           c_in
             cc.setLiterals(4, start + i, output + i, inputs[0] + i, start - 1 + i);
@@ -76,10 +76,10 @@ void ConstAdd_32::create(Printer* printer) {
     // Final adder (without carry calculation)
     if (((value >> 31) & 1) == 0) {
         // XOR ->               !s_out            a_in        c_in
-        createXOR(printer, output + 31, inputs[0] + 31, start + 30);
+        createXOR(collector, output + 31, inputs[0] + 31, start + 30);
     } else {
         // XOR ->               !s_out            a_in        c_in
-        createXOR(printer, output + 31, inputs[0] + 31, start + 30, true);
+        createXOR(collector, output + 31, inputs[0] + 31, start + 30, true);
     }
 
     if (value == 0) return;
@@ -95,8 +95,8 @@ void ConstAdd_32::create(Printer* printer) {
             break;
         }
         // Fix carry bits and equal output if constant starts with zeros from LSB
-        createFalse(printer, start + i);
-        createEQ(printer, output + i, inputs[0] + i);
+        createFalse(collector, start + i);
+        createEQ(collector, output + i, inputs[0] + i);
     }
 
     // A single 1 Bit can cause the following carry bits to be 1 on a long row of constant 1 bits

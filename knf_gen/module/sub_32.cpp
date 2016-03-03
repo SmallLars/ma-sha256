@@ -19,18 +19,18 @@ unsigned* Sub_32::getStats() {
     return stats;
 }
 
-void Sub_32::create(Printer* printer) {
-    printer->newModul(10, "Sub_32", this);
+void Sub_32::create(Collector* collector) {
+    collector->newModul(10, "Sub_32", this);
 
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
 
     // Half subber
 #ifdef XOR_SUPPORT
     // XOR ->          !d_out       a_in       b_in
-    createXOR(printer, output, inputs[0], inputs[1]);
+    createXOR(collector, output, inputs[0], inputs[1]);
 
     // AND ->          c_out   d_out       b_in
-    createAND(printer, start, output, inputs[1]);
+    createAND(collector, start, output, inputs[1]);
 #else
     //                 d_out  c_out       a_in       b_in
     cc.setLiterals(4, output, start, inputs[0], inputs[1]);
@@ -55,7 +55,7 @@ void Sub_32::create(Printer* printer) {
         cc.printClause(4,         0,         CC_DC,             1,             1);
 
         // XOR ->              !d_out           a_in           b_in           c_in
-        createXOR(printer, output + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
+        createXOR(collector, output + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
 #else
         //                     c_out      d_out           a_in           b_in           c_in
         cc.setLiterals(5, output + i, start + i, inputs[0] + i, inputs[1] + i, start - 1 + i);
@@ -74,7 +74,7 @@ void Sub_32::create(Printer* printer) {
 
     // Final subber (without carry calculation)
     // XOR ->               !d_out            a_in            b_in        c_in
-    createXOR(printer, output + 31, inputs[0] + 31, inputs[1] + 31, start + 30);
+    createXOR(collector, output + 31, inputs[0] + 31, inputs[1] + 31, start + 30);
 }
 
 MU_TEST_C(Sub_32::test) {

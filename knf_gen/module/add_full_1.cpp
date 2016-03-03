@@ -19,10 +19,10 @@ unsigned* Add_Full_1::getStats() {
     return stats;
 }
 
-void Add_Full_1::create(Printer* printer) {
-    printer->newModul(0, "Add_Full_1", this);
+void Add_Full_1::create(Collector* collector) {
+    collector->newModul(0, "Add_Full_1", this);
 
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
     //                c_out   s_out       a_in       b_in       c_in
     cc.setLiterals(5, start, output, inputs[0], inputs[1], inputs[2]);
 
@@ -36,7 +36,7 @@ void Add_Full_1::create(Printer* printer) {
     cc.printClause(5,     0,  CC_DC,     CC_DC,         1,         1);
 
     // XOR ->          !s_out       a_in       b_in       c_in
-    createXOR(printer, output, inputs[0], inputs[1], inputs[2]);
+    createXOR(collector, output, inputs[0], inputs[1], inputs[2]);
 
     #ifdef ADDITIONAL_CLAUSES
         //                    4       5          1          2          3

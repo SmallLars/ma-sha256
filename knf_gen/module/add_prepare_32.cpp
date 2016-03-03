@@ -23,8 +23,8 @@ unsigned* Add_Prepare_32::getStats() {
     return stats;
 }
 
-void Add_Prepare_32::create(Printer* printer) {
-    printer->newModul(12, "Add_Prepare_32", this);
+void Add_Prepare_32::create(Collector* collector) {
+    collector->newModul(12, "Add_Prepare_32", this);
 
     unsigned newvars = 0;
     vector<unsigned> subinputs;
@@ -35,7 +35,7 @@ void Add_Prepare_32::create(Printer* printer) {
     Add_Ssig_32 adder1;
     adder1.setInputs(subinputs);
     adder1.setStart(start + newvars);
-    adder1.create(printer);
+    adder1.create(collector);
     newvars += adder1.getAdditionalVarCount();
 
     subinputs.clear();
@@ -44,7 +44,7 @@ void Add_Prepare_32::create(Printer* printer) {
     Add_32 adder2;
     adder2.setInputs(subinputs);
     adder2.setStart(start + newvars);
-    adder2.create(printer);
+    adder2.create(collector);
     newvars += adder2.getAdditionalVarCount();
 
     subinputs.clear();
@@ -53,11 +53,11 @@ void Add_Prepare_32::create(Printer* printer) {
     Add_32 adder3;
     adder3.setInputs(subinputs);
     adder3.setStart(start + newvars);
-    adder3.create(printer);
+    adder3.create(collector);
     newvars += adder3.getAdditionalVarCount();
 
 #ifdef ADDITIONAL_CLAUSES
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
 
     mirror_block(cc, inputs[0],  inputs[2],  95, 127);
     mirror_block(cc,     start, start + 32, 158,  64);

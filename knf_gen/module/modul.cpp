@@ -7,11 +7,11 @@
 
 #include "clausecreator.h"
 
-#include "../printer/solverprinter.h"
-#include "../printer/logger.h"
-#include "../printer/dimacsfileprinter.h"
-#include "../printer/ttfileprinter.h"
-#include "../printer/counter.h"
+#include "../collector/solverprinter.h"
+#include "../collector/logger.h"
+#include "../collector/dimacsfileprinter.h"
+#include "../collector/ttfileprinter.h"
+#include "../collector/counter.h"
 
 using std::vector;
 using namespace CMSat;
@@ -137,63 +137,73 @@ unsigned Modul::writeTT(const char* filename) {
     return 0;
 }
 
-void Modul::createTrue(Printer* printer, unsigned out) {
+void Modul::createTrue(Collector* collector, unsigned out) {
     vector<Lit> clause;
     clause.push_back(Lit(out, false));
-    printer->create(false, clause);
+    collector->create(false, clause);
 }
 
-void Modul::createFalse(Printer* printer, unsigned out) {
+void Modul::createFalse(Collector* collector, unsigned out) {
     vector<Lit> clause;
     clause.push_back(Lit(out, true));
-    printer->create(false, clause);
+    collector->create(false, clause);
 }
 
-void Modul::createEQ(Printer* printer, unsigned out, unsigned in) {
+void Modul::createEQ(Collector* collector, unsigned out, unsigned in) {
     vector<Lit> clause;
     clause.push_back(Lit(out, false));
     clause.push_back(Lit(in, false));
-    printer->create(true, clause);
+    collector->create(true, clause);
 }
 
-void Modul::createNEQ(Printer* printer, unsigned out, unsigned in) {
+void Modul::createNEQ(Collector* collector, unsigned out, unsigned in) {
     vector<Lit> clause;
     clause.push_back(Lit(out, true));
     clause.push_back(Lit(in, false));
-    printer->create(true, clause);
+    collector->create(true, clause);
 }
 
-void Modul::createAND(Printer* printer, unsigned out, unsigned in1, unsigned in2) {
-    ClauseCreator cc(printer);
+void Modul::createAND(Collector* collector, unsigned out, unsigned in1, unsigned in2) {
+    ClauseCreator cc(collector);
     cc.setLiterals(3,   out,   in1,   in2);
     cc.printClause(3,     1,     0,     0);
     cc.printClause(3,     0,     1, CC_DC);
     cc.printClause(3,     0, CC_DC,     1);
 }
 
-void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, bool invert) {
+void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert) {
     vector<Lit> clause;
     clause.push_back(Lit(out, invert));
     clause.push_back(Lit(in1, false));
     clause.push_back(Lit(in2, false));
-    printer->create(true, clause);
+    collector->create(true, clause);
 }
 
-void Modul::createOR(Printer* printer, unsigned out, unsigned in1, unsigned in2) {
-    ClauseCreator cc(printer);
+void Modul::createOR(Collector* collector, unsigned out, unsigned in1, unsigned in2) {
+    ClauseCreator cc(collector);
     cc.setLiterals(3,   out,   in1,   in2);
     cc.printClause(3,     0,     1,     1);
     cc.printClause(3,     1,     0, CC_DC);
     cc.printClause(3,     1, CC_DC,     0);
 }
 
-void Modul::createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert) {
+void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert) {
     vector<Lit> clause;
     clause.push_back(Lit(out, invert));
     clause.push_back(Lit(in1, false));
     clause.push_back(Lit(in2, false));
     clause.push_back(Lit(in3, false));
-    printer->create(true, clause);
+    collector->create(true, clause);
+}
+
+void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, unsigned in4, bool invert) {
+    vector<Lit> clause;
+    clause.push_back(Lit(out, invert));
+    clause.push_back(Lit(in1, false));
+    clause.push_back(Lit(in2, false));
+    clause.push_back(Lit(in3, false));
+    clause.push_back(Lit(in4, false));
+    collector->create(true, clause);
 }
 
 unsigned* Modul::count() {

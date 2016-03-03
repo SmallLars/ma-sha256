@@ -8,6 +8,7 @@
 *.lof
 *.lot
 *.pdf
+*.tdo
 
 # bibliography related
 *-blx.bib

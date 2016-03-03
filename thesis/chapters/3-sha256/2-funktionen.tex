@@ -1,3 +1,59 @@
 \section{Funktionen}
+\label{sec:sha256:funktionen}
 
-\TODO{erledigen}
+Die Funktion, die in \glos{sha256} am häufigsten verwendet wird, ist die modulare 32-Bit Addition (siehe Abschnitt \ref{sec:grundlagen_add}).
+Darüber hinaus werden sowohl bei der Erweiterung der Eingabe als auch bei der Rundenfunktion einige Funktionen verwendet, die im folgendem erläutert werden.
+Die Funktion "`Small Sigma"' wird bei der Erweiterung der Eingabe verwendet, während die Funktionen "`Choose"', "`Majority"' und "`Big Sigma"' in der Rundenfunktion
+verwendet werden. Alle genannten Funktionen operieren auf einer Datenwortbreite von 32 Bit.
+
+%Während die Aufgabe der Funktionen "`Choose"' und "`Majority"' die Konfusion ist, ist die Aufgabe der Sigma-Funktionen die Diffusion.
+%Bei der Konfusion geht es darum, den Zusammenhang zwischen unterschiedlichen Werten zu verschleiern. Die Diffusion bewirkt den Einfluss
+%eines Eingabebits auf viel Ausgabebits, um statistische Eigenschaften der Eingabe zu verstecken \cite[57]{crypto1}.
+
+\subsection{Choose (CH)}
+Choose steht für Wählen und beschreibt das Verhalten eines Multiplexers. Dabei bestimmt der Wert von x, ob y oder z das Ergebnis der Funktion bildet.
+Durch die Datenwortbreite von 32 Bit, kommt es somit zu einer bitweisen Vermischung von y und z, die durch die Bits von x bestimmt wird. Dargestellt
+ist die Funktion in Abbildung \ref{eq:ch}. Gemäß Standard \cite[10]{nist1804} führt das Ersetzen des XOR-Operators durch einen OR-Operator zu einem identischen Ergebnis.
+\begin{figure}[!h]
+  \begin{align}
+  \text{CH}( x, y, z) &= (x~\wedge~y)~\oplus~( \neg~x~\wedge~z) \nonumber
+  \end{align}
+  \caption{Choose (CH)}
+  \label{eq:ch}
+\end{figure}
+
+\subsection{Majority (MAJ)}
+Majority steht für Mehrheit und bezieht sich auf die Anzahl der "`1"' und "`0"' Bits. Genau wie bei der Funktion "`Choose"' wird das Ergebnis aus drei Eingaben berechnet.
+Es ergibt sich ein Ergebnis von "`1"', wenn mindestens zwei der Eingaben mit "`1"' belegt sind. Auch hier führt das Ersetzen des XOR-Operators durch einen OR-Operator zu
+einem identischen Ergebnis.
+\begin{figure}[!h]
+  \begin{align}
+  \text{MAJ}( x, y, z) &= (x~\wedge~y)~\oplus~(x~\wedge~z)~\oplus~(y~\wedge~z) \nonumber
+  \end{align}
+  \caption{Majority (MAJ)}
+  \label{eq:maj}
+\end{figure}
+
+\subsection{Sigma (SIG)}
+Die Sigma-Funktionen werden in den \acr{rfc}s der \acr{ietf} mit SSIG und BSIG beschrieben, das vermutlich aus "`Small Sigma"' und "`Big Sigma"' abgeleitet wurde
+um Sonderzeichen zu vermeiden. Die Sigma-Funktionen werden auch als Substitutions-Boxen (S-Boxen) bezeichnet \cite[1]{sha256analyse}. Jedes Bit der Ausgabe wir dabei
+aus zwei bis drei Eingabebits berechnet. Da die Funktion 32 Bit auf 32 Bit abbildet, werden somit alle Eingabebits für zwei bis drei Ausgabebits verwendet.
+Dargestellt sind alle vier Sigma-Funktionen in Abbildung \ref{eq:sig}.
+
+Innerhalb der Funktionen wird die Rotation nach rechts (ROTR) und die Verschiebung nach rechts (SHR) verwendet. Im Unterschied zur Rotation, bei der die Bits,
+die aus dem Register geschoben werden, auf der anderen Seite wieder eingefügt werden, werden die Bits bei der Verschiebung mit "`$0$"'en aufgefüllt.
+
+Während bei den $\Sigma$-Funktionen konsequent drei Eingabebits mit dem XOR-Operator verknüpft werden um ein Ausgabebit zu berechnen, werden bei den $\sigma$-Funktionen
+einige Bits durch die Verschiebung verworfen, was einem Angreifer die Analyse erschwert.
+
+\begin{figure}[!h]
+  \begin{align}
+  \sigma_0(x) &= \text{ROTR}^{7}(x)~\oplus~\text{ROTR}^{18}(x)~\oplus~\text{SHR}^{3}(x) \nonumber\\
+  \sigma_1(x) &= \text{ROTR}^{17}(x)~\oplus~\text{ROTR}^{19}(x)~\oplus~\text{SHR}^{10}(x) \nonumber\\
+  \nonumber\\
+  \Sigma_0(x) &= \text{ROTR}^{2}(x)~\oplus~\text{ROTR}^{13}(x)~\oplus~\text{ROTR}^{22}(x) \nonumber\\
+  \Sigma_1(x) &= \text{ROTR}^{6}(x)~\oplus~\text{ROTR}^{11}(x)~\oplus~\text{ROTR}^{25}(x) \nonumber
+  \end{align}
+  \caption{Sigma (SIG)}
+  \label{eq:sig}
+\end{figure}

@@ -134,6 +134,12 @@ int main() {
 //    Add_32 adder;
 //    adder.writeDimacs("add_32.dimacs");
 
+//    Ssig0_32 ssig0;
+//    ssig0.writeDimacs("ssig0_32.dimacs");
+
+//    Ssig1_32 ssig1;
+//    ssig1.writeDimacs("ssig1_32.dimacs");
+
 //    Ch_32 ch;
 //    ch.writeDimacs("ch_32.dimacs");
 

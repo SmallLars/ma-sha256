@@ -12,7 +12,7 @@ SOLVERVERSION = 4.5.3
 
 COMMON = $(shell find common/*.cpp -type f | sed "s/.cpp/.o/g")
 MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")
-PRINTER = $(shell find printer/*.cpp -type f | sed "s/.cpp/.o/g")
+PRINTER = $(shell find collector/*.cpp -type f | sed "s/.cpp/.o/g")
 
 all: cryptominisat/lib/libcryptominisat4.so $(patsubst %.cpp,%,$(wildcard *.cpp))
 
@@ -55,11 +55,14 @@ bitcoin: bitcoin.o $(COMMON) $(MODULE) $(PRINTER)
 des: des.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
+benchmark: benchmark.o $(COMMON) $(MODULE) $(PRINTER)
+	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
+
 test_module: test_module.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -lrt -lm -o $@ $^ $(LIBS)
 
 clean:
-	-rm -f $(patsubst %.cpp,%,$(wildcard *.cpp)) *.o common/*.o module/*.o printer/*.o
+	-rm -f $(patsubst %.cpp,%,$(wildcard *.cpp)) *.o common/*.o module/*.o collector/*.o
 
 clobber: clean
 	-rm -rf cryptominisat
@@ -69,8 +72,8 @@ clobber: clean
 cryptominisat/lib/libcryptominisat4.so:
 	tar xjf cryptominisat-$(SOLVERVERSION).tar.bz2
 	mkdir cryptominisat
-	cd cryptominisat;cmake ../cryptominisat4-$(SOLVERVERSION)
-	cd cryptominisat;make
+	cd cryptominisat;cmake -DSTATS=1 ../cryptominisat4-$(SOLVERVERSION)
+	cd cryptominisat;make -j4
 
 startsql:
 	mysql -u root -p cmsat < cmsat_tablestructure.sql

@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "../printer/printer.h"
+#include "../collector/collector.h"
 
 #define STATS_LENGTH 3
 #define STATS_MAXVAR 0
@@ -39,7 +39,7 @@ class Modul {
         unsigned writeTT(const char* filename);
 
         virtual unsigned* getStats() = 0;
-        virtual void create(Printer* printer) = 0;
+        virtual void create(Collector* collector) = 0;
     protected:
         std::vector<unsigned> inputs;
         unsigned start;
@@ -47,16 +47,17 @@ class Modul {
 
         void setInputsBitWidth(...);
 
-        void createTrue(Printer* printer, unsigned out);
-        void createFalse(Printer* printer, unsigned out);
-        void createEQ(Printer* printer, unsigned out, unsigned in);
-        void createNEQ(Printer* printer, unsigned out, unsigned in);
+        void createTrue(Collector* collector, unsigned out);
+        void createFalse(Collector* collector, unsigned out);
+        void createEQ(Collector* collector, unsigned out, unsigned in);
+        void createNEQ(Collector* collector, unsigned out, unsigned in);
 
-        void createAND(Printer* printer, unsigned out, unsigned in1, unsigned in2);
-        void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, bool invert = false);
-        void createOR(Printer* printer, unsigned out, unsigned in1, unsigned in2);
+        void createAND(Collector* collector, unsigned out, unsigned in1, unsigned in2);
+        void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert = false);
+        void createOR(Collector* collector, unsigned out, unsigned in1, unsigned in2);
 
-        void createXOR(Printer* printer, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert = false);
+        void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert = false);
+        void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, unsigned in4, bool invert = false);
     private:
         unsigned bitWidth;
         unsigned inputCount;

@@ -79,7 +79,7 @@
           \end{itemize}
         \end{itemize}
         \column{.52\textwidth}
-        \includegraphics[scale=0.3]{sha256o.pdf}
+        \includegraphics[scale=0.25]{sha256single}
       \end{columns} 
     \end{frame}
     \begin{frame}{SHA256 / Padding}
@@ -87,7 +87,7 @@
       ~\\
       Allgemeines Padding:\\
       ~\\
-      \includegraphics[width=300pt]{padding.pdf}\\
+      \includegraphics[width=300pt]{padding}\\
     \end{frame}
     \begin{frame}{SHA256 / Funktionen}
       \begin{itemize}
@@ -113,16 +113,16 @@
       ~\\
       Die zusätzliche Bits werden wie folgt generiert:\\
       ~\\
-      \includegraphics[width=300pt]{extend.pdf}
+      \includegraphics[width=300pt]{extend}
     \end{frame}
     \begin{frame}{SHA256 / Berechnung}
-      \includegraphics[width=300pt]{kern.pdf}
+      \includegraphics[width=300pt]{sha256core}
     \end{frame}
   \subsection{Bitcoin}
     \begin{frame}
       \frametitle{Bitcoin / Aufgabe}
       Aufbau eines Bitcoinblocks:
-      \includegraphics[width=300pt]{bitcoinblock.pdf}\\
+      \includegraphics[width=300pt]{bitcoinblock}\\
       ~\\
       Aufgabe:\\
       Finde eine Nonce, so dass SHA256(SHA256(Block))\\
@@ -133,10 +133,10 @@
     \end{frame}
     \begin{frame}{Bitcoin / Padding}
       Eingabe für die erste Hashberechnung:
-      \includegraphics[width=300pt]{blockpadding.pdf}\\
+      \includegraphics[width=300pt]{blockpadding}\\
       ~\\
       Eingabe für die zweite Hashberechnung:
-      \includegraphics[width=300pt]{blockpadding2.pdf}\\
+      \includegraphics[width=300pt]{blockpadding2}\\
   \end{frame}
   \subsection{CryptoMiniSat / Konjunktive Normalform}
     \begin{frame}{Sat-Solver}
@@ -214,7 +214,7 @@
       \begin{itemize}
        \item Länge von 55 Byte vorgeben:
       \end{itemize}
-      \includegraphics[width=300pt]{padding-allgemein.pdf}
+      \includegraphics[width=300pt]{padding-allgemein}
     \end{frame}
   \subsection{Funktionen}
     \begin{frame}{CH}
@@ -256,7 +256,7 @@
     \begin{frame}{Carry-Riple-Addierer}
       32 Bit Addierer : 1 Halbaddierer + 30 Volladdierer + 1 XOR\\
       ~\\
-      \includegraphics[scale=0.5]{volladdierer.pdf}\\
+      \includegraphics[scale=0.5]{volladdierer}\\
       $ (c_{out} \vee \neg x \vee \neg y) \wedge (\neg c_{out} \vee x \vee y) \wedge (c_{out} \vee \neg x \vee \neg c_{in}) \wedge $\\
       $ (c_{out} \vee \neg y \vee \neg c_{in}) \wedge (\neg c_{out} \vee x \vee c_{in}) \wedge (\neg c_{out} \vee y \vee c_{in}) $\\
       ~\\
@@ -291,8 +291,7 @@
   \end{frame}
   \subsection{Allgemein}
     \begin{frame}{Kern}
-      \includegraphics[width=300pt]{analyse_kern.pdf}\\
-      ~\\
+      \includegraphics[width=300pt]{sha256coreA}\\
       D = E' + \textcolor{blue}{\textbf{X}} - A'\\
       %\pause
       %~~~~~~~~~~~~~~~~~~~~~~ $ \Rightarrow $ D = E' + (\textcolor{blue}{\textbf{X}} - A')~~~~~~ $ \Rightarrow $ D = A' - (\textcolor{blue}{\textbf{X}} - A')\\

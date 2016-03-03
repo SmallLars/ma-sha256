@@ -31,8 +31,8 @@ unsigned* ShaCore_Ex1_32::getStats() {
     return stats;
 }
 
-void ShaCore_Ex1_32::create(Printer* printer) {
-    printer->newModul(21, "ShaCore_Ex1_32", this);
+void ShaCore_Ex1_32::create(Collector* collector) {
+    collector->newModul(21, "ShaCore_Ex1_32", this);
 
     unsigned newvars = 0;
     vector<unsigned> subinputs;
@@ -42,7 +42,7 @@ void ShaCore_Ex1_32::create(Printer* printer) {
     ConstAdd_32 adder(value);
     adder.setInputs(subinputs);
     adder.setStart(start + newvars);
-    adder.create(printer);
+    adder.create(collector);
     newvars += adder.getAdditionalVarCount();
 
     subinputs = inputs;
@@ -50,11 +50,11 @@ void ShaCore_Ex1_32::create(Printer* printer) {
     ShaCore_32 shacore;
     shacore.setInputs(subinputs);
     shacore.setStart(start + newvars);
-    shacore.create(printer);
+    shacore.create(collector);
     newvars += shacore.getAdditionalVarCount();
 
 #ifdef ADDITIONAL_CLAUSES
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
     if ((value & 1) == 0) {
         // 1. inputbit    -    1. carrybit in 3rd adder of shacore
         cc.setLiterals(2, inputs[8], start + 317);

@@ -23,6 +23,19 @@ unsigned Add_32::stats[STATS_LENGTH];
 
 Add_32::Add_32() : Modul(32, 2, 1) {
     output = 95;
+
+    { Add_Half_1 adder; adder.getMaxVar(); }
+    { Add_Full_1 adder; adder.getMaxVar(); }
+    { Add_Last_1 adder; adder.getMaxVar(); }
+    { Add_Half_2 adder; adder.getMaxVar(); }
+    { Add_Full_2 adder; adder.getMaxVar(); }
+    { Add_Last_2 adder; adder.getMaxVar(); }
+    { Add_Half_3 adder; adder.getMaxVar(); }
+    { Add_Full_3 adder; adder.getMaxVar(); }
+    { Add_Last_3 adder; adder.getMaxVar(); }
+    { Add_Half_4 adder; adder.getMaxVar(); }
+    { Add_Full_4 adder; adder.getMaxVar(); }
+    { Add_Last_4 adder; adder.getMaxVar(); }
 }
 
 Add_32::~Add_32() {
@@ -32,8 +45,8 @@ unsigned* Add_32::getStats() {
     return stats;
 }
 
-void Add_32::create(Printer* printer) {
-    printer->newModul(10, "Add_32", this);
+void Add_32::create(Collector* collector) {
+    collector->newModul(10, "Add_32", this);
 
     vector<unsigned> subinputs;
 
@@ -45,7 +58,7 @@ void Add_32::create(Printer* printer) {
     add_half_1.setInputs(subinputs);
     add_half_1.setStart(start);
     add_half_1.setOutput(output);
-    add_half_1.create(printer);
+    add_half_1.create(collector);
 
     // Full adder x30
     for (unsigned i = 1; i < 31; i++) {
@@ -57,7 +70,7 @@ void Add_32::create(Printer* printer) {
         add_full_1.setInputs(subinputs);
         add_full_1.setStart(start + i);
         add_full_1.setOutput(output + i);
-        add_full_1.create(printer);
+        add_full_1.create(collector);
     }
 
     // Last adder
@@ -68,7 +81,7 @@ void Add_32::create(Printer* printer) {
     Add_Last_1 add_last_1;
     add_last_1.setInputs(subinputs);
     add_last_1.setOutput(output + 31);
-    add_last_1.create(printer);
+    add_last_1.create(collector);
 
 #ifdef ADDITIONAL_CLAUSES
     // Half adder 2
@@ -79,7 +92,7 @@ void Add_32::create(Printer* printer) {
     add_half_2.setInputs(subinputs);
     add_half_2.setStart(start + 1);
     add_half_2.setOutput(output);
-    add_half_2.create(printer);
+    add_half_2.create(collector);
 
     // Full adder 2 x29
     for (unsigned i = 0; i < 29; i++) {
@@ -91,7 +104,7 @@ void Add_32::create(Printer* printer) {
         add_full.setInputs(subinputs);
         add_full.setStart(start + 2 + i);
         add_full.setOutput(output + 1 + i);
-        add_full.create(printer);
+        add_full.create(collector);
     }
 
     // Last adder 2
@@ -102,7 +115,7 @@ void Add_32::create(Printer* printer) {
     Add_Last_2 add_last_2;
     add_last_2.setInputs(subinputs);
     add_last_2.setOutput(output + 30);
-    add_last_2.create(printer);
+    add_last_2.create(collector);
 
     // Half adder 3
     subinputs.clear();
@@ -112,7 +125,7 @@ void Add_32::create(Printer* printer) {
     add_half_3.setInputs(subinputs);
     add_half_3.setStart(start + 2);
     add_half_3.setOutput(output);
-    add_half_3.create(printer);
+    add_half_3.create(collector);
 
     // Full adder 3 x28
     for (unsigned i = 0; i < 28; i++) {
@@ -124,7 +137,7 @@ void Add_32::create(Printer* printer) {
         add_full.setInputs(subinputs);
         add_full.setStart(start + 3 + i);
         add_full.setOutput(output + 1 + i);
-        add_full.create(printer);
+        add_full.create(collector);
     }
 
     // Last adder 3
@@ -135,7 +148,7 @@ void Add_32::create(Printer* printer) {
     Add_Last_3 add_last_3;
     add_last_3.setInputs(subinputs);
     add_last_3.setOutput(output + 29);
-    add_last_3.create(printer);
+    add_last_3.create(collector);
 
     // Half adder 4
     subinputs.clear();
@@ -145,7 +158,7 @@ void Add_32::create(Printer* printer) {
     add_half_4.setInputs(subinputs);
     add_half_4.setStart(start + 3);
     add_half_4.setOutput(output);
-    add_half_4.create(printer);
+    add_half_4.create(collector);
 
     // Full adder 4 x27
     for (unsigned i = 0; i < 27; i++) {
@@ -157,7 +170,7 @@ void Add_32::create(Printer* printer) {
         add_full.setInputs(subinputs);
         add_full.setStart(start + 4 + i);
         add_full.setOutput(output + 1 + i);
-        add_full.create(printer);
+        add_full.create(collector);
     }
 
     // Last adder 4
@@ -168,9 +181,9 @@ void Add_32::create(Printer* printer) {
     Add_Last_4 add_last_4;
     add_last_4.setInputs(subinputs);
     add_last_4.setOutput(output + 28);
-    add_last_4.create(printer);
+    add_last_4.create(collector);
 
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
 
     for (unsigned i = 0; i < 26; i++) {
         // -38 86 -91 -118 -119 -120 -121 -122 0    ->    38 is irrelevant (b_in[5])

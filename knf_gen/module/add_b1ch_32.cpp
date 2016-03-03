@@ -26,8 +26,8 @@ unsigned* Add_B1Ch_32::getStats() {
     return stats;
 }
 
-void Add_B1Ch_32::create(Printer* printer) {
-    printer->newModul(11, "Add_B1Ch_32", this);
+void Add_B1Ch_32::create(Collector* collector) {
+    collector->newModul(11, "Add_B1Ch_32", this);
 
     unsigned newvars = 0;
     vector<unsigned> subinputs;
@@ -37,7 +37,7 @@ void Add_B1Ch_32::create(Printer* printer) {
     Bsig1_32 bsig1;
     bsig1.setInputs(subinputs);
     bsig1.setStart(start + newvars);
-    bsig1.create(printer);
+    bsig1.create(collector);
     newvars += bsig1.getAdditionalVarCount();
 
     subinputs.clear();
@@ -47,7 +47,7 @@ void Add_B1Ch_32::create(Printer* printer) {
     Ch_32 ch;
     ch.setInputs(subinputs);
     ch.setStart(start + newvars);
-    ch.create(printer);
+    ch.create(collector);
     newvars += ch.getAdditionalVarCount();
 
     subinputs.clear();
@@ -56,11 +56,11 @@ void Add_B1Ch_32::create(Printer* printer) {
     Add_32 adder;
     adder.setInputs(subinputs);
     adder.setStart(start + newvars);
-    adder.create(printer);
+    adder.create(collector);
     newvars += adder.getAdditionalVarCount();
 
 #ifdef ADDITIONAL_CLAUSES
-    ClauseCreator cc(printer);
+    ClauseCreator cc(collector);
     for (unsigned i = 0; i < 31; i++) {
         //                        1             33             65         97             160             161
         cc.setLiterals(6, inputs[0] + i, inputs[1] + i, inputs[2] + i, start + i, start + 63 + i, start + 64 + i);

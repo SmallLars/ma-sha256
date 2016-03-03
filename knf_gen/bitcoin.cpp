@@ -17,11 +17,11 @@
 #include "module/const.h"
 #include "module/sha256.h"
 
-#include "printer/counter.h"
-#include "printer/logger.h"
-#include "printer/solverprinter.h"
-#include "printer/bufferedsolverprinter.h"
-#include "printer/assumptionprinter.h"
+#include "collector/counter.h"
+#include "collector/logger.h"
+#include "collector/solverprinter.h"
+#include "collector/bufferedsolverprinter.h"
+#include "collector/assumptionprinter.h"
 
 using std::cout;
 using std::vector;

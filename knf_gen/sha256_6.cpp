@@ -14,11 +14,11 @@
 #include "module/add_prepare_32.h"
 #include "module/shacore_ex1_32.h"
 
-#include "printer/counter.h"
-#include "printer/logger.h"
-#include "printer/solverprinter.h"
-#include "printer/bufferedsolverprinter.h"
-#include "printer/assumptionprinter.h"
+#include "collector/counter.h"
+#include "collector/logger.h"
+#include "collector/solverprinter.h"
+#include "collector/bufferedsolverprinter.h"
+#include "collector/assumptionprinter.h"
 
 using std::cout;
 using std::vector;

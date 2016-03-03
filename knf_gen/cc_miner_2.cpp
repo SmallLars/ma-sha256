@@ -11,8 +11,8 @@
 #include "module/const.h"
 #include "module/sha256.h"
 #include "cryptominisat4/cryptominisat.h"
-#include "printer/solverprinter.h"
-#include "printer/modulgraph.h"
+#include "collector/solverprinter.h"
+#include "collector/modulgraph.h"
 
 #define THREAD_NUM 4
 #define MAX_TEST 2
