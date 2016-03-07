@@ -52,6 +52,9 @@ distancechecker: distancechecker.o $(COMMON) $(MODULE) $(PRINTER)
 bitcoin: bitcoin.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
+des: des.o $(COMMON) $(MODULE) $(PRINTER)
+	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
+
 benchmark: benchmark.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 

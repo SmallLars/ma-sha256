@@ -35,6 +35,17 @@
 #include "module/shacore_ex1_32.h"
 #include "module/shacore_ex2_32.h"
 #include "module/sha256.h"
+#include "module/des_sbox_1.h"
+#include "module/des_sbox_2.h"
+#include "module/des_sbox_3.h"
+#include "module/des_sbox_4.h"
+#include "module/des_sbox_5.h"
+#include "module/des_sbox_6.h"
+#include "module/des_sbox_7.h"
+#include "module/des_sbox_8.h"
+#include "module/des_f.h"
+#include "module/des_round.h"
+#include "module/des_encrypt.h"
 
 MU_TEST_SUITE(test_suite) {
 	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
@@ -70,6 +81,17 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(ShaCore_Ex1_32::test);
     MU_RUN_TEST(ShaCore_Ex2_32::test);
     MU_RUN_TEST(Sha256::test);
+    MU_RUN_TEST(Des_SBox_1::test);
+    MU_RUN_TEST(Des_SBox_2::test);
+    MU_RUN_TEST(Des_SBox_3::test);
+    MU_RUN_TEST(Des_SBox_4::test);
+    MU_RUN_TEST(Des_SBox_5::test);
+    MU_RUN_TEST(Des_SBox_6::test);
+    MU_RUN_TEST(Des_SBox_7::test);
+    MU_RUN_TEST(Des_SBox_8::test);
+    MU_RUN_TEST(Des_F::test);
+    MU_RUN_TEST(Des_Round::test);
+    MU_RUN_TEST(Des_Encrypt::test);
 }
 
 int main() {
