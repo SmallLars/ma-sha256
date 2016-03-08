@@ -166,17 +166,17 @@ void Modul::createNEQ(Collector* collector, unsigned out, unsigned in) {
 void Modul::createAND(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert) {
     ClauseCreator cc(collector);
     cc.setLiterals(3,     out,   in1,   in2);
-    cc.printClause(3, !invert,     0,     0);
     cc.printClause(3,  invert,     1, CC_DC);
     cc.printClause(3,  invert, CC_DC,     1);
+    cc.printClause(3, !invert,     0,     0);
 }
 
 void Modul::createOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert) {
     ClauseCreator cc(collector);
     cc.setLiterals(3,     out,   in1,   in2);
-    cc.printClause(3,  invert,     1,     1);
     cc.printClause(3, !invert,     0, CC_DC);
     cc.printClause(3, !invert, CC_DC,     0);
+    cc.printClause(3,  invert,     1,     1);
 }
 
 void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert) {

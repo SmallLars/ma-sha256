@@ -1,6 +1,11 @@
 \section{Gatter}
 \label{sec:knf:gatter}
 
+Grundlage für die Tseitin-Transformation (siehe Abschnitt \ref{sec:knf}) sollen in dieser Arbeit die Operatoren AND, OR und XOR bilden. Verwendet werden sie jedoch
+nur, falls sie in einem Modul eine direkte Beziehung zwischen Eingangs- und Ausgang-Literalen definieren, da sonst zusätzliche Literale eingefügt werden müssen.
+Die boolsche Gleichungen für die drei Operatoren sind in Abbildung \ref{fig:gatter_equations} dargestellt. a und b werden als Literale für die Eingänge verwendet
+und r steht für den Ausgang (das Resultat).
+
 \begin{figure}[!h]
   \centering
   \begin{minipage}[c]{4.85cm}
@@ -34,19 +39,48 @@
   \label{fig:gatter_equations}
 \end{figure}
 
-hmm\TODO{erledigen}
+Nach der Verwendung von eqntott und Espresso ergeben sich aus den boolenschen Gleichungen die konjunktiven Normalformen in Abbildung \ref{fig:gatter_cnf}.
+Diese decken sich mit den Angaben auf Wikipedia \cite{wiki:tseitin}. Für die Negation der Operatoren reicht es aus, das Ergebnisliteral r zu invertieren.
 
-and\\
-or\\
-xor\\
-negation durch invertieren des ergebnisliterals
-~\\
-normales xor, negation eines literals reicht.\\
-umwandlung zeigen von a = b xor x zu 1/0 = a xor b xor c\\
-~\\
-tseiting\\
-reproduktion mit espresso möglich
-~\\
-beachte: anzahl der literale\\
-darauf bezogen geht teilweise besser\\
-falls ohne zusatzliterale: tseitin ist toll\\
+\begin{figure}[!h]
+  \centering
+  \begin{minipage}[l]{4.65cm}
+    \underline{AND}\\
+    $ (\overline{r} \vee a) ~ \wedge $\\
+    $ (\overline{r} \vee b) ~ \wedge $\\
+    $ (r \vee \overline{a} \vee \overline{b}) $\\
+    ~
+  \end{minipage}
+  \begin{minipage}[l]{4.65cm}
+    \underline{OR}\\
+    $ (r \vee \overline{a}) ~ \wedge $\\
+    $ (r \vee \overline{b}) ~ \wedge $\\
+    $ (\overline{r} \vee a \vee b) $\\
+    ~
+  \end{minipage}
+  \begin{minipage}[l]{4.3cm}
+    \underline{XOR}\\
+    $ (\overline{r} \vee \overline{a} \vee \overline{b}) ~ \wedge $\\
+    $ (r \vee a \vee \overline{b}) ~ \wedge $\\
+    $ (r \vee \overline{a} \vee b) ~ \wedge $\\
+    $ (\overline{r} \vee a \vee b) $
+  \end{minipage}
+  \caption{Konjunktive Normalform - Gatter}
+  \label{fig:gatter_cnf}
+\end{figure}
+
+Während es bei den Operatoren AND und OR gelungen ist, Dont-Care Literale zu identifizieren und für eine Vereinfachung zu nutzen, ist dies bei dem XOR-Operator
+nicht möglich. Jede einzelne Änderung eines beliebigen Eingangsliterals führt zu einer Änderung des Ausgangssignals. Genau die Hälfte der möglichen Belegungen
+ist somit nicht erfüllbar und muss in die konjunktive Normalform mit aufgenommen werden. Allgemein gilt, dass bei einem XOR mit n Eingängen $ 2^{n} $ Klauseln
+mit jeweils $ (n + 1) $ Literalen notwendig sind. Die Klauselmenge wächst exponentiell im Bezug zur Anzahl der Eingänge.
+
+CryptoMiniSat (siehe Abschnitt \ref{sec:satsolver}) ist in der Lage, neben normalen Klauseln (Disjunktion) auch Klauseln zu berücksichtigen, deren Literale
+mit dem XOR-Operator verknüpft sind. Genau wie normale Klauseln müssen sie für die Erfüllbarkeit zu $1$ evaluiert werden. Damit lässt sich das exponentielle
+Wachstum der Klauselmenge umgehen. Für ein XOR mit n Eingängen ist nur noch eine Klausel mit $ (n + 1) $ Literalen notwendig. Abbildung \ref{fig:gatter_cnf_xor}
+zeigt die Klausel für den XOR-Operator mit 2 Eingängen.
+\begin{figure}[!h]
+  \centering
+  $ (\overline{r} \veebar a \veebar b) $\\
+  \caption{Konjunktive Normalform - Gatter - XOR}
+  \label{fig:gatter_cnf_xor}
+\end{figure}
