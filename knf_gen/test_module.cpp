@@ -111,6 +111,7 @@ int main() {
 
 //    Add_32 adder;
 //    adder.writeDimacs("add_32.dimacs");
+//    adder.writeTT("add_32.tt");
 
 //    Ssig0_32 ssig0;
 //    ssig0.writeDimacs("ssig0_32.dimacs");
