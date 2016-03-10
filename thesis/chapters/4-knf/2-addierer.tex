@@ -1,7 +1,97 @@
 \section{Addierer}
 \label{sec:knf:addierer}
 
-\TODO{erledigen}
+Grundlage für die modulare 32-Bit Addition sind der Halbaddierer, der Volladdierer und der Mod2 Addierer (siehe Abschnitt \ref{sec:grundlagen_add}).
+
+Wie auch für die Gatter im Abschnitt vorher wird für den Halbaddierer eine boolsche Gleichungen erstellt (siehe Abbildung \ref{fig:halfadder_eqn}).
+Diese entspricht genau den Gattern in Abbildung \ref{fig:halfadder}.
+\begin{figure}[!h]
+  \centering
+  \begin{lstlisting}[]
+  NAME = HalfAdder;
+  INORDER = c_out s_out a_in b_in;
+  OUTORDER = z;
+
+  z = eq(s_out, xor(a_in, b_in)) & eq(c_out, a_in & b_in);
+  \end{lstlisting}
+  \caption{Halbaddierer - Gleichung}
+  \label{fig:halfadder_eqn}
+\end{figure}
+
+Nach der Verwendung von eqntott und Espresso ergibt sich aus der boolenschen Gleichung die konjunktive Normalform in Abbildung \ref{fig:halfadder_cnf} (linke Seite).
+eqntott und Espresso unterstützen jedoch keine XOR-Klauseln, weshalb ein manueller Versuch unternommen wird, diesen Vorteil zu nutzen. Das Ergebnis ist in Abbildung
+\ref{fig:halfadder_cnf} (rechte Seite) dargestellt und besteht aus dem AND- und dem XOR-Gatter. Die Klauselmenge kann so von sechs auf vier Klauseln reduziert werden.
+Diese Lösung bietet sich jedoch nur an, wenn die XOR-Klausel auch direkt verwendet werden kann. Wird sie in normale Klauseln umgewandelt, stehen im Ergebnis sieben
+Klauseln. Das ist eine mehr als in der Lösung von Espresso.
+\begin{figure}[!h]
+  \centering
+  \begin{minipage}[l]{5cm}
+    ~~~~~~~~\underline{Ohne XOR}\\
+    $ (\overline{s} \vee a \vee b) ~ \wedge $\\
+    $ (\overline{c} \vee \overline{s}) ~ \wedge $\\
+    $ (\overline{c} \vee b) ~ \wedge $\\
+    $ (c \vee \overline{a} \vee \overline{b}) ~ \wedge $\\
+    $ (s \vee a \vee \overline{b}) ~ \wedge $\\
+    $ (s \vee \overline{a} \vee b) $
+  \end{minipage}
+  \begin{minipage}[l]{5cm}
+    ~~~~~~~~\underline{Mit XOR}\\
+    \underline{Übertrag - AND}\\
+    $ (\overline{c} \vee a) ~ \wedge $\\
+    $ (\overline{c} \vee b) ~ \wedge $\\
+    $ (c \vee \overline{a} \vee \overline{b}) ~ \wedge $\\
+    \underline{Summe - XOR}\\
+    $ (\overline{s} \veebar a \veebar b) $
+  \end{minipage}
+  \caption{Halbaddierer - Konjuktive Normalform}
+  \label{fig:halfadder_cnf}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \lstset{moredelim=**[is][\color{blue}]{@}{@}, moredelim=**[is][\bfseries]{§}{§}}
+  \begin{lstlisting}[]
+  NAME = FullAdder;
+  INORDER = c_out §@s_out@§ a_in b_in c_in;
+  OUTORDER = z;
+
+  z = §@eq(s_out, xor(xor(a_in, b_in), c_in)) &@§ eq(c_out, (a_in & b_in) | (xor(a_in, b_in) & c_in));
+  \end{lstlisting}
+  \caption{Volladdierer - Gleichung}
+  \label{fig:fulladder_qen}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \begin{minipage}[l]{5cm}
+    ~~~~~~~~\underline{Ohne XOR}\\
+    $ (s \vee \overline{a} \vee \overline{b} \vee \overline{c}) ~ \wedge $\\
+    $ (\overline{s} \vee a \vee b \vee c) ~ \wedge $\\
+    $ (o \vee \overline{a} \vee \overline{b}) ~ \wedge $\\
+    $ (\overline{o} \vee a \vee b) ~ \wedge $\\
+    $ (o \vee s \vee \overline{c}) ~ \wedge $\\
+    $ (\overline{o} \vee \overline{s} \vee c) ~ \wedge $\\
+    $ (\overline{s} \vee a \vee \overline{b} \vee \overline{c}) ~ \wedge $\\
+    $ (\overline{s} \vee \overline{a} \vee b \vee \overline{c}) ~ \wedge $\\
+    $ (s \vee a \vee \overline{b} \vee c) ~ \wedge $\\
+    $ (s \vee \overline{a} \vee b \vee c) $
+  \end{minipage}
+  \begin{minipage}[l]{5cm}
+    ~~~~~~~~\underline{Mit XOR}\\
+    \underline{Übertrag}\\
+    $ (o \vee \overline{a} \vee \overline{b}) ~ \wedge $\\
+    $ (\overline{o} \vee a \vee b) ~ \wedge $\\
+    $ (o \vee \overline{a} \vee \overline{c}) ~ \wedge $\\
+    $ (o \vee \overline{b} \vee \overline{c}) ~ \wedge $\\
+    $ (\overline{o} \vee a \vee c) ~ \wedge $\\
+    $ (\overline{o} \vee b \vee c) ~ \wedge $\\
+    \underline{Summe - XOR}\\
+    $ (\overline{s} \veebar a \veebar b \veebar c) $\\
+    ~
+  \end{minipage}
+  \caption{Volladdierer - Konjuktive Normalform}
+  \label{fig:fulladder_cnf}
+\end{figure}
 
 nur carry ripple addierer\\
 vergleich addierer höherer ebene\\
