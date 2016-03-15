@@ -77,10 +77,21 @@ mit jeweils $ (n + 1) $ Literalen notwendig sind. Die Klauselmenge wächst expon
 CryptoMiniSat (siehe Abschnitt \ref{sec:satsolver}) ist in der Lage, neben normalen Klauseln (Disjunktion) auch Klauseln zu berücksichtigen, deren Literale
 mit dem XOR-Operator verknüpft sind. Genau wie normale Klauseln müssen sie für die Erfüllbarkeit zu $1$ evaluiert werden. Damit lässt sich das exponentielle
 Wachstum der Klauselmenge umgehen. Für ein XOR mit n Eingängen ist nur noch eine Klausel mit $ (n + 1) $ Literalen notwendig. Abbildung \ref{fig:gatter_cnf_xor}
-zeigt die Klausel für den XOR-Operator mit 2 Eingängen.
+zeigt die Klausel für den XOR-Operator mit zwei und drei Eingängen.
 \begin{figure}[!h]
   \centering
-  $ (\overline{r} \veebar a \veebar b) $\\
+  \begin{minipage}[l]{1cm}
+    ~\\
+    ~
+  \end{minipage}
+  \begin{minipage}[l]{2.5cm}
+    Zwei Eingänge:\\
+    Drei Eingänge:
+  \end{minipage}
+  \begin{minipage}[l]{3cm}
+    $ (\overline{r} \veebar a \veebar b) $\\
+    $ (\overline{r} \veebar a \veebar b \veebar c) $
+  \end{minipage}
   \caption{Gatter - XOR}
   \label{fig:gatter_cnf_xor}
 \end{figure}

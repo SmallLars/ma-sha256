@@ -102,12 +102,12 @@ Espresso (siehe Abschnitt \ref{sec:espresso}) verwendet werden soll, werden desh
 
 Die Wahrheitstabelle wird im zweiten Schritt an Espresso übergeben. Nachdem Espresso die Wahrheitstabelle eingelesen hat führt der Parameter -epos dazu,
 dass die erfüllenden Belegungen in nicht-erfüllende überführt werden. Diese Belegungen werden von Espresso minimiert. Durch den Parameter -Dexact wird
-eine minimale Anzahl an Belegungen garantiert. Das führt jedoch nur bei Problemen mit wenig Variablen zu einer Lösung, hat sich jedoch in den vorliegenden
-Fällen bewährt.
+eine minimale Anzahl an Belegungen garantiert. Das führt jedoch nur bei Problemen mit wenig Variablen zu einer Lösung, hat sich in den vorliegenden
+Fällen aber bewährt.
 
 Die minimierten nicht-erfüllenden Belegungen gibt Espresso wieder in einer Wahrheitstabelle aus. Diese kann nun einfach in eine konjunktive Normalform überführt werden.
 Abbildung \ref{fig:truetocnf} zeigt dafür ein Beispiel. Ist zum Beispiel die Belegung b=$1$ und c=$1$ gegeben, führt dies dazu, dass die Klausel
-$ (\overline{b} \vee \overline{c}) $ zu $0$ evaluiert und die Formel nicht mehr erfüllbar ist,was genau dem gewünschten Verhalten entspricht.
+$ (\overline{b} \vee \overline{c}) $ zu $0$ evaluiert und die Formel nicht mehr erfüllbar ist, was genau dem gewünschten Verhalten entspricht.
 \begin{figure}[!h]
   \centering
   \begin{tabular}{c|c|c|cp{0.5cm}cp{0.5cm}l}
