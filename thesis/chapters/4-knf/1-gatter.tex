@@ -95,3 +95,27 @@ zeigt die Klausel für den XOR-Operator mit zwei und drei Eingängen.
   \caption{Gatter - XOR}
   \label{fig:gatter_cnf_xor}
 \end{figure}
+
+Abschließend wird noch ein Operator für die Negation (NOT) benötigt. Um daraus einen Gleichheits-Operator (EQ) zu machen reicht es aus, das Ergebnisliteral r zu invertieren.
+Realisiert wird die Negation durch eine XOR-Klausel mit zwei Literalen (siehe Abbildung \ref{fig:gatter_not_cnf}). Diese wird nur dann zu $1$ evaluiert, wenn
+a und r unterschiedlich sind, was genau der Negation entspricht. Falls XOR-Klauseln nicht unterstützt werden, lässt sich die Negation mit zwei Klauseln à zwei
+Literalen realisieren, wie ebenfalls in der Abbildung dargestellt. Auch diese konjunktive Normalform deckt sich mit der Angabe auf Wikipedia \cite{wiki:tseitin}.
+\begin{figure}[!h]
+  \centering
+  \begin{minipage}[l]{1cm}
+    ~\\
+    ~
+  \end{minipage}
+  \begin{minipage}[l]{2.5cm}
+    \underline{Ohne XOR}\\
+    $ (r \vee a) ~ \wedge $\\
+    $ (\overline{r} \vee \overline{a}) $
+  \end{minipage}
+  \begin{minipage}[l]{2.5cm}
+    \underline{Mit XOR}\\
+    $ (r \veebar a) $\\
+    ~
+  \end{minipage}
+  \caption{Gatter - NOT - Konjuktive Normalform}
+  \label{fig:gatter_not_cnf}
+\end{figure}

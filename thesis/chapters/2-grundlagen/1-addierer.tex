@@ -29,21 +29,21 @@ eines Übertrags festzulegen, lässt sich daraus folgern, dass die Bits der Summ
 Die Propagierung eines möglichen Übertrags ist unterbrochen. Das Problem, die Summanden einer Addition zu finden, wird dadurch in zwei kleinere Probleme zerlegt, bei der
 die Summanden von zwei Additionen kleinerer Bitbreite gefunden werden müssen.
 
-Ein allgemeiner n-Bit Carry-Ripple Addierer setzt sich aus n Volladdierern zusammen, die jeweils wieder zwei Halbaddierer verwenden. Ein Halbaddierer summiert zwei Bits und
-gibt die Summe und den Übertrag aus. Die Summe wird dabei durch den XOR-Operator berechnet während der Übertrag durch den AND-Operator berechnet wird. Der Halbaddierer
-ist in Abbildung \ref{fig:halfadder} dargestellt.
+Ein allgemeiner n-Bit Carry-Ripple Addierer setzt sich aus n Volladdierern zusammen, die jeweils wieder zwei Halbaddierer verwenden. Ein Halbaddierer summiert zwei
+Bits (a, b) und gibt die Summe (s) und den Übertrag (o) aus. Die Summe wird dabei durch den XOR-Operator berechnet während der Übertrag durch den AND-Operator
+berechnet wird. Der Halbaddierer ist in Abbildung \ref{fig:halfadder} dargestellt.
 \begin{figure}[!h]
   \centering
   \includegraphics[scale=1]{images/halfadder}
   \caption[Halbaddierer]{Halbaddierer\protect\footnotemark}
   \label{fig:halfadder}
 \end{figure}
-\footnotetext{Von MovGP0, CC BY-SA 2.0 de, \url{https://commons.wikimedia.org/w/index.php?curid=22912775}}
+\footnotetext{Auf Basis von MovGP0, CC BY-SA 2.0 de, \url{https://commons.wikimedia.org/w/index.php?curid=22912775}}
 
-Um Unterschied zum Halbaddierer berücksichtigt der Volladdierer einen eingehenden Übertrag. Es werden ingesamt drei Bits summiert, wobei in einem ersten Schritt
-die beiden Summanden durch einen Halbaddierer addiert werden. Führt diese Addition schon zu einem Übertrag, ist dieser im Volladdierer ebenfalls geben.
-Die Summe des ersten Halbaddierers wird im Anschluss durch den zweiten Halbaddierer mit dem eingehenden Übertrag addiert. Ist ein Übertrag gegeben und die
-Summe $1$ liegt ebenfalls ein Übertrag im Volladdierer vor. Die Summe des zweiten Halbaddierers bildet auch die Summe des Volladdierers. Der Volladdierer
+Um Unterschied zum Halbaddierer berücksichtigt der Volladdierer einen eingehenden Übertrag (c). Es werden ingesamt drei Bits summiert, wobei in einem ersten Schritt
+die beiden Summanden (a, b) durch einen Halbaddierer addiert werden. Führt diese Addition schon zu einem Übertrag, ist dieser im Volladdierer ebenfalls geben (o).
+Die Summe des ersten Halbaddierers wird im Anschluss durch den zweiten Halbaddierer mit dem eingehenden Übertrag (c) addiert. Ist ein Übertrag gegeben und die
+Summe $1$, liegt ebenfalls ein Übertrag im Volladdierer vor (o). Die Summe des zweiten Halbaddierers bildet auch die Summe des Volladdierers (s). Der Volladdierer
 ist in Abbildung \ref{fig:fulladder} dargestellt. \TODO{clearpage entfernen?} \clearpage
 \begin{figure}[!h]
   \centering
@@ -51,7 +51,7 @@ ist in Abbildung \ref{fig:fulladder} dargestellt. \TODO{clearpage entfernen?} \c
   \caption[Volladdierer]{Volladdierer\protect\footnotemark}
   \label{fig:fulladder}
 \end{figure}
-\footnotetext{Von MovGP0, CC BY-SA 2.0 de, \url{https://commons.wikimedia.org/w/index.php?curid=22912742}}
+\footnotetext{Auf Basis von MovGP0, CC BY-SA 2.0 de, \url{https://commons.wikimedia.org/w/index.php?curid=22912742}}
 
 Abbildung \ref{fig:carryrippleadder4} zeigt einen allgemeinen 4-Bit Carry-Ripple Addierer, der aus vier Volladdierern besteht. Dieser berücksichtigt einen eingehenden
 Übertrag (carry) und liefert auch einen ausgehenden Übertrag. Diese Überträge sind für die in dieser Arbeit benötigten modularen 32-Bit Addierer jedoch nicht notwendig.
@@ -75,7 +75,7 @@ Diese Konstruktion ist in in Abbildung \ref{fig:carryrippleadder32} dargestellt.
 \TODO{clearpage entfernen?} \clearpage
 
 Der Mod2-Addierer ist in Abbildung \ref{fig:lastadder} dargestellt und ergibt sich aus einem Volladdierer, indem die für den Übertrag notwendigen
-Operatoren entfernt werden. Es verbleiben 2 XOR-Operatoren die die Summe berechnen.
+Operatoren entfernt werden. Es verbleiben 2 XOR-Operatoren die die Summe (s) berechnen.
 \begin{figure}[!h]
   \centering
   \includegraphics[scale=1]{images/lastadder}

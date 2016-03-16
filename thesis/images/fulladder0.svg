@@ -15,7 +15,7 @@
    sodipodi:version="0.32"
    inkscape:version="0.48.4 r9939"
    version="1.0"
-   sodipodi:docname="halfadder.svg">
+   sodipodi:docname="fulladder0.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -177,7 +177,7 @@
          sodipodi:role="line"
          id="tspan3168"
          x="15.426888"
-         y="46.292267">b</tspan></text>
+         y="46.292267">c</tspan></text>
     <path
        sodipodi:type="arc"
        style="fill:black;fill-opacity:1;stroke:black;stroke-width:0.99921262;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"

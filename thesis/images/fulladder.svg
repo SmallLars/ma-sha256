@@ -108,14 +108,14 @@
        transform="translate(-25.06768,-10.57939)" />
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        x="21.793871"
        y="42.559578"
        id="text2006"><tspan
          sodipodi:role="line"
          id="tspan2008"
          x="21.793871"
-         y="42.559578">x</tspan></text>
+         y="42.559578">a</tspan></text>
     <path
        sodipodi:type="arc"
        style="fill:none;fill-opacity:1;stroke:black;stroke-width:1.0629921;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -128,14 +128,14 @@
        transform="translate(-24.8413,10.9097)" />
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        x="22.020247"
        y="64.048714"
        id="text2012"><tspan
          sodipodi:role="line"
          id="tspan2014"
          x="22.020247"
-         y="64.048714">y</tspan></text>
+         y="64.048714">b</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 230.41814,49.509757 L 248.03146,49.556937"
@@ -178,14 +178,14 @@
        transform="translate(187.9429,68.66082)" />
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        x="258.80902"
        y="52.660065"
        id="text2028"><tspan
          sodipodi:role="line"
          id="tspan2030"
          x="258.80902"
-         y="52.660065">c</tspan></text>
+         y="52.660065">o</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 151.97996,131.07128 L 42.56284,131.07129"
@@ -203,34 +203,14 @@
        transform="translate(-24.80314,81.70486)" />
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="20.336016"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="22.83602"
        y="134.97011"
        id="text2052"><tspan
          sodipodi:role="line"
          id="tspan2054"
-         x="20.336016"
+         x="22.83602"
          y="134.97011">c</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:6.51179123px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="27.284081"
-       y="137.22588"
-       id="text2072"><tspan
-         sodipodi:role="line"
-         id="tspan2074"
-         x="27.284081"
-         y="137.22588">IN</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:6.51179123px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="266.30627"
-       y="56.661819"
-       id="text2098"><tspan
-         sodipodi:role="line"
-         id="tspan2100"
-         x="266.30627"
-         y="56.661819">OUT</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"

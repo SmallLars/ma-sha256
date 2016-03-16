@@ -122,7 +122,7 @@
          sodipodi:role="line"
          id="tspan2008"
          x="21.793871"
-         y="91.845299">x</tspan></text>
+         y="91.845299">a</tspan></text>
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -142,7 +142,7 @@
          sodipodi:role="line"
          id="tspan2014"
          x="22.020247"
-         y="113.54873">y</tspan></text>
+         y="113.54873">b</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
@@ -188,23 +188,13 @@
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="20.336016"
+       x="22.478876"
        y="134.97011"
        id="text2052"><tspan
          sodipodi:role="line"
          id="tspan2054"
-         x="20.336016"
+         x="22.478876"
          y="134.97011">c</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:6.51179123px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="27.284081"
-       y="137.22588"
-       id="text2072"><tspan
-         sodipodi:role="line"
-         id="tspan2074"
-         x="27.284081"
-         y="137.22588">IN</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
