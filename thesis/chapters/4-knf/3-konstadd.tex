@@ -59,7 +59,6 @@ einbezogen, da alle Ausgänge direkt durch jeweils ein Gatter aus den Eingängen
     ~\\
     \underline{Übertrag - $0$}\\
     $ (\overline{o}) ~ \wedge $\\
-    ~\\
     \underline{Summe - EQ}\\
     $ (\overline{s} \vee  a) ~ \wedge $\\
     $ (s \vee \overline{a}) $
@@ -69,7 +68,6 @@ einbezogen, da alle Ausgänge direkt durch jeweils ein Gatter aus den Eingängen
     ~\\
     \underline{Übertrag - $0$}\\
     $ (\overline{o}) ~ \wedge $\\
-    ~\\
     \underline{Summe - EQ}\\
     $ (\overline{s} \veebar a) $\\
     ~
@@ -77,19 +75,17 @@ einbezogen, da alle Ausgänge direkt durch jeweils ein Gatter aus den Eingängen
   \begin{minipage}[l]{3.5cm}
     \underline{Ohne XOR}\\
     ~\\
-    \underline{Übertrag - EQ}\\
-    $ (\overline{o} \vee  a) ~ \wedge $\\
-    $ (o \vee \overline{a}) ~ \wedge $\\
-    \underline{Summe - NOT}\\
-    $ (s \vee  a) ~ \wedge $\\
-    $ (\overline{s} \vee \overline{a}) $
+    $ (o \vee  s) ~ \wedge $\\
+    $ (\overline{s} \vee  \overline{a}) ~ \wedge $\\
+    $ (\overline{o} \vee  a) $\\
+    ~\\
+    ~
   \end{minipage}
   \begin{minipage}[l]{3.5cm}
     \underline{Mit XOR}\\
     ~\\
     \underline{Übertrag - EQ}\\
     $ (\overline{o} \veebar a) ~ \wedge $\\
-    ~\\
     \underline{Summe - NOT}\\
     $ (s \veebar a) $\\
     ~
@@ -135,12 +131,12 @@ einbezogen, da alle Ausgänge direkt durch jeweils ein Gatter aus den Eingängen
   \begin{minipage}[l]{3.5cm}
     \underline{Ohne XOR}\\
     ~\\
-    Err\\
-    ~\\
-    ~\\
-    ~\\
-    ~\\
-    ~
+    $ (s \vee \overline{a} \vee \overline{c}) ~ \wedge $\\
+    $ (o \vee s) ~ \wedge $\\
+    $ (o \vee \overline{a}) ~ \wedge $\\
+    $ (\overline{s} \vee a \vee \overline{c}) ~ \wedge $\\
+    $ (\overline{o} \vee \overline{s} \vee c) ~ \wedge $\\
+    $ (\overline{o} \vee a \vee c) $
   \end{minipage}
   \begin{minipage}[l]{3.5cm}
     \underline{Mit XOR}\\

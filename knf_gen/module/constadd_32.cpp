@@ -37,8 +37,16 @@ void ConstAdd_32::create(Collector* collector) {
         createFalse(collector, start);
         createEQ(collector, output, inputs[0]);
     } else {
+#ifdef XOR_SUPPORT
         createEQ(collector, start, inputs[0]);
         createNEQ(collector, output, inputs[0]);
+#else
+        //                c_out   s_out       a_in
+        cc.setLiterals(3, start, output, inputs[0]);
+        cc.printClause(3,     1,      1,     CC_DC);
+        cc.printClause(3, CC_DC,      0,         0);
+        cc.printClause(3,     0,  CC_DC,         1);
+#endif
     }
 
     // Full adder x30
