@@ -1,6 +1,26 @@
 \section{Sigma-Familie (SIG)}
 \label{sec:knf:sig}
 
+Im Gegensatz zu den Funktionen in den vorhergehenden Abschnitten wird bei den Sigma-Funktionen ausschließlich das XOR-Gatter verwendet.
+Während bisher mehrere Eingaben verrechnet wurden, wird bei den Sigma-Funktionen jedoch nur eine einzelne Eingabe verwendet, deren
+einzelne Bits Verwendung in bis zu drei unterschiedlichen Ausgabebits finden.
+
 \TODO{erledigen}
 
-nur xor, ganz einfach für cryptominisat
+\begin{figure}[!h]
+  \centering
+  \begin{tabular}{l|r|r|r|r}
+    \hiderowcolors
+                    & $ \sigma_0 $ & $ \sigma_1 $ & $ \Sigma_0 $ & $ \Sigma_1 $ \\
+    \hline
+    Gatter ohne XOR &      7 -  17 &      4 - ~~6 &      4 - ~~6 &      4 - ~~6 \\
+    Gatter mit XOR  & \multicolumn{4}{c}{4 - 1} \\
+    \hline
+    \hline
+    Gatter ohne XOR &      7 -  17 &      4 - ~~6 &      4 - ~~6 &      4 - ~~6 \\
+    Gatter mit XOR  & \multicolumn{4}{c}{128 - 32} \\
+    \showrowcolors
+  \end{tabular}
+  \caption{Sigma - Literale und Klauseln}
+  \label{fig:sigma_literalclausecount}
+\end{figure}

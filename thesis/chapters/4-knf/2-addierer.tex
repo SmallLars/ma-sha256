@@ -2,7 +2,6 @@
 \label{sec:knf:addierer}
 
 Grundlage für die modulare 32-Bit Addition sind der Halbaddierer, der Volladdierer und der Mod-2 Addierer (siehe Abschnitt \ref{sec:grundlagen_add}).
-
 Wie auch für die Gatter im Abschnitt vorher wird für den Halbaddierer eine boolsche Gleichungen erstellt (siehe Abbildung \ref{fig:halfadder_eqn}).
 Diese entspricht genau den Gattern in Abbildung \ref{fig:halfadder}.
 \begin{figure}[!h]
@@ -70,7 +69,7 @@ Teile weg, um die XOR-Operationen manuell zu berücksichtigen.
   \label{fig:fulladder_qen}
 \end{figure}
 
-Es ergeben sich die konjunktiven Normalformen in Abbildung \ref{fig:fulladder_cnf}. Der eingehende Übertrag wird als c genannt während der
+Es ergeben sich die konjunktiven Normalformen in Abbildung \ref{fig:fulladder_cnf}. Der eingehende Übertrag wird als c bezeichnet während der
 berechnete Übertrag o genannt wird. Die Anzahl der Klauseln beläuft sich auf zehn, wobei durch die XOR-Unterstützung
 eine Reduktion auf 7 Klauseln möglich ist. Die Umwandlung der XOR-Klausel in normale Klauseln würde zu einer Menge von 14 Klauseln führen.
 \begin{figure}[!h]
@@ -137,7 +136,7 @@ zusätzliches Literal benötigt und die Klauselanzahl nicht verringert.
   \label{fig:lastadder_cnf}
 \end{figure}
 
-In Abbildung \ref{fig:literalclausecount} sind noch mal alle Ergebnisse aufgelistet. Die erste Zahl steht jeweils für die Anzahl der Literale
+In Abbildung \ref{fig:add_literalclausecount} sind noch mal alle Ergebnisse aufgelistet. Die erste Zahl steht jeweils für die Anzahl der Literale
 und die zweite Zahl für die Anzahl der Klauseln. In der letzten Spalte sind die Werte für einen modularen 32-Bit Addierer aufgelistet.
 Die Anzahl der Klauseln ergibt sich aus einem Halbaddierer, 30 Volladdierern und einem Mod-2 Addierer. Die Anzahl der Literale wird zunächst
 auf die gleiche Weise berechnet. Es müssen jedoch noch 31 Literale abgezogen werden, da die Literale für die Überträge doppelt berechnet wurden.
@@ -148,13 +147,14 @@ auf die gleiche Weise berechnet. Es müssen jedoch noch 31 Literale abgezogen we
                            & Halbaddierer & Volladdierer & Mod-2 Addierer &    Gesamt \\
     \hline
     Gatter                 &        4 - 7 &       8 - 17 &          4 - 8 & 217 - 525 \\
+    Gatter mit XOR         &        4 - 4 &       8 - 11 &          4 - 1 & 217 - 335 \\
     eqntott \& Espresso    &        4 - 6 &       5 - 10 &          4 - 8 & 127 - 314 \\
     XOR                    &        4 - 4 &      5 - ~~7 &          4 - 1 & 127 - 215 \\
     XOR ohne Unterstützung &        4 - 7 &       5 - 14 &          4 - 8 & 127 - 435 \\
     \showrowcolors
   \end{tabular}
   \caption{Addierer - Literale und Klauseln}
-  \label{fig:literalclausecount}
+  \label{fig:add_literalclausecount}
 \end{figure}
 
 Es zeigt sich, dass die Verwendung von eqntott und Espresso, im Vergleich zur Verwendung der Gatter, zu einer kompakteren konjunktiven Normalform führt.

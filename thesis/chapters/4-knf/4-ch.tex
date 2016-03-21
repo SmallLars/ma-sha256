@@ -1,8 +1,59 @@
 \section{Choose (CH)}
 \label{sec:knf:ch}
 
-\TODO{erledigen}
+Die Choose-Funktion kann durch zwei AND-Gatter und ein XOR-Gatter realisiert werden. Als Alternative für das XOR-Gatter wird auch ein OR-Gatter berücksichtigt.
+Bei Verwendung der Gatter müssen 2 zusätzliche Literale eingefügt werden, die das Ergebnis der beiden AND-Gatter enthalten, so dass insgesamt 6 Literale benötigt werden.
+Für die AND-Gatter werden jeweils drei Klauseln benötigt. Das XOR-Gatter benötigt eine XOR-Klausel oder vier normale Klauseln während das OR-Gatter drei Klauseln benötigt.
+Je nach Realisierung ergeben sich damit zehn, neun oder sieben Klauseln.
 
-espresso hat gute lösung\\
-wahrheitstabelle\\
-warum reichen die klauseln?
+Nach den Erfolgen in den beiden vorhergehenden Abschnitten wird für die Choose-Funktion ebenfalls eine boolsche Gleichung erstellt (siehe Abbildung \ref{fig:choose_eqn}).
+Im Gegensatz zu den Addierern ist das Ergebnis des XOR-Gatters nicht direkt von Eingaben abhängig sondern von anderen Gattern. Damit lässt sich das XOR-Gatter nicht
+ausgliedern und separat betrachten, so dass nur die vollständige boolsche Gleichung genutzt wird.
+\begin{figure}[!h]
+  \centering
+  \begin{lstlisting}[]
+  NAME = CH;
+  INORDER = r_out a_in b_in c_in;
+  OUTORDER = z;
+
+  z = eq(r_out, xor(a_in & b_in, !a_in & c_in));
+  \end{lstlisting}
+  \caption{Choose - Gleichung}
+  \label{fig:choose_eqn}
+\end{figure}
+
+Aus der Berechnung von eqntott und Espresso ergibt sich die konjunktive Normalform in Abbildung \ref{fig:choose_cnf}.
+Vier Klauseln reichen aus um die Choose-Funktion zu beschreiben.
+\begin{figure}[!h]
+  \centering
+  \begin{minipage}[l]{2cm}
+    $ (r \vee \overline{a} \vee \overline{b}) ~ \wedge $\\
+    $ (\overline{r} \vee \overline{a} \vee b) ~ \wedge $\\
+    $ (r \vee a \vee \overline{c}) ~ \wedge $\\
+    $ (\overline{r} \vee a \vee c) $
+  \end{minipage}
+  \caption{Choose - Konjuktive Normalform}
+  \label{fig:choose_cnf}
+\end{figure}
+
+In Abbildung \ref{fig:choose_literalclausecount} sind die unterschiedlichen Lösungen gegenübergestellt.
+Die Choose-Funktion wird bitweise auf einer 32 Bit breiten Binärzahl angewendet. Jedes Bit der Eingabe wird dabei nur einmal genutzt.
+Die einzelnen Berechnungen sind somit unabhängig wodurch sich die Gesamtanzahl der Literale und Klauseln aus der Multiplikation mit 32 ergibt.
+\begin{figure}[!h]
+  \centering
+  \begin{tabular}{l|r|r}
+    \hiderowcolors
+                           &   Choose &    Gesamt \\
+    \hline
+    Gatter                 &  6 -  10 & 192 - 320 \\
+    Gatter mit OR          &  6 - ~~9 & 192 - 288 \\
+    Gatter mit XOR         &  6 - ~~7 & 192 - 224 \\
+    eqntott \& Espresso    &  4 - ~~4 & 128 - 128 \\
+    \showrowcolors
+  \end{tabular}
+  \caption{Choose - Literale und Klauseln}
+  \label{fig:choose_literalclausecount}
+\end{figure}
+
+Das Ergebnis zeigt, dass es nicht notwendig ist, unterschiedliche Lösungen bereitzustellen. Egal ob eine XOR-Unterstützung gegeben ist oder nicht,
+ist die von eqntott und Espresso ermittelte Lösung optimal und wird implementiert.
