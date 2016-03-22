@@ -2,25 +2,30 @@
 \label{sec:knf:sig}
 
 Im Gegensatz zu den Funktionen in den vorhergehenden Abschnitten wird bei den Sigma-Funktionen ausschließlich das XOR-Gatter verwendet.
-Während bisher mehrere Eingaben verrechnet wurden, wird bei den Sigma-Funktionen jedoch nur eine einzelne Eingabe verwendet, deren
-einzelne Bits Verwendung in bis zu drei unterschiedlichen Ausgabebits finden.
+Während bisher mehrere Eingaben verrechnet wurden, wird bei den Sigma-Funktionen nur eine einzelne Eingabe verwendet, deren
+einzelne Bits Verwendung in bis zu drei unterschiedlichen Ausgabebits finden. Da jedes Ausgabebit direkt durch ein XOR-Gatter aus den
+Eingabebits berechnet wird, sind keine zusätzlichen Literale notwendig. Aus 32 Eingabebits und 32 Ausgabebits ergeben sich 64 Literale.
 
-\TODO{erledigen}
-
+Bei Verwendung der XOR-Klauseln reicht eine Klausel für jedes Ausgabebit aus, unabhängig davon ob das Ausgabebit aus zwei oder drei
+Eingangsbits berechnet wird. Anders ist es bei fehlender XOR-Unterstützung. Ein XOR mit drei Eingängen benötigt acht Klauseln während
+ein XOR mit zwei Eingängen vier Klauseln benötigt. Bei den $ \Sigma $-Funktionen kommt dieser Unterschied nicht zum tragen, da generell
+drei Eingabebits für jedes Ausgabebit herangezogen werden. Es ergeben sich 256 Klauseln. Anders verhält es sich bei den $ \sigma $-Funktionen.
+Durch die Verschiebung nach rechts werden 3 bzw. 10 Eingangsbits nur zwei mal berücksichtigt. Die entstehende $0$ hat keinen Einfluss auf das
+Ergebnis einer XOR-Operation und kann ignoriert werden. Es ergeben sich deshalb nur 244 bzw. 216 Klauseln. Eine Übersicht ist in Abbildung
+\ref{fig:sigma_literalclausecount} dargestellt.
 \begin{figure}[!h]
   \centering
   \begin{tabular}{l|r|r|r|r}
     \hiderowcolors
-                    & $ \sigma_0 $ & $ \sigma_1 $ & $ \Sigma_0 $ & $ \Sigma_1 $ \\
+    Funktion        & $ \sigma_0 $ & $ \sigma_1 $ & $ \Sigma_0 $ & $ \Sigma_1 $ \\
     \hline
-    Gatter ohne XOR &      7 -  17 &      4 - ~~6 &      4 - ~~6 &      4 - ~~6 \\
-    Gatter mit XOR  & \multicolumn{4}{c}{4 - 1} \\
+    Gatter ohne XOR &     64 - 244 &     64 - 216 &     64 - 256 &     64 - 256 \\
     \hline
-    \hline
-    Gatter ohne XOR &      7 -  17 &      4 - ~~6 &      4 - ~~6 &      4 - ~~6 \\
-    Gatter mit XOR  & \multicolumn{4}{c}{128 - 32} \\
+    Gatter mit XOR  &    64 - ~~32 &    64 - ~~32 &    64 - ~~32 &    64 - ~~32 \\
     \showrowcolors
   \end{tabular}
   \caption{Sigma - Literale und Klauseln}
   \label{fig:sigma_literalclausecount}
 \end{figure}
+
+Wie auch für den Addierer, führt der Versuch die vier Funktionen als Wahrheitstabelle auszugeben und mit Espresso zu optimieren zu keinem Ergebnis.

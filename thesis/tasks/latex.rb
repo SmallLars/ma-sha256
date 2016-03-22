@@ -20,6 +20,8 @@ CLEAN.include %w{glg gls ist glo ind ilg idx acn acr alg}.globit
 CLEAN.include %w{out tdo run.xml}.globit
 # finally pdf and synctex
 CLOBBER.include(MAIN_PDF, MAIN_PDF.gsub(/pdf$/, 'synctex.gz'))
+# pdf images generated from svg
+CLOBBER.include Dir["./images/*.svg"].map{|s| s.gsub(/svg$/, 'pdf')}
 
 # runs XeTeX on MAIN_TEX and returns the log file
 def xtex2pdf
