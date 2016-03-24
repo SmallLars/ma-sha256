@@ -41,22 +41,26 @@ Erworbenes Wissen, was auf der Konstante basiert, kann dadurch in diesem Modul g
 zweiten Schritt als allgemeingültig erweist.
 
 Abschließend werden die genannten Module in einem Modul für die vollständige Rundenfunktion genutzt. Zusätzlich erfolgt in
-diesem Modul auch die \ref{fig:sha256single} Addtion \TODO{erledigen}
+diesem Modul auch die Addition der anfänglich genutzten Konstanten auf das Ergebnis (siehe Abbildung \ref{fig:sha256single}).
+Abbildung \ref{fig:sha256_module} zeigt den hierarchischen Aufbaue der Module.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.25]{images/module}
+  \caption{Modulhierarchie von \glos{sha256}}
+  \label{fig:sha256_module}
+\end{figure}
 
-Erweiterungsfunktion\\
-Rundenfunktion\\
-Rundenfunktion + Konstante\\
-\glos{sha256} als ganzes: wissen hinzufügen und mehrfache verwendung bei bitcoin\\
-~\\
-Rekonvergenzen bei ersten beiden finden.\\
-~\\
-baum\\
-hierarchie durch level:\\
-subaddierer bekommen ihre ebene: 1 bis 4\\
-module aus grafik ebene 10\\
-11\\
-20\\
-21\\
-sha als ganzes: 30\\
-~\\
-betrachtung der erweiterung als teil der runden 17 bis 64
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{l|r|r}
+    \hiderowcolors
+             & Literale & Klauseln \\
+    \hline
+    Ohne XOR &    49832 & 255600 \\
+    \hline
+    Mit XOR  &    49832 & 150760 \\
+    \showrowcolors
+  \end{tabular}
+  \caption{\glos{sha256} - Literale und Klauseln}
+  \label{fig:sha256_literalclausecount}
+\end{table}

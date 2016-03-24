@@ -24,4 +24,10 @@
 \patchcmd{\listoffigures}{\section}{\chapter*}{}{}
 \listoffigures
 
+\cleardoublepage\phantomsection\phantomsection\phantomsection\phantomsection\phantomsection\phantomsection\phantomsection\phantomsection\phantomsection
+
+\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+\patchcmd{\listoftables}{\section}{\chapter*}{}{}
+\listoftables
+
 \input{appendices/cd.tex}

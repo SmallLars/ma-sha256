@@ -247,10 +247,10 @@ Unterstützung vier Klauseln benötigt werden.
   \label{fig:red_lastadder_cnf}
 \end{figure}
 
-Wie auch für den Addierer im vorhergehenden Abschnitt sind in Abbildung \ref{fig:red_add_literalclausecount} noch mal alle Ergebnisse aufgelistet.
+Wie auch für den Addierer im vorhergehenden Abschnitt sind in Tabelle \ref{fig:red_add_literalclausecount} noch mal alle Ergebnisse aufgelistet.
 Die Daten der gatterbasierten Lösungen entsprechen in diesem Fall den Daten der XOR-basierten Lösungen mit und ohne Unterstützung von XOR-Klauseln,
 da sich alle Überträge und Summen mit Hilfe einer Operation direkt aus den Eingangswerten ergeben. Zusätzliche Literale sind nicht notwendig.
-\begin{figure}[!h]
+\begin{table}[!h]
   \centering
   \begin{tabular}{l|rrr|r}
     \hiderowcolors
@@ -265,7 +265,7 @@ da sich alle Überträge und Summen mit Hilfe einer Operation direkt aus den Ein
   \end{tabular}
   \caption{Reduzierter Addierer - Literale und Klauseln}
   \label{fig:red_add_literalclausecount}
-\end{figure}
+\end{table}
 
 Für die Addition von Konstanten ist es ebenfalls sinnvoll zwei Lösungen zu implementieren. Bei der Unterstützung von XOR-Klauseln wird die gatterbasierte
 Lösung verwendet während im anderen Fall die Lösung von eqntott und Espresso verwendet wird.

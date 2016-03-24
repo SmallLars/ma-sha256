@@ -36,10 +36,10 @@ Vier Klauseln reichen aus um die Choose-Funktion zu beschreiben.
   \label{fig:choose_cnf}
 \end{figure}
 
-In Abbildung \ref{fig:choose_literalclausecount} sind die unterschiedlichen Lösungen gegenübergestellt.
+In Tabelle \ref{fig:choose_literalclausecount} sind die unterschiedlichen Lösungen gegenübergestellt.
 Die Choose-Funktion wird bitweise auf einer 32 Bit breiten Binärzahl angewendet. Jedes Bit der Eingabe wird dabei nur einmal genutzt.
 Die einzelnen Berechnungen sind somit unabhängig wodurch sich die Gesamtanzahl der Literale und Klauseln aus der Multiplikation mit 32 ergibt.
-\begin{figure}[!h]
+\begin{table}[!h]
   \centering
   \begin{tabular}{l|r|r}
     \hiderowcolors
@@ -53,7 +53,7 @@ Die einzelnen Berechnungen sind somit unabhängig wodurch sich die Gesamtanzahl 
   \end{tabular}
   \caption{Choose - Literale und Klauseln}
   \label{fig:choose_literalclausecount}
-\end{figure}
+\end{table}
 
 Das Ergebnis zeigt, dass es nicht notwendig ist, unterschiedliche Lösungen bereitzustellen. Egal ob eine XOR-Unterstützung gegeben ist oder nicht,
 ist die von eqntott und Espresso ermittelte Lösung optimal und wird implementiert.

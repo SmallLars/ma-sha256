@@ -11,9 +11,9 @@ Eingangsbits berechnet wird. Anders ist es bei fehlender XOR-Unterstützung. Ein
 ein XOR mit zwei Eingängen vier Klauseln benötigt. Bei den $ \Sigma $-Funktionen kommt dieser Unterschied nicht zum tragen, da generell
 drei Eingabebits für jedes Ausgabebit herangezogen werden. Es ergeben sich 256 Klauseln. Anders verhält es sich bei den $ \sigma $-Funktionen.
 Durch die Verschiebung nach rechts werden 3 bzw. 10 Eingangsbits nur zwei mal berücksichtigt. Die entstehende $0$ hat keinen Einfluss auf das
-Ergebnis einer XOR-Operation und kann ignoriert werden. Es ergeben sich deshalb nur 244 bzw. 216 Klauseln. Eine Übersicht ist in Abbildung
+Ergebnis einer XOR-Operation und kann ignoriert werden. Es ergeben sich deshalb nur 244 bzw. 216 Klauseln. Eine Übersicht ist in Tabelle
 \ref{fig:sigma_literalclausecount} dargestellt.
-\begin{figure}[!h]
+\begin{table}[!h]
   \centering
   \begin{tabular}{l|r|r|r|r}
     \hiderowcolors
@@ -26,6 +26,6 @@ Ergebnis einer XOR-Operation und kann ignoriert werden. Es ergeben sich deshalb 
   \end{tabular}
   \caption{Sigma - Literale und Klauseln}
   \label{fig:sigma_literalclausecount}
-\end{figure}
+\end{table}
 
 Wie auch für den Addierer, führt der Versuch die vier Funktionen als Wahrheitstabelle auszugeben und mit Espresso zu optimieren zu keinem Ergebnis.
