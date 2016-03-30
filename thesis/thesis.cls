@@ -36,6 +36,7 @@
 \RequirePackage{array}
 \RequirePackage{verbatim}
 \RequirePackage{multicol}
+\RequirePackage{multirow}
 \RequirePackage{setspace}
 \RequirePackage[nofancy]{svninfo}
 

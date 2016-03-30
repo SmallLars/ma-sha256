@@ -1,13 +1,54 @@
 \section{Vergleich mit anderen Implementierungen}
 
-\TODO{erledigen}
+Für die vollständige Kompressionsfunktion werden bei diesem Vorgehen 49.832 Literale benötigt. Je nach Unterstützung von XOR-Klauseln
+werden 255.600 bzw. 150.760 Klauseln benötigt, um die Kompressionsfunktion auf diesen Literalen zu definieren. Nicht mit eingerechnet
+sind dabei Klauseln, die für eine Wertebelegung benötigt werden. Soll ein Bitcoin-Block berechnet werden, muss die Kompressionsfunktion
+zwei Mal angewendet werden (siehe Abschnitt \ref{sec:bitcoin}). Das führt im Idealfall zu einer Verdopplung der Klauseln und Literale,
+wobei 256 Literale wegfallen. Diese Literale stehen für das Ergebnis der ersten Anwendung der Kompressionsfunktion und dienen als Eingabe
+für die zweite Anwendung der Kompressionsfunktion.
 
-vergleich von anzahl der literale und anzahl der klauseln\\
-cbmc   :   p cnf 69356 347128\\
-moos :\\
-~~~~ espresso : p cnf 60161 665345\\
-~~~~ tseitin : p cnf 130209 449929\\
+Jonathan Heusser hat \acr{cbmc} genutzt, um die konjunktive Normalform aus einem C-Programm zu generieren. Sein Fokus lag dabei auf der
+Berechnung eines Bitcoin-Blocks. Da \acr{cbmc} keine XOR-Klauseln unterstützt, können ausschließlich normale Klauseln zum Vergleich
+herangezogen werden. Aus seiner Datei satcoin.c \cite{jona:3} wurde eine konjunktive Normalform mit 132.615 Literalen und 648.233 Klauseln
+generiert. Für die Berechnung einer einzelnen Kompressionsfunktion wird das C-Programm entsprechend angepasst (siehe Anhang \ref{chp:sha256code}).
+Daraus ergeben sich 69.356 Literale und 347.128 Klauseln. Hier zeigt sich, dass \acr{cbmc} für die Berechnung eines Bitcoin-Blocks weniger
+als das Doppelte einer Kompressionsfunktion notwendig ist. Das liegt daran, dass \acr{cbmc} die Operationen, deren Eingaben bekannt sind,
+vor berechnet und nur die unbekannten Teile in die konjunktive Normalform überführt. Anzumerken ist auch, dass diese Klauselmengen bereits
+Belegungen für konkret Werte enthalten, was jedoch zu vernachlässigen ist. 
+
+Martin Maurer hat ein ähnliches Konzept wie das aus dieser Arbeit verwendet und die konjunktive Normalform selbst generiert. Neben der
+Unterstützung für XOR-Klauseln erzeugt sein Programm \cite{capiman} zwei verschiedene Version der konjunktiven Normalform. Die erste nutzt
+die Tseitin-Transformation auf Ebene der Gatter, während die zweite Espresso mit einbezieht um zusätzliche Literale in den Addierern zu vermeiden.
+Die Zahlen zu dieser Lösung sind in Tabelle \ref{fig:sha256_literalclausecount} neben den beiden anderen Lösungen dargestellt. Wie auch bei der
+Realisierung in dieser Arbeit lässt sich die Verdopplung der Literale und Klauseln erkennen, wenn ein Bitcoin-Block berechnet werden soll.
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{l|l|r|r|r}
+    \hiderowcolors
+    Problem                          & Realisierung & Literale & Klauseln & Klauseln (XOR) \\
+    \hline
+    \multirow{4}{2cm}{\glos{sha256}} & Diese Arbeit      &    49832 &   255600 ~~(~~5,13) &  150760 ~~(3,03) \\
+                                     & CBMC              &    69356 &   347128 ~~(~~5,01) &              --- \\
+                                     & Maurer - Tseitin  &   130209 &   449929 ~~(~~3,46) &  200425 ~~(1,54) \\
+                                     & Maurer - Espresso &    60161 &    665345 ~~(11,06) &  567041 ~~(9,43) \\
+    \hline
+    \multirow{4}{2cm}{Bitcoin}       & Diese Arbeit      &    99408 &   511200 ~~(~~5,14) &  301520 ~~(3,03) \\
+                                     & CBMC              &   132615 &   648233 ~~(~~4,89) &              --- \\
+                                     & Maurer - Tseitin  &   260673 &   901137 ~~(~~3,46) &  401105 ~~(1,54) \\
+                                     & Maurer - Espresso &   120577 &   1331969 ~~(11,05) & 1134337 ~~(9,41) \\
+    \showrowcolors
+  \end{tabular}
+  \caption{Vergleich der Anzahl von Literalen und Klauseln}
+  \label{fig:sha256_literalclausecount}
+\end{table}
+
+\TODO{Fazit}
+
+diese arbeit kanns kompakter. aber ist das auch besser?\\
+woher kommen die ganzen klauseln bei maurer - espresso? da ist cbmc besser\\
+maurer-tseitin kann hinkommen (vgl. verhältnis volladdierer)\\
+maurer braucht aber bei espresso weniger literale als cbmc\\
+auf klauselverhältmis eingehen\\
 ~\\
-nicht die belegung von variablen einbeziehen\\
-bei cbmc schwierig belegung herauszufiltern\\
-eventuell extra aufführen, ist ja konstant
+Zitat: In my tests with CMS 3.x the version with TSEITIN ADDERS were faster than version with ESPRESSO.\\
+klar weil riesengroße klauselmenge - schade - wo ist der fehler?

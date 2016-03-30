@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-// SHA STUFF START -----------------------------------------------------------------
 uint32_t sha_k[64] = {\
  0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5, 0x3956C25B, 0x59F111F1, 0x923F82A4, 0xAB1C5ED5,\
  0xD807AA98, 0x12835B01, 0x243185BE, 0x550C7DC3, 0x72BE5D74, 0x80DEB1FE, 0x9BDC06A7, 0xC19BF174,\
@@ -26,24 +25,24 @@ void sha_processchunk(uint32_t *state, uint32_t *chunk) {
 
 	// Extend the sixteen 32-bit words into sixty-four 32-bit words:
 	for (n = 16; n < 64; n++) {
-		s0 = (w[n-15] >> 7 | w[n-15] << (32-7)) ^ (w[n-15] >> 18 | w[n-15] << (32-18)) ^ (w[n-15] >> 3);
-		s1 = (w[n-2] >> 17 | w[n-2] << (32-17)) ^ (w[n-2] >> 19 | w[n-2] << (32-19)) ^ (w[n-2] >> 10);
+		s0 = (w[n-15] >> 7 | w[n-15] << (32-7))^(w[n-15] >> 18 | w[n-15] << (32-18))^(w[n-15] >> 3);
+		s1 = (w[n-2] >> 17 | w[n-2] << (32-17))^(w[n-2] >> 19 | w[n-2] << (32-19))^(w[n-2] >> 10);
 		w[n] = w[n-16] + s0 + w[n-7] + s1;
 	}
 
 	for (n = 0; n < 64; n++) {
-        w[n] += sha_k[n];
+		w[n] += sha_k[n];
 	}
 
 	// Initialize hash value for this chunk:
 	a = state[0];
-    b = state[1];
-    c = state[2];
-    d = state[3];
+	b = state[1];
+	c = state[2];
+	d = state[3];
 	e = state[4];
-    f = state[5];
-    g = state[6];
-    h = state[7];
+	f = state[5];
+	g = state[6];
+	h = state[7];
 
 	// Main loop:
 	for (n = 0; n < 64; n++) {
@@ -60,66 +59,58 @@ void sha_processchunk(uint32_t *state, uint32_t *chunk) {
 
 	// Add this chunk's hash to result so far:
 	state[0] += a;
-    state[1] += b;
-    state[2] += c;
-    state[3] += d;
+	state[1] += b;
+	state[2] += c;
+	state[3] += d;
 	state[4] += e;
-    state[5] += f;
-    state[6] += g;
-    state[7] += h;
+	state[5] += f;
+	state[6] += g;
+	state[7] += h;
 }
-// SHA STUFF END -------------------------------------------------------------------
 
 int main(int argc, char* argv[]) {
-    uint32_t block[16] = {0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-                          0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80000000, 0x00000000, 0x000001A0};
+	uint32_t block[16] = {\
+	 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,\
+	 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80000000, 0x00000000, 0x000001A0};
 
 #ifdef CBMC
-  block[0] = nondet_uint();
-  block[1] = nondet_uint();
-  block[2] = nondet_uint();
-  block[3] = nondet_uint();
-  block[4] = nondet_uint();
-  block[5] = nondet_uint();
-  block[6] = nondet_uint();
-  block[7] = nondet_uint();
-  block[8] = nondet_uint();
-  block[9] = nondet_uint();
-  block[10] = nondet_uint();
-  block[11] = nondet_uint();
-  block[12] = nondet_uint();
+	block[0] = nondet_uint();
+	block[1] = nondet_uint();
+	block[2] = nondet_uint();
+	block[3] = nondet_uint();
+	block[4] = nondet_uint();
+	block[5] = nondet_uint();
+	block[6] = nondet_uint();
+	block[7] = nondet_uint();
+	block[8] = nondet_uint();
+	block[9] = nondet_uint();
+	block[10] = nondet_uint();
+	block[11] = nondet_uint();
+	block[12] = nondet_uint();
 #endif
 
-    uint32_t result[8] = {0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19};
+	uint32_t result[8] = {\
+	 0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19};
 
 	// Process it.
 	sha_processchunk(result, block);
 
 #ifdef CBMC
-  assert(
-    result[0] != 0x6A09E667 &&
-    result[1] != 0xBB67AE85 &&
-    result[2] != 0x3C6EF372 &&
-    result[3] != 0xA54FF53A &&
-    result[4] != 0x510E527F &&
-    result[5] != 0x9B05688C &&
-    result[6] != 0x1F83D9AB &&
-    result[7] != 0x5BE0CD19
-  );
+	assert(
+		result[0] != 0x6A09E667 &&
+		result[1] != 0xBB67AE85 &&
+		result[2] != 0x3C6EF372 &&
+		result[3] != 0xA54FF53A &&
+		result[4] != 0x510E527F &&
+		result[5] != 0x9B05688C &&
+		result[6] != 0x1F83D9AB &&
+		result[7] != 0x5BE0CD19
+	);
 #endif
 
-	// Printing in reverse, because the hash is a big retarded big endian number in bitcoin.
-    int n;
-    /*
-	for (n = 7; n >= 0; n--) {
-		printf("%02x", result[n] & 0xff);
-		printf("%02x", (result[n] >> 8) & 0xff);
-		printf("%02x", (result[n] >> 16) & 0xff);
-		printf("%02x", (result[n] >> 24) & 0xff);
-	}
-    */
+	int n;
 	for (n = 0; n < 8; n++) printf("%08x ", result[n]);
-    printf("\n");
+	printf("\n");
 
-    return 0;
+	return 0;
 }
