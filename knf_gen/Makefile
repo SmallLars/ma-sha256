@@ -37,6 +37,9 @@ clausesorter: clausesorter.o $(COMMON) $(MODULE) $(PRINTER)
 clausechecker: clausechecker.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 
+clausecounter: clausecounter.o $(COMMON) $(MODULE) $(PRINTER)
+	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
+
 dimacsprinter: dimacsprinter.o $(COMMON) $(MODULE) $(PRINTER)
 	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
 

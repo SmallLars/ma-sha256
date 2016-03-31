@@ -16,18 +16,19 @@ DimacsParser::~DimacsParser() {
     inputFile.close();
 }
 
-bool DimacsParser::getNextClause(vector<Lit>& clause) {
+bool DimacsParser::getNextClause(vector<Lit>& clause, bool doXor) {
     clause.clear();
 
     int c;
     while ((c = inputFile.peek()) != EOF) {
-        if (c == 'c' || c == 'p' || c == 'x') {
+        if (c == 'c' || c == 'p' || (c == 'x' && !doXor)) {
             string line;
             getline(inputFile, line);
             continue;
         }
 
         int value;
+        if (c == 'x') inputFile.get();
         while (inputFile >> value && value != 0) {
             clause.push_back(Lit(abs(value) - 1, value < 0));
         }

@@ -27,28 +27,38 @@ Realisierung in dieser Arbeit lässt sich die Verdopplung der Literale und Klaus
     \hiderowcolors
     Problem                          & Realisierung & Literale & Klauseln & Klauseln (XOR) \\
     \hline
-    \multirow{4}{2cm}{\glos{sha256}} & Diese Arbeit      &    49832 &   255600 ~~(~~5,13) &  150760 ~~(3,03) \\
-                                     & CBMC              &    69356 &   347128 ~~(~~5,01) &              --- \\
-                                     & Maurer - Tseitin  &   130209 &   449929 ~~(~~3,46) &  200425 ~~(1,54) \\
-                                     & Maurer - Espresso &    60161 &    665345 ~~(11,06) &  567041 ~~(9,43) \\
+    \multirow{4}{2cm}{\glos{sha256}} & Diese Arbeit      &    49832 &   255600 ~~(~~5,13 / 3,58) &  150760 ~~(3,03 / 3,12) \\
+                                     & CBMC              &    69356 &   347128 ~~(~~5,01 / 3,01) &                     --- \\
+                                     & Maurer - Tseitin  &   130209 &   449929 ~~(~~3,46 / 2,77) &  261777 ~~(2,10 / 2,46) \\
+                                     & Maurer - Espresso &    60161 &   665345 ~~( 11,06 / 5,60) &  590593 ~~(9,82 / 5,87) \\
     \hline
-    \multirow{4}{2cm}{Bitcoin}       & Diese Arbeit      &    99408 &   511200 ~~(~~5,14) &  301520 ~~(3,03) \\
-                                     & CBMC              &   132615 &   648233 ~~(~~4,89) &              --- \\
-                                     & Maurer - Tseitin  &   260673 &   901137 ~~(~~3,46) &  401105 ~~(1,54) \\
-                                     & Maurer - Espresso &   120577 &   1331969 ~~(11,05) & 1134337 ~~(9,41) \\
+    \multirow{4}{2cm}{Bitcoin}       & Diese Arbeit      &    99408 &   511200 ~~(~~5,14 / 3,58) &  301520 ~~(3,03 / 3,12) \\
+                                     & CBMC              &   132615 &   648233 ~~(~~4,89 / 3,01) &                     --- \\
+                                     & Maurer - Tseitin  &   260673 &   901137 ~~(~~3,46 / 2,77) &  524321 ~~(2,01 / 2,46) \\
+                                     & Maurer - Espresso &   120577 &  1331969 ~~( 11,05 / 5,60) & 1181953 ~~(9,80 / 5,87) \\
     \showrowcolors
   \end{tabular}
   \caption{Vergleich der Anzahl von Literalen und Klauseln}
   \label{fig:sha256_literalclausecount}
 \end{table}
 
-\TODO{Fazit}
+Der Vergleich zeigt, dass das Vorgehen aus dieser Arbeit zu einer kompakteren konjunktiven Normalform führt.
+Sowohl die Anzahl der Literale als auch der Klauseln sind im Bezug zu den anderen Realisierungen minimal.
 
-diese arbeit kanns kompakter. aber ist das auch besser?\\
-woher kommen die ganzen klauseln bei maurer - espresso? da ist cbmc besser\\
-maurer-tseitin kann hinkommen (vgl. verhältnis volladdierer)\\
-maurer braucht aber bei espresso weniger literale als cbmc\\
-auf klauselverhältmis eingehen\\
-~\\
-Zitat: In my tests with CMS 3.x the version with TSEITIN ADDERS were faster than version with ESPRESSO.\\
-klar weil riesengroße klauselmenge - schade - wo ist der fehler?
+Auffällig ist, dass Martin Maurer mit seiner Espresso Variante ebenfalls wenig Literale benötigt, jedoch die
+Anzahl der Klauseln am höchsten von allen Realisierungen ist. Auf seiner GitHub-Seite \cite{capiman} schreibt
+er: "`In my tests with CMS 3.x the version with TSEITIN ADDERS were faster than version with ESPRESSO."'.
+Das legt die Vermutung nahe, dass die Anzahl der Klauseln ein wesentlicher Faktor für die Geschwindigkeit ist.
+
+Aufgeführt sind in Tabelle \ref{fig:sha256_literalclausecount} für jede Klauselmenge in Klammern zwei weitere Werte.
+Der erste Wert beschreibt das Verhältnis von Klauseln zu Literalen. In dieser Arbeit werden ohne XOR-Unterstützung
+bspw. 5,14 Klauseln pro Literal benötigt. Der zweite Wert beschreibt die durchschnittliche Klausellänge.
+Im genannten Beispiel bezieht sich eine Klausel durchschnittlich auf 3,58 Literale.
+
+Bei der Betrachtung dieser Werte sticht die Tseitin-Variante von Martin Maurer hervor. Die Gatter AND und OR mit
+zwei Eingängen lassen sich jeweils durch drei Klauseln beschreiben. Zwei Klauseln beziehen sich dabei auf jeweils
+zwei Literale und eine Klausel auf drei Literale. Ein XOR-Gatter lässt sich mit vier Klauseln à drei Literale beschreiben.
+Die durchschnittliche Klausellänge liegt damit zwischen zwei und drei und die durchschnittliche Klauselmenge pro Literal
+zwischen drei und vier. Durch eine XOR-Unterstützung lässt sich die durchschnittliche Klauselmenge auf eins bis drei
+reduzieren. Diese Werte passen zu den ermittelten Werten in der Tabelle. Im Gegensatz zu seiner Espresso-Variante ist
+die Realisierung der Tseitin-Variante gelungen.

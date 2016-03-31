@@ -11,7 +11,7 @@ class DimacsParser {
         DimacsParser(const char* filename);
         ~DimacsParser();
 
-        bool getNextClause(std::vector<CMSat::Lit> &clause);
+        bool getNextClause(std::vector<CMSat::Lit> &clause, bool doXor = false);
         void reset();
     protected:
 
