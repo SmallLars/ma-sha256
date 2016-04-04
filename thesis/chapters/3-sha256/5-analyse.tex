@@ -38,6 +38,7 @@ Schließlich lässt sich auch \textcolor{orange}{\textbf{W}} berechnen (\textcol
 es jedoch nicht möglich weiter zu rechnen. Da weder H noch I bekannt sind, gibt es $2^{32}$ Möglichkeiten die Summe \textcolor{orange}{\textbf{W}} zu bilden.
 
 \subsection{Urbildberechnung}
+\label{sec:urbildberechnung}
 Ausgehend davon, dass das Ergebnis von \glos{sha256} eine Länge von 256 Bit hat, und die Eingabe bei einer einzelnen Anwendung der Kompressionsfunktion bis zu
 447 Bit lang werden kann, ist es wahrscheinlich, dass jeder Hash durch eine einzelne Anwendung der Kompressionsfunktion erzeugt werden kann. Um mit vollständigen
 Bytes zu arbeiten, wird in diesem Angriffsvektor versucht eine Eingabe mit 440 Bit zu finden. Im Mittel gibt es somit für jeden Hash $2^{440-256} = 2^{184}$
@@ -57,6 +58,7 @@ wäre jedoch noch schwierig, da der letzte Block Eingaben enthalten kann, die im
 Ansatz betrachtet.
 
 \subsection{Initialwertberechnung}
+\label{sec:initialwertberechnung}
 Wie im vorherigen Abschnitt zu sehen, kann die Urbildberechnung auf eine einzelne Ausführung von \glos{sha256} zurückgeführt werden.
 Problematisch ist jedoch, dass das Ende der erzeugten Eingabe nicht unbedingt sinnvoll ist. Um auch dieses Problem zu lösen, müssten
 die Werte A bis H berechnet werden, wobei der Hash und die Eingabe gegeben sind. I ist somit in jeder Runde bekannt. Da aber die Initalwerte
@@ -71,6 +73,7 @@ Für die vorletzte Ausführung, die die Bilddaten verarbeitet, müsste so eine U
 an die Eingabe gestellt werden braucht.
 
 \subsection{Kollisionsberechnung}
+\label{sec:kollisionsberechnung}
 Im Gegensatz zu den Berechnungen in den beiden vorigen Abschnitten hat die Kollisionsberechnung keine praktische Anwendung, da keine Anforderung an
 den Hash gestellt sind. Ziel ist es lediglich 2 beliebige Eingaben zu finden, die zu einem gleichen Hash führen. Mit Hilfe eines Sat-Solvers
 (siehe Abschnitt \ref{sec:satsolver}) lässt dich dieses Problem einfach formulieren. Dazu werden 2 Instanzen des Hash-Algorithmus in den Sat-Solver eingefügt

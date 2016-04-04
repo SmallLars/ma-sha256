@@ -1,12 +1,38 @@
 \chapter{Analyse mit CryptoMiniSat}
 \label{chp:analyse}
 
+Die im letzten Kapitel erstellte konjunktive Normalform wird in diesem Kapitel für eine Analyse verwendet.
+
+4.2.0\\
+4.4.0\\
+4.5.3\\
+
+generell urbildberechnung \ref{sec:urbildberechnung}\\
+unterschied zur Inittialwertberechnung \ref{sec:initialwertberechnung}
+
 mehrere durchläufe mit cryptominisat\\
 ein durchlauf besteht aus mehreren lösungsversuchen mit jeweils einem bit vorgabe mehr\\
+~\\
 reale werte nur per assumptions, um allgemeine klauseln zu erhalten\\
+reale werte sind initialwerte (konstanten), hash und 12 byte vom padding\\
+52 Byte lang: Das ist eine Eingabe aus der ein Hash erstellt wird.\\
+Durch Padding werden 12 Byte angehangen: per assumption vorgeben.
+hash ist: 27931f0e 7e53670d dbec1a1c e23e21b4 663c63c0 d17117ee 1a934bc0 c294dbe9\\
+interaktive Ruby-Konsole: IRB.\\
+\\
+\begin{figure}[!h]
+  \centering
+  \begin{lstlisting}[]
+  require 'digest'
+  Digest::SHA256.hexdigest 'Das ist eine Eingabe aus der ein Hash erstellt wird.'
+   => "27931f0e7e53670ddbec1a1ce23e21b4663c63c0d17117ee1a934bc0c294dbe9"
+  \end{lstlisting}
+  \caption{Ruby - \glos{sha256}}
+  \label{fig:ruby-sha256}
+\end{figure}
+~\\
 bei jeder lösung werden klauseln rausgeschrieben\\
 kein unterschied zwischen redundant und irredundant - beides wird analysiert\\
-statistiken aus sql einfügen: anteil der klauseln länge x an propagation und wieviele literale konnten festgelegt werden\\
 im folgenden die schritte der analyse:
 
 \input{chapters/5-analyse/1-bekanntes.tex}
