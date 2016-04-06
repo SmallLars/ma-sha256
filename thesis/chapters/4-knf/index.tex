@@ -23,7 +23,7 @@ auch andere Module verwenden. Es zeigt sich, dass acht grundlegende Module ausre
 
 Alle notwendigen allgemeinen Funktionen für ein Modul sind in einer Basisklasse hinterlegt, von der jedes konkrete Modul erben muss. Ein konkretes Modul wird
 dadurch realisiert, dass die bis dato rein virtuelle Funktion create(Collector* collector) implementiert wird. Über diese Funktion wird der Besucher in das Modul
-übergeben, dessen Basisklasse im Folgenden Collector genannt wird, da dieser Informationen über die besuchten Module sammelt. Der Collector stellt 2 virtuelle
+übergeben, dessen Basisklasse im Folgenden Collector genannt wird, da dieser Informationen über die besuchten Module sammelt. Der Collector stellt zwei virtuelle
 Funktionen bereit, die ein konkreter Collector implementieren kann.
 \begin{description}
   \item[newModul(unsigned level, const char* name, Modul* modul)] muss von jedem Modul aufgerufen werden und dient der Registrierung im Collector.
@@ -39,7 +39,11 @@ Funktionen bereit, die ein konkreter Collector implementieren kann.
        Transformation in OR-Klauseln einfach möglich. Eine Transformation in die andere Richtung würde das Sammeln und Analysieren der
        OR-Klauseln erfordern und wäre dadurch wesentlich aufwendiger.
 \end{description}
-Die für die Analyse notwendigen konkreten Collectoren werden in Kapitel \ref{chp:analyse} erläutert.
+Die für die Analyse notwendigen konkreten Collectoren werden in Kapitel \ref{chp:analyse} erläutert. Jedes Modul wird zunächst in seiner Normalform implementiert.
+Normalform bedeutet in diesem Fall, dass das Modul aufeinander folgende Literale beginnend mit $0$ nutzt, um die konjunktive Normalform zu erzeugen.
+Dabei kommen zunächst die Eingänge, im Anschluss mögliche zusätzliche Literale und schließlich der Ausgang. Über Funktionen in der Basisklasse kann
+das Modul bei der Verwendung konfiguriert werden. Jeder Eingang setzt sich aus ein oder mehreren aufeinander folgend Literalen zusammen. Für jeden Eingang
+kann das Literal mit dem der Eingang beginnt gesetzt werden. Für zusätzliche Literale und den Ausgang kann ebenfalls das Literal gesetzt werden mit dem begonnen wird.
 
 Als Hilfsmittel für die Generierung der Klauseln wird die Klasse ClauseCreator genutzt. Die Verwendung ist in einem Beispiel in Abbildung \ref{fig:clausecreator} dargestellt.
 Initialisiert wird der ClauseCreator durch die Übergabe des Collectors, an den die Klauseln übergeben werden sollen. Im Anschluss werden die Nummern der Literale gesetzt.

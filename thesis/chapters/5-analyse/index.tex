@@ -2,39 +2,56 @@
 \label{chp:analyse}
 
 Die im letzten Kapitel erstellte konjunktive Normalform wird in diesem Kapitel für eine Analyse mit CryptoMiniSat verwendet.
+Analyse bedeutet in diesem Fall, Lösungsversuche mit CryptoMiniSat durchzuführen. CryptoMiniSat sammelt dabei zusätzliches Wissen
+in Form von Konfliktklauseln. Außerdem können durch die Optimierung der ursprünglichen konjunktiven Normalform weitere Klauseln
+generiert werden. Sowohl die Konfliktklauseln als auch die aus der Optimierung entstandenen Klauseln sollen in diesem Kapitel
+analysiert werden um die Module aus dem vorhergehenden Kapitel mit weiterem Wissen anzureichern und weitere Lösungsversuche zu
+beschleunigen. Das Vorgehen ist dabei Iterativ. Nach einem Lösungsversuch werden mutmaßlich wertvolle Klauseln identifiziert
+und in die Module aufgenommen, um mit diesem zusätzlichen Wissen einen weiteren Lösungsversuch zu starten.
 
-
-4.2.0\\
-4.4.0\\
-4.5.3\\
-
-generell urbildberechnung \ref{sec:urbildberechnung}\\
-unterschied zur Inittialwertberechnung \ref{sec:initialwertberechnung}
-
-mehrere durchläufe mit cryptominisat\\
-ein durchlauf besteht aus mehreren lösungsversuchen mit jeweils einem bit vorgabe mehr\\
-~\\
-reale werte nur per assumptions, um allgemeine klauseln zu erhalten\\
-reale werte sind initialwerte (konstanten), hash und 12 byte vom padding\\
-52 Byte lang: Das ist eine Eingabe aus der ein Hash erstellt wird.\\
-Durch Padding werden 12 Byte angehangen: per assumption vorgeben.
-hash ist: 27931f0e 7e53670d dbec1a1c e23e21b4 663c63c0 d17117ee 1a934bc0 c294dbe9\\
-interaktive Ruby-Konsole: IRB.\\
-\\
+Als Lösungsversuch wird die Urbildberechnung (siehe Abschnitt \ref{sec:urbildberechnung}) herangezogen. Die Initialwertberechnung
+(siehe Abschnitt \ref{sec:initialwertberechnung}) eignet sich nicht, da die Eingabe bekannt ist und somit die Erweiterung der Eingabe
+vollständig berechnet werden kann. Dadurch ist dieser Teil bereits gelöst und wird im Lösungsversuch nicht berücksichtigt. Das führt
+dazu, dass kein Wissen über die Erweiterung der Eingabe erworben werden kann. Für die Urbildberechnung wird der Hash aus Abbildung
+\ref{fig:ruby-sha256} herangezogen. Dieser wurde aus der Eingabe "`Das ist eine Eingabe aus der ein Hash erstellt wird."' mit Hilfe
+der interaktiven Rubykonsole berechnet und dient unter anderem auch als Testfall für die Kompressionsfunktion. Ziel des Lösungsversuchs
+ist es, eine Eingabe mit 52 Byte Länge zu finden. Dies könnte auch die Eingabe sein, die benutzt wurde um den Hash zu berechnen.
 \begin{figure}[!h]
   \centering
   \begin{lstlisting}[]
   require 'digest'
   Digest::SHA256.hexdigest 'Das ist eine Eingabe aus der ein Hash erstellt wird.'
-   => "27931f0e7e53670ddbec1a1ce23e21b4663c63c0d17117ee1a934bc0c294dbe9"
+                        => "27931f0e7e53670ddbec1a1ce23e21b4663c63c0d17117ee1a934bc0c294dbe9"
   \end{lstlisting}
   \caption{Ruby - \glos{sha256}}
   \label{fig:ruby-sha256}
 \end{figure}
-~\\
-bei jeder lösung werden klauseln rausgeschrieben\\
-kein unterschied zwischen redundant und irredundant - beides wird analysiert\\
-im folgenden die schritte der analyse:
+
+Beachtet werden muss auch, dass der Hash nicht direkt mit in die konjunktive Normalform kodiert wird. Gleiches gilt für die Initialwerte
+und das Padding, was vorgegeben wird um die Eingabelänge zu definieren. Eine direkt Kodierung würde dazu führen, dass erworbenes Wissen
+sich auf diese Werte bezieht und somit nur für diesen Fall gültig ist. Um das zu vermeiden werden alle Werte als "`Annahmen"' (Assumptions)
+an CryptoMiniSat übergeben. Das führt dazu, dass die Werte zwar für diesen Lösungsversuch gelten, jedoch nicht als allgemeingültig betrachtet
+werden. Klauseln die auf diesem Wissen basieren, werden separat behandelt und nach dem Lösungsversuch verworfen.
+
+Ebenfalls berücksichtigt werden muss die Extraktion der gelernten Klauseln aus CryptoMiniSat. Die internen Datenstrukturen sind nicht dafür
+geeignet, die Klauseln während eines laufenden Lösungsversuchs zu extrahieren. Eine Extraktion kann nur erfolgen, wenn CryptoMiniSat eine
+Lösung gefunden hat wobei die Lösung auch sein kann, dass es keine Lösung gibt. Wie zu erwarten ist, kommt CryptoMiniSat aber bei vollständiger
+Vorgabe des Hash zu keiner Lösung. Deshalb wird ein iterativer Ansatz verfolgt. Die Initialwerte und das Padding werden immer vollständig vorgeben,
+während die Vorgabe des Hash bitweise erweitert wird. Nach jeder Lösung werden dabei die Klauseln extrahiert. Es werden so lange Bits des Hash
+ergänzt, bis keine Lösung mehr gefunden wird. Im Allgemeinen zeigt sich dies dadurch, dass CryptoMiniSat aufgrund eines vollen Hauptspeichers
+abstürzt oder das Programm selbst die Menge der Klauseln nicht mehr handhaben kann.
+
+Extrahiert werden in jedem Lösungsversuch die irredundanten und die redundanten Klauseln. Die irredundanten Klauseln enthalten zunächst die
+eingegebene konjunktive Normalform, die jedoch während der Lösungsversuche optimiert wird. Die redundanten enthalten das gelernte Wissen, das
+zusätzlich genutzt wird und wegfallen könnte, ohne die Lösungsmenge zu beeinflussen.
+
+In den folgenden Abschnitten wird die Analyse der extrahierten Klauseln im Detail beschrieben. Zunächst werden in Abschnitt \ref{sec:ana:rem_double}
+alle Klauseln gesammelt und schon bekannte Klauseln aussortiert. In Abschnitt \ref{sec:ana:module} wird versucht, die Klauseln einzelnen Modulen
+zuzuordnen und diese zu normalisieren. Gelingt die Zuordnung zu einem Modul nicht, wird in Abschnitt \ref{sec:ana:distance} eine Distanzmetrik
+genutzt, um die Klauseln zu bewerten und mutmaßlich wertvolle Klauseln zu identifizieren und zu verallgemeinern. Durch die Iterationen, die jeweils
+gelerntes Wissen mit einbeziehen, kann es dazu kommen, dass Dont-Care Literale identifiziert werden und zur Verkürzung von Klauseln führen.
+Diese Entwicklung wird in Abschnitt \ref{sec:ana:sub} betrachtet. Abschließend wird das gelernte Wissen in Abschnitt \ref{sec:ana:overview}
+zusammengefasst.
 
 \input{chapters/5-analyse/1-bekanntes.tex}
 \input{chapters/5-analyse/2-module.tex}

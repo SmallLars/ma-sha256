@@ -1,5 +1,6 @@
 #include "clausetools.h"
 
+#include <cmath>
 #include <algorithm>
 
 using std::ostream;
@@ -104,3 +105,21 @@ bool hasSubClause(const vector<Lit>& clause, map< Lit, vector< const vector<Lit>
     return false;
 }
 */
+
+vector< vector<Lit> > convertXOR(const vector<Lit>& vars) {
+    vector< vector<Lit> > clauses;
+    if (vars.size() < 2) return clauses;
+
+    for (unsigned i = 0; i < pow(2, vars.size()); i++) {
+        unsigned result = 0;
+        for (unsigned v = 1; v < vars.size(); v++) result ^= ((i >> v) & 1);
+        if (result != ((i & 1) ^ vars[0].sign())) {
+            vector<Lit> clause;
+            for (unsigned v = 0; v < vars.size(); v++) {
+                clause.push_back(Lit(vars[v].var(), (i >> v) & 1));
+            }
+            clauses.push_back(clause);
+        }
+    }
+    return clauses;
+}

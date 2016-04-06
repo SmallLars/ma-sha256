@@ -1,5 +1,7 @@
 #include "ttfileprinter.h"
 
+#include "../common/clausetools.h"
+
 using std::vector;
 using namespace CMSat;
 

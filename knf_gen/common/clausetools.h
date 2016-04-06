@@ -18,4 +18,6 @@ void createLookup(std::map< CMSat::Lit, std::vector< const std::vector<CMSat::Li
 
 bool hasSubClause(const std::vector<CMSat::Lit>& clause, std::map< CMSat::Lit, std::vector< const std::vector<CMSat::Lit>* > >& lookup_table);
 
+std::vector< std::vector<CMSat::Lit> > convertXOR(const std::vector<CMSat::Lit>& vars);
+
 #endif //__CLAUSETOOLS_H__
