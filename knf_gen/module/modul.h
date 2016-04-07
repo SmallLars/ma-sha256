@@ -55,6 +55,7 @@ class Modul {
         void createAND(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert = false);
         void createOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert = false);
 
+        void createXOR(Collector* collector, unsigned out, unsigned in1, bool invert = false);
         void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert = false);
         void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert = false);
         void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, unsigned in4, bool invert = false);

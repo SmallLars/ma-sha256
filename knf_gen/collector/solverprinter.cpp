@@ -33,7 +33,7 @@ void SolverPrinter::create(bool xOR, const vector<Lit>& vars) {
     if (xOR) {
         vector<unsigned> lits;
         for (unsigned i = 0; i < vars.size(); i++) lits.push_back(vars[i].var());
-        solver->add_xor_clause(lits, vars[0].sign());
+        solver->add_xor_clause(lits, !vars[0].sign());
         return;
     }
 

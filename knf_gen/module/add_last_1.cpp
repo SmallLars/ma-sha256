@@ -1,5 +1,9 @@
 #include "add_last_1.h"
 
+#include <stdio.h>
+#include <fstream>
+#include <stdlib.h>
+
 #include "clausecreator.h"
 
 #include "../common/solvertools.h"
@@ -22,7 +26,7 @@ unsigned* Add_Last_1::getStats() {
 void Add_Last_1::create(Collector* collector) {
     collector->newModul(0, "Add_Last_1", this);
 
-    // XOR ->          !s_out       a_in       b_in       c_in
+    // XOR ->             s_out   =   a_in   ^   b_in   ^   c_in
     createXOR(collector, output, inputs[0], inputs[1], inputs[2]);
 
 #ifdef ADDITIONAL_CLAUSES
@@ -50,6 +54,17 @@ MU_TEST_C(Add_Last_1::test) {
                 lbool ret = solver.solve();
                 mu_assert(ret == l_True, "LastAdder UNSAT");
                 mu_assert(((ausgabe >> 0) & 0x1) == solver_readInt(solver, 3, 1), "LastAdder Result failed");
+
+                adder.writeDimacs("add_last_1.dimacs");
+                std::ofstream outputFile("add_last_1.dimacs", std::ofstream::app);
+                if (a == 0) outputFile << "-"; outputFile << "1 0\n";
+                if (b == 0) outputFile << "-"; outputFile << "2 0\n";
+                if (c == 0) outputFile << "-"; outputFile << "3 0\n";
+                if (solver_readInt(solver, 3, 1) == 0) outputFile << "-"; outputFile << "4 0\n";
+                outputFile.close();
+                int status = system("./cryptominisat/cryptominisat4 add_last_1.dimacs > /dev/null");
+                remove("add_last_1.dimacs");
+                mu_assert(WEXITSTATUS(status) == 10, "LastAdder wrong DIMACS");
             }
         }
     }

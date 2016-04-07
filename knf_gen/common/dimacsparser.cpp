@@ -42,7 +42,6 @@ bool DimacsParser::getNextClause(vector<Lit>& clause, bool xorAsOne) {
         inputFile >> std::ws;
 
         if (isXor && !xorAsOne) {
-            clause[0]^=1; // because of wrong convertXOR. need to fix
             buffer = convertXOR(clause);
             popFromBuffer(clause);
         }

@@ -6,7 +6,7 @@ Analyse bedeutet in diesem Fall, Lösungsversuche mit CryptoMiniSat durchzuführ
 in Form von Konfliktklauseln. Außerdem können durch die Optimierung der ursprünglichen konjunktiven Normalform weitere Klauseln
 generiert werden. Sowohl die Konfliktklauseln als auch die aus der Optimierung entstandenen Klauseln sollen in diesem Kapitel
 analysiert werden um die Module aus dem vorhergehenden Kapitel mit weiterem Wissen anzureichern und weitere Lösungsversuche zu
-beschleunigen. Das Vorgehen ist dabei Iterativ. Nach einem Lösungsversuch werden mutmaßlich wertvolle Klauseln identifiziert
+beschleunigen. Das Vorgehen ist dabei iterativ. Nach einem Lösungsversuch werden mutmaßlich wertvolle Klauseln identifiziert
 und in die Module aufgenommen, um mit diesem zusätzlichen Wissen einen weiteren Lösungsversuch zu starten.
 
 Als Lösungsversuch wird die Urbildberechnung (siehe Abschnitt \ref{sec:urbildberechnung}) herangezogen. Die Initialwertberechnung
@@ -36,14 +36,14 @@ werden. Klauseln die auf diesem Wissen basieren, werden separat behandelt und na
 Ebenfalls berücksichtigt werden muss die Extraktion der gelernten Klauseln aus CryptoMiniSat. Die internen Datenstrukturen sind nicht dafür
 geeignet, die Klauseln während eines laufenden Lösungsversuchs zu extrahieren. Eine Extraktion kann nur erfolgen, wenn CryptoMiniSat eine
 Lösung gefunden hat wobei die Lösung auch sein kann, dass es keine Lösung gibt. Wie zu erwarten ist, kommt CryptoMiniSat aber bei vollständiger
-Vorgabe des Hash zu keiner Lösung. Deshalb wird ein iterativer Ansatz verfolgt. Die Initialwerte und das Padding werden immer vollständig vorgeben,
+Vorgabe des Hash zeitnah zu keiner Lösung. Deshalb wird ein iterativer Ansatz verfolgt. Die Initialwerte und das Padding werden immer vollständig vorgeben,
 während die Vorgabe des Hash bitweise erweitert wird. Nach jeder Lösung werden dabei die Klauseln extrahiert. Es werden so lange Bits des Hash
 ergänzt, bis keine Lösung mehr gefunden wird. Im Allgemeinen zeigt sich dies dadurch, dass CryptoMiniSat aufgrund eines vollen Hauptspeichers
 abstürzt oder das Programm selbst die Menge der Klauseln nicht mehr handhaben kann.
 
 Extrahiert werden in jedem Lösungsversuch die irredundanten und die redundanten Klauseln. Die irredundanten Klauseln enthalten zunächst die
-eingegebene konjunktive Normalform, die jedoch während der Lösungsversuche optimiert wird. Die redundanten enthalten das gelernte Wissen, das
-zusätzlich genutzt wird und wegfallen könnte, ohne die Lösungsmenge zu beeinflussen.
+eingegebene konjunktive Normalform, die jedoch während der Lösungsversuche optimiert wird. Die redundanten Klauseln enthalten das gelernte
+Wissen, das zusätzlich genutzt wird und wegfallen könnte, ohne die Lösungsmenge zu beeinflussen.
 
 In den folgenden Abschnitten wird die Analyse der extrahierten Klauseln im Detail beschrieben. Zunächst werden in Abschnitt \ref{sec:ana:rem_double}
 alle Klauseln gesammelt und schon bekannte Klauseln aussortiert. In Abschnitt \ref{sec:ana:module} wird versucht, die Klauseln einzelnen Modulen
