@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="900"
+   height="885.82678"
+   viewBox="20 20 506.84544 484"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="module_add.svg">
+  <metadata
+     id="metadata288">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs286" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="716"
+     id="namedview284"
+     showgrid="false"
+     inkscape:zoom="0.5"
+     inkscape:cx="555.28518"
+     inkscape:cy="450.92879"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <g
+     id="g4">
+    <rect
+       style="fill:#ffffff"
+       x="21.5"
+       y="21"
+       width="45.299999"
+       height="28"
+       id="rect6" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="21.5"
+       y="21"
+       width="45.299999"
+       height="28"
+       id="rect8" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="44.150002"
+       y="40"
+       id="text10">Add</text>
+    <rect
+       style="fill:#ffffff"
+       x="21.5"
+       y="49"
+       width="45.299999"
+       height="8"
+       id="rect12" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="21.5"
+       y="49"
+       width="45.299999"
+       height="8"
+       id="rect14" />
+    <rect
+       style="fill:#ffffff"
+       x="21.5"
+       y="57"
+       width="45.299999"
+       height="8"
+       id="rect16" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="21.5"
+       y="57"
+       width="45.299999"
+       height="8"
+       id="rect18" />
+  </g>
+  <g
+     id="g20">
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="124.25"
+       width="110.6"
+       height="28"
+       id="rect22" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="124.25"
+       width="110.6"
+       height="28"
+       id="rect24" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="402.77499"
+       y="143.25"
+       id="text26">Add_Last_4</text>
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="152.25"
+       width="110.6"
+       height="8"
+       id="rect28" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="152.25"
+       width="110.6"
+       height="8"
+       id="rect30" />
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="160.25"
+       width="110.6"
+       height="8"
+       id="rect32" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="160.25"
+       width="110.6"
+       height="8"
+       id="rect34" />
+  </g>
+  <g
+     id="g36">
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="124.25"
+       width="109.1"
+       height="28"
+       id="rect38" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="124.25"
+       width="109.1"
+       height="28"
+       id="rect40" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="120.525"
+       y="143.25"
+       id="text42">Add_Half_4</text>
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="152.25"
+       width="109.1"
+       height="8"
+       id="rect44" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="152.25"
+       width="109.1"
+       height="8"
+       id="rect46" />
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="160.25"
+       width="109.1"
+       height="8"
+       id="rect48" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="160.25"
+       width="109.1"
+       height="8"
+       id="rect50" />
+  </g>
+  <g
+     id="g52">
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="124.25"
+       width="105"
+       height="28"
+       id="rect54" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="124.25"
+       width="105"
+       height="28"
+       id="rect56" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="261.35001"
+       y="143.25"
+       id="text58">Add_Full_4</text>
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="152.25"
+       width="105"
+       height="8"
+       id="rect60" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="152.25"
+       width="105"
+       height="8"
+       id="rect62" />
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="160.25"
+       width="105"
+       height="8"
+       id="rect64" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="160.25"
+       width="105"
+       height="8"
+       id="rect66" />
+  </g>
+  <g
+     id="g68">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,66.0056 44.15,91.1278 261.35,91.1278 261.35,117.545 "
+       id="polyline70" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="256.35,104.897 261.35,120.897 266.35,104.897 "
+       id="polyline72" />
+  </g>
+  <g
+     id="g74">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,65 44.15,90.625 120.525,90.625 120.525,117.545 "
+       id="polyline76" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="115.525,104.897 120.525,120.897 125.525,104.897 "
+       id="polyline78" />
+  </g>
+  <g
+     id="g80">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,65 44.15,90.625 402.775,90.625 402.775,117.545 "
+       id="polyline82" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="397.775,104.897 402.775,120.897 407.775,104.897 "
+       id="polyline84" />
+  </g>
+  <g
+     id="g86">
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="234.85001"
+       width="110.6"
+       height="28"
+       id="rect88" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="234.85001"
+       width="110.6"
+       height="28"
+       id="rect90" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="402.77499"
+       y="253.85001"
+       id="text92">Add_Last_3</text>
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="262.85001"
+       width="110.6"
+       height="8"
+       id="rect94" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="262.85001"
+       width="110.6"
+       height="8"
+       id="rect96" />
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="270.85001"
+       width="110.6"
+       height="8"
+       id="rect98" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="270.85001"
+       width="110.6"
+       height="8"
+       id="rect100" />
+  </g>
+  <g
+     id="g102">
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="234.85001"
+       width="109.1"
+       height="28"
+       id="rect104" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="234.85001"
+       width="109.1"
+       height="28"
+       id="rect106" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="120.525"
+       y="253.85001"
+       id="text108">Add_Half_3</text>
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="262.85001"
+       width="109.1"
+       height="8"
+       id="rect110" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="262.85001"
+       width="109.1"
+       height="8"
+       id="rect112" />
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="270.85001"
+       width="109.1"
+       height="8"
+       id="rect114" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="270.85001"
+       width="109.1"
+       height="8"
+       id="rect116" />
+  </g>
+  <g
+     id="g118">
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="234.85001"
+       width="105"
+       height="28"
+       id="rect120" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="234.85001"
+       width="105"
+       height="28"
+       id="rect122" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="261.35001"
+       y="253.85001"
+       id="text124">Add_Full_3</text>
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="262.85001"
+       width="105"
+       height="8"
+       id="rect126" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="262.85001"
+       width="105"
+       height="8"
+       id="rect128" />
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="270.85001"
+       width="105"
+       height="8"
+       id="rect130" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="270.85001"
+       width="105"
+       height="8"
+       id="rect132" />
+  </g>
+  <g
+     id="g134">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,65 44.15,200 402.775,200 402.775,228.145 "
+       id="polyline136" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="397.775,215.497 402.775,231.497 407.775,215.497 "
+       id="polyline138" />
+  </g>
+  <g
+     id="g140">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,65 44.15,200 261.35,200 261.35,228.145 "
+       id="polyline142" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="256.35,215.497 261.35,231.497 266.35,215.497 "
+       id="polyline144" />
+  </g>
+  <g
+     id="g146">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,65 44.15,200 120.525,200 120.525,228.145 "
+       id="polyline148" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="115.525,215.497 120.525,231.497 125.525,215.497 "
+       id="polyline150" />
+  </g>
+  <g
+     id="g152">
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="346.45001"
+       width="110.6"
+       height="28"
+       id="rect154" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="346.45001"
+       width="110.6"
+       height="28"
+       id="rect156" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="402.77499"
+       y="365.45001"
+       id="text158">Add_Last_2</text>
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="374.45001"
+       width="110.6"
+       height="8"
+       id="rect160" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="374.45001"
+       width="110.6"
+       height="8"
+       id="rect162" />
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="382.45001"
+       width="110.6"
+       height="8"
+       id="rect164" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="382.45001"
+       width="110.6"
+       height="8"
+       id="rect166" />
+  </g>
+  <g
+     id="g168">
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="346.45001"
+       width="109.1"
+       height="28"
+       id="rect170" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="346.45001"
+       width="109.1"
+       height="28"
+       id="rect172" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="120.525"
+       y="365.45001"
+       id="text174">Add_Half_2</text>
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="374.45001"
+       width="109.1"
+       height="8"
+       id="rect176" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="374.45001"
+       width="109.1"
+       height="8"
+       id="rect178" />
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="382.45001"
+       width="109.1"
+       height="8"
+       id="rect180" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="382.45001"
+       width="109.1"
+       height="8"
+       id="rect182" />
+  </g>
+  <g
+     id="g184">
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="346.45001"
+       width="105"
+       height="28"
+       id="rect186" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="346.45001"
+       width="105"
+       height="28"
+       id="rect188" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="261.35001"
+       y="365.45001"
+       id="text190">Add_Full_2</text>
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="374.45001"
+       width="105"
+       height="8"
+       id="rect192" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="374.45001"
+       width="105"
+       height="8"
+       id="rect194" />
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="382.45001"
+       width="105"
+       height="8"
+       id="rect196" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="382.45001"
+       width="105"
+       height="8"
+       id="rect198" />
+  </g>
+  <g
+     id="g200">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,65 44.15,311.6 393.025,311.6 393.025,339.745 "
+       id="polyline202" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="388.025,327.097 393.025,343.097 398.025,327.097 "
+       id="polyline204" />
+  </g>
+  <g
+     id="g206">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,65 44.15,311.6 251.6,311.6 251.6,339.745 "
+       id="polyline208" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="246.6,327.097 251.6,343.097 256.6,327.097 "
+       id="polyline210" />
+  </g>
+  <g
+     id="g212">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,65 44.15,311.6 110.85,311.6 110.85,339.745 "
+       id="polyline214" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="105.85,327.097 110.85,343.097 115.85,327.097 "
+       id="polyline216" />
+  </g>
+  <g
+     id="g218">
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="458.04999"
+       width="110.6"
+       height="28"
+       id="rect220" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="458.04999"
+       width="110.6"
+       height="28"
+       id="rect222" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="402.77499"
+       y="477.04999"
+       id="text224">Add_Last_1</text>
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="486.04999"
+       width="110.6"
+       height="8"
+       id="rect226" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="486.04999"
+       width="110.6"
+       height="8"
+       id="rect228" />
+    <rect
+       style="fill:#ffffff"
+       x="347.47501"
+       y="494.04999"
+       width="110.6"
+       height="8"
+       id="rect230" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="347.47501"
+       y="494.04999"
+       width="110.6"
+       height="8"
+       id="rect232" />
+  </g>
+  <g
+     id="g234">
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="458.04999"
+       width="109.1"
+       height="28"
+       id="rect236" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="458.04999"
+       width="109.1"
+       height="28"
+       id="rect238" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="120.525"
+       y="477.04999"
+       id="text240">Add_Half_1</text>
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="486.04999"
+       width="109.1"
+       height="8"
+       id="rect242" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="486.04999"
+       width="109.1"
+       height="8"
+       id="rect244" />
+    <rect
+       style="fill:#ffffff"
+       x="65.974998"
+       y="494.04999"
+       width="109.1"
+       height="8"
+       id="rect246" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="65.974998"
+       y="494.04999"
+       width="109.1"
+       height="8"
+       id="rect248" />
+  </g>
+  <g
+     id="g250">
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="458.04999"
+       width="105"
+       height="28"
+       id="rect252" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="458.04999"
+       width="105"
+       height="28"
+       id="rect254" />
+    <text
+       font-size="16"
+       style="font-size:16px;font-style:normal;font-weight:700;text-anchor:middle;fill:#000000;font-family:sans-serif"
+       x="261.35001"
+       y="477.04999"
+       id="text256">Add_Full_1</text>
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="486.04999"
+       width="105"
+       height="8"
+       id="rect258" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="486.04999"
+       width="105"
+       height="8"
+       id="rect260" />
+    <rect
+       style="fill:#ffffff"
+       x="208.85001"
+       y="494.04999"
+       width="105"
+       height="8"
+       id="rect262" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2"
+       x="208.85001"
+       y="494.04999"
+       width="105"
+       height="8"
+       id="rect264" />
+  </g>
+  <g
+     id="g266">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,65 44.15,423.2 392.675,423.2 392.675,451.345 "
+       id="polyline268" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="387.675,438.697 392.675,454.697 397.675,438.697 "
+       id="polyline270" />
+  </g>
+  <g
+     id="g272">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,65 44.15,423.2 251.25,423.2 251.25,451.345 "
+       id="polyline274" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="246.25,438.697 251.25,454.697 256.25,438.697 "
+       id="polyline276" />
+  </g>
+  <g
+     id="g278">
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
+       points="44.15,65 44.15,423.2 110.5,423.2 110.5,451.345 "
+       id="polyline280" />
+    <polyline
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="105.5,438.697 110.5,454.697 115.5,438.697 "
+       id="polyline282" />
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-size:22.52646446px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="482.26459"
+     y="62.622528"
+     id="text4141"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4143"
+       x="482.26459"
+       y="62.622528"
+       style="font-size:27.03175735px;font-weight:bold;fill:#000080;-inkscape-font-specification:Sans Bold">10</tspan></text>
+  <path
+     style="fill:none;stroke:#0000ff;stroke-width:3.93901968;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     d="M 21.303965,77.858732 525.70271,79.529236"
+     id="path3339"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;stroke:#0000ff;stroke-width:3.93901968;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     d="m 21.295935,183.65747 504.398935,1.6705"
+     id="path3339-0"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;stroke:#0000ff;stroke-width:3.93901968;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     d="m 21.523957,295.36514 504.399163,1.6705"
+     id="path3339-0-3"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;stroke:#0000ff;stroke-width:3.93901968;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     d="m 21.052769,406.64579 504.398981,1.6705"
+     id="path3339-0-2"
+     inkscape:connector-curvature="0" />
+  <text
+     xml:space="preserve"
+     style="font-size:22.52646637px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="501.00729"
+     y="169.08209"
+     id="text4141-2"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       x="501.00729"
+       y="169.08209"
+       style="font-size:27.03175926px;font-weight:bold;fill:#000080;-inkscape-font-specification:Sans Bold"
+       id="tspan3345">4</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:22.52646637px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="501.91806"
+     y="280.4498"
+     id="text4141-2-8"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       x="501.91806"
+       y="280.4498"
+       style="font-size:27.03175926px;font-weight:bold;fill:#000080;-inkscape-font-specification:Sans Bold"
+       id="tspan3388">3</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:22.52646637px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="502.11603"
+     y="392.10757"
+     id="text4141-2-6"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       x="502.11603"
+       y="392.10757"
+       style="font-size:27.03175926px;font-weight:bold;fill:#000080;-inkscape-font-specification:Sans Bold"
+       id="tspan3345-5">2</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:22.52646637px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="501.62766"
+     y="503.69748"
+     id="text4141-2-4"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       x="501.62766"
+       y="503.69748"
+       style="font-size:27.03175926px;font-weight:bold;fill:#000080;-inkscape-font-specification:Sans Bold"
+       id="tspan3345-32">1</tspan></text>
+</svg>
