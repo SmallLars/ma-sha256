@@ -40,9 +40,9 @@
      inkscape:window-height="716"
      id="namedview284"
      showgrid="false"
-     inkscape:zoom="0.5"
-     inkscape:cx="555.28518"
-     inkscape:cy="450.92879"
+     inkscape:zoom="1"
+     inkscape:cx="486.0772"
+     inkscape:cy="519.43669"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -255,7 +255,7 @@
      id="g68">
     <polyline
        style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:8"
-       points="44.15,66.0056 44.15,91.1278 261.35,91.1278 261.35,117.545 "
+       points="44.15,66.0056 44.15,90.625 261.35,90.625 261.35,117.545 "
        id="polyline70" />
     <polyline
        style="fill:none;stroke:#000000;stroke-width:2"
@@ -856,22 +856,22 @@
        style="font-size:27.03175735px;font-weight:bold;fill:#000080;-inkscape-font-specification:Sans Bold">10</tspan></text>
   <path
      style="fill:none;stroke:#0000ff;stroke-width:3.93901968;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     d="M 21.303965,77.858732 525.70271,79.529236"
+     d="m 21.303965,77.858732 504.398745,0"
      id="path3339"
      inkscape:connector-curvature="0" />
   <path
      style="fill:none;stroke:#0000ff;stroke-width:3.93901968;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     d="m 21.295935,183.65747 504.398935,1.6705"
+     d="m 21.295935,183.65747 504.398935,0"
      id="path3339-0"
      inkscape:connector-curvature="0" />
   <path
      style="fill:none;stroke:#0000ff;stroke-width:3.93901968;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     d="m 21.523957,295.36514 504.399163,1.6705"
+     d="m 21.523957,295.36514 504.399163,0"
      id="path3339-0-3"
      inkscape:connector-curvature="0" />
   <path
      style="fill:none;stroke:#0000ff;stroke-width:3.93901968;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     d="m 21.052769,406.64579 504.398981,1.6705"
+     d="m 21.052769,406.64579 504.398981,0"
      id="path3339-0-2"
      inkscape:connector-curvature="0" />
   <text

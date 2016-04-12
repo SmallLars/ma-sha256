@@ -13,56 +13,36 @@ SOLVERVERSION = 4.5.3
 COMMON = $(shell find common/*.cpp -type f | sed "s/.cpp/.o/g")
 MODULE = $(shell find module/*.cpp -type f | sed "s/.cpp/.o/g")
 PRINTER = $(shell find collector/*.cpp -type f | sed "s/.cpp/.o/g")
+BINARYS = $(patsubst %.cpp,%.bin,$(wildcard *.cpp))
 
-all: cryptominisat/lib/libcryptominisat4.so $(patsubst %.cpp,%,$(wildcard *.cpp))
+LOUTB = \033[1;32mLinking \033[0m
+LOUTD = \033[1;32m ......\033[0m
+LOUTF = \033[1;32m done.\033[0m
+
+BOUTB = \033[1;34mBuilding \033[0m
+BOUTD = \033[1;34m ......\033[0m
+BOUTF = \033[1;34m done.\033[0m
+
+all: cryptominisat/lib/libcryptominisat4.so $(BINARYS)
 
 %.o: %.cpp
-	$(COMP) -c $(CFLAGS) -o $@ $<
+	@echo -n "$(BOUTB)"; echo -n "$@"; echo -n "$(BOUTD)"
+	@$(COMP) -c $(CFLAGS) -o $@ $<
+	@echo "$(BOUTF)"
 
-cc_miner: cc_miner.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
+%.bin: %.o $(COMMON) $(MODULE) $(PRINTER)
+	@echo -n "$(LOUTB)"; echo -n "$@"; echo -n "$(LOUTD)"
+	@$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
+	@echo "$(LOUTF)"
 
-cc_miner_2: cc_miner_2.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-sha256_%: sha256_%.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-clausecollector: clausecollector.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-clausesorter: clausesorter.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-clausechecker: clausechecker.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-clausecounter: clausecounter.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-dimacsprinter: dimacsprinter.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-modulchecker: modulchecker.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-graphprinter: graphprinter.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-distancechecker: distancechecker.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-bitcoin: bitcoin.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-benchmark: benchmark.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -o $@ $^ $(LIBS)
-
-test_module: test_module.o $(COMMON) $(MODULE) $(PRINTER)
-	$(COMP) $(LFLAGS) -lrt -lm -o $@ $^ $(LIBS)
+test_module.bin: test_module.o $(COMMON) $(MODULE) $(PRINTER)
+	@echo -n "$(LOUTB)"; echo -n "$@"; echo -n "$(LOUTD)"
+	@$(COMP) $(LFLAGS) -lrt -lm -o $@ $^ $(LIBS)
+	@echo "$(LOUTF)"
+	rm test_module.o
 
 clean:
-	-rm -f $(patsubst %.cpp,%,$(wildcard *.cpp)) *.o common/*.o module/*.o collector/*.o
+	-rm -f $(BINARYS) *.o common/*.o module/*.o collector/*.o
 
 clobber: clean
 	-rm -rf cryptominisat

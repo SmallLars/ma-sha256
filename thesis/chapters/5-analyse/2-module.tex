@@ -37,12 +37,22 @@ direkt im Anschluss die Normalisierung der Klausel. Diese wird auf Basis der im 
 Reihenfolge vorliegen, können in der Klausel vorkommende Literale darin erkannt und anhand des Index in das Literal der Normalform überführt werden.
 
 Nach der Normalisierung werden die Klauseln für jedes Modul in einem eigenen "`set"' gesammelt. Wie in Abschnitt \ref{sec:ana:rem_double} erfolgt
-dadurch automatisch aussortierung doppel \TODO{hmm}.
+dadurch eine automatische Aussortierung doppelter Klauseln. Diese ist erneut notwendig, da Module mehrfach an verschiedenen Stellen verwendet werden.
+Klauseln die vorher unterschiedlich sind werden durch die Normalisierung zu gleichen Klauseln, wenn das gleiche Wissen über ein Modul an mehreren
+Stellen erworben wurde.
 
-mehrfach erkannt - set - wird aussortiert.
+Abschließend werden die neuen Klauseln jedes Moduls in eine eigene DIMACS-Datei geschrieben. Bevor diese Klauseln in die Module integriert werden können ist
+es notwendig die Gültigkeit zu überprüfen. Ungültig kann eine Klausel dann sein, wenn sie sich aus dem Kontext, in dem das Modul verwendet wurde, ergibt.
+In diesem Fall ist es notwendig, die Klausel auf ein Modul höheren Levels zu übertragen. Die Gültigkeitsprüfung wird mit dem Programm "`clausechecker"'
+durchgeführt. Dabei werden die bekannten Klauseln des Moduls an CryptoMiniSat übergeben. Jede (neue) Klausel lässt sich als nicht erfüllbare Belegung
+interpretieren und wird deshalb als Annahme bei einem Lösungsversuch übergeben. Gelingt es CryptoMiniSat nicht, eine Lösung zu finden, ist die Gültigkeit
+der Klausel bestätigt. In dieser Arbeit waren jedoch alle überprüften Klauseln gültig und brauchten nicht auf ein Modul höheren Levels übertragen werden.
 
 
-Programm "`clausechecker"' : testen der klauseln : vielleicht ungültig.
+
+
+
+
 
 
 \begin{figure}[!h]
