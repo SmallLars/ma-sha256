@@ -39,7 +39,7 @@ test_module.bin: test_module.o $(COMMON) $(MODULE) $(PRINTER)
 	@echo -n "$(LOUTB)"; echo -n "$@"; echo -n "$(LOUTD)"
 	@$(COMP) $(LFLAGS) -lrt -lm -o $@ $^ $(LIBS)
 	@echo "$(LOUTF)"
-	rm test_module.o
+	rm -f test_module.o
 
 clean:
 	-rm -f $(BINARYS) *.o common/*.o module/*.o collector/*.o

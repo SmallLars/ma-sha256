@@ -1,4 +1,28 @@
-\section{Distanzermittlung von Klauseln außerhalb der Module}
+\section{Distanzermittlung von Klauseln in Sha256}
 \label{sec:ana:distance}
+
+Collector mit dem Namen "`ModulGraph"'
+
+module in diesem fall (zusatz + ausgang)
+ungerichteter graph
+basierend auf modulen des levels 10
+stellt print funktion mit highlighting bereit: DOT-Format
+
+distanzberechnung der knoten mit dijkstra: einmal machen: lookup table
+maximale dijkstra distanz ist 16: 15 module dazwischen
+
+für anzahl der module: lookup table: literalnummer führt zu modul
+
+
+
+Programm "`graphprinter"' nutzt print funktion
+
+
+
+Das Programm "`distancechecker"'
+
+distance = max\_distance - modulcount + 1
+
+Ausgabe in eine DIMACS-Datei je distance
 
 \TODO{erledigen}

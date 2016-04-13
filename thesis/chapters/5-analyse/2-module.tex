@@ -46,22 +46,10 @@ es notwendig die Gültigkeit zu überprüfen. Ungültig kann eine Klausel dann s
 In diesem Fall ist es notwendig, die Klausel auf ein Modul höheren Levels zu übertragen. Die Gültigkeitsprüfung wird mit dem Programm "`clausechecker"'
 durchgeführt. Dabei werden die bekannten Klauseln des Moduls an CryptoMiniSat übergeben. Jede (neue) Klausel lässt sich als nicht erfüllbare Belegung
 interpretieren und wird deshalb als Annahme bei einem Lösungsversuch übergeben. Gelingt es CryptoMiniSat nicht, eine Lösung zu finden, ist die Gültigkeit
-der Klausel bestätigt. In dieser Arbeit waren jedoch alle überprüften Klauseln gültig und brauchten nicht auf ein Modul höheren Levels übertragen werden.
+der Klausel bestätigt. In dieser Arbeit haben sich jedoch alle überprüften Klauseln als gültig herausgestellt und brauchen nicht auf ein Modul höheren
+Levels übertragen werden.
 
-
-
-
-
-
-
-
-\begin{figure}[!h]
-  \centering
-  \includegraphics[scale=0.265]{images/module_add}
-  \caption{Ergänzte Module von \glos{sha256}}
-  \label{fig:sha256_module_add}
-\end{figure}
-
-
-\TODO{erledigen}
-
+Nur ein kleiner Teil (< 5\%) der neuen Klauseln lässt sich einem Modul unterhalb des Levels 30 zuordnen. Der Großteil ergibt sich aus dem Zusammenspiel
+der Erweiterung der Eingabe und der Rundenfunktion und wird somit dem Modul für die Kompressionsfunktion zugeordnet. Der Versuch alle diese Klauseln
+in einen weiteren Lösungsversuch einzubringen hat gezeigt, dass dadurch der Lösungsprozess deutlich verlangsamt wird. Daraus ergibt sich die Notwendigkeit,
+diese Klauseln einer weiteren Analyse zu unterziehen, die im folgenden Abschnitt erläutert wird.
