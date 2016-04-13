@@ -1,7 +1,7 @@
 #include "sha256.h"
 
-#include "add_prepare_32.h"
-#include "shacore_ex1_32.h"
+#include "prepare_32.h"
+#include "shacore_ex_32.h"
 #include "add_32.h"
 
 #include "../common/sha256tools.h"
@@ -31,8 +31,8 @@ static unsigned coreI[64][9];
 static unsigned coreN[64];
 
 Sha256::Sha256() : Modul(32, 24, 8) {
-  Add_Prepare_32 prep_add;
-  ShaCore_Ex1_32 core(0);
+  Prepare_32 prep_add;
+  ShaCore_Ex_32 core(0);
   Add_32 adder;
   output = start + 48 * prep_add.getAdditionalVarCount() + 64 * core.getAdditionalVarCount() + 8 * adder.getAdditionalVarCount() - 256;
 }
@@ -58,8 +58,8 @@ void Sha256::create(Collector* collector) {
   // 512 Inputbits und 256 Statebits
   unsigned newvars = 0;
 
-  Add_Prepare_32 prep_add;
-  ShaCore_Ex1_32 core(0);
+  Prepare_32 prep_add;
+  ShaCore_Ex_32 core(0);
 
   for (unsigned i = 0; i < 64; i++) {
     vector<unsigned> subinputs;

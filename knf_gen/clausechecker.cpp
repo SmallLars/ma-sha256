@@ -12,7 +12,7 @@
 
 #include "module/sha256.h"
 #include "module/shacore_32.h"
-#include "module/add_prepare_32.h"
+#include "module/prepare_32.h"
 #include "module/add_ssig_32.h"
 #include "module/add_b0maj_32.h"
 #include "module/add_b1ch_32.h"
@@ -53,7 +53,7 @@ int main(int argc, const char* argv[]) {
         cout << "MODUL =\n";
         cout << "  1 = SHA256\n";
         cout << "  2 = ShaCore_32\n";
-        cout << "  3 = Add_Prepare_32\n";
+        cout << "  3 = Prepare_32\n";
         cout << "  4 = Add_SSig_32\n";
         cout << "  5 = Add_B0Maj_32\n";
         cout << "  6 = Add_B1Ch_32\n";
@@ -85,7 +85,7 @@ int main(int argc, const char* argv[]) {
     switch (atoi(argv[1])) {
         case  1: modul = new Sha256; singleSolver = false; break;
         case  2: modul = new ShaCore_32; break;
-        case  3: modul = new Add_Prepare_32; break;
+        case  3: modul = new Prepare_32; break;
         case  4: modul = new Add_Ssig_32; break;
         case  5: modul = new Add_B0Maj_32; break;
         case  6: modul = new Add_B1Ch_32; break;

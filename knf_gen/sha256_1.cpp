@@ -3,7 +3,7 @@
 
 #include "cryptominisat4/cryptominisat.h"
 #include "module/const.h"
-#include "module/prepare_32.h"
+#include "module/prepare_full_32.h"
 #include "module/shacore_32.h"
 
 using std::cout;
@@ -61,7 +61,7 @@ int main() {
 
     cout << "1 / 4: Eingabe gesetzt.\n";
 
-    Prepare_32 prepare;
+    Prepare_Full_32 prepare;
     prepare.append(&solver);
     varCount += prepare.getAdditionalVarCount();
     uint32_t message = prepare.getOutput();

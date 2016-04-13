@@ -3,8 +3,8 @@
 
 #include "cryptominisat4/cryptominisat.h"
 #include "module/const.h"
-#include "module/add_prepare_32.h"
-#include "module/shacore_ex1_32.h"
+#include "module/prepare_32.h"
+#include "module/shacore_ex_32.h"
 
 #include "collector/counter.h"
 #include "collector/solverprinter.h"
@@ -99,8 +99,8 @@ int main() {
 
     cout << "2 / 4: Status gesetzt.\n";
 
-    Add_Prepare_32 adder;
-    ShaCore_Ex1_32 core(0);
+    Prepare_32 adder;
+    ShaCore_Ex_32 core(0);
 
     unsigned global_input[64];
     for (unsigned i = 0; i < 16; i++) global_input[i] = i * 32;

@@ -1,4 +1,4 @@
-#include "shacore_ex1_32.h"
+#include "shacore_ex_32.h"
 
 #include "constadd_32.h"
 #include "shacore_32.h"
@@ -9,9 +9,9 @@
 using std::vector;
 using namespace CMSat;
 
-unsigned ShaCore_Ex1_32::stats[STATS_LENGTH];
+unsigned ShaCore_Ex_32::stats[STATS_LENGTH];
 
-ShaCore_Ex1_32::ShaCore_Ex1_32(uint32_t value) : Modul(32, 9, 2) {
+ShaCore_Ex_32::ShaCore_Ex_32(uint32_t value) : Modul(32, 9, 2) {
     this->value = value;
 
     ConstAdd_32 adder(0);
@@ -20,19 +20,19 @@ ShaCore_Ex1_32::ShaCore_Ex1_32(uint32_t value) : Modul(32, 9, 2) {
     output = start + adder.getAdditionalVarCount() + shacore.getAdditionalVarCount() - 64;
 }
 
-ShaCore_Ex1_32::~ShaCore_Ex1_32() {
+ShaCore_Ex_32::~ShaCore_Ex_32() {
 }
 
-void ShaCore_Ex1_32::setValue(uint32_t value) {
+void ShaCore_Ex_32::setValue(uint32_t value) {
     this->value = value;
 }
 
-unsigned* ShaCore_Ex1_32::getStats() {
+unsigned* ShaCore_Ex_32::getStats() {
     return stats;
 }
 
-void ShaCore_Ex1_32::create(Collector* collector) {
-    collector->newModul(21, "ShaCore_Ex1_32", this);
+void ShaCore_Ex_32::create(Collector* collector) {
+    collector->newModul(21, "ShaCore_Ex_32", this);
 
     unsigned newvars = 0;
     vector<unsigned> subinputs;
@@ -66,7 +66,7 @@ void ShaCore_Ex1_32::create(Collector* collector) {
 #endif
 }
 
-MU_TEST_C(ShaCore_Ex1_32::test) {
+MU_TEST_C(ShaCore_Ex_32::test) {
     unsigned a[] = {0xabcdef98};
     unsigned b[] = {0x651d8fa1};
     unsigned c[] = {0x456af012};
@@ -101,7 +101,7 @@ MU_TEST_C(ShaCore_Ex1_32::test) {
         solver_writeInt(solver, 224, 32, h[t]);
         solver_writeInt(solver, 256, 32, input[t]);
 
-        ShaCore_Ex1_32 shaCore(cons[t]);
+        ShaCore_Ex_32 shaCore(cons[t]);
         shaCore.append(&solver);
 
         lbool ret = solver.solve();

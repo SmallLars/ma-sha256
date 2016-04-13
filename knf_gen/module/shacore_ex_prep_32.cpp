@@ -1,37 +1,37 @@
-#include "shacore_ex2_32.h"
+#include "shacore_ex_prep_32.h"
 
-#include "add_prepare_32.h"
-#include "shacore_ex1_32.h"
+#include "prepare_32.h"
+#include "shacore_ex_32.h"
 
 #include "../common/solvertools.h"
 
 using std::vector;
 using namespace CMSat;
 
-unsigned ShaCore_Ex2_32::stats[STATS_LENGTH];
+unsigned ShaCore_Ex_Prep_32::stats[STATS_LENGTH];
 
-ShaCore_Ex2_32::ShaCore_Ex2_32(uint32_t value) : Modul(32, 12, 2) {
+ShaCore_Ex_Prep_32::ShaCore_Ex_Prep_32(uint32_t value) : Modul(32, 12, 2) {
     this->value = value;
 
-    Add_Prepare_32 adder;
-    ShaCore_Ex1_32 shacore(0);
+    Prepare_32 adder;
+    ShaCore_Ex_32 shacore(0);
 
     output = start + adder.getAdditionalVarCount() + shacore.getAdditionalVarCount() - 64;
 }
 
-ShaCore_Ex2_32::~ShaCore_Ex2_32() {
+ShaCore_Ex_Prep_32::~ShaCore_Ex_Prep_32() {
 }
 
-void ShaCore_Ex2_32::setValue(uint32_t value) {
+void ShaCore_Ex_Prep_32::setValue(uint32_t value) {
     this->value = value;
 }
 
-unsigned* ShaCore_Ex2_32::getStats() {
+unsigned* ShaCore_Ex_Prep_32::getStats() {
     return stats;
 }
 
-void ShaCore_Ex2_32::create(Collector* collector) {
-    collector->newModul(22, "ShaCore_Ex2_32", this);
+void ShaCore_Ex_Prep_32::create(Collector* collector) {
+    collector->newModul(22, "ShaCore_Ex_Prep_32", this);
 
     unsigned newvars = 0;
     vector<unsigned> subinputs;
@@ -41,7 +41,7 @@ void ShaCore_Ex2_32::create(Collector* collector) {
     subinputs.push_back(inputs[9]);
     subinputs.push_back(inputs[10]);
     subinputs.push_back(inputs[11]);
-    Add_Prepare_32 adder;
+    Prepare_32 adder;
     adder.setInputs(subinputs);
     adder.setStart(start + newvars);
     adder.create(collector);
@@ -57,14 +57,14 @@ void ShaCore_Ex2_32::create(Collector* collector) {
     subinputs.push_back(inputs[6]);
     subinputs.push_back(inputs[7]);
     subinputs.push_back(adder.getOutput());
-    ShaCore_Ex1_32 shacore(value);
+    ShaCore_Ex_32 shacore(value);
     shacore.setInputs(subinputs);
     shacore.setStart(start + newvars);
     shacore.create(collector);
     newvars += shacore.getAdditionalVarCount();
 }
 
-MU_TEST_C(ShaCore_Ex2_32::test) {
+MU_TEST_C(ShaCore_Ex_Prep_32::test) {
     unsigned a[] = {0xabcdef98};
     unsigned b[] = {0x651d8fa1};
     unsigned c[] = {0x456af012};
@@ -107,7 +107,7 @@ MU_TEST_C(ShaCore_Ex2_32::test) {
         solver_writeInt(solver, 320, 32, input3[t]);
         solver_writeInt(solver, 352, 32, input4[t]);
 
-        ShaCore_Ex2_32 shaCore(cons[t]);
+        ShaCore_Ex_Prep_32 shaCore(cons[t]);
         shaCore.append(&solver);
 
         lbool ret = solver.solve();

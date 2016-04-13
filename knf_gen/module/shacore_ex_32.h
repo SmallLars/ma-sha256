@@ -1,13 +1,13 @@
-#ifndef __SHACORE_EX2_32_H__
-#define __SHACORE_EX2_32_H__
+#ifndef __SHACORE_EX_32_H__
+#define __SHACORE_EX_32_H__
 
 #include "modul.h"
 #include "../common/minunit.h"
 
-class ShaCore_Ex2_32 : public Modul {
+class ShaCore_Ex_32 : public Modul {
     public:
-        ShaCore_Ex2_32(uint32_t value);
-        ~ShaCore_Ex2_32();
+        ShaCore_Ex_32(uint32_t value);
+        ~ShaCore_Ex_32();
 
         void setValue(uint32_t value);
         unsigned* getStats();
@@ -19,4 +19,4 @@ class ShaCore_Ex2_32 : public Modul {
         static unsigned stats[STATS_LENGTH];
 };
 
-#endif //__SHACORE_EX2_32_H__
+#endif //__SHACORE_EX_32_H__

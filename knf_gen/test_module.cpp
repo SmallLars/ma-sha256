@@ -27,13 +27,13 @@
 #include "module/sub_32.h"
 #include "module/constadd_32.h"
 #include "module/add_ssig_32.h"
-#include "module/add_prepare_32.h"
 #include "module/add_b0maj_32.h"
 #include "module/add_b1ch_32.h"
 #include "module/prepare_32.h"
+#include "module/prepare_full_32.h"
 #include "module/shacore_32.h"
-#include "module/shacore_ex1_32.h"
-#include "module/shacore_ex2_32.h"
+#include "module/shacore_ex_32.h"
+#include "module/shacore_ex_prep_32.h"
 #include "module/sha256.h"
 
 MU_TEST_SUITE(test_suite) {
@@ -62,13 +62,13 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(Sub_32::test);
     MU_RUN_TEST(ConstAdd_32::test);
     MU_RUN_TEST(Add_Ssig_32::test);
-    MU_RUN_TEST(Add_Prepare_32::test);
     MU_RUN_TEST(Add_B0Maj_32::test);
     MU_RUN_TEST(Add_B1Ch_32::test);
     MU_RUN_TEST(Prepare_32::test);
+    MU_RUN_TEST(Prepare_Full_32::test);
     MU_RUN_TEST(ShaCore_32::test);
-    MU_RUN_TEST(ShaCore_Ex1_32::test);
-    MU_RUN_TEST(ShaCore_Ex2_32::test);
+    MU_RUN_TEST(ShaCore_Ex_32::test);
+    MU_RUN_TEST(ShaCore_Ex_Prep_32::test);
     MU_RUN_TEST(Sha256::test);
 }
 
@@ -131,8 +131,8 @@ int main() {
 //    Add_Ssig_32 adder;
 //    adder.writeDimacs("add_ssig_32.dimacs");
 
-//    Add_Prepare_32 adder;
-//    adder.writeDimacs("add_prepare_32.dimacs");
+//    Prepare_32 adder;
+//    adder.writeDimacs("prepare_32.dimacs");
 
 //    ShaCore_32 shacore;
 //    shacore.writeDimacs("shacore_32.dimacs");

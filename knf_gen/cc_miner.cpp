@@ -18,7 +18,7 @@
 #include "module/add_b0maj_32.h"
 #include "module/add_b1ch_32.h"
 #include "module/add_ssig_32.h"
-#include "module/add_prepare_32.h"
+#include "module/prepare_32.h"
 
 #define THREAD_NUM 4
 #define MAX_TEST 2
@@ -27,7 +27,7 @@
 //#define MODUL Add_B0Maj_32
 //#define MODUL Add_B1Ch_32
 //#define MODUL Add_Ssig_32
-//#define MODUL Add_Prepare_32
+//#define MODUL Prepare_32
 
 using std::vector;
 using namespace CMSat;
