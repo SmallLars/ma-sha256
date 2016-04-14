@@ -1,12 +1,16 @@
 \section{Distanzermittlung von Klauseln in Sha256}
 \label{sec:ana:distance}
 
-Collector mit dem Namen "`ModulGraph"'
+Die Analyse der neuen Klauseln aus der Kompressionsfunktion erfolgt auf Basis einer Distanzmetrik. Je höher die Distanz einer Klausel, desto höher
+ist ihr angenommener Wert. Eine hohe Distanz bedeutet, dass die Klausel Literale aus Modulen in Zusammenhang zu bringt, die bisher in keiner direkten
+Beziehung stehen.
 
-module in diesem fall (zusatz + ausgang)
-ungerichteter graph
-basierend auf modulen des levels 10
-stellt print funktion mit highlighting bereit: DOT-Format
+Für die Distanzberechnung wird ein ungerichteter Graph aus den Modulen mit Level 10 erstellt. Ein Modul definiert sich dabei aus zusätzliche Literalen
+und den Ausgangsliteralen. Im Gegensatz zum letzten Abschnitt fallen die Eingangsliterale weg, um eine eindeutige Zuordnung eines Literals zu einem
+Modul durchführen zu können. Realisiert wird der Graph durch einen Collector mit dem Namen "`ModulGraph"'. Genau wie die ModulDB aus dem letzten Abschnitt
+überschreibt der ModulGraph nur die Methode newModul des Collectors, um die Registrierung der Module zu erfassen. Um die Zuordnung der Literale zu einem
+Modul schnellstmöglich durchführen zu können, wird eine Lookup-Tabelle erstellt, in der zu jedem Literal das zugehörige Modul hinterlegt ist.
+
 
 distanzberechnung der knoten mit dijkstra: einmal machen: lookup table
 maximale dijkstra distanz ist 16: 15 module dazwischen
@@ -14,7 +18,7 @@ maximale dijkstra distanz ist 16: 15 module dazwischen
 für anzahl der module: lookup table: literalnummer führt zu modul
 
 
-
+stellt print funktion mit highlighting bereit: DOT-Format
 Programm "`graphprinter"' nutzt print funktion
 
 

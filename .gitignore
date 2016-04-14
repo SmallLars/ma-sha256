@@ -9,3 +9,4 @@ eclipse/*
 *.log
 *.dimacs
 *.graph
+*.bin
