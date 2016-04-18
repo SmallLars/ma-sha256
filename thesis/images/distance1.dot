@@ -1,0 +1,13 @@
+digraph G {
+  graph[ranksep=0.5]
+
+   0 [shape=square style=filled fillcolor=red label="A\n "]
+   0 ->  1 [arrowhead=none]
+   1 [shape=square style=filled fillcolor=limegreen label="B\n "]
+   1 ->  2 [arrowhead=none]
+   2 [shape=square style=filled fillcolor=red label="C\n "]
+   2 ->  3 [arrowhead=none]
+   3 [shape=square style=filled fillcolor=red label="D\n "]
+
+  {rank=min 0 1 2 3}
+}
