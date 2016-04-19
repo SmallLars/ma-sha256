@@ -5,7 +5,7 @@ Die Analyse der neuen Klauseln aus der Kompressionsfunktion erfolgt auf Basis ei
 ist ihr angenommener Wert. Eine hohe Distanz bedeutet, dass die Klausel Literale aus Modulen in Zusammenhang bringt, die bisher in keiner direkten
 Beziehung stehen.
 
-Für die Distanzberechnung wird ein ungerichteter Graph aus den Modulen mit Level 10 erstellt. Ein Modul definiert sich dabei aus zusätzliche Literalen
+Für die Distanzberechnung wird ein ungerichteter Graph aus den Modulen mit Level zehn erstellt. Ein Modul definiert sich dabei aus zusätzliche Literalen
 und den Ausgangsliteralen. Im Gegensatz zum letzten Abschnitt fallen die Eingangsliterale weg, um eine eindeutige Zuordnung eines Literals zu einem
 Modul durchführen zu können. Realisiert wird der Graph durch einen Collector mit dem Namen "`ModulGraph"'. Genau wie die ModulDB aus dem letzten Abschnitt
 überschreibt der ModulGraph nur die Methode newModul des Collectors, um die Registrierung der Module zu erfassen. Um die Zuordnung der Literale zu einem
@@ -45,8 +45,12 @@ kann zum Beispiel zwei Module betreffen, wenn je drei Literale aus einem Modul s
   \label{eq:clausedistance}
 \end{figure}
 
-Die Formel soll anhand eines Beispiels erläutert werden. 4 Literale, 3 Module, 3 MaxDist, ergeben 1 übersprungenes modul im schlechtesten fall. \TODO{ausführen}
+Die Formel soll anhand eines Beispiels erläutert werden bei dem eine Klausel mit vier Literalen herangezogen wird. Die Zuordnung der Literale
+zu den Modulen ergibt drei unterschiedliche Module. Bei dem Vergleich der Distanzen zwischen den Modulen wird eine maximale Distanz von drei ermittelt.
+Mit der Formel aus Abbildung \ref{eq:clausedistance} ergibt sich eine Klauseldistanz von eins.
 
+Abbildung \ref{fig:distance} zeigt zwei mögliche Fälle, die dem Beispiel entsprechen. In den gezeigten Graphen sind die Module, denen mindestens ein Literal
+zugeordnet wurde rot eingefärbt. Weitere Module denen kein Literal der Klausel zugeordnet werden konnte, sind in grün dargestellt.
 \begin{figure}[!h]
   \centering
   \begin{minipage}[b]{6cm}
@@ -57,14 +61,25 @@ Die Formel soll anhand eines Beispiels erläutert werden. 4 Literale, 3 Module, 
   \begin{minipage}[b]{6cm}
     \centering
     \includegraphics[scale=0.6]{images/distance2}\\
-    Möglicher Fall
+    Weiterer Fall
   \end{minipage}
   \caption{Beispiel für die Distanz einer Klausel}
   \label{fig:distance}
 \end{figure}
 
-Das Programm "`distancechecker"'
+Im schlechtesten Fall ergibt sich die maximale Distanz zwischen den Modulen A und D, wobei das dritte Modul C auf dem Pfad zwischen den Modulen A und D liegt.
+Genau ein Modul B wird dabei übersprungen, was genau dem Wert der Klauseldistanz entspricht. Die Klauseldistanz sagt damit aus, wie viele Module im schlechtesten
+Fall übersprungen werden.
 
-Ausgabe in eine DIMACS-Datei je distance
+Ein weiterer Fall zeigt, dass die Klauseldistanz auch höher sein kann, wenn weitere Pfade von Modul A nach Modul D führen. Ein weiterer Pfad ist jedoch mindestens
+genau so lang wie der erste Pfad. Angenommen der zusätzliche Pfad hat die Länge vier und das dritte betroffenen Modul (in diesem Fall G) liegt auf diesem längeren
+Pfad, werden zwei Module übersprungen.
 
-\TODO{erledigen}
+Um die Distanz für die neuen Klauseln aus der Kompressionsfunktion zu ermitteln, wird das Programm "`distancechecker"' erstellt. Dieses Programm liest alle Klauseln
+ein und verteilt diese je nach Klauseldistanz auf eine eigene DIMACS-Datei. Vernachlässigt wird bei diesem Vorgehen die Länge der Klausel. Die Anzahl der Literale
+wird nur indirekt durch die Anzahl der betroffenen Module berücksichtigt. Dies wird aber vernachlässigt, da Klauseln mit großer Länge und Distanz durchaus interessant
+sein könnten, auch wenn es eher unwahrscheinlich ist, dass sie den Lösungsprozess in CryptoMiniSat beschleunigen.
+
+Bei der Analyse zeigt sich, dass die Distanz der Klauseln breit gestreut ist. Die Distanz reicht von $5$ bis unter $-250$. Wird zum Vergleich eine Klausel betrachtet,
+die einem einzelnen Modul mit Level zehn zugeordnet ist, ergibt sich dafür eine Klauseldistanz von $0$ ($= 0 - 1 + 1$). Darauf basierend werden im weiteren Verlauf
+nur Klauseln berücksichtigt, deren Distanz größer als null ist, in der Erwartung, dass sie zusätzliches Wissen darstellen und den Lösungsprozess beschleunigen.
