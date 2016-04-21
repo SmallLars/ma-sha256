@@ -75,7 +75,7 @@ int main(int argc, const char* argv[]) {
         cout << " 22 = Add_Full_3\n";
         cout << " 23 = Add_Last_3\n";
         cout << "FILE = Dimacs files with conflictclauses to check.\n";
-        cout << "INFONUM = Rowcount and linecount for table.\n";
+        cout << "INFONUM = Columncount for table.\n";
         return 0;
     }
 
