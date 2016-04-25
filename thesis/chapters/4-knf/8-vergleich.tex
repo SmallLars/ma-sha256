@@ -25,18 +25,18 @@ Realisierung in dieser Arbeit lässt sich die Verdopplung der Literale und Klaus
   \centering
   \begin{tabular}{l|l|r|r|r}
     \hiderowcolors
-    Problem                          & Realisierung & Literale & Klauseln & Klauseln (XOR) \\
+    \textbf{Problem}                 & \textbf{Realisierung} & \textbf{Literale} & \textbf{Klauseln} & \textbf{Klauseln (XOR)} \\
     \hline
-    \multirow{4}{2cm}{\glos{sha256}} & Diese Arbeit      &    49832 &   255600 ~~(~~5,13 / 3,58) &  150760 ~~(3,03 / 3,12) \\
+    \showrowcolors
+                                     & Diese Arbeit      &    49832 &   255600 ~~(~~5,13 / 3,58) &  150760 ~~(3,03 / 3,12) \\
                                      & CBMC              &    69356 &   347128 ~~(~~5,01 / 3,01) &                     --- \\
-                                     & Maurer - Tseitin  &   130209 &   449929 ~~(~~3,46 / 2,77) &  261777 ~~(2,10 / 2,46) \\
+    \glos{sha256}                    & Maurer - Tseitin  &   130209 &   449929 ~~(~~3,46 / 2,77) &  261777 ~~(2,10 / 2,46) \\
                                      & Maurer - Espresso &    60161 &    665345 ~~(11,06 / 5,60) &  590593 ~~(9,82 / 5,87) \\
     \hline
-    \multirow{4}{2cm}{Bitcoin}       & Diese Arbeit      &    99408 &   511200 ~~(~~5,14 / 3,58) &  301520 ~~(3,03 / 3,12) \\
+                                     & Diese Arbeit      &    99408 &   511200 ~~(~~5,14 / 3,58) &  301520 ~~(3,03 / 3,12) \\
                                      & CBMC              &   132615 &   648233 ~~(~~4,89 / 3,01) &                     --- \\
-                                     & Maurer - Tseitin  &   260673 &   901137 ~~(~~3,46 / 2,77) &  524321 ~~(2,01 / 2,46) \\
+    Bitcoin                          & Maurer - Tseitin  &   260673 &   901137 ~~(~~3,46 / 2,77) &  524321 ~~(2,01 / 2,46) \\
                                      & Maurer - Espresso &   120577 &   1331969 ~~(11,05 / 5,60) & 1181953 ~~(9,80 / 5,87) \\
-    \showrowcolors
   \end{tabular}
   \caption{Vergleich der Anzahl von Literalen und Klauseln}
   \label{fig:sha256_literalclausecount}

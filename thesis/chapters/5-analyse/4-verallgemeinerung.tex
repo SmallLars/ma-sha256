@@ -27,13 +27,12 @@ Bei den anderen Modulen zeigt sich kein Muster dieser Art und die Anzahl der erw
 darin direkt untergebracht und durch Verwendung einer Schleife verallgemeinert in sofern dies möglich ist. Eine Ausnahme bildet das Modul der vollständigen
 Kompressionsfunktion. Neben der Verallgemeinerung auf Bitbreite bietet sich in diesem Modul die Möglichkeit, die Klauseln auch auf weitere Runden anzuwenden.
 Klauseln die sich nur auf eine Runde beziehen wurden schon dem Modul für die Rundenfunktion zugeordnet, so dass nur noch Klauseln betrachtet werden die sich über
-zwei oder mehr Runden erstrecken. Jedes Literal der jeweiligen Klausel wird dann um eine Runde nach vorne oder hinten verschoben.
+zwei oder mehr Runden erstrecken. Jedes Literal der jeweiligen Klausel wird um eine Runde nach vorne oder hinten verschoben.
 
-Beachtet werden muss jedoch, dass jede der 64 Runden eine andere Rundenkonstante verwendet und die Erweiterung der Eingabe bei den ersten 16 Runden keine
+Beachtet werden muss, dass jede der 64 Runden eine andere Rundenkonstante verwendet und die Erweiterung der Eingabe bei den ersten 16 Runden keine
 Anwendung findet. Während bei den anderen Modulen im Allgemeinen eine Verallgemeinerung entweder funktioniert oder nicht, muss dadurch jede durch die
 Verallgemeinerung generierte Klausel einzeln überprüft werden. Wie auch bei der Überprüfung der modulspezifischen Klauseln in Abschnitt \ref{sec:ana:module}
 wird das Programm "`clausechecker"' für die Überprüfung genutzt. Nur wenige der ermittelten Klauseln lassen sich ohne Einschränkungen auf weitere Bits oder
-Runden übertragen. Der clausechecker generiert deshalb ein zweidimensionales Array, in dem die gültigen Klauseln markiert werden. Dieses Array wird dann im
-Modul der Kompressionsfunktion genutzt, um die gültigen Klauseln zu generieren.
-
-\TODO{bezug zu konstanten erklären}
+Runden übertragen. Der clausechecker generiert deshalb ein zweidimensionales Array, in dem die gültigen Klauseln markiert werden. Dieses Array wird im
+Modul der Kompressionsfunktion genutzt, um die gültigen Klauseln zu generieren. Es zeigt sich, dass die Werte des Arrays in einigen Fällen die Rundenkonstante
+widerspiegeln. Im diesem Fall wird auf das Array verzichtet und die Bits der Rundenkonstante verwendet.

@@ -144,14 +144,14 @@ auf die gleiche Weise berechnet. Es müssen jedoch noch 31 Literale abgezogen we
   \centering
   \begin{tabular}{l|rrr|r}
     \hiderowcolors
-                           & Halbaddierer & Volladdierer & Mod-2 Addierer &    Gesamt \\
+    \textbf{Lösung}        & \textbf{Halbaddierer} & \textbf{Volladdierer} & \textbf{Mod-2 Addierer} & \textbf{Gesamt} \\
     \hline
+    \showrowcolors
     Gatter                 &        4 - 7 &       8 - 17 &          4 - 8 & 217 - 525 \\
     Gatter mit XOR         &        4 - 4 &       8 - 11 &          4 - 1 & 217 - 335 \\
     eqntott \& Espresso    &        4 - 6 &       5 - 10 &          4 - 8 & 127 - 314 \\
     XOR                    &        4 - 4 &      5 - ~~7 &          4 - 1 & 127 - 215 \\
     XOR ohne Unterstützung &        4 - 7 &       5 - 14 &          4 - 8 & 127 - 435 \\
-    \showrowcolors
   \end{tabular}
   \caption{Addierer - Literale und Klauseln}
   \label{fig:add_literalclausecount}

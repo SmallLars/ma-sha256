@@ -17,12 +17,14 @@ Ergebnis einer XOR-Operation und kann ignoriert werden. Es ergeben sich deshalb 
   \centering
   \begin{tabular}{l|r|r|r|r}
     \hiderowcolors
-    Funktion        & $ \sigma_0 $ & $ \sigma_1 $ & $ \Sigma_0 $ & $ \Sigma_1 $ \\
+                    & \multicolumn{4}{c}{\textbf{Funktion}} \\
+    \cline{2-5}
+    \textbf{Lösung} & $ \boldsymbol{\sigma_0} $ & $ \boldsymbol{\sigma_1} $ & $ \boldsymbol{\Sigma_0} $ & $ \boldsymbol{\Sigma_1} $ \\
     \hline
+    \showrowcolors
     Gatter ohne XOR &     64 - 244 &     64 - 216 &     64 - 256 &     64 - 256 \\
     \hline
     Gatter mit XOR  &    64 - ~~32 &    64 - ~~32 &    64 - ~~32 &    64 - ~~32 \\
-    \showrowcolors
   \end{tabular}
   \caption{Sigma - Literale und Klauseln}
   \label{fig:sigma_literalclausecount}

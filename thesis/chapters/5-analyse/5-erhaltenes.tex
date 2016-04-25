@@ -1,8 +1,85 @@
 \section{Erhaltene Klauseln}
 \label{sec:ana:acquired}
 
+klauseln it großer länge ignoriert
+übernahme von klauseln mit bis zu 6 literalen
+in ausnahmefällen auch 7 literale wenn klausel wertvoll erscheint
+
 generell anzahl gelernter klauseln angeben: auch werte über klausellängen
 
-subklauseln sind enthalten: werte angeben
+subklauseln sind enthalten: werte angeben. wurden teilweise aussortiert. //XXX kommentar im Quelltext.
+
+
+Bei zwei Zahlen: XOR - Normal
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{l|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
+    \hiderowcolors
+          & \multicolumn{4}{c}{\textbf{Klausellänge}} \\
+    \cline{2-5}
+    \textbf{Modul} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\
+    \hline
+    \showrowcolors
+    Add\_Half\_1 & 1 & 2 - 3 &         &          \\
+    Add\_Full\_1 &   & 6 - 8 &   0 - 2 &          \\
+    Add\_Last\_1 &   &       &         &          \\
+    Add          &   &       &         &          \\
+    Ssig0        &   &       &         & 3 - ~~48 \\
+    Ssig1        &   &       &         &  7 - 112 \\
+    Bsig0        &   &       &         &          \\
+    Bsig1        &   &       &         &          \\
+    Ch           &   &    64 &         &          \\
+    Maj          &   &       &         &          \\
+    Add\_Ssig    &   &       &       8 &          \\
+    Add\_B0Maj   &   &       &         &          \\
+    Add\_B1Ch    &   &       &     244 &      122 \\
+    Prepare      & 2 &     8 &      68 &          \\
+    ShaCore      & 3 &    32 & 81 - 95 &        1 \\
+  \end{tabular}
+  \caption{Erworbene Klauseln in den Modulen}
+  \label{fig:additional_clauses_mod}
+\end{table}
+
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{l|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
+    \hiderowcolors
+          & \multicolumn{5}{c}{\textbf{Klausellänge}} \\
+    \cline{2-6}
+    \textbf{Modul} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
+    \hline
+    \showrowcolors
+    Add\_Half\_2 & 9 & 16 &  9 &    &    \\
+    Add\_Full\_2 &   & 22 & 38 &    &    \\
+    Add\_Last\_2 &   &    & 24 &    &    \\
+    Add\_Half\_3 &   &  4 &  9 &  6 &    \\
+    Add\_Full\_3 &   &    & 17 & 33 &    \\
+    Add\_Last\_3 &   &    &    & 27 &    \\
+    Add\_Half\_4 &   &    &  5 &  2 &  4 \\
+    Add\_Full\_4 &   &    &    &    &    \\
+    Add\_Last\_4 &   &    &    &    & 16 \\
+  \end{tabular}
+  \caption{Erworbene Klauseln im Addierer}
+  \label{fig:additional_clauses_add}
+\end{table}
+
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{l|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
+    \hiderowcolors
+          & \multicolumn{5}{c}{\textbf{Klausellänge}} \\
+    \cline{2-6}
+    \textbf{Distanz} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
+    \hline
+    \showrowcolors
+    1 &    &    &    &    &    \\
+    2 &    &    &    &    &    \\
+    3 &    &    &    &    &    \\
+    4 &    &    &    &    &    \\
+    5 &    &    &    &    &    \\
+  \end{tabular}
+  \caption{Erworbene Klauseln in der Kompressionsfunktion}
+  \label{fig:additional_clauses}
+\end{table}
 
 \TODO{erledigen}
