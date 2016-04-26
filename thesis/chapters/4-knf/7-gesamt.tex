@@ -36,6 +36,12 @@ dann mit dem Ergebnis des Moduls zu addieren.
 Die beiden erstgenannten Module werden ebenfalls zusammen mit weiteren Additionen genutzt, um ein Modul (ShaCore) für die vollständige
 Rundenfunktion (siehe Abbildung \ref{fig:sha256core}) zu realisieren. Außen vor bleibt dabei die Addition der Konstante.
 Dadurch kann erworbenes Wissen auf alle 64 Runden angewendet werden, da es sich jedes Mal um das gleiche Modul handelt.
+Eingefügt wird in dieses Modul auch eine weitere Addition und eine Subtraktion um das Wissen aus Abschnitt \ref{sec:ana:rundenfunktion}
+mit einzubringen. Da dafür zusätzliche Literale notwendig sind, wird dieses Wissen zunächst außen vor gelassen und nur in Kapitel
+\ref{chp:bewertung} einer Bewertung unterzogen. Dadurch ist ein besserer Vergleich mit anderen Implementierungen möglich und
+die Analyse in Kapitel \ref{chp:analyse} bezieht sich auf die ursprünglichen Literale und Klauseln, so dass dieses zusätzliche
+Wissen je nach Bedarf eingebracht oder außen vor gelassen werden kann.
+
 In einem weiteren Modul (ShaCoreEx) wird schließlich die Rundenfunktion mit der Addition der Konstante zusammengeführt.
 Erworbenes Wissen, was auf der Konstante basiert, kann dadurch in diesem Modul gesammelt werden, falls es sich in einem
 zweiten Schritt als allgemeingültig erweist.

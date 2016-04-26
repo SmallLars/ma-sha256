@@ -1,11 +1,14 @@
 \section{Erhaltene Klauseln}
 \label{sec:ana:acquired}
 
+Nach der mehrfachen iterativen Anwendung der Methodik aus den letzten Abschnitten, wird die Analyse beendet. Bei den letzten Iterationen konnten
+keine weiteren Klauseln sinnvoller Länge für die Module gefunden werden. 
+
+
+
 klauseln it großer länge ignoriert
 übernahme von klauseln mit bis zu 6 literalen
-in ausnahmefällen auch 7 literale wenn klausel wertvoll erscheint
 
-generell anzahl gelernter klauseln angeben: auch werte über klausellängen
 
 subklauseln sind enthalten: werte angeben. wurden teilweise aussortiert. //XXX kommentar im Quelltext.
 
@@ -65,18 +68,18 @@ Bei zwei Zahlen: XOR - Normal
 
 \begin{table}[!h]
   \centering
-  \begin{tabular}{l|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
+  \begin{tabular}{r|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
     \hiderowcolors
           & \multicolumn{5}{c}{\textbf{Klausellänge}} \\
     \cline{2-6}
-    \textbf{Distanz} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
+    \textbf{Distanz} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} \\
     \hline
     \showrowcolors
-    1 &    &    &    &    &    \\
-    2 &    &    &    &    &    \\
-    3 &    &    &    &    &    \\
-    4 &    &    &    &    &    \\
-    5 &    &    &    &    &    \\
+    1 & 428 &  412 &      &      &      \\
+    2 &  50 & 5287 &      &      &      \\
+    3 &     &  159 & 9262 & 1430 &      \\
+    4 &     &  318 & 1829 & 2068 & 5787 \\
+    5 &     &   28 &  188 & 1469 &  718 \\
   \end{tabular}
   \caption{Erworbene Klauseln in der Kompressionsfunktion}
   \label{fig:additional_clauses}
