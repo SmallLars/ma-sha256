@@ -2,47 +2,47 @@
 \label{sec:ana:acquired}
 
 Nach der mehrfachen iterativen Anwendung der Methodik aus den letzten Abschnitten, wird die Analyse beendet. Bei den letzten Iterationen konnten
-keine weiteren Klauseln sinnvoller Länge für die Module gefunden werden. 
+keine weiteren Klauseln sinnvoller Länge für die Module gefunden werden. Anders ist die Situation bei Klauseln aus der Kompressionsfunktion mit
+positiver Distanz. Nach wie vor werden Klauseln generiert, die bei gleicher Distanz tendenziell kürzer werden. Da aber bisher nicht bekannt ist,
+ob diese Klauseln den Lösungsprozess tatsächlich beschleunigen, wird die Analyse beendet. Basierend auf der Bewertung der Klauseln in Kapitel
+\ref{chp:bewertung} wird sich zeigen, ob die Fortsetzung der Suche nach Klauseln mit großer Distanz sinnvoll ist.
 
-
-
-klauseln it großer länge ignoriert
-übernahme von klauseln mit bis zu 6 literalen
-
-
-subklauseln sind enthalten: werte angeben. wurden teilweise aussortiert. //XXX kommentar im Quelltext.
-
-
-Bei zwei Zahlen: XOR - Normal
+Tabelle \ref{fig:additional_clauses_mod} zeigt, wie viele Klausel mit welcher Anzahl Literale in den Modulen gefunden werden konnten. Dazu gehören sowohl
+sowohl normale Klauseln als auch XOR-Klausen. Sind in einer Zelle zwei Werte aufgeführt, gibt der erste Wert die Anzahl der zusätzlichen Klauseln bei einer
+XOR-Unterstützung an. Der zweite Werte gibt die Anzahl der zusätzlichen Klauseln ohne XOR-Unterstützung wieder.
 \begin{table}[!h]
   \centering
-  \begin{tabular}{l|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
+  \begin{tabular}{l|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
     \hiderowcolors
-          & \multicolumn{4}{c}{\textbf{Klausellänge}} \\
-    \cline{2-5}
-    \textbf{Modul} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\
+          & \multicolumn{6}{c}{\textbf{Klausellänge}} \\
+    \cline{2-7}
+    \textbf{Modul} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
     \hline
     \showrowcolors
-    Add\_Half\_1 & 1 & 2 - 3 &         &          \\
-    Add\_Full\_1 &   & 6 - 8 &   0 - 2 &          \\
-    Add\_Last\_1 &   &       &         &          \\
-    Add          &   &       &         &          \\
-    Ssig0        &   &       &         & 3 - ~~48 \\
-    Ssig1        &   &       &         &  7 - 112 \\
-    Bsig0        &   &       &         &          \\
-    Bsig1        &   &       &         &          \\
-    Ch           &   &    64 &         &          \\
-    Maj          &   &       &         &          \\
-    Add\_Ssig    &   &       &       8 &          \\
-    Add\_B0Maj   &   &       &         &          \\
-    Add\_B1Ch    &   &       &     244 &      122 \\
-    Prepare      & 2 &     8 &      68 &          \\
-    ShaCore      & 3 &    32 & 81 - 95 &        1 \\
+    Add\_Half\_1 & 1 & 2 - 3 &         &          &     &    \\
+    Add\_Full\_1 &   & 6 - 8 &   0 - 2 &          &     &    \\
+    Add\_Last\_1 &   &       &         &          &     &    \\
+    Add          &   &     9 &     658 &     1625 & 959 & 20 \\
+    Ssig0        &   &       &         & 3 - ~~48 &     &    \\
+    Ssig1        &   &       &         &  7 - 112 &     &    \\
+    Bsig0        &   &       &         &          &     &    \\
+    Bsig1        &   &       &         &          &     &    \\
+    Ch           &   &    64 &         &          &     &    \\
+    Maj          &   &       &         &          &     &    \\
+    Add\_Ssig    &   &       &       8 &          &     &    \\
+    Add\_B0Maj   &   &       &         &          &     &    \\
+    Add\_B1Ch    &   &       &     244 &      122 &     &    \\
+    Prepare      & 2 &     8 &      68 &          &     &    \\
+    ShaCore      & 3 &    32 & 81 - 95 &        1 &     &    \\
   \end{tabular}
   \caption{Erworbene Klauseln in den Modulen}
   \label{fig:additional_clauses_mod}
 \end{table}
 
+Die zusätzlichen Klauseln der Addierer höherer Ebene sind zunächst im Addierer zusammengefasst. Die Halb- und Mod-2-Addierer sind jeweils einmal enthalten,
+während die Volladdierer mit zwei bis vier Bit 29 bis 27 Mal enthalten sind. Da der Mod-2 Addierer \TODO{XOR - keine weiteren klauseln}
+
+Tabelle \ref{fig:additional_clauses_add} zeigt die gefundenen Klauseln für die Addierer höherer Ebene im Detail.
 \begin{table}[!h]
   \centering
   \begin{tabular}{l|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
@@ -68,21 +68,44 @@ Bei zwei Zahlen: XOR - Normal
 
 \begin{table}[!h]
   \centering
-  \begin{tabular}{r|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
+  \begin{tabular}{r|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}|R{1.5cm}}
     \hiderowcolors
           & \multicolumn{5}{c}{\textbf{Klausellänge}} \\
     \cline{2-6}
-    \textbf{Distanz} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} \\
+    \textbf{Distanz} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & $ \boldsymbol{\sum} $ \\
     \hline
     \showrowcolors
-    1 & 428 &  412 &      &      &      \\
-    2 &  50 & 5287 &      &      &      \\
-    3 &     &  159 & 9262 & 1430 &      \\
-    4 &     &  318 & 1829 & 2068 & 5787 \\
-    5 &     &   28 &  188 & 1469 &  718 \\
+                        1 & 428 &  412 &       &      &      &   840 \\
+                        2 &  50 & 5287 &       &      &      &  5337 \\
+                        3 &     &  159 &  9560 & 1430 &      & 11149 \\
+                        4 &     &  318 &  1829 & 2068 & 5787 & 10002 \\
+                        5 &     &   28 &   188 & 1469 &  718 &  2403 \\
+    \hline
+    $ \boldsymbol{\sum} $ & 478 & 6204 & 11577 & 4967 & 6505 & 29731 \\
   \end{tabular}
   \caption{Erworbene Klauseln in der Kompressionsfunktion}
   \label{fig:additional_clauses}
+\end{table}
+
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{r|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}|R{1.5cm}}
+    \hiderowcolors
+          & \multicolumn{5}{c|}{\textbf{Klausellänge}} & \\
+    \cline{2-6}
+    \textbf{Distanz} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & $ \boldsymbol{\sum} $ \\
+    \hline
+    \showrowcolors
+                        1 & 336 &  390 &      &      &      &   726 \\
+                        2 &  50 & 3812 &      &      &      &  3862 \\
+                        3 &     &   41 & 6849 &  954 &      &  7844 \\
+                        4 &     &      &  778 & 2004 & 3896 &  6678 \\
+                        5 &     &      &   33 & 1452 &  711 &  2196 \\
+    \hline
+    $ \boldsymbol{\sum} $ & 386 & 4243 & 7660 & 4410 & 4607 & 21306 \\
+  \end{tabular}
+  \caption{Erworbene Klauseln in der Kompressionsfunktion nach Bereinigung}
+  \label{fig:additional_clauses_clean}
 \end{table}
 
 \TODO{erledigen}
