@@ -1,13 +1,13 @@
-#ifndef __ADD_LAST_4_H__
-#define __ADD_LAST_4_H__
+#ifndef __CHOOSE_32_H__
+#define __CHOOSE_32_H__
 
 #include "modul.h"
 #include "../common/minunit.h"
 
-class Add_Last_4 : public Modul {
+class Choose_32 : public Modul {
     public:
-        Add_Last_4();
-        ~Add_Last_4();
+        Choose_32();
+        ~Choose_32();
 
         unsigned* getStats();
         void create(Collector* collector);
@@ -16,4 +16,4 @@ class Add_Last_4 : public Modul {
         static unsigned stats[STATS_LENGTH];
 };
 
-#endif //__ADD_LAST_4_H__
+#endif //__CHOOSE_32_H__

@@ -1,13 +1,13 @@
-#ifndef __MAJ_32_H__
-#define __MAJ_32_H__
+#ifndef __MAJORITY_32_H__
+#define __MAJORITY_32_H__
 
 #include "modul.h"
 #include "../common/minunit.h"
 
-class Maj_32 : public Modul {
+class Majority_32 : public Modul {
     public:
-        Maj_32();
-        ~Maj_32();
+        Majority_32();
+        ~Majority_32();
 
         unsigned* getStats();
         void create(Collector* collector);
@@ -16,4 +16,4 @@ class Maj_32 : public Modul {
         static unsigned stats[STATS_LENGTH];
 };
 
-#endif //__MAJ_32_H__
+#endif //__MAJORITY_32_H__

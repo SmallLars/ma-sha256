@@ -7,42 +7,9 @@ positiver Distanz. Nach wie vor werden Klauseln generiert, die bei gleicher Dist
 ob diese Klauseln den Lösungsprozess tatsächlich beschleunigen, wird die Analyse beendet. Basierend auf der Bewertung der Klauseln in Kapitel
 \ref{chp:bewertung} wird sich zeigen, ob die Fortsetzung der Suche nach Klauseln mit großer Distanz sinnvoll ist.
 
-Tabelle \ref{fig:additional_clauses_mod} zeigt, wie viele Klausel mit welcher Anzahl Literale in den Modulen gefunden werden konnten. Dazu gehören sowohl
-sowohl normale Klauseln als auch XOR-Klausen. Sind in einer Zelle zwei Werte aufgeführt, gibt der erste Wert die Anzahl der zusätzlichen Klauseln bei einer
-XOR-Unterstützung an. Der zweite Werte gibt die Anzahl der zusätzlichen Klauseln ohne XOR-Unterstützung wieder.
-\begin{table}[!h]
-  \centering
-  \begin{tabular}{l|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
-    \hiderowcolors
-          & \multicolumn{6}{c}{\textbf{Klausellänge}} \\
-    \cline{2-7}
-    \textbf{Modul} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
-    \hline
-    \showrowcolors
-    Add\_Half\_1 & 1 & 2 - 3 &         &          &     &    \\
-    Add\_Full\_1 &   & 6 - 8 &   0 - 2 &          &     &    \\
-    Add\_Last\_1 &   &       &         &          &     &    \\
-    Add          &   &     9 &     658 &     1625 & 959 & 20 \\
-    Ssig0        &   &       &         & 3 - ~~48 &     &    \\
-    Ssig1        &   &       &         &  7 - 112 &     &    \\
-    Bsig0        &   &       &         &          &     &    \\
-    Bsig1        &   &       &         &          &     &    \\
-    Ch           &   &    64 &         &          &     &    \\
-    Maj          &   &       &         &          &     &    \\
-    Add\_Ssig    &   &       &       8 &          &     &    \\
-    Add\_B0Maj   &   &       &         &          &     &    \\
-    Add\_B1Ch    &   &       &     244 &      122 &     &    \\
-    Prepare      & 2 &     8 &      68 &          &     &    \\
-    ShaCore      & 3 &    32 & 81 - 95 &        1 &     &    \\
-  \end{tabular}
-  \caption{Erworbene Klauseln in den Modulen}
-  \label{fig:additional_clauses_mod}
-\end{table}
-
-Die zusätzlichen Klauseln der Addierer höherer Ebene sind zunächst im Addierer zusammengefasst. Die Halb- und Mod-2-Addierer sind jeweils einmal enthalten,
-während die Volladdierer mit zwei bis vier Bit 29 bis 27 Mal enthalten sind. Da der Mod-2 Addierer \TODO{XOR - keine weiteren klauseln}
-
-Tabelle \ref{fig:additional_clauses_add} zeigt die gefundenen Klauseln für die Addierer höherer Ebene im Detail.
+Tabelle \ref{fig:additional_clauses_add} zeigt zunächst die erhaltenen Klauseln für die zusätzlichen Komponenten des Addierers.
+Die Halb- und Mod-X-Addierer sind jeweils einmal enthalten, während die Volladdierer mit zwei bis vier Bit 29 bis 27 Mal enthalten sind.
+Dadurch ergeben sich für den Addierer selbst insgesamt die zusätzlichen Klauseln in der unteren Zeile.
 \begin{table}[!h]
   \centering
   \begin{tabular}{l|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
@@ -52,19 +19,69 @@ Tabelle \ref{fig:additional_clauses_add} zeigt die gefundenen Klauseln für die 
     \textbf{Modul} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
     \hline
     \showrowcolors
-    Add\_Half\_2 & 9 & 16 &  9 &    &    \\
-    Add\_Full\_2 &   & 22 & 38 &    &    \\
-    Add\_Last\_2 &   &    & 24 &    &    \\
-    Add\_Half\_3 &   &  4 &  9 &  6 &    \\
-    Add\_Full\_3 &   &    & 17 & 33 &    \\
-    Add\_Last\_3 &   &    &    & 27 &    \\
-    Add\_Half\_4 &   &    &  5 &  2 &  4 \\
-    Add\_Full\_4 &   &    &    &    &    \\
-    Add\_Last\_4 &   &    &    &    & 16 \\
+    Add\_Half\_$2$ & 9 &  16 &    9 &     &    \\
+    Add\_Full\_$2$ &   &  22 &   38 &     &    \\
+    Add\_ModX\_$2$ &   &     &   24 &     &    \\
+    Add\_Half\_$3$ &   &   4 &    9 &   6 &    \\
+    Add\_Full\_$3$ &   &     &   17 &  33 &    \\
+    Add\_ModX\_$3$ &   &     &      &  27 &    \\
+    Add\_Half\_$4$ &   &     &    5 &   2 &  4 \\
+    Add\_Full\_$4$ &   &     &      &     &    \\
+    Add\_ModX\_$4$ &   &     &      &     & 16 \\
+    \hline
+    Add          & 9 & 658 & 1625 & 959 & 20 \\
   \end{tabular}
   \caption{Erworbene Klauseln im Addierer}
   \label{fig:additional_clauses_add}
 \end{table}
+Erkennen lässt sich, dass die Länge der Klauseln mit der Ebene der Komponenten zunehmen. Gleichzeitig nimmt die Anzahl der erhaltenen Klauseln ab.
+Das lässt sich dadurch erklären, dass bspw. ein 3-Bit Volladdierer auf den Literalen arbeitet, auf denen bereits zwei 2-Bit Volladdierer und drei
+Volladdierer vorhanden sind. Damit ist ein Großteil des Verhaltens bereits definiert und es werden nur zusätzliche Klauseln benötigt, die bisher
+fehlendes Verhalten definieren.
+
+Tabelle \ref{fig:additional_clauses_mod} zeigt, wie viele Klausel mit welcher Anzahl Literale in den essentiellen Modulen gefunden werden konnten.
+Dazu gehören sowohl normale Klauseln als auch XOR-Klausen. Sind in einer Zelle zwei Werte aufgeführt, gibt der erste Wert die Anzahl der zusätzlichen
+Klauseln bei einer XOR-Unterstützung an. Der zweite Werte gibt die Anzahl der zusätzlichen Klauseln ohne XOR-Unterstützung wieder.
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{l|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}}
+    \hiderowcolors
+          & \multicolumn{6}{c}{\textbf{Klausellänge}} \\
+    \cline{2-7}
+    \textbf{Modul} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
+    \hline
+    \showrowcolors
+    Add\_Half\_$1$       & 1 & 2 - 3 &         &          &     &    \\
+    Add\_Full\_$1$       &   & 6 - 8 &   0 - 2 &          &     &    \\
+    Add\_ModX\_$1$       &   &       &         &          &     &    \\
+    Add                  &   &     9 &     658 &     1625 & 959 & 20 \\
+    Ssig$0$ ($\sigma_0$) &   &       &         & 3 - ~~48 &     &    \\
+    Ssig$1$ ($\sigma_1$) &   &       &         &  7 - 112 &     &    \\
+    Bsig$0$ ($\Sigma_0$) &   &       &         &          &     &    \\
+    Bsig$1$ ($\Sigma_1$) &   &       &         &          &     &    \\
+    Choose               &   &    64 &         &          &     &    \\
+    Majority             &   &       &         &          &     &    \\
+    Add\_Ssig            &   &       &       8 &          &     &    \\
+    Add\_B0Maj           &   &       &         &          &     &    \\
+    Add\_B1Ch            &   &       &     244 &      122 &     &    \\
+    Prepare              & 2 &     8 &      68 &          &     &    \\
+    ShaCore              & 3 &    32 & 81 - 95 &        1 &     &    \\
+  \end{tabular}
+  \caption{Erworbene Klauseln in den Modulen}
+  \label{fig:additional_clauses_mod}
+\end{table}
+Der Mod-2 Addierer verwendet, genau wie die $\Sigma$-Funktionen, ausschließlich den XOR-Operator. Weitere Klauseln waren darin deshalb nicht zu erwarten und
+wurden auch nicht gefunden. Bei den $\sigma$-Funktionen konnten weitere Klauseln gefunden werden da bei diesen, im Gegensatz zu den $\Sigma$-Funktionen, der
+Shift-Operator verwendet wird, durch den einige Bits verworfen werden. Das zeigt sich auch bei der Addition der Ergebnisse der $\sigma$-Funktionen, wo ebenfalls
+einige Klauseln gefunden werden konnten.
+
+Im Modul der Choose-Funktion wurden zwei weitere Klauseln gefunden, die sich auf die Breite von 32 Bit anwenden lassen. Dadurch ergeben sich
+64 zusätzliche Klauseln. Im Gegensatz dazu konnten bei der Majority-Funktion keine weiteren Klauseln gefunden werden. Dieses Muster findet sich auch
+in den Modulen wieder, in denen das Ergebnis der Choose- und Majority-Funktion mit den Ergebnissen der $\Sigma$-Funktionen addiert wird. Nur in dem
+Modul, in dem die Choose-Funktion verwendet wird (Add\_B1Ch), konnten weitere Klauseln gefunden werden.
+
+Erfolgreicher ist die Ausbeute bei der Erweiterung der Eingabe (Prepare) und der Rundenfunktion (ShaCore). In diesen Modulen konnten einige Klauseln gefunden
+werden, die sich aus dem Zusammenspiel zwischen Modulen kleineren Levels ergeben.
 
 \begin{table}[!h]
   \centering

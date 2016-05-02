@@ -1,4 +1,4 @@
-#include "add_last_2.h"
+#include "add_modx_2.h"
 
 #include "clausecreator.h"
 
@@ -6,23 +6,23 @@
 
 using namespace CMSat;
 
-unsigned Add_Last_2::stats[STATS_LENGTH];
+unsigned Add_ModX_2::stats[STATS_LENGTH];
 static bool fullCNF = false;
 
-Add_Last_2::Add_Last_2() : Modul(2, 3, 1) {
+Add_ModX_2::Add_ModX_2() : Modul(2, 3, 1) {
     setInputsBitWidth(2, 2, 1);
     output = 5;
 }
 
-Add_Last_2::~Add_Last_2() {
+Add_ModX_2::~Add_ModX_2() {
 }
 
-unsigned* Add_Last_2::getStats() {
+unsigned* Add_ModX_2::getStats() {
     return stats;
 }
 
-void Add_Last_2::create(Collector* collector) {
-    collector->newModul(1, "Add_Last_2", this);
+void Add_ModX_2::create(Collector* collector) {
+    collector->newModul(1, "Add_ModX_2", this);
 
     ClauseCreator cc(collector);
     //              s_out[0]    s_out[1]    a_in[0]        a_in[1]    b_in[0]        b_in[1]       c_in
@@ -80,7 +80,7 @@ void Add_Last_2::create(Collector* collector) {
     cc.printClause(7,      0,          0,     CC_DC,             1,     CC_DC,             1,         1);
 }
 
-MU_TEST_C(Add_Last_2::test) {
+MU_TEST_C(Add_ModX_2::test) {
     for (unsigned a = 0; a < 4; a++) {
         for (unsigned b = 0; b < 4; b++) {
             for (unsigned c = 0; c < 2; c++) {
@@ -94,14 +94,14 @@ MU_TEST_C(Add_Last_2::test) {
                 solver_writeInt(solver, 2, 2, b);
                 solver_writeInt(solver, 4, 1, c);
 
-                Add_Last_2 adder;
+                Add_ModX_2 adder;
                 fullCNF = true;
                 adder.append(&solver);
                 fullCNF = false;
 
                 lbool ret = solver.solve();
-                mu_assert(ret == l_True, "LastAdder UNSAT");
-                mu_assert(((ausgabe >> 0) & 0x3) == solver_readInt(solver, 5, 2), "LastAdder Result failed");
+                mu_assert(ret == l_True, "ModXAdder UNSAT");
+                mu_assert(((ausgabe >> 0) & 0x3) == solver_readInt(solver, 5, 2), "ModXAdder Result failed");
             }
         }
     }

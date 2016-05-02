@@ -1,7 +1,7 @@
 #include "add_b0maj_32.h"
 
 #include "bsig0_32.h"
-#include "maj_32.h"
+#include "majority_32.h"
 #include "add_32.h"
 
 #include "../common/solvertools.h"
@@ -13,7 +13,7 @@ unsigned Add_B0Maj_32::stats[STATS_LENGTH];
 
 Add_B0Maj_32::Add_B0Maj_32() : Modul(32, 3, 1) {
     Bsig0_32 bsig0;
-    Maj_32 maj;
+    Majority_32 maj;
     Add_32 adder;
     output = start + bsig0.getAdditionalVarCount() + maj.getAdditionalVarCount() + adder.getAdditionalVarCount() - 32;
 }
@@ -43,7 +43,7 @@ void Add_B0Maj_32::create(Collector* collector) {
     subinputs.push_back(inputs[0]);
     subinputs.push_back(inputs[1]);
     subinputs.push_back(inputs[2]);
-    Maj_32 maj;
+    Majority_32 maj;
     maj.setInputs(subinputs);
     maj.setStart(start + newvars);
     maj.create(collector);

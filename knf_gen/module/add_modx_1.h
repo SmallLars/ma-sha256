@@ -1,13 +1,13 @@
-#ifndef __ADD_LAST_3_H__
-#define __ADD_LAST_3_H__
+#ifndef __ADD_MODX_1_H__
+#define __ADD_MODX_1_H__
 
 #include "modul.h"
 #include "../common/minunit.h"
 
-class Add_Last_3 : public Modul {
+class Add_ModX_1 : public Modul {
     public:
-        Add_Last_3();
-        ~Add_Last_3();
+        Add_ModX_1();
+        ~Add_ModX_1();
 
         unsigned* getStats();
         void create(Collector* collector);
@@ -16,4 +16,4 @@ class Add_Last_3 : public Modul {
         static unsigned stats[STATS_LENGTH];
 };
 
-#endif //__ADD_LAST_3_H__
+#endif //__ADD_MODX_1_H__

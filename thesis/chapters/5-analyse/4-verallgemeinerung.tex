@@ -8,7 +8,7 @@ gut funktioniert diese Verallgemeinerung bei dem Addierer. Durch die Breite von 
 an diesen Stellen ebenfalls gültig. Aufgrund der Vielzahl der erhaltenen Klauseln ist jedoch eine weitere Unterteilung notwendig. Zunächst werden die in Abschnitt
 \ref{sec:knf:addierer} erläuterten Komponenten des Addierers (Halb-, Voll- und Mod-2 Addierer) in eigene Module mit dem Level eins ausgelagert. Dadurch können viele
 Klauseln direkt den Halb-, Voll und Mod-2 Addiereren zugeordnet werden. Ein Großteil der erworbenen Klauseln verbleibt aber nach wie vor im Modul des 32-Bit Addierers.
-Bei der Analyse der verbleibenden Klauseln zeigt sich, dass sich diese Klauseln in Halb-, Voll und Mod-2 Addiereren höherer Ebene organisieren lassen. Als Addierer
+Bei der Analyse der verbleibenden Klauseln zeigt sich, dass sich diese Klauseln in Halb-, Voll und Mod-X Addiereren höherer Ebene organisieren lassen. Als Addierer
 höherer Ebene wird ein Addierer bezeichnet, der bei Bedarf ein eingehendes oder ausgehendes Carrybit berücksichtigt, intern jedoch keine Carrybits verwendet. Diese
 Addierer entsprechen dem Carry-Lookahead Addierer (siehe Abschnitt \ref{sec:grundlagen_add}) in unterschiedlichen Bitbreiten. Ergänzt werden Module für Addierer bis
 vier Bit Breite. Abbildung \ref{fig:sha256_module_add} zeigt die Erweiterung der Modulhierarchie.
@@ -19,7 +19,7 @@ vier Bit Breite. Abbildung \ref{fig:sha256_module_add} zeigt die Erweiterung der
   \label{fig:sha256_module_add}
 \end{figure}
 
-Module für Addierer mit mehr als vier Bit Breite werden nicht ergänzt, da der SAT-Solver keine Klauseln ermittelt hat, die diesen Modulen zugeordnet werden könnten.  
+Module für Addierer mit mehr als vier Bit Breite werden nicht ergänzt, da der SAT-Solver keine Klauseln ermittelt hat, die diesen Modulen zugeordnet werden konnten.  
 Notwendig für die Funktion des Addierers sind nur die Module mit dem Level eins. Die Module mit dem Level zwei bis vier dienen als zusätzliche Information
 auf den selben Literalen. Durch dieses Vorgehen erfolgt die Verallgemeinerung von Klauseln innerhalb des Addierers ebenfalls automatisch.
 
@@ -34,10 +34,10 @@ Anwendung findet. Während bei den anderen Modulen im Allgemeinen eine Verallgem
 Verallgemeinerung generierte Klausel einzeln überprüft werden. Wie auch bei der Überprüfung der modulspezifischen Klauseln in Abschnitt \ref{sec:ana:module}
 wird das Programm "`clausechecker"' für die Überprüfung genutzt. Nur wenige der ermittelten Klauseln lassen sich ohne Einschränkungen auf weitere Bits oder
 Runden übertragen. Der clausechecker generiert deshalb ein zweidimensionales Array, in dem die gültigen Klauseln markiert werden. Dieses Array wird im
-Modul der Kompressionsfunktion genutzt, um die gültigen Klauseln zu generieren. Es zeigt sich, dass die Werte des Arrays in einigen Fällen die Rundenkonstante
-widerspiegeln. Im diesem Fall wird auf das Array verzichtet und die Bits der Rundenkonstante verwendet.
+Modul der Kompressionsfunktion genutzt, um die gültigen Klauseln in die konjunktive Normalform zu integrieren. Es zeigt sich, dass die Werte des Arrays in
+einigen Fällen die Rundenkonstante widerspiegeln. Im diesem Fall wird auf das Array verzichtet und die Bits der Rundenkonstante verwendet.
 
-Es zeigt sich, dass dieses Vorgehen sehr erfolgreich ist weitere gültige Klauseln zu generieren. Auch Klauseln mit einer großen Distanz in der Kompressionsfunktion
+Es stellt sich heraus, dass dieses Vorgehen sehr erfolgreich ist weitere gültige Klauseln zu generieren. Auch Klauseln mit einer großen Distanz in der Kompressionsfunktion
 lassen sich oft auf 400 bis 700 weitere Stellen übertragen, wobei CryptoMiniSat davon nur wenige gefunden hat. In der iterativen Anwendung zeigt sich, dass die
 generierten Klauseln im nächsten Durchlauf dabei helfen, weitere Klauseln mit positiver Distanz zu finden. Ob sie auch dabei helfen den Lösungsprozess zu beschleunigen
 wird Kapitel \ref{chp:bewertung} zeigen.
