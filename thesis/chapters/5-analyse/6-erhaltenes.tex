@@ -62,8 +62,8 @@ Klauseln bei einer XOR-Unterstützung an. Der zweite Werte gibt die Anzahl der z
     Choose               &   &    64 &         &          &     &    \\
     Majority             &   &       &         &          &     &    \\
     Add\_Ssig            &   &       &       8 &          &     &    \\
-    Add\_B0Maj           &   &       &         &          &     &    \\
-    Add\_B1Ch            &   &       &     244 &      122 &     &    \\
+    Add\_B$0$Maj           &   &       &         &          &     &    \\
+    Add\_B$1$Ch            &   &       &     244 &      122 &     &    \\
     Prepare              & 2 &     8 &      68 &          &     &    \\
     ShaCore              & 3 &    32 & 81 - 95 &        1 &     &    \\
   \end{tabular}
@@ -78,11 +78,14 @@ einige Klauseln gefunden werden konnten.
 Im Modul der Choose-Funktion wurden zwei weitere Klauseln gefunden, die sich auf die Breite von 32 Bit anwenden lassen. Dadurch ergeben sich
 64 zusätzliche Klauseln. Im Gegensatz dazu konnten bei der Majority-Funktion keine weiteren Klauseln gefunden werden. Dieses Muster findet sich auch
 in den Modulen wieder, in denen das Ergebnis der Choose- und Majority-Funktion mit den Ergebnissen der $\Sigma$-Funktionen addiert wird. Nur in dem
-Modul, in dem die Choose-Funktion verwendet wird (Add\_B1Ch), konnten weitere Klauseln gefunden werden.
+Modul, in dem die Choose-Funktion verwendet wird (Add\_B$1$Ch), konnten weitere Klauseln gefunden werden.
 
 Erfolgreicher ist die Ausbeute bei der Erweiterung der Eingabe (Prepare) und der Rundenfunktion (ShaCore). In diesen Modulen konnten einige Klauseln gefunden
 werden, die sich aus dem Zusammenspiel zwischen Modulen kleineren Levels ergeben.
 
+In der Kompressionsfunktion wurden die Klauseln mit positiver Distanz aus Tabelle \ref{fig:additional_clauses} ermittelt.
+Basis für die insgesamt 29703 Klauseln bildeten 1107 Klauseln aus CryptoMiniSat. 28596 Klauseln wurden durch die Verallgemeinerung
+auf Bitbreite und Runden ermittelt.
 \begin{table}[!h]
   \centering
   \begin{tabular}{r|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}|R{1.5cm}}
@@ -104,6 +107,9 @@ werden, die sich aus dem Zusammenspiel zwischen Modulen kleineren Levels ergeben
   \label{fig:additional_clauses}
 \end{table}
 
+Wie in Abschnitt \ref{sec:ana:subclauses} erwähnt sind von diesen Klausel einige überflüssig, weil bereits Dont-Care Literale identifiziert wurden
+und kürze Klauseln vorhanden sind. Tabelle \ref{fig:additional_clauses_clean} zeigt die Anzahl der sinnvollen Klauseln. 8425 Klauseln haben sich
+als überflüssig herausgestellt womit 21306 sinnvolle Klauseln verbleiben.
 \begin{table}[!h]
   \centering
   \begin{tabular}{r|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}|R{1.5cm}}
@@ -124,5 +130,3 @@ werden, die sich aus dem Zusammenspiel zwischen Modulen kleineren Levels ergeben
   \caption{Erworbene Klauseln in der Kompressionsfunktion nach Bereinigung}
   \label{fig:additional_clauses_clean}
 \end{table}
-
-\TODO{erledigen}
