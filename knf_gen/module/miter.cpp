@@ -13,7 +13,7 @@ unsigned Miter::stats[STATS_LENGTH];
 
 Miter::Miter() : Modul(32, 40, 8) {
   Sha256 sha256;
-  output = start + 2 * sha256.getAdditionalVarCount() - 512;
+  output = start + 2 * sha256.getAdditionalVarCount();
 }
 
 Miter::~Miter() {
@@ -50,6 +50,8 @@ void Miter::create(Collector* collector) {
   sha256.setStart(start + newvars);
   sha256.setOutput(output);
   sha256.create(collector);
+
+  newvars += sha256.getAdditionalVarCount() - 256;
 /*
   for (vector<unsigned>::iterator it = sha256.getInputs().begin(); it != sha256.getInputs().end(); ++it) {
     std::cout << std::setw(4) << *it << " ";
@@ -57,9 +59,16 @@ void Miter::create(Collector* collector) {
   std::cout << sha256.getStart() << " ";
   std::cout << sha256.getOutput() << "\n";
 */
-#ifdef ADDITIONAL_CLAUSES
 
-#endif
+  vector<Lit> bigOrClause;
+  for (unsigned i = 0; i < 16; i++) {
+    for (unsigned b = 0; b < 32; b++) {
+      createXOR(collector, start + newvars, inputs[i] + b, inputs[i + 16] + b);
+      bigOrClause.push_back(Lit(start + newvars, false));
+      newvars++;
+    }
+  }
+  collector->create(false, bigOrClause);
 }
 
 MU_TEST_C(Miter::test) {

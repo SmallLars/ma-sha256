@@ -65,6 +65,7 @@ int main() {
     cout << "  2 / 3: Status gesetzt.\n";
 
     Miter miter;
+    // miter.writeDimacs("miter.dimacs");
     miter.create(&printer);
     cout << "  3 / 3: Miter definiert.\n";
 
