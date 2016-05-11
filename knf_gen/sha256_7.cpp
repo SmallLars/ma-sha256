@@ -46,7 +46,12 @@ void signalHandler(int signum) {
 
     if (signum == SIGINT) _exit(1);
 }
-
+/*
+uint32_t calc(vector<Lit>& clause, uint32_t glue) {
+    cout << glue << "\n";
+    return glue;
+}
+*/
 int main() {
     signal(SIGINT, signalHandler);
     signal(SIGUSR1, signalHandler);
@@ -80,6 +85,7 @@ int main() {
     solver.set_num_threads(numCPU);
     solver.set_verbosity(0);
     solver.set_no_bva();
+//    solver.append_glue_calc(calc);
 //    solver.log_to_file("solver.txt");
 
     time_t rawtime;
