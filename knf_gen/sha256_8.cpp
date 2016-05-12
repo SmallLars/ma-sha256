@@ -22,6 +22,7 @@
 #include "collector/solverprinter.h"
 #include "collector/bufferedsolverprinter.h"
 #include "collector/assumptionprinter.h"
+#include "collector/modulgraph.h"
 
 using std::cout;
 using std::vector;
@@ -29,6 +30,7 @@ using std::setw;
 using std::flush;
 using namespace CMSat;
 
+ModulGraph* graph;
 SATSolver* solverToInterrupt;
 
 void signalHandler(int signum) {
@@ -45,6 +47,18 @@ void signalHandler(int signum) {
     solver->open_file_and_dump_irred_clauses("dump/257_irred.dimacs");
 
     if (signum == SIGINT) _exit(1);
+}
+
+uint32_t calc(vector<Lit>& clause, uint32_t glue) {
+    int count   = graph->getModulCount(clause);
+    int maxdist = graph->getDistance(clause);
+    int dist    = maxdist - count + 1;
+
+    if (dist > 0) cout << glue << ": " << dist << "(" << clause.size() << ")" << "\n";
+
+    if (dist < 0) return 100;
+    if (glue > 10) return 10;
+    return glue;
 }
 
 int main() {
@@ -80,12 +94,13 @@ int main() {
     solver.set_num_threads(numCPU);
     solver.set_verbosity(0);
     solver.set_no_bva();
+    solver.append_glue_calc(calc);
 //    solver.log_to_file("solver.txt");
 
     time_t rawtime;
     time(&rawtime);
     char filename[64];
-    strftime(filename, 64, "sha256_7 %Y-%m-%d %H:%M:%S", localtime(&rawtime));
+    strftime(filename, 64, "sha256_8 %Y-%m-%d %H:%M:%S", localtime(&rawtime));
     solver.add_sql_tag("filename", filename);
 
     solverToInterrupt = &solver;
@@ -94,6 +109,13 @@ int main() {
     AssumptionPrinter ap(&assumptions);
 
     SolverPrinter printer(&solver);
+    ModulGraph sha256graph;
+    graph = &sha256graph;
+    for (unsigned i = 0; i < 24; i++) {
+        Const c(32, 0);
+        c.setStart(i * 32);
+        c.create(graph);
+    }
 
     // Eingabe
     for (unsigned i = 13; i < 16; i++) {
@@ -101,7 +123,7 @@ int main() {
         c.setStart(i * 32);
         c.create(&ap);
     }
-    cout << "  1 /   4: Eingabe gesetzt.\n";
+    cout << "  1 /   6: Eingabe gesetzt.\n";
 
     // Status
     for (unsigned i = 16; i < 24; i++) {
@@ -109,11 +131,15 @@ int main() {
         c.setStart(i * 32);
         c.create(&ap);
     }
-    cout << "  2 /   4: Status gesetzt.\n";
+    cout << "  2 /   6: Status gesetzt.\n";
 
     Sha256 sha256;
     sha256.create(&printer);
-    cout << "  3 /   4: Kern definiert.\n";
+    cout << "  3 /   6: Kern definiert.\n";
+    sha256.create(graph);
+    cout << "  4 /   6: Graph erzeugt.\n";
+    graph->calcDistances();
+    cout << "  5 /   6: Distanzen berechnet.\n";
 
     // Ausgabe setzen
     for (unsigned i = 0; i < 8; i++) {
@@ -121,7 +147,7 @@ int main() {
         c.setStart(sha256.getOutput() + i * 32);
         c.create(&ap);
     }
-    cout << "  4 /   4: Ausgabe gesetzt.\n";
+    cout << "  6 /   6: Ausgabe gesetzt.\n";
 
     time_t start_time = time(0);
     for (unsigned r = 353; r <= assumptions.size(); r++) {
