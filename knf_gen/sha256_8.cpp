@@ -54,7 +54,7 @@ uint32_t calc(vector<Lit>& clause, uint32_t glue) {
     int maxdist = graph->getDistance(clause);
     int dist    = maxdist - count + 1;
 
-    if (dist > 0) cout << glue << ": " << dist << "(" << clause.size() << ")" << "\n";
+    if (dist > 1) cout << glue << ": " << dist << "(" << clause.size() << ")" << "\n";
 
     if (dist < 0) return 100;
     if (glue > 10) return 10;
@@ -93,7 +93,6 @@ int main() {
     SATSolver solver;
     solver.set_num_threads(numCPU);
     solver.set_verbosity(0);
-    solver.set_no_bva();
     solver.append_glue_calc(calc);
 //    solver.log_to_file("solver.txt");
 
