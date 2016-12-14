@@ -1,6 +1,6 @@
 trap 'exit' 2
 
-for ((var = 8; var <= 30; var++))
+for ((var = 9; var <= 22; var++))
 do
    for ((i = 0; i < 5; i++))
    do

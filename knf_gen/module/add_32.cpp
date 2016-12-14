@@ -83,7 +83,8 @@ void Add_32::create(Collector* collector) {
     add_modx_1.setOutput(output + 31);
     add_modx_1.create(collector);
 
-#ifdef ADDITIONAL_CLAUSES
+#if false
+//#ifdef ADDITIONAL_CLAUSES
     // Half adder 2
     subinputs.clear();
     subinputs.push_back(inputs[0]);

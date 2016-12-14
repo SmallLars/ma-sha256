@@ -54,7 +54,7 @@ uint32_t calc(vector<Lit>& clause, uint32_t glue) {
     int maxdist = graph->getDistance(clause);
     int dist    = maxdist - count + 1;
 
-    if (dist > 1) cout << glue << ": " << dist << "(" << clause.size() << ")" << "\n";
+    // if (dist > 1) cout << glue << ": " << dist << "(" << clause.size() << ")" << "\n";
 
     if (dist < 0) return 100;
     if (glue > 10) return 10;

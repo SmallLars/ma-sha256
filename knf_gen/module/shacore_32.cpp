@@ -8,7 +8,7 @@
 
 #include "../common/solvertools.h"
 
-#define ADDITIONAL_KNOWLEDGE 0
+#define ADDITIONAL_KNOWLEDGE 1
 
 using std::vector;
 using namespace CMSat;
