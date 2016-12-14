@@ -144,6 +144,8 @@ void Sha256::create(Collector* collector) {
   // distance - modulcount + 1 = 1
   clause_1_48(cc);
 
+  // import(collector, "./module/sha256_5.dimacs");
+
 #endif
 
 /*

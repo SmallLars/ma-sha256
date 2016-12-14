@@ -23,6 +23,7 @@ class Modul {
         void setInputs(const std::vector<unsigned>& inputs);
         void setStart(unsigned start);
         void setOutput(unsigned output);
+        void import(Collector* collector, const char* filename);
 
         unsigned getBitWidth();
         std::vector<unsigned>& getInputs();

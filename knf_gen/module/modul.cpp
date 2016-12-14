@@ -7,6 +7,8 @@
 
 #include "clausecreator.h"
 
+#include "../common/dimacsparser.h"
+
 #include "../collector/solverprinter.h"
 #include "../collector/logger.h"
 #include "../collector/dimacsfileprinter.h"
@@ -82,6 +84,41 @@ void Modul::setStart(unsigned start) {
 
 void Modul::setOutput(unsigned output) {
     this->output = output;
+}
+
+void Modul::import(Collector* collector, const char* filename) {
+    unsigned fullInputs[inputNum];
+    unsigned lit = 0;
+    for (unsigned i = 0; i < inputCount; i++) {
+        for (unsigned b = 0; b < inputWidth[i]; b++) {
+            fullInputs[lit++] = inputs[i] + b;
+        }
+    }
+
+    DimacsParser parser(filename);
+    vector<Lit> clause;
+    while (parser.getNextClause(clause)) {
+        for (unsigned l = 0; l < clause.size(); l++) {
+            uint32_t var = clause[l].var();
+
+            if (var < inputNum) {
+                var = fullInputs[var];
+                goto found;
+            }
+
+            if (var < getVarCount() - outputNum) {
+                var = start + var - inputNum;
+                goto found;
+            }
+
+            lit = getVarCount() - outputNum;
+            var = output + var - lit;
+
+            found:
+            clause[l] = Lit(var, clause[l].sign());
+        }
+        collector->create(false, clause);
+    }
 }
 
 unsigned Modul::getBitWidth() {
