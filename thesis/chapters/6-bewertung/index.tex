@@ -1,14 +1,43 @@
 \chapter{Bewertung der zusätzlichen Klauseln}
 \label{chp:bewertung}
 
-mehre versuche mit unterschiedlichen klauselmengen. jeweils 3 bis 10 ?\\
+Die erhaltenen Klauseln aus Kapitel \ref{chp:analyse} sollen in diesem Abschnitt darauf überprüft werden,
+ob und wie sehr sie den Lösungsprozess beschleunigen oder ausbremsen. Die Berechnungen werden dabei auf einem
+Server mit folgenden Eigenschaften durchgeführt:
+\begin{itemize}
+  \item Fedora 22
+  \item 2 x Intel(R) Xeon(R) CPU E3-1240 V2 (3.40GHz)
+  \item 8 Kerne
+  \item 32Gb RAM
+  \item 16Gb Auslagerungsdatei
+\end{itemize}
+
+
+
+
+Dazu wird ebenfalls eine Urbildberechnung
+(siehe Abschnitt \ref{sec:urbildberechnung}) herangezogen. Eine annähernd sinnvolle Zeitmessung ist erst möglich,
+wenn mindestens neun Bits des Hash vorgegeben werden. Die obere Grenze liegt bei 22 Bits, bei denen die genutzte
+Hardware noch zuverlässig zu einer Lösung kommt. 
+
+
+
+jeweils 5 versuche mit unterschiedlichen klauselmengen für 9 bis 22 bit\\
 erfassung der statistik wie in der analyse\\
-grundlage für vergleich bietet nächster abschnitt
+
+testmaschine: 8 cores, 32gb ram, ...
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.55]{images/data_legend}
+  \caption{TODO}
+  \label{fig:data_lengede}
+\end{figure}
 
 \input{chapters/6-bewertung/1-ohne-zusatz.tex}
-\input{chapters/6-bewertung/2-vollstaendig.tex}
-\input{chapters/6-bewertung/3-nur-module.tex}
-\input{chapters/6-bewertung/4-nur-distanz.tex}
-\input{chapters/6-bewertung/5-mit-sub.tex}
+\input{chapters/6-bewertung/2-nur-module.tex}
+\input{chapters/6-bewertung/3-nur-distanz.tex}
+\input{chapters/6-bewertung/4-nur-234add.tex}
+\input{chapters/6-bewertung/5-nur-knowledge.tex}
 \input{chapters/6-bewertung/6-ohne-234add.tex}
 \input{chapters/6-bewertung/7-vergleich.tex}

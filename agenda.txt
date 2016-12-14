@@ -1,0 +1,86 @@
+Sha256
+    Urbildberechnung << Primär
+    Initialwertberechnung
+    Kollisionsberechnung - Miter
+
+Sha256
+    Bruteforce Ansatz zum Vergleich:
+        32 Bit Lösungsraum mit einem CPU-Kern in 24 Stunden
+
+CryptoMiniSat
+    Versionsprobleme
+
+Printer (Entwurfsmuster "Besucher")
+    Methode "create" um Klauseln aufzunehmen
+    Für Analyse ergänzt: "newModul" zur Registrierung
+    Printer besucht den Modulbaum
+
+Vorgehen ohne Annahmen - Werte hart vorgegeben
+    Nur begrenzte Runden -> Problemverständnis
+    Hashberechnung funktioniert
+    Urbildberechnung funktioniert nicht
+    Urbildberechnung funktioniert mit Runden 1 - 18
+    Urbildberechnung ohne Runden 17 - 20 funktioniert
+    Urbildberechnung ohne Erweiterung 17 - 24 funktioniert
+
+Vorgehen mit Annahmen (Iterativ)
+    Ermöglicht finden allgmeingültiger Klauseln
+
+    Entfernen schon bekannter Klauseln
+        Sat-Solver liefert 2 Klauselmengen
+            Redundant
+            Irredundant
+
+    Identifizierung und Normalisierung modulspezifischer Klauseln
+        Modul: Eingänge, Zusatzvariablen, Ausgänge
+        Einteilung der Module in Level: Von unten anfangen
+        Kaum Klauseln gefunden für SIG, CH, MAJ
+        Viele Klauseln für Addierer:
+            Carry-Ripple
+            Carry-Look-Ahead
+            Kombination
+        Übergeordnete Module -> Addierernetzwerk
+            Einige Klauseln gefunden
+
+    Bewertung der modulübergreifenden Klauseln:
+        SHA256 als ungerichter Graph mit ca. 1000 Knoten
+        Modul ist Knoten: Zusatzvariablen, Ausgänge -> Eindeutigkeit
+        Nur Module mit Level 10
+        Grafische Darstellung
+        Berechnung der Distanz der Knoten zueinander mit Dijkstra
+        Klauselbewertung ergibt sich durch: max\_dist - module + 1
+        Der Wert beschreibt, wie viele Knoten übersprungen werden
+
+    Prüfen auf kürzere/längere Klauseln
+
+Weitere Konfliktklauseln testen
+    "`Wertvolle"' Klauseln übertragen auf:
+        Vorhergehende oder Nachfolgende Runden
+        Vorhergehende oder Nachfolgende Bits
+
+    Erzeugte Klauseln auf Gültigkeit überprüfen
+
+    Bei der Hälfte der Klauseln sehr erfolgreich
+
+Klauseln über Distanz:
+    Distanz  Gesamt  Redundant  Verbleibend
+          1     840        114          726
+          2    4985       1475         3510
+          3   11440       3305         8135
+          4   10047       3324         6723
+          5    2403        207         2196
+    ---------------------------------------
+              29715       8425        21290
+
+Evaluation
+    Geschwindigkeit
+    Bitanzahl
+    Anzahl fest belegter Literale
+        SQL-Statistik -> SQL-Server auf Racs11 ?
+            Uwe noch mal fragen oder selber kümmern ?
+
+Erweiterung der CryptoMiniSat Schnittstelle um eine Funktion, die eine
+externe Nachfrage ermöglicht, ob Klausel gelernt oder verworfen werden soll.
+    Zusäzliche Klauseln sollten in diesem Schritt ergänzt werden können.
+
+    Teil der Masterarbeit oder nicht ?
