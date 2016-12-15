@@ -2,12 +2,15 @@ CFLAGS = -Wall -g
 COMP = g++
 #COMP = clang++-3.5
 
-all: satcoin sha256 satcoin.dimacs sha256.dimacs
+all: satcoin sha256 sha256_eval satcoin.dimacs sha256.dimacs
 
 satcoin: satcoin.c
 	$(COMP) $(CFLAGS) -o $@ $<
 
 sha256: sha256.c
+	$(COMP) $(CFLAGS) -o $@ $<
+
+sha256_eval: sha256_eval.c
 	$(COMP) $(CFLAGS) -o $@ $<
 
 %.dimacs: %.c cbmc/cbmc
@@ -17,7 +20,7 @@ proof: sha256.c cbmc/cbmc
 	cbmc --slice-formula --32 -DCBMC $<
 
 clean:
-	-rm -f satcoin satcoin.dimacs sha256 sha256.dimacs
+	-rm -f satcoin satcoin.dimacs sha256 sha256_eval sha256.dimacs
 
 clobber: clean
 	-rm -rf cbmc
