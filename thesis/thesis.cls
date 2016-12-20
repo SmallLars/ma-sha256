@@ -246,7 +246,7 @@
 \RequirePackage[flushmargin,hang,bottom]{footmisc}
 
 % BibLaTeX: A modern BibTeX approach.
-\RequirePackage[citestyle=alphabetic-verb,bibstyle=alphabetic,maxnames=100,backend=biber]{biblatex}
+\RequirePackage[citestyle=alphabetic-verb,bibstyle=alphabetic,maxnames=100,backend=biber,block=ragged]{biblatex}
 \defbibheading{bibliography}[\bibname]{%
   \section{#1}\label{sec:bibliography}%
 }
