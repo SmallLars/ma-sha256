@@ -39,6 +39,7 @@
 \RequirePackage{multirow}
 \RequirePackage{setspace}
 \RequirePackage[nofancy]{svninfo}
+\RequirePackage{verbatimbox}
 
 \RequirePackage{xspace}
 \xspaceaddexceptions{"}
