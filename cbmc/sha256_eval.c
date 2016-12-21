@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
 #ifdef CBMC
   uint32_t mask = (0xffffffff >> (32 - BITS));
 	assert(
-    (result[0] & mask)  != (0x27931f0e & mask)
+    (result[0] & mask) != (0x27931f0e & mask)
 	);
 #endif
 
