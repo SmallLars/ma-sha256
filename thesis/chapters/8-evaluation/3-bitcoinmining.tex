@@ -1,3 +1,42 @@
 \section{Bitcoin-Mining}
 
-\TODO{erledigen}
+Jonathan Heusser führt in seinem Artikel \cite{jona:1} zwei Versuche mit unterschiedlichen SAT-Solvern durch.
+Diese ließen sich für einen direkten Vergleich leider nicht reproduzieren, da die vom ihm genutzte konjunktive
+Normalform unterschiedlich zu der ist, die sich mit \acr{cbmc} aus seinem C-Programmcode erstellen lässt.
+Außerdem gibt er in seinen Versuchen eine feste Anzahl führender Nullen für den Hash vor und variiert die
+Anzahl der Stellen der Nonce die noch berechnet werden müssen um die Schwierigkeit zu verändern. Das eignet
+sich zwar für den Vergleich unterschiedlicher SAT-Solver, ermöglicht jedoch keine direkte Aussage dazu, ob
+sich dieses Vorgehen dafür eignet aktuelle Bitcoin-Blöcke zu lösen.
+
+In der Praxis ist die Nonce vollständig unbekannt und die Schwierigkeit wird dadurch angepasst, dass die Anzahl
+der geforderten führenden Nullen sich ändert. Ziel von Bitcoin ist es, die Schwierigkeit immer so anzupassen, dass im Mittel
+alle zehn Minuten ein Block gelöst wird. Damit stellt sich die Frage, bei wie vielen führenden Nullen der SAT-Solver
+innerhalb von 10 Minuten zu einer Lösung kommt. Tabelle \ref{fig:bitcoinzeros} zeigt die Ergebnisse der mit CryptoMiniSat
+durchgeführten Versuche.
+
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{rr|rr}
+    Geforderte Nullen & Dauer in Minuten & Erhaltene Nullen \\
+    \hline
+     9 &  0:43 &  9 \\
+    10 &  1:55 & 10 \\
+    11 &  8:32 & 11 \\
+    12 &  5:29 & 14 \\
+    13 & 10:39 & 16
+  \end{tabular}
+  \caption{Erworbene Klauseln in der Kompressionsfunktion nach Bereinigung}
+  \label{fig:bitcoinzeros}
+\end{table}
+
+Für jede Anzahl der geforderten Nullen wurden jeweils fünf Versuche durchgeführt, die durch eine Zeile in Tabelle \ref{fig:bitcoinzeros}
+repräsentiert werden. Es hat sich gezeigt, dass CryptoMiniSat innerhalb jeder Versuchsreihe jeweils die selbe Nonce ermittelt hat
+und die Dauer nur wenig variierte. Die angegebene Dauer ist der arithmetische Mittelwert. Die letzte Spalte enthält die Anzahl der
+führenden Nullen die tatsächlich erreicht wurden. Da ein SAT-Solver die nicht festgelegten Stellen frei belegen kann, ist es möglich,
+dass das Ergebnis mehr führende Nullen hat als gefordert. Dies ist jedoch zufällig und nur zur Vollständigkeit mit aufgeführt.
+In annähernd zehn Minuten ist es somit möglich eine Nonce für einen Hash mit bis zu 13 führenden Nullen zu ermitteln.
+
+Da die aktuellen Blöcke einen Hash mit mindestens 68 führenden Nullen erfordern, zeigt dieser Versuch, dass SAT-Solving sich
+derzeit nicht für den Einsatz in Bitcoin-Minern eignet. Betrachtet werden muss auch, dass in der Testumgebung 720.000 Hashes pro Sekunde
+berechnet werden können. Damit kann alleine durch Probieren in zehn Minuten eine gültige Nonce für einen Hash mit 27 führenden
+Nullen ermittelt werden.

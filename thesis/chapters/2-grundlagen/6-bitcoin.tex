@@ -8,7 +8,7 @@ diese Arbeit eine Rolle spielt und wird im folgenden erläutert.
 
 Bitcoin basiert auf einer Kette von Blöcken (Blockchain). Ein Block dient dazu, Transaktionen zwischen Benutzern zu bestätigen, die seit der Lösung
 des letzten Blocks durchgeführt wurden. Da auch der letzte Block in die Lösung mit einbezogen wird, wird die gesamte Kette erneut bestätigt.
-Für die Lösung eines Blocks wird die Hashfunktion SHA256 \ref{chp:sha256} genutzt. Neben dem letzte Block, den aktuellen Transaktionen und einiger
+Für die Lösung eines Blocks wird die Hashfunktion SHA256 (siehe Kapitel \ref{chp:sha256}) genutzt. Neben dem letzte Block, den aktuellen Transaktionen und einiger
 weiterer Daten fließt insbesondere eine Nonce als Eingabe in die Hashfunktion ein die frei gewählt werden kann um den Block zu lösen. Gelöst ist ein
 Block dann, wenn durch die Wahl der Nonce und zweimaliger Anwendung von SHA256 ein Hash erzeugt wird, der mit entsprechend vielen Nullen beginnt
 (siehe Abbildung \ref{fig:bitcoin}). Je mehr Nullen gefordert sind, desto schwieriger wird diese Aufgabe.
