@@ -48,10 +48,10 @@ Wissen, das zusätzlich genutzt wird und wegfallen könnte, ohne die Lösungsmen
 In den folgenden Abschnitten wird die Analyse der extrahierten Klauseln im Detail beschrieben. Zunächst werden in Abschnitt \ref{sec:ana:rem_double}
 alle Klauseln gesammelt und schon bekannte Klauseln aussortiert. In Abschnitt \ref{sec:ana:module} wird versucht, die Klauseln einzelnen Modulen
 zuzuordnen und diese zu normalisieren. Gelingt die Zuordnung zu einem Modul nicht, wird in Abschnitt \ref{sec:ana:distance} eine Distanzmetrik
-genutzt, um die Klauseln zu bewerten und mutmaßlich wertvolle Klauseln zu identifizieren und zu verallgemeinern. Durch die Iterationen, die jeweils
-gelerntes Wissen mit einbeziehen, kann es dazu kommen, dass Dont-Care Literale identifiziert werden und zur Verkürzung von Klauseln führen.
-Diese Entwicklung wird in Abschnitt \ref{sec:ana:generalize} betrachtet. Abschließend wird das gelernte Wissen in Abschnitt \ref{sec:ana:acquired}
-zusammengefasst. \TODO{Diesen Absatz an tatsächliche Struktur anpassen}
+genutzt, um die Klauseln zu bewerten und mutmaßlich wertvolle Klauseln zu identifizieren. Die Verallgemeinerung von Klauseln über die Breite von
+32 Bit und die 64 Runden von SHA256 wird in Abschnitt \ref{sec:ana:generalize} betrachtet. Durch die Iterationen, die jeweils gelerntes Wissen mit
+einbeziehen, kann es dazu kommen, dass Dont-Care Literale identifiziert werden und zur Verkürzung von Klauseln führen. Diese Entwicklung wird in
+Abschnitt \ref{sec:ana:subclauses} betrachtet. Abschließend wird das gelernte Wissen in Abschnitt \ref{sec:ana:acquired} zusammengefasst.
 
 \input{chapters/5-analyse/1-bekanntes.tex}
 \input{chapters/5-analyse/2-module.tex}
