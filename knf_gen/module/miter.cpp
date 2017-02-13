@@ -11,9 +11,10 @@ using namespace CMSat;
 
 unsigned Miter::stats[STATS_LENGTH];
 
-Miter::Miter() : Modul(32, 40, 8) {
+Miter::Miter(unsigned bits) : Modul(32, 40, 16) {
   Sha256 sha256;
   output = start + 2 * sha256.getAdditionalVarCount();
+  equal_bits = bits;
 }
 
 Miter::~Miter() {
@@ -48,7 +49,7 @@ void Miter::create(Collector* collector) {
   for (unsigned i = 16; i < 40; i++) subinputs.push_back(inputs[i]);
   sha256.setInputs(subinputs);
   sha256.setStart(start + newvars);
-  sha256.setOutput(output);
+  sha256.setOutput(output + 256);
   sha256.create(collector);
 
   newvars += sha256.getAdditionalVarCount() - 256;
@@ -69,6 +70,10 @@ void Miter::create(Collector* collector) {
     }
   }
   collector->create(false, bigOrClause);
+
+  for (unsigned i = 0; i < equal_bits; i++) {
+    createEQ(collector, output + i, output + i + 256);
+  }
 }
 
 MU_TEST_C(Miter::test) {

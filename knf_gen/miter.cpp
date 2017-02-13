@@ -1,13 +1,4 @@
-/*
-#include <vector>
-#include <stdio.h>
-#include <iomanip>
-#include <signal.h>
-#include <time.h>
-#include <ctime>
-#include <sys/stat.h>
-#include <sys/types.h>
-*/
+#include <stdlib.h>
 
 #include "cryptominisat4/cryptominisat.h"
 
@@ -23,7 +14,13 @@ using std::cout;
 using std::flush;
 using namespace CMSat;
 
-int main() {
+int main(int argc, const char* argv[]) {
+    int equalBits;
+    if (argc < 2 || (equalBits = atoi(argv[1])) < 1) {
+        cout << "miter <equalBits>\nequalBits needs to be > 0\n";
+        return 0;
+    }
+
 /*
     uint32_t input[16] = {0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
                           0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80000000, 0x00000000, 0x000001A0};
@@ -64,7 +61,7 @@ int main() {
     }
     cout << "  2 / 3: Status gesetzt.\n";
 
-    Miter miter;
+    Miter miter(equalBits);
     // miter.writeDimacs("miter.dimacs");
     miter.create(&printer);
     cout << "  3 / 3: Miter definiert.\n";
@@ -75,7 +72,7 @@ int main() {
         return 0;
     }
 
-    cout << " Lösung gefunden\n";
+    cout << "Lösung gefunden\n";
     cout << "  Eingabe 1:";
     for (unsigned i = 0; i < 16; i++) {
         if (i == 8) cout << "\n            ";
@@ -86,8 +83,12 @@ int main() {
         if (i == 24) cout << "\n            ";
         printf(" %08lx", solver_readInt(solver, i * 32, 32));
     }
-    cout << "\n  Ausgabe:  ";
+    cout << "\n  Ausgabe 1:";
     for (unsigned i = 0; i < 8; i++) {
+        printf(" %08lx", solver_readInt(solver, miter.getOutput() + i * 32, 32));
+    }
+    cout << "\n  Ausgabe 2:";
+    for (unsigned i = 8; i < 16; i++) {
         printf(" %08lx", solver_readInt(solver, miter.getOutput() + i * 32, 32));
     }
     cout << "\n";

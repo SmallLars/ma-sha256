@@ -7,7 +7,7 @@
 
 class Miter : public Modul {
     public:
-        Miter();
+        Miter(unsigned bits);
         ~Miter();
 
         unsigned* getStats();
@@ -15,6 +15,8 @@ class Miter : public Modul {
         MU_TEST_H(test);
     private:
         static unsigned stats[STATS_LENGTH];
+
+        unsigned equal_bits;
 };
 
 #endif //__MITER_H__
