@@ -14,9 +14,9 @@ Server mit folgenden Eigenschaften durchgeführt:
 
 Wie auch für die Ermittlung der Klauseln in Kapitel \ref{chp:analyse} wird eine Urbildberechnung (siehe Abschnitt \ref{sec:urbildberechnung})
 für die Bewertung herangezogen. Eine annähernd sinnvolle Zeitmessung ist erst möglich, wenn mindestens neun Bits des Hash vorgegeben werden.
-Die obere Grenze liegt bei 22 Bits, bei denen die genutzte Hardware noch zuverlässig zu einer Lösung kommt. Da ein SAT-Solver während des
-Lösungsprozesses immer wieder Werte rät, kann es zufällig zu schnellen Lösungen kommen. Um ein aussagekräftiges Ergebnis zu bekommen, werden
-für neun bis 22 Bit jeweils fünf Versuche durchgeführt. Betrachtet wird auch jeweils eine Version mit und ohne XOR-Klauseln.
+Die obere Grenze liegt bei 22 Bits, bei denen die genutzte Hardware noch zuverlässig zu einer Lösung kommt. Da CryptoMiniSat in der Standardkonfiguration
+mit acht Threads während des Lösungsprozesses Werte rät, kann es zufällig zu schnellen Lösungen kommen. Um ein aussagekräftiges Ergebnis
+zu bekommen, werden für neun bis 22 Bit jeweils fünf Versuche durchgeführt. Betrachtet wird auch jeweils eine Version mit und ohne XOR-Klauseln.
 
 Um die Ergebnisse kompakt darstellen zu können, werden diese in Diagrammen dargestellt die mit der Legende in Abbildung \ref{fig:data_lengede}
 kurz erläutert werden sollen. Jede Spalte in der X-Achse stellt 5 Versuche dar, die mit der jeweils festgelegten Anzahl der Bits im Hash
