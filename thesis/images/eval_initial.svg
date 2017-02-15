@@ -87,7 +87,7 @@
  <path fill="none" stroke="rgb(0,69,134)" stroke-linejoin="round" d="M 10793,5068 L 10793,5318 11043,5318 11043,5068 10793,5068 Z"/>
  <path fill="rgb(0,69,134)" stroke="none" d="M 11628,1766 L 11628,2016 11878,2016 11878,1766 11628,1766 Z"/>
  <path fill="none" stroke="rgb(0,69,134)" stroke-linejoin="round" d="M 11628,1766 L 11628,2016 11878,2016 11878,1766 11628,1766 Z"/>
- <path fill="none" stroke="rgb(197,0,11)" stroke-width="80" stroke-linejoin="round" d="M 1739,10222 L 2573,9702 3408,8830 4242,8607 5077,10370 5911,7562 6746,6259 7581,6127 8414,6467 9249,4899 10083,3456 10918,3104"/>
+ <path fill="none" stroke="rgb(197,0,11)" stroke-width="80" stroke-linejoin="round" d="M 1739,10222 L 2573,9702 3408,8830 4242,8607 5077,10370 5911,7562 6746,6259 7581,6127 8414,6467 9249,4899 10083,3456 10918,3097 11753,4414"/>
  <path fill="rgb(197,0,11)" stroke="none" d="M 1614,10097 L 1614,10347 1864,10347 1864,10097 1614,10097 Z"/>
  <path fill="none" stroke="rgb(197,0,11)" stroke-linejoin="round" d="M 1614,10097 L 1614,10347 1864,10347 1864,10097 1614,10097 Z"/>
  <path fill="rgb(197,0,11)" stroke="none" d="M 2448,9577 L 2448,9827 2698,9827 2698,9577 2448,9577 Z"/>
@@ -110,8 +110,10 @@
  <path fill="none" stroke="rgb(197,0,11)" stroke-linejoin="round" d="M 9124,4774 L 9124,5024 9374,5024 9374,4774 9124,4774 Z"/>
  <path fill="rgb(197,0,11)" stroke="none" d="M 9958,3331 L 9958,3581 10208,3581 10208,3331 9958,3331 Z"/>
  <path fill="none" stroke="rgb(197,0,11)" stroke-linejoin="round" d="M 9958,3331 L 9958,3581 10208,3581 10208,3331 9958,3331 Z"/>
- <path fill="rgb(197,0,11)" stroke="none" d="M 10793,2979 L 10793,3229 11043,3229 11043,2979 10793,2979 Z"/>
- <path fill="none" stroke="rgb(197,0,11)" stroke-linejoin="round" d="M 10793,2979 L 10793,3229 11043,3229 11043,2979 10793,2979 Z"/>
+ <path fill="rgb(197,0,11)" stroke="none" d="M 10793,2972 L 10793,3222 11043,3222 11043,2972 10793,2972 Z"/>
+ <path fill="none" stroke="rgb(197,0,11)" stroke-linejoin="round" d="M 10793,2972 L 10793,3222 11043,3222 11043,2972 10793,2972 Z"/>
+ <path fill="rgb(197,0,11)" stroke="none" d="M 11628,4289 L 11628,4539 11878,4539 11878,4289 11628,4289 Z"/>
+ <path fill="none" stroke="rgb(197,0,11)" stroke-linejoin="round" d="M 11628,4289 L 11628,4539 11878,4539 11878,4289 11628,4289 Z"/>
  <text class="TextShape"><tspan class="TextParagraph" font-family="Arial, sans-serif" font-size="353px" font-weight="400"><tspan class="TextPosition" x="1646" y="11681"><tspan fill="rgb(33,33,33)" stroke="none">9</tspan></tspan></tspan></text>
  <text class="TextShape"><tspan class="TextParagraph" font-family="Arial, sans-serif" font-size="353px" font-weight="400"><tspan class="TextPosition" x="2388" y="11681"><tspan fill="rgb(33,33,33)" stroke="none">10</tspan></tspan></tspan></text>
  <text class="TextShape"><tspan class="TextParagraph" font-family="Arial, sans-serif" font-size="353px" font-weight="400"><tspan class="TextPosition" x="3223" y="11681"><tspan fill="rgb(33,33,33)" stroke="none">11</tspan></tspan></tspan></text>
