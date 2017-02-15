@@ -2,7 +2,7 @@
 \label{sec:cbmc}
 
 \acr{cbmc} ist ein Model Checker für C und C++ Programme. Verwendung findet \acr{cbmc} in dieser Arbeit in der Evaluation in Kapitel \ref{chp:evaluation}.
-Um einen Beweis zu führen konvertiert \acr{cbmc} Programmcode automatisch in eine konjunktive Normalform und übergibt diese an einen Sat-Solver.
+Um einen Beweis zu führen konvertiert \acr{cbmc} Programmcode automatisch in eine konjunktive Normalform und übergibt diese an einen SAT-Solver.
 Relevant sind dafür in dieser Arbeit zwei Funktionen mit denen sich ein Beweis führen lässt. Mit nondet\_uint() können ganzzahligen Variablen markiert
 werden, denen \acr{cbmc} beliebige Werte zuweisen darf. Innerhalb von assert() können Bedingungen formuliert werden, die \acr{cbmc} beweisen soll.
 

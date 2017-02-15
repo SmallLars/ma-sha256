@@ -1,9 +1,9 @@
-\section{Bedeutung für SHA256}
+\section{Bedeutung für SHA-256}
 
 Die Versuche aus Kapitel \ref{chp:bewertung} und Abschnitt \ref{sec:vergleich} zeigen, dass sich innerhalb eines Tages
-ein Urbild für einen Hash berechnen lässt, der je nach Implementierung mit 18 bis 20 festgelegten Bits beginnt. Das ist jedoch
-kein Vergleich zum Ergebnis, das sich durch reines Probieren erzielen lässt. In der Testumgebung können 720.000 Hashes pro Sekunde
-berechnet werden. Damit ist es möglich innerhalb eines Tages ein Urbild für einen Hash mit bis zu 35 festgelegten Bits zu finden.
+ein Urbild für einen \glos{hash} berechnen lässt, der je nach Implementierung mit 18 bis 20 festgelegten Bits beginnt. Das ist jedoch
+kein Vergleich zum Ergebnis, das sich durch reines Probieren erzielen lässt. In der Testumgebung können 720.000 \glospl{hash} pro Sekunde
+berechnet werden. Damit ist es möglich innerhalb eines Tages ein Urbild für einen \glos{hash} mit bis zu 35 festgelegten Bits zu finden.
 
 \subsection{Initialwertberechnung}
 Abschnitt \ref{sec:initialwertberechnung} beschreibt den Sinn einer Initialwertberechnung. Diese wird im folgenden separat
@@ -30,5 +30,5 @@ Abbildung \ref{fig:eval_kollision} zeigt das Ergebnis im Vergleich zur Urbildber
   \label{fig:eval_kollision}
 \end{figure}
 
-Es zeigt sich, dass die freie Wahl eines Hash für CryptoMiniSat keinen Vorteil darstellt. In den meisten Fällen
+Es zeigt sich, dass die freie Wahl eines \glos{hash} für CryptoMiniSat keinen Vorteil darstellt. In den meisten Fällen
 dauert eine Kollisionsberechnung länger als eine Urbildberechnung. \TODO{Grafik aktualisieren}

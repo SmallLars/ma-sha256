@@ -2,3 +2,38 @@
 \label{chp:fazit}
 
 \TODO{erledigen}
+
+erfolgreich war die kompakte cnf\\
+deutlich besser als maurer und cbmc\\
+framework hat sich bewährt, auch für des kompakte knf erzeugt\\
+link, jens erwähnen \cite{trillmann}, kommt auf 48 von 64 bit\\
+
+klauseln auf modulebene am schnellsten\\
+kombination aller möglichen minterme\\
+ist aber ein problem, weil endliche menge, bringt einen nicht weiter\\
+vielleicht in diesem fall besonders gut, weil lösung hauptsächlich durch probieren erfolgt\\
+sha256 lässt erwartungsgemäß wenig muster erkennen\\
+sat-solver findet immer direkt eine klausel zum propagieren und braucht nicht über andere gehen\\
+
+nutzen von zusätzlichem wissen eher fraglich, trotzdem ein interssanter weg,\\
+weil durch weitere zwischenergebnisse eventuell andere zusammenhänge erkannt werden können\\
+erstaunlich ist dabei der unterschied zwischen mit und ohne xor\\
+
+vergleichsweise wenig distanzklauseln haben zwar 20\% verbesserung erzielt, weg hat sich bewährt.\\
+in dieser arbeit wurde graph von modulen erstellt. allgemein graph möglich mit literalen als knoten.\\
+kanten werden zu allen literalen gezogen die mit dem einen literal zusammen in klauseln auftreten\\
+problem ist die größe des graphen. wird sehr schnell groß. hatte in dieser arbeit ca 1000 knoten. damit lässt sich effizient arbeiten\\
+
+es werden nach wie vor weitere distanzklauseln gefunden. identifikation einfach. lässt sich automatisieren.\\
+die verallgemeinerung erfolgte mit einigen hilfstools in dieser arbeit von hand. kann zukünftig automatisiert werden\\
+erfordert aber auch einen weiteren sat thread, der zur laufzeit die gültigkeit überprüft\\
+dokumentation interessant, einfach gültige hinzufügen ist intransparent, zusammenhang geht flöten, welche klauseln durch verallgemeinerung entstanden sind / zusammen gehören\\
+
+bei verallgemeinerung zu beachten: viele der distanzklauseln basieren auf carry bits. carry ripple addierer deshalb interessant.\\
+
+ergebnis im vergleich zu stumpfen probieren ineffizient\\
+kann vielleicht als basis dienen\\
+
+generell interessant als open source projekt\\
+web-projekt: gemeinsam zusätzliches wissen als klauseln sammeln\\
+kann problemlos kombiniert werden\\

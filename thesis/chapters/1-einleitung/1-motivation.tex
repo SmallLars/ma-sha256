@@ -1,26 +1,26 @@
 \section{Motivation}
 
 Während meines Studiums an der Universität Bremen habe ich einige Vorlesungen der AG Rechnerarchitektur besucht.
-In vielen der dabei durchgeführten Übungsaufgaben wurden Sat-Solver (siehe Abschnitt \ref{sec:satsolver}) eingesetzt
+In vielen der dabei durchgeführten Übungsaufgaben wurden SAT-Solver (siehe Abschnitt \ref{sec:satsolver}) eingesetzt
 um eine Lösung für ein Problem zu finden. Im Fokus der Aufgaben stand die Kodierung eines Problems in ein für die
 SAT-Solver geeignetes Format und die Auswertung der Lösung. Naturgemäß sind die Probleme der Übungsaufgaben keine
 echte Herausforderung für einen SAT-Solver und innerhalb kürzester Zeit lösbar, selbst wenn die Kodierung nicht optimal
-ist. Das hat mein Interesse geweckt mich mit "`richtigen"' Problemen zu beschäftigen und die Grenzen der Sat-Solver
+ist. Das hat mein Interesse geweckt mich mit "`richtigen"' Problemen zu beschäftigen und die Grenzen der SAT-Solver
 zu erkunden.
 
 Durch einige Vorlesungen der AG Rechnernetze und das dort absolvierte Bachelor/Master-Projekt zeigten sich Hash-Algorithmen
-als ein interessantes Problem. Diese zeichnen sich dadurch aus, dass die Berechnung eines Hash zwar einfach, aber nicht
-umkehrbar ist. Verwendet werden sie in vielen sicherheitskritischen Umgebungen, in denen der Hash als eine Art Fingerabdruck
+als ein interessantes Problem. Diese zeichnen sich dadurch aus, dass die Berechnung eines \glos{hash} zwar einfach, aber nicht
+umkehrbar ist. Verwendet werden sie in vielen sicherheitskritischen Umgebungen, in denen der \glos{hash} als eine Art Fingerabdruck
 von Daten genutzt wird, um eine Manipulation auszuschließen. Dazu gehört auch die digitale Währung "`Bitcoin"' (siehe Abschnitt
 \ref{sec:bitcoin}), in der sich durch "`Mining"' Geld verdienen lässt. Mining bedeutet in diesem Fall so lange Fingerabdrücke
 zu erzeugen, bis ein für das System passender Fingerabdruck dabei herauskommt. Eine Umkehrung der Berechnung würde diesen
 Prozess wesentlich einfacher machen.
 
 Andere Arbeiten zu diesem Thema (siehe Abschnitt Abschnitt \ref{sec:otherwork}) haben bereits einen Versuch unternommen,
-Hash-Berechnungen mit Sat-Solvern umzukehren. Diese Arbeiten beschränken sich jedoch darauf, eine mehr oder weniger optimierte
-Eingabe für Sat-Solver zu erzeugen und diese mit verschiedenen Sat-Solvern zu testen. Im besten Fall werden außerdem noch
-einige Versuche zu unternommen, die optimalen Einstellungen spezifischer Sat-Solver zu ermitteln.
+Hash-Berechnungen mit SAT-Solvern umzukehren. Diese Arbeiten beschränken sich jedoch darauf, eine mehr oder weniger optimierte
+Eingabe für SAT-Solver zu erzeugen und diese mit verschiedenen SAT-Solvern zu testen. Im besten Fall werden außerdem noch
+einige Versuche zu unternommen, die optimalen Einstellungen spezifischer SAT-Solver zu ermitteln.
 
-An diesem Punkt setzt die Arbeit an und geht einen Schritt weiter. Während eines Lösungsversuch erwerben Sat-Solver zusätzliches
+An diesem Punkt setzt die Arbeit an und geht einen Schritt weiter. Während eines Lösungsversuch erwerben SAT-Solver zusätzliches
 Wissen über das gestellte Problem. Im Allgemeinen wird dieses Wissen bei Programmende verworfen. In diesem Fall wird das Wissen
 analysiert und von Anfang an in weitere Lösungsversuche integriert.

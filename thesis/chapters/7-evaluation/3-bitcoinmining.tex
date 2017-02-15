@@ -34,9 +34,9 @@ repräsentiert werden. Es hat sich gezeigt, dass CryptoMiniSat innerhalb jeder V
 und die Dauer nur wenig variierte. Die angegebene Dauer ist der arithmetische Mittelwert. Die letzte Spalte enthält die Anzahl der
 führenden Nullen die tatsächlich erreicht wurden. Da ein SAT-Solver die nicht festgelegten Stellen frei belegen kann, ist es möglich,
 dass das Ergebnis mehr führende Nullen hat als gefordert. Dies ist jedoch zufällig und nur zur Vollständigkeit mit aufgeführt.
-In annähernd zehn Minuten ist es somit möglich eine Nonce für einen Hash mit bis zu 13 führenden Nullen zu ermitteln.
+In annähernd zehn Minuten ist es somit möglich eine Nonce für einen \glos{hash} mit bis zu 13 führenden Nullen zu ermitteln.
 
-Da die aktuellen Blöcke einen Hash mit mindestens 68 führenden Nullen erfordern, zeigt dieser Versuch, dass SAT-Solving sich
-derzeit nicht für den Einsatz in Bitcoin-Minern eignet. Betrachtet werden muss auch, dass in der Testumgebung 720.000 Hashes pro Sekunde
-berechnet werden können. Damit kann alleine durch Probieren in zehn Minuten eine gültige Nonce für einen Hash mit 27 führenden
+Da die aktuellen Blöcke einen \glos{hash} mit mindestens 68 führenden Nullen erfordern, zeigt dieser Versuch, dass SAT-Solving sich
+derzeit nicht für den Einsatz in Bitcoin-Minern eignet. Betrachtet werden muss auch, dass in der Testumgebung 720.000 \glospl{hash} pro Sekunde
+berechnet werden können. Damit kann alleine durch Probieren in zehn Minuten eine gültige Nonce für einen \glos{hash} mit 27 führenden
 Nullen ermittelt werden.
