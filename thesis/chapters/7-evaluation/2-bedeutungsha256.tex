@@ -21,5 +21,14 @@ Während die Urbildbrechnung insgesamt 105 Stunden benötigt hat, wurde die Init
 abgeschlossen. Mit drei Ausnahmen war die Initialwertberechnung in allen Fällen schneller als die Urbildberechnung.
 
 \subsection{Kollisionsberechnung}
+Abschließend wird die in Abschnitt \ref{sec:kollisionsberechnung} beschriebene Kollisionsberechnung durchgeführt.
+Abbildung \ref{fig:eval_kollision} zeigt das Ergebnis im Vergleich zur Urbildberechnung.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.55]{images/eval_kollision}
+  \caption{Evaluation - Kollisionsberechnung}
+  \label{fig:eval_kollision}
+\end{figure}
 
-Abschnitt \ref{sec:kollisionsberechnung}
+Es zeigt sich, dass die freie Wahl eines Hash für CryptoMiniSat keinen Vorteil darstellt. In den meisten Fällen
+dauert eine Kollisionsberechnung länger als eine Urbildberechnung. \TODO{Grafik aktualisieren}
