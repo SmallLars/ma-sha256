@@ -116,7 +116,7 @@
  <path fill="none" stroke="rgb(197,0,11)" stroke-linejoin="round" d="M 12935,5402 L 12935,5576 13109,5576 13109,5402 12935,5402 Z"/>
  <path fill="rgb(197,0,11)" stroke="none" d="M 13948,2266 L 13948,2440 14122,2440 14122,2266 13948,2266 Z"/>
  <path fill="none" stroke="rgb(197,0,11)" stroke-linejoin="round" d="M 13948,2266 L 13948,2440 14122,2440 14122,2266 13948,2266 Z"/>
- <path fill="none" stroke="rgb(255,211,32)" stroke-width="80" stroke-linejoin="round" d="M 1882,9571 L 2894,8313 3907,8963 4920,6676 5933,6756 6946,7721 7959,6906 8971,3974 9983,3230 10996,3760 12009,1172"/>
+ <path fill="none" stroke="rgb(255,211,32)" stroke-width="80" stroke-linejoin="round" d="M 1882,9571 L 2894,8313 3907,8963 4920,6676 5933,6756 6946,7721 7959,6906 8971,3974 9983,3230 10996,3760 12009,1172 13022,1282"/>
  <path fill="rgb(255,211,32)" stroke="none" d="M 1757,9446 L 1757,9696 2007,9696 2007,9446 1757,9446 Z"/>
  <path fill="none" stroke="rgb(255,211,32)" stroke-linejoin="round" d="M 1757,9446 L 1757,9696 2007,9696 2007,9446 1757,9446 Z"/>
  <path fill="rgb(255,211,32)" stroke="none" d="M 2769,8188 L 2769,8438 3019,8438 3019,8188 2769,8188 Z"/>
@@ -139,7 +139,9 @@
  <path fill="none" stroke="rgb(255,211,32)" stroke-linejoin="round" d="M 10871,3635 L 10871,3885 11121,3885 11121,3635 10871,3635 Z"/>
  <path fill="rgb(255,211,32)" stroke="none" d="M 11884,1047 L 11884,1297 12134,1297 12134,1047 11884,1047 Z"/>
  <path fill="none" stroke="rgb(255,211,32)" stroke-linejoin="round" d="M 11884,1047 L 11884,1297 12134,1297 12134,1047 11884,1047 Z"/>
- <path fill="none" stroke="rgb(87,157,28)" stroke-width="80" stroke-linejoin="round" d="M 1882,6636 L 2894,6484 3907,6526 4920,6723 5933,6252 6946,5812 7959,3747 8971,5163 9983,3832 10996,5668 12009,4249 13022,2929 14035,1067"/>
+ <path fill="rgb(255,211,32)" stroke="none" d="M 12897,1157 L 12897,1407 13147,1407 13147,1157 12897,1157 Z"/>
+ <path fill="none" stroke="rgb(255,211,32)" stroke-linejoin="round" d="M 12897,1157 L 12897,1407 13147,1407 13147,1157 12897,1157 Z"/>
+ <path fill="none" stroke="rgb(87,157,28)" stroke-width="80" stroke-linejoin="round" d="M 1882,6636 L 2894,6484 3907,6526 4920,6723 5933,6252 6946,5812 7959,3747 8971,5163 9983,3832 10996,5668 12009,4249 13022,2929 14035,1063"/>
  <path fill="rgb(87,157,28)" stroke="none" d="M 1757,6511 L 1757,6761 2007,6761 2007,6511 1757,6511 Z"/>
  <path fill="none" stroke="rgb(87,157,28)" stroke-linejoin="round" d="M 1757,6511 L 1757,6761 2007,6761 2007,6511 1757,6511 Z"/>
  <path fill="rgb(87,157,28)" stroke="none" d="M 2769,6359 L 2769,6609 3019,6609 3019,6359 2769,6359 Z"/>
@@ -164,8 +166,8 @@
  <path fill="none" stroke="rgb(87,157,28)" stroke-linejoin="round" d="M 11884,4124 L 11884,4374 12134,4374 12134,4124 11884,4124 Z"/>
  <path fill="rgb(87,157,28)" stroke="none" d="M 12897,2804 L 12897,3054 13147,3054 13147,2804 12897,2804 Z"/>
  <path fill="none" stroke="rgb(87,157,28)" stroke-linejoin="round" d="M 12897,2804 L 12897,3054 13147,3054 13147,2804 12897,2804 Z"/>
- <path fill="rgb(87,157,28)" stroke="none" d="M 13910,942 L 13910,1192 14160,1192 14160,942 13910,942 Z"/>
- <path fill="none" stroke="rgb(87,157,28)" stroke-linejoin="round" d="M 13910,942 L 13910,1192 14160,1192 14160,942 13910,942 Z"/>
+ <path fill="rgb(87,157,28)" stroke="none" d="M 13910,938 L 13910,1188 14160,1188 14160,938 13910,938 Z"/>
+ <path fill="none" stroke="rgb(87,157,28)" stroke-linejoin="round" d="M 13910,938 L 13910,1188 14160,1188 14160,938 13910,938 Z"/>
  <text class="TextShape"><tspan class="TextParagraph" font-family="Arial, sans-serif" font-size="353px" font-weight="400"><tspan class="TextPosition" x="1789" y="11681"><tspan fill="rgb(33,33,33)" stroke="none">9</tspan></tspan></tspan></text>
  <text class="TextShape"><tspan class="TextParagraph" font-family="Arial, sans-serif" font-size="353px" font-weight="400"><tspan class="TextPosition" x="2709" y="11681"><tspan fill="rgb(33,33,33)" stroke="none">10</tspan></tspan></tspan></text>
  <text class="TextShape"><tspan class="TextParagraph" font-family="Arial, sans-serif" font-size="353px" font-weight="400"><tspan class="TextPosition" x="3722" y="11681"><tspan fill="rgb(33,33,33)" stroke="none">11</tspan></tspan></tspan></text>
