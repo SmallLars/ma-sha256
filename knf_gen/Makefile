@@ -52,7 +52,7 @@ clobber: clean
 cryptominisat/lib/libcryptominisat4.so:
 	tar xjf cryptominisat-$(SOLVERVERSION).tar.bz2
 	mkdir cryptominisat
-	cd cryptominisat;cmake -DSTATS=1 ../cryptominisat4-$(SOLVERVERSION)
+	cd cryptominisat;cmake ../cryptominisat4-$(SOLVERVERSION)
 	cd cryptominisat;make -j8
 
 startsql:
