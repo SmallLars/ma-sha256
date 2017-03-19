@@ -35,16 +35,14 @@ void ModulGraph::newModul(unsigned level, const char* name, Modul* modul) {
     Node& node = module.back();
     node.name = name;
     for (unsigned i = 0; i < modul->getInputs().size(); i++) {
-        for (list<Node>::iterator it = module.begin() ; it != module.end(); ++it) {
-            if (it->output == modul->getInputs()[i]) {
-                it->usage.push_back(&node);
-                node.inputs.push_back(&*it);
-                break;
-            }
+        Node* in = varToNode[modul->getInputs()[i]];
+        if (in == NULL) {
+            std::cout << "ALERT: Wasn't able to find all inputs.\n";
+            continue;
         }
-    }
-    if (node.inputs.size() != modul->getInputs().size()) {
-        std::cout << "ALERT: Wasn't able to find all inputs.\n";
+
+        in->usage.push_back(&node);
+        node.inputs.push_back(in);
     }
     node.intern = modul->getStart();
     node.internCount = modul->getAdditionalVarCount() - modul->getOutputNum();

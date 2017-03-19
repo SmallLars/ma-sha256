@@ -1,5 +1,7 @@
 \section*{\abstractname}
 
-Diese Arbeit zeigt einige Anpassungen von DTLS für den Einsatz in eingeschränkten Umgebungen auf.
-In der Evaluation werden diese bewertet, wobei sich zeigt, dass nicht alle Anpassungen optimal sind.
-Für diese Fälle werden mögliche Lösungen aufgezeigt, die jedoch nicht praktisch umgesetzt wurden.
+In diese Arbeit wird eine konjunktive Normalform für den Hash-Algorithmus \glos{sha256} erstellt und für
+die Analyse mit CryptoMiniSat genutzt. Die Analyse erfolgt iterativ. Nach einem Lösungsversuch werden
+gelernte Klauseln extrahiert und den betreffenden Bereichen von \glos{sha256} zugeordnet um sie im nächsten
+Lösungsversuch direkt mit zu verwenden. Es zeigt sich, dass dadurch der Lösungsprozess beschleunigt
+werden kann, ein praktisch relevanter Angriff jedoch nicht möglich ist.

@@ -1,13 +1,63 @@
-\chapter{Bewertung der gelernten Klauseln}
+\chapter{Bewertung der zusätzlichen Klauseln}
 \label{chp:bewertung}
 
-mehre versuche mit unterschiedlichen klauselmengen. jeweils 3 bis 10 ?\\
-erfassung der statistik wie in der analyse\\
-grundlage für vergleich bietet nächster anbschnitt
+Die erhaltenen Klauseln aus Kapitel \ref{chp:analyse} werden in diesem Abschnitt darauf überprüft,
+ob und wie sehr sie den Lösungsprozess beschleunigen oder ausbremsen. Die Berechnungen wird auf einem
+Server mit folgenden Eigenschaften durchgeführt:
+\begin{itemize}
+  \item Fedora 22
+  \item 2 x Intel(R) Xeon(R) CPU E3-1240 V2 (3.40GHz)
+  \item 2 x 4 Kerne (8 Threads)
+  \item 32Gb RAM
+  \item 16Gb Auslagerungsdatei
+\end{itemize}
 
-\input{chapters/6-bewertung/1-ohne-zusatz.tex}
-\input{chapters/6-bewertung/2-vollstaendig.tex}
-\input{chapters/6-bewertung/3-nur-module.tex}
-\input{chapters/6-bewertung/4-nur-distanz.tex}
+Wie auch für die Ermittlung der Klauseln in Kapitel \ref{chp:analyse} wird eine Urbildberechnung (siehe Abschnitt \ref{sec:urbildberechnung})
+für die Bewertung herangezogen. Eine annähernd sinnvolle Zeitmessung ist erst möglich, wenn mindestens neun Bits des \glos{hash} vorgegeben werden.
+Die obere Grenze liegt bei 22 Bits, bei denen die genutzte Hardware noch zuverlässig zu einer Lösung kommt. Da CryptoMiniSat in der Standardkonfiguration
+mit acht Threads während des Lösungsprozesses Werte rät, kann es zufällig zu schnellen Lösungen kommen. Um ein aussagekräftiges Ergebnis
+zu bekommen, werden für neun bis 22 Bit jeweils fünf Versuche durchgeführt. Betrachtet wird auch jeweils eine Version mit und ohne XOR-Klauseln.
+
+Um die Ergebnisse kompakt darstellen zu können, werden diese in Diagrammen dargestellt die mit der Legende in Abbildung \ref{fig:data_lengede}
+kurz erläutert werden sollen. Jede Spalte in der X-Achse stellt 5 Versuche dar, die mit der jeweils festgelegten Anzahl der Bits im \glos{hash}
+durchgeführt wurden. Die linke Y-Achse repräsentiert die Dauer in Sekunden. Da die Dauert im Bezug zu der Anzahl der vorgegebenen Bits exponentiell
+wächst, ist die Y-Achse logarithmisch skaliert. Die grünen Balken zeigen, in welchem Bereich die Ergebnisse der fünf Versuche liegen, wobei
+der blaue Punkt das arithmetische Mittel darstellt. Die rechte Y-Achse stellt die Anzahl der unterschiedlichen Ergebnisse dar, die durch die
+roten Punkte markiert werden. Dieser gibt somit einen Hinweis, wie viel Raten und somit Zufall bei der Lösung im Spiel war. Kommt CryptoMiniSat
+bei allen fünf Versuchen zum selben Ergebnis, haben die Heuristiken gut Funktioniert und es musste wenig geraten werden. Das spiegelt sich auch
+darin wieder, dass die Dauer der fünf Versuche sich wenig unterscheidet.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.55]{images/data_legend}
+  \caption{Legende}
+  \label{fig:data_lengede}
+\end{figure}
+
+Als Vergleichsbasis dient die konjunktive Normalform aus Kapitel \ref{chp:knf} ohne zusätzliche Klauseln. Die Ergebnisse sind in
+Abbildung \ref{fig:data_base} dargestellt. Es zeigt sich, dass die XOR-Variante insgesamt ein wenig schneller ist. Auffällig ist,
+dass die Zeit für die Variante ohne XOR sich im Bereich von 11 bis 15 Bit nur verdoppelt und bei 16 Bit ein Sprung erfolgt. In
+diesem Bereich hat die XOR-Variante einen Nachteil. Bezüglich der Anzahl der unterschiedlichen Ergebnisse gibt es keine relevanten
+Unterschiede.
+\begin{figure}[!h]
+  \centering
+  \begin{minipage}[t]{0.45\textwidth}
+  \begin{flushleft}Gesamtdauer ohne XOR: 194:27:41\end{flushleft}
+  \includegraphics[scale=0.55]{images/data_base_knf}
+  \end{minipage}
+  \begin{minipage}[t]{0.09\textwidth}
+  ~~
+  \end{minipage}
+  \begin{minipage}[t]{0.45\textwidth}
+  \begin{flushleft}Gesamtdauer mit XOR: 169:24:12\end{flushleft}
+  \includegraphics[scale=0.55]{images/data_base_xor}
+  \end{minipage}
+  \caption{Vergleichsbasis}
+  \label{fig:data_base}
+\end{figure}
+
+\input{chapters/6-bewertung/1-nur-module.tex}
+\input{chapters/6-bewertung/2-nur-distanz.tex}
+\input{chapters/6-bewertung/3-nur-234add.tex}
+\input{chapters/6-bewertung/4-nur-knowledge.tex}
 \input{chapters/6-bewertung/5-ohne-234add.tex}
 \input{chapters/6-bewertung/6-vergleich.tex}

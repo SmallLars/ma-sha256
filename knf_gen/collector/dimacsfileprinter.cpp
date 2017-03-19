@@ -27,7 +27,7 @@ void DimacsFilePrinter::create(bool xOR, const vector<Lit>& vars) {
 #endif
 
     if (xOR) {
-        getStream() << (vars[0].sign() ? "x" : "x-");
+        getStream() << (vars[0].sign() ? "x-" : "x");
         for (unsigned i = 0; i < vars.size(); i++) getStream() << (vars[i].var() + 1) << " ";
         getStream() << "0\n";
         return;

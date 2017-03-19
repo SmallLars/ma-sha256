@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+     version="1.1" baseProfile="full"
+     width="420" height="295" viewBox="15 -10 420 295">
+
+  <title>Kern Single</title>
+
+  <defs>
+    <polygon id="pfeil" points="-5,-5 5,0 -5,5" style="stroke:black;stroke-width:3;fill:black" />
+
+    <g id="struktur">
+      <rect x="25" y="0" width="400" height="50" style="fill:lightgreen;stroke-width:2;stroke:black" />
+      <text x="225" y="32" text-anchor="middle" style="font-family: Arial; font-size: 20px;">letzter Block, Transaktionen, ..., Nonce</text>
+
+      <line x1="225" y1="50" x2="225" y2="75" style="stroke:black;stroke-width:2" />
+      <use xlink:href="#pfeil" transform="translate(225, 62) rotate(90)"/>
+
+      <rect x="25" y="75" width="400" height="50" style="fill:lightblue;stroke-width:2;stroke:black" />
+      <text x="225" y="108" text-anchor="middle" style="font-family: Arial; font-size: 20px;">SHA256</text>
+
+      <line x1="225" y1="125" x2="225" y2="150" style="stroke:black;stroke-width:2" />
+      <use xlink:href="#pfeil" transform="translate(225, 137) rotate(90)"/>
+
+      <rect x="25" y="150" width="400" height="50" style="fill:lightblue;stroke-width:2;stroke:black" />
+      <text x="225" y="183" text-anchor="middle" style="font-family: Arial; font-size: 20px;">SHA256</text>
+
+      <line x1="225" y1="200" x2="225" y2="225" style="stroke:black;stroke-width:2" />
+      <use xlink:href="#pfeil" transform="translate(225, 212) rotate(90)"/>
+
+      <rect x="25" y="225" width="400" height="50" style="fill:khaki;stroke-width:2;stroke:black" />
+      <text x="225" y="257" text-anchor="middle" style="font-family: Arial; font-size: 20px;">000...</text>
+    </g>
+  </defs>
+
+  <use x="0" y="0" xlink:href="#struktur"/>
+</svg>

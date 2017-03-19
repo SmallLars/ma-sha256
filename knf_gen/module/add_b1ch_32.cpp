@@ -1,7 +1,7 @@
 #include "add_b1ch_32.h"
 
 #include "bsig1_32.h"
-#include "ch_32.h"
+#include "choose_32.h"
 #include "add_32.h"
 #include "clausecreator.h"
 
@@ -14,7 +14,7 @@ unsigned Add_B1Ch_32::stats[STATS_LENGTH];
 
 Add_B1Ch_32::Add_B1Ch_32() : Modul(32, 3, 1) {
     Bsig1_32 bsig1;
-    Ch_32 ch;
+    Choose_32 ch;
     Add_32 adder;
     output = start + bsig1.getAdditionalVarCount() + ch.getAdditionalVarCount() + adder.getAdditionalVarCount() - 32;
 }
@@ -44,7 +44,7 @@ void Add_B1Ch_32::create(Collector* collector) {
     subinputs.push_back(inputs[0]);
     subinputs.push_back(inputs[1]);
     subinputs.push_back(inputs[2]);
-    Ch_32 ch;
+    Choose_32 ch;
     ch.setInputs(subinputs);
     ch.setStart(start + newvars);
     ch.create(collector);

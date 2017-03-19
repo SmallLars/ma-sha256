@@ -1,5 +1,9 @@
 #include "add_full_1.h"
 
+#include <stdio.h>
+#include <fstream>
+#include <stdlib.h>
+
 #include "clausecreator.h"
 
 #include "../common/solvertools.h"
@@ -35,7 +39,7 @@ void Add_Full_1::create(Collector* collector) {
     cc.printClause(5,     0,  CC_DC,         1,     CC_DC,         1);
     cc.printClause(5,     0,  CC_DC,     CC_DC,         1,         1);
 
-    // XOR ->          !s_out       a_in       b_in       c_in
+    // XOR ->             s_out   =   a_in   ^   b_in   ^   c_in
     createXOR(collector, output, inputs[0], inputs[1], inputs[2]);
 
     #ifdef ADDITIONAL_CLAUSES
@@ -109,6 +113,18 @@ MU_TEST_C(Add_Full_1::test) {
                 mu_assert(ret == l_True, "FullAdder UNSAT");
                 mu_assert(((ausgabe >> 1) & 0x1) == solver_readInt(solver, 3, 1), "FullAdder Carry failed");
                 mu_assert(((ausgabe >> 0) & 0x1) == solver_readInt(solver, 4, 1), "FullAdder Result failed");
+
+                adder.writeDimacs("add_full_1.dimacs");
+                std::ofstream outputFile("add_full_1.dimacs", std::ofstream::app);
+                if (a == 0) outputFile << "-"; outputFile << "1 0\n";
+                if (b == 0) outputFile << "-"; outputFile << "2 0\n";
+                if (c == 0) outputFile << "-"; outputFile << "3 0\n";
+                if (solver_readInt(solver, 3, 1) == 0) outputFile << "-"; outputFile << "4 0\n";
+                if (solver_readInt(solver, 4, 1) == 0) outputFile << "-"; outputFile << "5 0\n";
+                outputFile.close();
+                int status = system("./cryptominisat/cryptominisat4 add_full_1.dimacs > /dev/null");
+                remove("add_full_1.dimacs");
+                mu_assert(WEXITSTATUS(status) == 10, "FullAdder wrong DIMACS");
             }
         }
     }

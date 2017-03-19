@@ -1,8 +1,59 @@
 \section{Majority (MAJ)}
 \label{sec:knf:maj}
 
-\TODO{erledigen}
+Die Majority-Funktion ist ähnlich aufgebaut wie die Choose-Funktion und enthält ein AND-Gatter mehr. Für die auf den Gattern basierte Lösung sind somit drei zusätzliche
+Literale notwendig. Anstatt vier werden sieben Literale benötigt. Für die AND-Gatter werden jeweils drei Klauseln benötigt. Für die XOR- bzw. OR-Funktion wird jeweils
+ein Gatter mit drei Eingängen herangezogen um zumindest hier ein zusätzliches Literals zu vermeiden. Das XOR-Gatter benötigt eine XOR-Klausel oder acht normale Klauseln
+während das OR-Gatter vier Klauseln benötigt. Je nach Realisierung ergeben sich damit siebzehn, dreizehn oder zehn Klauseln.
 
-espresso hat gute lösung\\
-wahrheitstabelle\\
-warum reichen die klauseln?
+Gegenübergestellt wird die Lösung von eqntott und Espresso die sich aus der boolschen Gleichung in Abbildung \ref{fig:majority_eqn} ergibt.
+\begin{figure}[!h]
+  \centering
+  \begin{lstlisting}[]
+  NAME = MAJ;
+  INORDER = r_out a_in b_in c_in;
+  OUTORDER = z;
+
+  z = eq(r_out, xor(xor(a_in & b_in, a_in & c_in), b_in & c_in));
+  \end{lstlisting}
+  \caption{Majority - Gleichung}
+  \label{fig:majority_eqn}
+\end{figure}
+
+Die ermittelte konjunktive Normalform ist in Abbildung \ref{fig:majority_cnf} aufgeführt.
+Sechs Klauseln reichen aus um die Majority-Funktion zu beschreiben.
+\begin{figure}[!h]
+  \centering
+  \begin{minipage}[l]{2cm}
+    $ (r \vee \overline{a} \vee \overline{b}) ~ \wedge $\\
+    $ (\overline{r} \vee a \vee b) ~ \wedge $\\
+    $ (r \vee \overline{a} \vee \overline{c}) ~ \wedge $\\
+    $ (r \vee \overline{b} \vee \overline{c}) ~ \wedge $\\
+    $ (\overline{r} \vee a \vee c) ~ \wedge $\\
+    $ (\overline{r} \vee b \vee c) $
+  \end{minipage}
+  \caption{Majority - Konjuktive Normalform}
+  \label{fig:majority_cnf}
+\end{figure}
+
+In Tabelle \ref{fig:majority_literalclausecount} sind die unterschiedlichen Lösungen gegenübergestellt.
+Genau wie die Choose-Funktion wird die Majority-Funktion bitweise auf einer 32 Bit breiten Binärzahl angewendet. Jedes Bit der Eingabe wird dabei nur einmal genutzt.
+Die einzelnen Berechnungen sind somit unabhängig wodurch sich die Gesamtanzahl der Literale und Klauseln aus der Multiplikation mit 32 ergibt.
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{l|r|r}
+    \hiderowcolors
+    \textbf{Lösung}        & \textbf{Majority} & \textbf{Gesamt} \\
+    \hline
+    \showrowcolors
+    Gatter                 &  7 -  17 & 224 - 544 \\
+    Gatter mit OR          &  7 -  13 & 224 - 416 \\
+    Gatter mit XOR         &  7 -  10 & 224 - 320 \\
+    eqntott \& Espresso    &  4 - ~~6 & 128 - 192 \\
+  \end{tabular}
+  \caption{Majority - Literale und Klauseln}
+  \label{fig:majority_literalclausecount}
+\end{table}
+
+Auch dieses Ergebnis zeigt, dass es nicht notwendig ist, unterschiedliche Lösungen bereitzustellen.
+Egal ob eine XOR-Unterstützung gegeben ist oder nicht, ist die von eqntott und Espresso ermittelte Lösung optimal und wird implementiert.

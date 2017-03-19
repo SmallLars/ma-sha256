@@ -83,6 +83,7 @@ ModulEntry* ModulDB::isInSingleModul(vector<Lit>& clause) {
         if (isInside) {
             if (deepcheck || strcmp(module[m].name, "Add_32")) return &module[m];
 
+            // Es ist ein Addierer: Versuch die Klausel einem Halb-, Voll- oder Final-Addierer zuzuordnen
             deepcheck = true;
             m = 0;
             continue;

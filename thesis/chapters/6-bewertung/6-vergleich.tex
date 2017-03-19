@@ -1,3 +1,11 @@
 \section{Vergleich der Resultate}
 
-\TODO{erledigen}
+In allen Tests hat die XOR-Variante besser abgeschnitten als die Variante ohne XOR-Klauseln. Im Folgenden wird deshalb nur noch die XOR-Variante betrachtet.
+Das beste Ergebnis haben die modulspezifischen Klauseln mit einer Reduktion der Testlaufzeit um fast 60\% erzielt. Auch die Distanzklauseln und das zusätzliche
+Wissen haben die Testlaufzeit um 20\% bzw. 40\% reduziert. Negativ haben sich nur die zusätzlichen Addiererklauseln ausgewirkt. Die Vereinigung der positiv
+getestet Klauseln hat nur eine Reduktion der Testlaufzeit um 20\% ergeben und konnte damit nicht an die 60\% der modulspezifischen Klauseln anknüpfen. Das ist
+deshalb ein Problem, weil die modulspezifischen Klauseln mehr oder weniger "`abgeschlossen"' sind. Selbst wenn es in dieser Arbeit nicht gelungen ist, die
+optimale "`vollständige"' Klauselmenge für die Module zu finden, ist diese doch begrenzt. Anders ist dies insbesondere bei den Distanzklauseln, da bei diesen
+noch die Möglichkeit besteht viele weitere Klauseln zu ermitteln. Aus diesem Grund wird die Klauselmenge aus Abschnitt \ref{sec:test_beste} für die Evaluation
+in Kapitel \ref{chp:evaluation} herangezogen. Gelingt es dieser Klauselmenge gegen andere Implementierungen zu bestehen, ist eine weitere Suche nach
+Distanzklauseln möglicherweise sinnvoll.

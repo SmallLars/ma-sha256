@@ -70,6 +70,20 @@ void Add_Ssig_32::create(Collector* collector) {
     cc.printClause(5,          1,      CC_DC,          0,             0,              0);
     cc.printClause(5,      CC_DC,          1,          0,             0,              0);
 #endif
+
+    // inputs[0]     inputs[1]
+    //   1 - 32       33 - 64
+    //     |             |
+    //   ssig0         ssig1
+    //   start      start + 32
+    //  65 - 96      97 - 128
+    //     |            |
+    //           add
+    //       start +  64
+    //        129 - 159
+    //         output
+    //        160 - 191
+
 }
 
 MU_TEST_C(Add_Ssig_32::test) {

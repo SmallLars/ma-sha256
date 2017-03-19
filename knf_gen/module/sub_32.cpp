@@ -26,10 +26,10 @@ void Sub_32::create(Collector* collector) {
 
     // Half subber
 #ifdef XOR_SUPPORT
-    // XOR ->          !d_out       a_in       b_in
+    // XOR ->             d_out   =   a_in   ^   b_in
     createXOR(collector, output, inputs[0], inputs[1]);
 
-    // AND ->          c_out   d_out       b_in
+    // AND ->            c_out = d_out   &   b_in
     createAND(collector, start, output, inputs[1]);
 #else
     //                 d_out  c_out       a_in       b_in

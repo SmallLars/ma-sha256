@@ -52,12 +52,12 @@ int main(int argc, const char* argv[]) {
     sha256.create(&printer);
 
     if (argc == 1) {
-        printer.printGraph("sha256.graph");
+        printer.printGraph("sha256.dot");
     } else {
         DimacsParser dp(argv[1]);
         vector<Lit> learned;
         dp.getNextClause(learned);
-        printer.printGraph("sha256.graph", learned);
+        printer.printGraph("sha256.dot", learned);
     }
 
     return 0;

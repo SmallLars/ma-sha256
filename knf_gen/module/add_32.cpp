@@ -2,16 +2,16 @@
 
 #include "add_half_1.h"
 #include "add_full_1.h"
-#include "add_last_1.h"
+#include "add_modx_1.h"
 #include "add_half_2.h"
 #include "add_full_2.h"
-#include "add_last_2.h"
+#include "add_modx_2.h"
 #include "add_half_3.h"
 #include "add_full_3.h"
-#include "add_last_3.h"
+#include "add_modx_3.h"
 #include "add_half_4.h"
 #include "add_full_4.h"
-#include "add_last_4.h"
+#include "add_modx_4.h"
 #include "clausecreator.h"
 
 #include "../common/solvertools.h"
@@ -26,16 +26,16 @@ Add_32::Add_32() : Modul(32, 2, 1) {
 
     { Add_Half_1 adder; adder.getMaxVar(); }
     { Add_Full_1 adder; adder.getMaxVar(); }
-    { Add_Last_1 adder; adder.getMaxVar(); }
+    { Add_ModX_1 adder; adder.getMaxVar(); }
     { Add_Half_2 adder; adder.getMaxVar(); }
     { Add_Full_2 adder; adder.getMaxVar(); }
-    { Add_Last_2 adder; adder.getMaxVar(); }
+    { Add_ModX_2 adder; adder.getMaxVar(); }
     { Add_Half_3 adder; adder.getMaxVar(); }
     { Add_Full_3 adder; adder.getMaxVar(); }
-    { Add_Last_3 adder; adder.getMaxVar(); }
+    { Add_ModX_3 adder; adder.getMaxVar(); }
     { Add_Half_4 adder; adder.getMaxVar(); }
     { Add_Full_4 adder; adder.getMaxVar(); }
-    { Add_Last_4 adder; adder.getMaxVar(); }
+    { Add_ModX_4 adder; adder.getMaxVar(); }
 }
 
 Add_32::~Add_32() {
@@ -73,17 +73,18 @@ void Add_32::create(Collector* collector) {
         add_full_1.create(collector);
     }
 
-    // Last adder
+    // ModX adder
     subinputs.clear();
     subinputs.push_back(inputs[0] + 31);
     subinputs.push_back(inputs[1] + 31);
     subinputs.push_back(start + 30);
-    Add_Last_1 add_last_1;
-    add_last_1.setInputs(subinputs);
-    add_last_1.setOutput(output + 31);
-    add_last_1.create(collector);
+    Add_ModX_1 add_modx_1;
+    add_modx_1.setInputs(subinputs);
+    add_modx_1.setOutput(output + 31);
+    add_modx_1.create(collector);
 
-#ifdef ADDITIONAL_CLAUSES
+#if false
+//#ifdef ADDITIONAL_CLAUSES
     // Half adder 2
     subinputs.clear();
     subinputs.push_back(inputs[0]);
@@ -107,15 +108,15 @@ void Add_32::create(Collector* collector) {
         add_full.create(collector);
     }
 
-    // Last adder 2
+    // ModX adder 2
     subinputs.clear();
     subinputs.push_back(inputs[0] + 30);
     subinputs.push_back(inputs[1] + 30);
     subinputs.push_back(start + 29);
-    Add_Last_2 add_last_2;
-    add_last_2.setInputs(subinputs);
-    add_last_2.setOutput(output + 30);
-    add_last_2.create(collector);
+    Add_ModX_2 add_modx_2;
+    add_modx_2.setInputs(subinputs);
+    add_modx_2.setOutput(output + 30);
+    add_modx_2.create(collector);
 
     // Half adder 3
     subinputs.clear();
@@ -140,15 +141,15 @@ void Add_32::create(Collector* collector) {
         add_full.create(collector);
     }
 
-    // Last adder 3
+    // ModX adder 3
     subinputs.clear();
     subinputs.push_back(inputs[0] + 29);
     subinputs.push_back(inputs[1] + 29);
     subinputs.push_back(start + 28);
-    Add_Last_3 add_last_3;
-    add_last_3.setInputs(subinputs);
-    add_last_3.setOutput(output + 29);
-    add_last_3.create(collector);
+    Add_ModX_3 add_modx_3;
+    add_modx_3.setInputs(subinputs);
+    add_modx_3.setOutput(output + 29);
+    add_modx_3.create(collector);
 
     // Half adder 4
     subinputs.clear();
@@ -173,15 +174,15 @@ void Add_32::create(Collector* collector) {
         add_full.create(collector);
     }
 
-    // Last adder 4
+    // ModX adder 4
     subinputs.clear();
     subinputs.push_back(inputs[0] + 28);
     subinputs.push_back(inputs[1] + 28);
     subinputs.push_back(start + 27);
-    Add_Last_4 add_last_4;
-    add_last_4.setInputs(subinputs);
-    add_last_4.setOutput(output + 28);
-    add_last_4.create(collector);
+    Add_ModX_4 add_modx_4;
+    add_modx_4.setInputs(subinputs);
+    add_modx_4.setOutput(output + 28);
+    add_modx_4.create(collector);
 
     ClauseCreator cc(collector);
 

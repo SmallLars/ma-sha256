@@ -1,0 +1,74 @@
+Dimacs für 9 Bits generiert.
+Lösung mit 9 Bits gefunden. Durchlauf 1/5.
+Lösung mit 9 Bits gefunden. Durchlauf 2/5.
+Lösung mit 9 Bits gefunden. Durchlauf 3/5.
+Lösung mit 9 Bits gefunden. Durchlauf 4/5.
+Lösung mit 9 Bits gefunden. Durchlauf 5/5.
+Dimacs für 10 Bits generiert.
+Lösung mit 10 Bits gefunden. Durchlauf 1/5.
+Lösung mit 10 Bits gefunden. Durchlauf 2/5.
+Lösung mit 10 Bits gefunden. Durchlauf 3/5.
+Lösung mit 10 Bits gefunden. Durchlauf 4/5.
+Lösung mit 10 Bits gefunden. Durchlauf 5/5.
+Dimacs für 11 Bits generiert.
+Lösung mit 11 Bits gefunden. Durchlauf 1/5.
+Lösung mit 11 Bits gefunden. Durchlauf 2/5.
+Lösung mit 11 Bits gefunden. Durchlauf 3/5.
+Lösung mit 11 Bits gefunden. Durchlauf 4/5.
+Lösung mit 11 Bits gefunden. Durchlauf 5/5.
+Dimacs für 12 Bits generiert.
+Lösung mit 12 Bits gefunden. Durchlauf 1/5.
+Lösung mit 12 Bits gefunden. Durchlauf 2/5.
+Lösung mit 12 Bits gefunden. Durchlauf 3/5.
+Lösung mit 12 Bits gefunden. Durchlauf 4/5.
+Lösung mit 12 Bits gefunden. Durchlauf 5/5.
+Dimacs für 13 Bits generiert.
+Lösung mit 13 Bits gefunden. Durchlauf 1/5.
+Lösung mit 13 Bits gefunden. Durchlauf 2/5.
+Lösung mit 13 Bits gefunden. Durchlauf 3/5.
+Lösung mit 13 Bits gefunden. Durchlauf 4/5.
+Lösung mit 13 Bits gefunden. Durchlauf 5/5.
+Dimacs für 14 Bits generiert.
+Lösung mit 14 Bits gefunden. Durchlauf 1/5.
+Lösung mit 14 Bits gefunden. Durchlauf 2/5.
+Lösung mit 14 Bits gefunden. Durchlauf 3/5.
+Lösung mit 14 Bits gefunden. Durchlauf 4/5.
+Lösung mit 14 Bits gefunden. Durchlauf 5/5.
+Dimacs für 15 Bits generiert.
+Lösung mit 15 Bits gefunden. Durchlauf 1/5.
+Lösung mit 15 Bits gefunden. Durchlauf 2/5.
+Lösung mit 15 Bits gefunden. Durchlauf 3/5.
+Lösung mit 15 Bits gefunden. Durchlauf 4/5.
+Lösung mit 15 Bits gefunden. Durchlauf 5/5.
+Dimacs für 16 Bits generiert.
+Lösung mit 16 Bits gefunden. Durchlauf 1/5.
+Lösung mit 16 Bits gefunden. Durchlauf 2/5.
+Lösung mit 16 Bits gefunden. Durchlauf 3/5.
+Lösung mit 16 Bits gefunden. Durchlauf 4/5.
+Lösung mit 16 Bits gefunden. Durchlauf 5/5.
+Dimacs für 17 Bits generiert.
+Lösung mit 17 Bits gefunden. Durchlauf 1/5.
+Lösung mit 17 Bits gefunden. Durchlauf 2/5.
+Lösung mit 17 Bits gefunden. Durchlauf 3/5.
+Lösung mit 17 Bits gefunden. Durchlauf 4/5.
+Lösung mit 17 Bits gefunden. Durchlauf 5/5.
+Dimacs für 18 Bits generiert.
+Lösung mit 18 Bits gefunden. Durchlauf 1/5.
+Lösung mit 18 Bits gefunden. Durchlauf 2/5.
+Lösung mit 18 Bits gefunden. Durchlauf 3/5.
+Lösung mit 18 Bits gefunden. Durchlauf 4/5.
+Lösung mit 18 Bits gefunden. Durchlauf 5/5.
+Dimacs für 19 Bits generiert.
+Lösung mit 19 Bits gefunden. Durchlauf 1/5.
+Lösung mit 19 Bits gefunden. Durchlauf 2/5.
+Lösung mit 19 Bits gefunden. Durchlauf 3/5.
+Lösung mit 19 Bits gefunden. Durchlauf 4/5.
+Lösung mit 19 Bits gefunden. Durchlauf 5/5.
+Dimacs für 20 Bits generiert.
+Lösung mit 20 Bits gefunden. Durchlauf 1/5.
+Lösung mit 20 Bits gefunden. Durchlauf 2/5.
+Lösung mit 20 Bits gefunden. Durchlauf 3/5.
+Lösung mit 20 Bits gefunden. Durchlauf 4/5.
+Lösung mit 20 Bits gefunden. Durchlauf 5/5.
+Dimacs für 21 Bits generiert.
+Lösung mit 21 Bits gefunden. Durchlauf 1/5.

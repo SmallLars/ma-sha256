@@ -37,8 +37,16 @@ void ConstAdd_32::create(Collector* collector) {
         createFalse(collector, start);
         createEQ(collector, output, inputs[0]);
     } else {
+#ifdef XOR_SUPPORT
         createEQ(collector, start, inputs[0]);
         createNEQ(collector, output, inputs[0]);
+#else
+        //                c_out   s_out       a_in
+        cc.setLiterals(3, start, output, inputs[0]);
+        cc.printClause(3,     1,      1,     CC_DC);
+        cc.printClause(3, CC_DC,      0,         0);
+        cc.printClause(3,     0,  CC_DC,         1);
+#endif
     }
 
     // Full adder x30
@@ -55,10 +63,10 @@ void ConstAdd_32::create(Collector* collector) {
             add_half.create(collector);
         } else {
 #ifdef XOR_SUPPORT
-            // OR ->              c_out           a_in           c_in
+            // OR ->                c_out     =     a_in     |     c_in
             createOR(collector, start + i, inputs[0] + i, start - 1 + i);
 
-            // XOR ->               s_out           a_in           c_in
+            // XOR ->                 s_out    !=     a_in     ^     c_in
             createXOR(collector, output + i, inputs[0] + i, start - 1 + i, true);
 #else
             //                    c_out       s_out           a_in           c_in
@@ -75,10 +83,10 @@ void ConstAdd_32::create(Collector* collector) {
 
     // Final adder (without carry calculation)
     if (((value >> 31) & 1) == 0) {
-        // XOR ->               !s_out            a_in        c_in
+        // XOR ->                  s_out     =      a_in    ^   c_in
         createXOR(collector, output + 31, inputs[0] + 31, start + 30);
     } else {
-        // XOR ->               !s_out            a_in        c_in
+        // XOR ->                  s_out    !=      a_in    ^   c_in
         createXOR(collector, output + 31, inputs[0] + 31, start + 30, true);
     }
 

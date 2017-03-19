@@ -3,7 +3,7 @@
 
 Der einfachste Weg eine konjunktive Normalform zu erzeugen, die erfüllbarkeitsäquivalent zu \glos{sha256} ist, führt vermutlich über die Verwendung vom \acr{cbmc}
 (siehe Abschnitt \ref{sec:cbmc}). \acr{cbmc} erzeugt zur Verifikation von Aussagen über C-Programmcode eine konjunktive Normalform und übergibt diese direkt
-einem SAT-Solver (siehe Abschnitt \ref{sec:satsolver}). Es besteht jedoch auch die Möglichkeit die generierte konjunktive Normalform im DIMACS-Format auszugeben,
+an einen SAT-Solver (siehe Abschnitt \ref{sec:satsolver}). Es besteht jedoch auch die Möglichkeit die generierte konjunktive Normalform im DIMACS-Format auszugeben,
 so dass ein C-Programm automatisch übersetzt werden kann. Dabei gehen jedoch jegliche Informationen über den Aufbau und die Bedeutung einzelner Literale verloren,
 so dass es nicht möglich ist, erworbenes Wissen über Literale einzelnen Berechnungen zuzuordnen. Ausgehend von der Addition, die in der Kompressionsfunktion von
 \glos{sha256} am häufigsten verwendet wird, ist es somit nicht möglich, erworbenes Wissen darüber zuzuordnen und auf alle weiteren Additionen zu übertragen.
@@ -18,12 +18,12 @@ erstellt, dass das Entwurfsmuster "`Besucher"' \cite[301]{visitor} verwendet. Be
 Eine Aufgabe kann es dabei sein, die konjunktive Normalform zu erzeugen während eine andere Aufgabe das Zählen von Literalen und Klauseln sein kann.
 Besucht wird dabei eine Struktur, deren Objekte das Verhalten von \glos{sha256} beschreiben. Die Objekte der Struktur werden im Folgenden als Modul bezeichnet.
 Ein Modul kann sowohl die vollständige Kompressionsfunktion von \glos{sha256} sein, als auch ein kleiner Baustein wie ein Halbaddierer. Dabei kann ein Modul
-auch andere Module verwenden. Es zeigt ich, dass acht grundlegende Module ausreichen um \glos{sha256} vollständig zu beschreiben. Diese werden in den Abschnitten
+auch andere Module verwenden. Es zeigt sich, dass acht grundlegende Module ausreichen um \glos{sha256} vollständig zu beschreiben. Diese werden in den Abschnitten
 \ref{sec:knf:addierer} bis \ref{sec:knf:sig} erläutert. Alle weiteren Module setzen sich aus diesen zusammen und werden in Abschnitt \ref{sec:knf:module} erläutert.
 
 Alle notwendigen allgemeinen Funktionen für ein Modul sind in einer Basisklasse hinterlegt, von der jedes konkrete Modul erben muss. Ein konkretes Modul wird
 dadurch realisiert, dass die bis dato rein virtuelle Funktion create(Collector* collector) implementiert wird. Über diese Funktion wird der Besucher in das Modul
-übergeben, dessen Basisklasse im Folgenden Collector genannt wird, da dieser Informationen über die besuchten Module sammelt. Der Collector stellt 2 virtuelle
+übergeben, dessen Basisklasse im Folgenden Collector genannt wird, da dieser Informationen über die besuchten Module sammelt. Der Collector stellt zwei virtuelle
 Funktionen bereit, die ein konkreter Collector implementieren kann.
 \begin{description}
   \item[newModul(unsigned level, const char* name, Modul* modul)] muss von jedem Modul aufgerufen werden und dient der Registrierung im Collector.
@@ -39,11 +39,15 @@ Funktionen bereit, die ein konkreter Collector implementieren kann.
        Transformation in OR-Klauseln einfach möglich. Eine Transformation in die andere Richtung würde das Sammeln und Analysieren der
        OR-Klauseln erfordern und wäre dadurch wesentlich aufwendiger.
 \end{description}
-Die für die Analyse notwendigen konkreten Collectoren werden in Kapitel \ref{chp:analyse} erläutert.
+Die für die Analyse notwendigen konkreten Collectoren werden in Kapitel \ref{chp:analyse} erläutert. Jedes Modul wird zunächst in seiner Normalform implementiert.
+Normalform bedeutet in diesem Fall, dass das Modul aufeinander folgende Literale beginnend mit $0$ nutzt, um die konjunktive Normalform zu erzeugen.
+Dabei kommen zunächst die Eingänge, im Anschluss mögliche zusätzliche Literale und schließlich der Ausgang. Über Funktionen in der Basisklasse kann
+das Modul bei der Verwendung konfiguriert werden. Jeder Eingang setzt sich aus ein oder mehreren aufeinander folgend Literalen zusammen. Für jeden Eingang
+kann das Literal mit dem der Eingang beginnt gesetzt werden. Für zusätzliche Literale und den Ausgang kann ebenfalls das Literal gesetzt werden mit dem begonnen wird.
 
 Als Hilfsmittel für die Generierung der Klauseln wird die Klasse ClauseCreator genutzt. Die Verwendung ist in einem Beispiel in Abbildung \ref{fig:clausecreator} dargestellt.
 Initialisiert wird der ClauseCreator durch die Übergabe des Collectors, an den die Klauseln übergeben werden sollen. Im Anschluss werden die Nummern der Literale gesetzt.
-Dadurch ist es möglich mit diesen Literalen beliebig viele Klauseln zu erzeugen, wobei nur noch die Polarität angegeben werden muss. 1 führt zu einer Negation während
+Dadurch ist es möglich mit diesen Literalen beliebig viele Klauseln zu erzeugen, wobei nur noch die Polarität angegeben werden muss. 0 führt zu einer Negation während
 das Makro CC\_DC ein Dont-Care signalisiert und das Literal in der Klausel unterdrückt wird.
 \begin{figure}[!h]
   \centering
@@ -76,10 +80,10 @@ direkt in den Programmcode eingebunden und angepasst werden. Ausgeliefert wird M
 Problem wenn der Linker mehrere Objekt-Dateien zusammenführt, da MinUnit mehrfach eingebunden wurde. Um dieses Problem zu vermeiden, wird
 der Programmcode von MinUnit in eine Header- und eine Quelltext-Datei aufgeteilt.
 
-\TODO{erledigen}
-
-Bei Verwendung von eqntott und espresso:\\
-eqntott kennt kein == oder xor, deswegen definieren\\
+Für die Erzeugung einer potentiell minimalen konjunktiven Normalform wird im ersten Schritt das Programm eqntott verwendet. Mit Hilfe von eqntott
+ist es möglich, boolsche Gleichungen in eine Wahrheitstabelle zu überführen. Da das Eingabeformat weder den XOR- noch den Gleichheits-Operator unterstützt,
+müssen diese beiden Operatoren in der Eingabedatei selbst definiert werden. Ein binärer XOR-Operator entspricht dabei einem negierten Gleichheits-Operator.
+Die Definitionen in Abbildung \ref{fig:gatter_equations_head} werden bei allen Berechnungen in den nächsten Abschnitten verwendet.
 \begin{figure}[!h]
   \centering
   \begin{minipage}[c]{14.5cm}
@@ -91,6 +95,40 @@ eqntott kennt kein == oder xor, deswegen definieren\\
   \caption{Gattergleichungen - Kopf}
   \label{fig:gatter_equations_head}
 \end{figure}
+
+Die ermittelte Wahrheitstabelle kann jedoch nicht direkt in eine konjunktive Normalform überführt werden. Sie enthält alle Einträge die die boolsche Gleichung erfüllen
+und ist mit großer Wahrscheinlichkeit nicht minimal. Für die konjunktive Normalform werden alle Einträge benötigt, die die boolsche Gleichung nicht erfüllen. Um diese zu
+generieren wäre es möglich, die boolsche Gleichung entsprechend anzupassen. Am Beispiel eines 4-Bit-Addierers zeigt sich jedoch, dass das Ergebnis wesentlich größer sein kann.
+Ein 4-Bit-Addierer hat $2^4$ mögliche Ergebnisse. Jedes dieser Ergebnisse lässt sich aus $2^4$ unterschiedlichen Summanden gewinnen. Es gibt somit $(2^4)^2 = 256$
+erfüllende Belegungen. Im Gegensatz dazu stehen bei jedem möglichen Ergebnis $2^4 \cdot (2^4-1)$ mögliche Kombinationen von Summanden die nicht zum Ergebnis führen.
+Die nicht erfüllenden Belegungen belaufen sich somit auf $(2^4)^2 \cdot ((2^4)-1) = 3840$. Da diese Wahrheitstabelle nur als Zwischenergebnis und Eingabe für
+Espresso (siehe Abschnitt \ref{sec:espresso}) verwendet werden soll, werden deshalb die erfüllenden Belegungen generiert.
+
+Die Wahrheitstabelle wird im zweiten Schritt an Espresso übergeben. Nachdem Espresso die Wahrheitstabelle eingelesen hat führt der Parameter -epos dazu,
+dass die erfüllenden Belegungen in nicht-erfüllende überführt werden. Diese Belegungen werden von Espresso minimiert. Durch den Parameter -Dexact wird
+eine minimale Anzahl an Belegungen garantiert. Das führt jedoch nur bei Problemen mit wenig Variablen zu einer Lösung, hat sich in den vorliegenden
+Fällen aber bewährt.
+
+Die minimierten nicht-erfüllenden Belegungen gibt Espresso wieder in einer Wahrheitstabelle aus. Diese kann nun einfach in eine konjunktive Normalform überführt werden.
+Abbildung \ref{fig:truetocnf} zeigt dafür ein Beispiel. Ist zum Beispiel die Belegung b=$1$ und c=$1$ gegeben, führt dies dazu, dass die Klausel
+$ (\overline{b} \vee \overline{c}) $ zu $0$ evaluiert und die Formel nicht mehr erfüllbar ist, was genau dem gewünschten Verhalten entspricht.
+\begin{figure}[!h]
+  \centering
+  \begin{tabular}{c|c|c|cp{0.5cm}cp{0.5cm}l}
+    \hiderowcolors
+    a & b & c & d &  & \\
+    \cline{1-4}
+    1 & 0 & - & 0 &  & $\Rightarrow$ &  & $ (\overline{a} \vee b \vee d) ~ \wedge $\\
+    - & 0 & 0 & 1 &  & $\Rightarrow$ &  & $ (b \vee c \vee \overline{d}) ~ \wedge $\\
+    0 & 0 & 0 & 0 &  & $\Rightarrow$ &  & $ (a \vee b \vee c \vee d) ~ \wedge $\\
+    - & 1 & 1 & - &  & $\Rightarrow$ &  & $ (\overline{b} \vee \overline{c}) $\\
+    \showrowcolors
+  \end{tabular}
+  \caption{Wahrheitstabelle -> Konjunktive Normalform}
+  \label{fig:truetocnf}
+\end{figure}
+
+Nachdem das allgemeine Vorgehen erläutert wurde, werden in den folgenden Abschnitten die konkreten Ergebnisse für die einzelnen Kompontenten von \glos{sha256} vorgestellt.
 
 \input{chapters/4-knf/1-gatter.tex}
 \input{chapters/4-knf/2-addierer.tex}

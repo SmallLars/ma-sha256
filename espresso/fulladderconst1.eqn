@@ -5,4 +5,4 @@ NAME = FullAdderConst1;
 INORDER = c_out s_out a_in c_in;
 OUTORDER = z;
 
-z = eq(c_out, a_in | c_in) & eq(s_out, xor(c_in, !a_in));
+z = eq(c_out, a_in | c_in) & eq(!s_out, xor(c_in, a_in));

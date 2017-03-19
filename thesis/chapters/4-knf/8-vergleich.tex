@@ -1,11 +1,64 @@
 \section{Vergleich mit anderen Implementierungen}
 
-\TODO{erledigen}
+Für die vollständige Kompressionsfunktion werden bei diesem Vorgehen 49.832 Literale benötigt. Je nach Unterstützung von XOR-Klauseln
+werden 255.600 bzw. 150.760 Klauseln benötigt, um die Kompressionsfunktion auf diesen Literalen zu definieren. Nicht mit eingerechnet
+sind dabei Klauseln, die für eine Wertebelegung benötigt werden. Soll ein Bitcoin-Block berechnet werden, muss die Kompressionsfunktion
+zwei Mal angewendet werden (siehe Abschnitt \ref{sec:bitcoin}). Das führt im Idealfall zu einer Verdopplung der Klauseln und Literale,
+wobei 256 Literale wegfallen. Diese Literale stehen für das Ergebnis der ersten Anwendung der Kompressionsfunktion und dienen als Eingabe
+für die zweite Anwendung der Kompressionsfunktion.
 
-vergleich von anzahl der literale und anzahl der klauseln\\
-cbmc\\
-moos\\
-~\\
-nicht die belegung von variablen einbeziehen\\
-bei cbmc schwierig belegung herauszufiltern\\
-eventuell extra aufführen, ist ja konstant
+Jonathan Heusser hat \acr{cbmc} genutzt, um die konjunktive Normalform aus einem C-Programm zu generieren. Sein Fokus lag dabei auf der
+Berechnung eines Bitcoin-Blocks. Da \acr{cbmc} keine XOR-Klauseln unterstützt, können ausschließlich normale Klauseln zum Vergleich
+herangezogen werden. Aus seiner Datei satcoin.c \cite{jona:3} wurde eine konjunktive Normalform mit 132.615 Literalen und 648.233 Klauseln
+generiert. Für die Berechnung einer einzelnen Kompressionsfunktion wird das C-Programm entsprechend angepasst (siehe Anhang \ref{chp:sha256code}).
+Daraus ergeben sich 69.356 Literale und 347.128 Klauseln. Hier zeigt sich, dass \acr{cbmc} für die Berechnung eines Bitcoin-Blocks weniger
+als das Doppelte einer Kompressionsfunktion notwendig ist. Das liegt daran, dass \acr{cbmc} die Operationen, deren Eingaben bekannt sind,
+vor berechnet und nur die unbekannten Teile in die konjunktive Normalform überführt. Anzumerken ist auch, dass diese Klauselmengen bereits
+Belegungen für konkret Werte enthalten, was jedoch zu vernachlässigen ist. 
+
+Martin Maurer hat ein ähnliches Konzept wie das aus dieser Arbeit verwendet und die konjunktive Normalform selbst generiert. Neben der
+Unterstützung für XOR-Klauseln erzeugt sein Programm \cite{capiman} zwei verschiedene Version der konjunktiven Normalform. Die erste nutzt
+die Tseitin-Transformation auf Ebene der Gatter, während die zweite Espresso mit einbezieht um zusätzliche Literale in den Addierern zu vermeiden.
+Die Zahlen zu dieser Lösung sind in Tabelle \ref{fig:sha256_literalclausecount} neben den beiden anderen Lösungen dargestellt. Wie auch bei der
+Realisierung in dieser Arbeit lässt sich die Verdopplung der Literale und Klauseln erkennen, wenn ein Bitcoin-Block berechnet werden soll.
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{l|l|r|r|r}
+    \hiderowcolors
+    \textbf{Problem}                 & \textbf{Realisierung} & \textbf{Literale} & \textbf{Klauseln} & \textbf{Klauseln (XOR)} \\
+    \hline
+    \showrowcolors
+                                     & Diese Arbeit      &    49832 &   255600 ~~(~~5,13 / 3,58) &  150760 ~~(3,03 / 3,12) \\
+                                     & \acr{cbmc}        &    69356 &   347128 ~~(~~5,01 / 3,01) &                     --- \\
+    \glos{sha256}                    & Maurer - Tseitin  &   130209 &   449929 ~~(~~3,46 / 2,77) &  261777 ~~(2,10 / 2,46) \\
+                                     & Maurer - Espresso &    60161 &    665345 ~~(11,06 / 5,60) &  590593 ~~(9,82 / 5,87) \\
+    \hline
+                                     & Diese Arbeit      &    99408 &   511200 ~~(~~5,14 / 3,58) &  301520 ~~(3,03 / 3,12) \\
+                                     & \acr{cbmc}        &   132615 &   648233 ~~(~~4,89 / 3,01) &                     --- \\
+    Bitcoin                          & Maurer - Tseitin  &   260673 &   901137 ~~(~~3,46 / 2,77) &  524321 ~~(2,01 / 2,46) \\
+                                     & Maurer - Espresso &   120577 &   1331969 ~~(11,05 / 5,60) & 1181953 ~~(9,80 / 5,87) \\
+  \end{tabular}
+  \caption{Vergleich der Anzahl von Literalen und Klauseln}
+  \label{fig:sha256_literalclausecount}
+\end{table}
+
+Der Vergleich zeigt, dass das Vorgehen aus dieser Arbeit zu einer kompakteren konjunktiven Normalform führt.
+Sowohl die Anzahl der Literale als auch der Klauseln sind im Bezug zu den anderen Realisierungen minimal.
+
+Auffällig ist, dass Martin Maurer mit seiner Espresso Variante ebenfalls wenig Literale benötigt, jedoch die
+Anzahl der Klauseln am höchsten von allen Realisierungen ist. Auf seiner GitHub-Seite \cite{capiman} schreibt
+er: "`In my tests with CMS 3.x the version with TSEITIN ADDERS were faster than version with ESPRESSO."'.
+Das legt die Vermutung nahe, dass die Anzahl der Klauseln ein wesentlicher Faktor für die Geschwindigkeit ist.
+
+Aufgeführt sind in Tabelle \ref{fig:sha256_literalclausecount} für jede Klauselmenge in Klammern zwei weitere Werte.
+Der erste Wert beschreibt das Verhältnis von Klauseln zu Literalen. In dieser Arbeit werden ohne XOR-Unterstützung
+bspw. 5,14 Klauseln pro Literal benötigt. Der zweite Wert beschreibt die durchschnittliche Klausellänge.
+Im genannten Beispiel bezieht sich eine Klausel durchschnittlich auf 3,58 Literale.
+
+Bei der Betrachtung dieser Werte sticht die Tseitin-Variante von Martin Maurer hervor. Die Gatter AND und OR mit
+zwei Eingängen lassen sich jeweils durch drei Klauseln beschreiben. Zwei Klauseln beziehen sich dabei auf jeweils
+zwei Literale und eine Klausel auf drei Literale. Ein XOR-Gatter lässt sich mit vier Klauseln à drei Literale beschreiben.
+Die durchschnittliche Klausellänge liegt damit zwischen zwei und drei und die durchschnittliche Klauselmenge pro Literal
+zwischen drei und vier. Durch eine XOR-Unterstützung lässt sich die durchschnittliche Klauselmenge auf eins bis drei
+reduzieren. Diese Werte passen zu den ermittelten Werten in der Tabelle. Im Gegensatz zu seiner Espresso-Variante ist
+die Realisierung der Tseitin-Variante gelungen.

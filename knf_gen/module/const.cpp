@@ -32,7 +32,7 @@ void Const::create(Collector* collector) {
       for (unsigned i = getBitWidth(); i > 0; i--) {
           vector<Lit> clause;
           clause.push_back(Lit(output + i - 1, !(value >> (i - 1) & 1)));
-          printer->create(false, clause);
+          collector->create(false, clause);
       }
 */
       for (unsigned i = 0; i < getBitWidth(); i++) {

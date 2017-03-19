@@ -1,0 +1,8 @@
+file <command-line> line 0: <command-line>:0:0: warning: "__STDC_VERSION__" redefined
+file <command-line> line 0: <built-in>: note: this is the location of the previous definition
+file sha256_eval.c line 88 function main: function `nondet_uint' is not declared
+file sha256_eval.c line 108 function main: function `assert' is not declared
+
+real	3m12.585s
+user	3m12.434s
+sys	0m0.151s

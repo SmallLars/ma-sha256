@@ -8,7 +8,7 @@
 
 #include "../common/solvertools.h"
 
-#define ADDITIONAL_KNOWLEDGE 0
+#define ADDITIONAL_KNOWLEDGE 1
 
 using std::vector;
 using namespace CMSat;
@@ -119,9 +119,9 @@ void ShaCore_32::create(Collector* collector) {
 #endif
 
 #ifdef ADDITIONAL_CLAUSES
-    // XOR ->             731    289         321          637    
+    // XOR ->               731 =  289    ^    321     ^    637    
     createXOR(collector, output, start, start + 32, start + 348);
-    // XOR ->                  637          416          448          574    
+    // XOR ->                    637    =     416    ^     448    ^     574    
     createXOR(collector, start + 348, start + 127, start + 159, start + 285);
 
     ClauseCreator cc(collector);

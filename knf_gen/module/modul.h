@@ -23,6 +23,7 @@ class Modul {
         void setInputs(const std::vector<unsigned>& inputs);
         void setStart(unsigned start);
         void setOutput(unsigned output);
+        void import(Collector* collector, const char* filename);
 
         unsigned getBitWidth();
         std::vector<unsigned>& getInputs();
@@ -55,6 +56,7 @@ class Modul {
         void createAND(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert = false);
         void createOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert = false);
 
+        void createXOR(Collector* collector, unsigned out, unsigned in1, bool invert = false);
         void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert = false);
         void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert = false);
         void createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, unsigned in4, bool invert = false);

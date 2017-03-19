@@ -1,25 +1,48 @@
 \section{Konjunktive Normalform}
 \label{sec:knf}
 
-\TODO{erledigen}
+In der boolesche Algebra liegt eine Formel in einer konjunktiven Normalform vor wenn es sich um eine Konjunktion von Klauseln handelt.
+Jede Klausel ist dabei eine Disjunktion von Literalen. Literale wiederum sind positive oder negative boolsche Variablen. Diese Form
+ist in Abbildung \ref{fig:knf} dargestellt.
 
-verundung von verorderungen\\
-verundung -> alle or terme (klauseln) müssen erfüllt sein\\
-macht es einfach, mehrere knfs zusammen zu hängen\\
-klausel beschreibt eine verbotene kombination\\
-~\\
-Eine Formel der Aussagenlogik ist in konjunktiver Normalform, wenn sie eine Konjunktion von Disjunktionstermen ist\\
-Literal: nichtnegierte oder negierte Variable\\
-Klausel: ein Disjunktionsterm\\
-Eine Formel in KNF hat also die Form: \newline \newline $ \bigwedge\limits_{i} \bigvee\limits_{j} (\neg)x_{ij} $\\
-Beispiel: $ (\neg a \vee \neg b \vee \neg c) \wedge (\neg a \vee b \vee c) $\\
-~\\
-dimacs dateiformat erwähnen\\
-~\\
-wie kommt man von großen programm dazu?:\\
-tseitin erwähnen: erfüllbarkeitsproblem\\
-kommunikation über gleich literale\\
-~\\
-einfache generierung über wahrheitstabelle\\
-eqntott\\
-nicht optimal: nächster abschnitt
+\begin{figure}[!h]
+  \centering
+  $ \bigwedge\limits_{i} \bigvee\limits_{j} (\neg)x_{ij} $
+  \caption{Formelle Darstellung einer konjunktiven Normalform}
+  \label{fig:knf}
+\end{figure}
+
+Ein Beispiel für eine konjunktive Normalform ist: $ (\neg a \vee \neg b \vee \neg c \vee d) \wedge (\neg a \vee c) $.
+Jedes aussagenlogische Problem lässt sich in eine konjunktive Normalform überführen. Der einfachste Weg führt über
+eine Wahrheitstabelle, aus der alle Einträge herangezogen werden, die keine gültige Lösung darstellen. Eine Klausel
+lässt sich somit als eine Reihe von Literalen betrachten, die in dieser Kombination keine gültige Belegung besitzen.
+Durch Konjunktion der Klauseln ist es somit möglich ein Problem zu definieren, in dem alle ungültigen Belegungen als
+Klauseln ergänzt werden. Um aus einer Gleichung eine Wahrheitstabelle zu erstellen, wird in dieser Arbeit das Programm
+"`eqntott"' verwendet.
+
+Dieses Vorgehen führt jedoch zu einer kanonisch konjunktiven Normalform die aus Klauseln besteht, in der jedes Literal
+genau einmal vorkommt. Bei komplexen Schaltkreisen mit vielen Ein- und Ausgängen wächst die Klauselmenge jedoch exponentiell.
+Um diesem entgegen zu wirken kann mit Hilfe der Tseitin-Transformation \cite{wiki:tseitin} eine erfüllbarkeitsequivalente
+konjunktive Normalform erzeugt werden, indem zusätzliche Variablen eingeführt werden. Auf einen Schaltkreis bezogen bedeutet
+dies, den Leitungen zwischen den Gattern Variablen zuzuweisen. Mit Hilfe dieser Variablen kann jedes Gatter separat in eine
+konjunktive Normalform überführt werden. Dies werden dann schließlich aneinander gehängt und bilden die erfüllbarkeitsequivalente
+konjunktive Normalform.
+
+Um eine konjunktive Normalform abzuspeichern sowie zur Lösung und Optimierung an weitere Programme zu übergeben, wird in dieser
+Arbeit das DIMACS-Dateiformat verwendet. Die im Beispiel genannte konjunktive Normalform ist im DIMACS-Format in Abbildung
+\ref{fig:dimacs} dargestellt.
+
+\begin{verbbox}
+  p cnf 4 2
+  -1 -2 -3 4 0
+  -1 3 0
+\end{verbbox}
+\begin{figure}[!h]
+  \centering
+  \theverbbox
+  \caption{Datei im DIMACS-Format}
+  \label{fig:dimacs}
+\end{figure}
+
+In der Kopfzeile wird zunächst die Anzahl der Variablen und Klauseln genannt. Jede Zeile repräsentiert eine Klausel.
+Jedes Literals bekommt eine Nummer, wobei Null das Ende einer Klausel kennzeichnet. Für die Negation wird ein Minus verwendet.

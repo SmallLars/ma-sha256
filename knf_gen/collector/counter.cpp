@@ -1,5 +1,7 @@
 #include "counter.h"
 
+#include "../common/clausetools.h"
+
 using std::vector;
 using std::set;
 using namespace CMSat;

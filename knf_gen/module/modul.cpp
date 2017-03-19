@@ -7,6 +7,8 @@
 
 #include "clausecreator.h"
 
+#include "../common/dimacsparser.h"
+
 #include "../collector/solverprinter.h"
 #include "../collector/logger.h"
 #include "../collector/dimacsfileprinter.h"
@@ -84,6 +86,41 @@ void Modul::setOutput(unsigned output) {
     this->output = output;
 }
 
+void Modul::import(Collector* collector, const char* filename) {
+    unsigned fullInputs[inputNum];
+    unsigned lit = 0;
+    for (unsigned i = 0; i < inputCount; i++) {
+        for (unsigned b = 0; b < inputWidth[i]; b++) {
+            fullInputs[lit++] = inputs[i] + b;
+        }
+    }
+
+    DimacsParser parser(filename);
+    vector<Lit> clause;
+    while (parser.getNextClause(clause)) {
+        for (unsigned l = 0; l < clause.size(); l++) {
+            uint32_t var = clause[l].var();
+
+            if (var < inputNum) {
+                var = fullInputs[var];
+                goto found;
+            }
+
+            if (var < getVarCount() - outputNum) {
+                var = start + var - inputNum;
+                goto found;
+            }
+
+            lit = getVarCount() - outputNum;
+            var = output + var - lit;
+
+            found:
+            clause[l] = Lit(var, clause[l].sign());
+        }
+        collector->create(false, clause);
+    }
+}
+
 unsigned Modul::getBitWidth() {
     return this->bitWidth;
 }
@@ -138,50 +175,49 @@ unsigned Modul::writeTT(const char* filename) {
 }
 
 void Modul::createTrue(Collector* collector, unsigned out) {
-    vector<Lit> clause;
-    clause.push_back(Lit(out, false));
+    vector<Lit> clause(1, Lit(out, false));
     collector->create(false, clause);
 }
 
 void Modul::createFalse(Collector* collector, unsigned out) {
-    vector<Lit> clause;
-    clause.push_back(Lit(out, true));
+    vector<Lit> clause(1, Lit(out, true));
     collector->create(false, clause);
 }
 
 void Modul::createEQ(Collector* collector, unsigned out, unsigned in) {
-    vector<Lit> clause;
-    clause.push_back(Lit(out, false));
-    clause.push_back(Lit(in, false));
-    collector->create(true, clause);
+    createXOR(collector, out, in);
 }
 
 void Modul::createNEQ(Collector* collector, unsigned out, unsigned in) {
-    vector<Lit> clause;
-    clause.push_back(Lit(out, true));
-    clause.push_back(Lit(in, false));
-    collector->create(true, clause);
+    createXOR(collector, out, in, true);
 }
 
 void Modul::createAND(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert) {
     ClauseCreator cc(collector);
     cc.setLiterals(3,     out,   in1,   in2);
-    cc.printClause(3, !invert,     0,     0);
     cc.printClause(3,  invert,     1, CC_DC);
     cc.printClause(3,  invert, CC_DC,     1);
+    cc.printClause(3, !invert,     0,     0);
 }
 
 void Modul::createOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert) {
     ClauseCreator cc(collector);
     cc.setLiterals(3,     out,   in1,   in2);
-    cc.printClause(3,  invert,     1,     1);
     cc.printClause(3, !invert,     0, CC_DC);
     cc.printClause(3, !invert, CC_DC,     0);
+    cc.printClause(3,  invert,     1,     1);
+}
+
+void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, bool invert) {
+    vector<Lit> clause;
+    clause.push_back(Lit(out, !invert));
+    clause.push_back(Lit(in1, false));
+    collector->create(true, clause);
 }
 
 void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, bool invert) {
     vector<Lit> clause;
-    clause.push_back(Lit(out, invert));
+    clause.push_back(Lit(out, !invert));
     clause.push_back(Lit(in1, false));
     clause.push_back(Lit(in2, false));
     collector->create(true, clause);
@@ -189,7 +225,7 @@ void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned
 
 void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, bool invert) {
     vector<Lit> clause;
-    clause.push_back(Lit(out, invert));
+    clause.push_back(Lit(out, !invert));
     clause.push_back(Lit(in1, false));
     clause.push_back(Lit(in2, false));
     clause.push_back(Lit(in3, false));
@@ -198,7 +234,7 @@ void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned
 
 void Modul::createXOR(Collector* collector, unsigned out, unsigned in1, unsigned in2, unsigned in3, unsigned in4, bool invert) {
     vector<Lit> clause;
-    clause.push_back(Lit(out, invert));
+    clause.push_back(Lit(out, !invert));
     clause.push_back(Lit(in1, false));
     clause.push_back(Lit(in2, false));
     clause.push_back(Lit(in3, false));

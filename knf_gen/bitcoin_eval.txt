@@ -1,0 +1,50 @@
+  9 / 256: Lösung gefunden zum Zeitpunkt 00:00:44 mit Nonce: ce50e027
+       Ausgabe: 5479ab83 fac0af4a 3580fe42 746e0aa8 e9d60a8d dcc9f868 213c0a62 c3802e00
+  9 / 256: Lösung gefunden zum Zeitpunkt 00:00:42 mit Nonce: ce50e027
+       Ausgabe: 5479ab83 fac0af4a 3580fe42 746e0aa8 e9d60a8d dcc9f868 213c0a62 c3802e00
+  9 / 256: Lösung gefunden zum Zeitpunkt 00:00:44 mit Nonce: ce50e027
+       Ausgabe: 5479ab83 fac0af4a 3580fe42 746e0aa8 e9d60a8d dcc9f868 213c0a62 c3802e00
+  9 / 256: Lösung gefunden zum Zeitpunkt 00:00:43 mit Nonce: ce50e027
+       Ausgabe: 5479ab83 fac0af4a 3580fe42 746e0aa8 e9d60a8d dcc9f868 213c0a62 c3802e00
+  9 / 256: Lösung gefunden zum Zeitpunkt 00:00:43 mit Nonce: ce50e027
+       Ausgabe: 5479ab83 fac0af4a 3580fe42 746e0aa8 e9d60a8d dcc9f868 213c0a62 c3802e00
+ 10 / 256: Lösung gefunden zum Zeitpunkt 00:01:50 mit Nonce: 2034cf0c
+       Ausgabe: 7328cb6b 918a1615 69046c42 0aa1ef3b 32c27881 c9c0e3ec 52ad1b70 219ae400
+ 10 / 256: Lösung gefunden zum Zeitpunkt 00:01:58 mit Nonce: 2034cf0c
+       Ausgabe: 7328cb6b 918a1615 69046c42 0aa1ef3b 32c27881 c9c0e3ec 52ad1b70 219ae400
+ 10 / 256: Lösung gefunden zum Zeitpunkt 00:01:56 mit Nonce: 2034cf0c
+       Ausgabe: 7328cb6b 918a1615 69046c42 0aa1ef3b 32c27881 c9c0e3ec 52ad1b70 219ae400
+ 10 / 256: Lösung gefunden zum Zeitpunkt 00:01:54 mit Nonce: 2034cf0c
+       Ausgabe: 7328cb6b 918a1615 69046c42 0aa1ef3b 32c27881 c9c0e3ec 52ad1b70 219ae400
+ 10 / 256: Lösung gefunden zum Zeitpunkt 00:01:58 mit Nonce: 2034cf0c
+       Ausgabe: 7328cb6b 918a1615 69046c42 0aa1ef3b 32c27881 c9c0e3ec 52ad1b70 219ae400
+ 11 / 256: Lösung gefunden zum Zeitpunkt 00:08:58 mit Nonce: 9139e0d1
+       Ausgabe: c5d2f708 be7ca9df 18899ae0 ecb1509a 385c6c88 cb01a262 e1fb3975 bc5ac800
+ 11 / 256: Lösung gefunden zum Zeitpunkt 00:08:24 mit Nonce: 9139e0d1
+       Ausgabe: c5d2f708 be7ca9df 18899ae0 ecb1509a 385c6c88 cb01a262 e1fb3975 bc5ac800
+ 11 / 256: Lösung gefunden zum Zeitpunkt 00:08:07 mit Nonce: 9139e0d1
+       Ausgabe: c5d2f708 be7ca9df 18899ae0 ecb1509a 385c6c88 cb01a262 e1fb3975 bc5ac800
+ 11 / 256: Lösung gefunden zum Zeitpunkt 00:08:14 mit Nonce: 9139e0d1
+       Ausgabe: c5d2f708 be7ca9df 18899ae0 ecb1509a 385c6c88 cb01a262 e1fb3975 bc5ac800
+ 11 / 256: Lösung gefunden zum Zeitpunkt 00:08:58 mit Nonce: 9139e0d1
+       Ausgabe: c5d2f708 be7ca9df 18899ae0 ecb1509a 385c6c88 cb01a262 e1fb3975 bc5ac800
+ 12 / 256: Lösung gefunden zum Zeitpunkt 00:05:38 mit Nonce: 19f7769e
+       Ausgabe: 77feaf89 b2911ba0 52831fc0 d4d9e249 4e14dcf9 a0051ee9 2594e17a 4df04000
+ 12 / 256: Lösung gefunden zum Zeitpunkt 00:05:33 mit Nonce: 19f7769e
+       Ausgabe: 77feaf89 b2911ba0 52831fc0 d4d9e249 4e14dcf9 a0051ee9 2594e17a 4df04000
+ 12 / 256: Lösung gefunden zum Zeitpunkt 00:05:22 mit Nonce: 19f7769e
+       Ausgabe: 77feaf89 b2911ba0 52831fc0 d4d9e249 4e14dcf9 a0051ee9 2594e17a 4df04000
+ 12 / 256: Lösung gefunden zum Zeitpunkt 00:05:20 mit Nonce: 19f7769e
+       Ausgabe: 77feaf89 b2911ba0 52831fc0 d4d9e249 4e14dcf9 a0051ee9 2594e17a 4df04000
+ 12 / 256: Lösung gefunden zum Zeitpunkt 00:05:34 mit Nonce: 19f7769e
+       Ausgabe: 77feaf89 b2911ba0 52831fc0 d4d9e249 4e14dcf9 a0051ee9 2594e17a 4df04000
+ 13 / 256: Lösung gefunden zum Zeitpunkt 00:10:31 mit Nonce: 807bd5a9
+       Ausgabe: 568d133b a73411cc e592220f f10ea936 e069c647 d04adb36 8f3dd02c 66890000
+ 13 / 256: Lösung gefunden zum Zeitpunkt 00:10:38 mit Nonce: 807bd5a9
+       Ausgabe: 568d133b a73411cc e592220f f10ea936 e069c647 d04adb36 8f3dd02c 66890000
+ 13 / 256: Lösung gefunden zum Zeitpunkt 00:10:33 mit Nonce: 807bd5a9
+       Ausgabe: 568d133b a73411cc e592220f f10ea936 e069c647 d04adb36 8f3dd02c 66890000
+ 13 / 256: Lösung gefunden zum Zeitpunkt 00:10:52 mit Nonce: 807bd5a9
+       Ausgabe: 568d133b a73411cc e592220f f10ea936 e069c647 d04adb36 8f3dd02c 66890000
+ 13 / 256: Lösung gefunden zum Zeitpunkt 00:10:39 mit Nonce: 807bd5a9
+       Ausgabe: 568d133b a73411cc e592220f f10ea936 e069c647 d04adb36 8f3dd02c 66890000

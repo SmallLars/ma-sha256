@@ -36,11 +36,18 @@
 \RequirePackage{array}
 \RequirePackage{verbatim}
 \RequirePackage{multicol}
+\RequirePackage{multirow}
 \RequirePackage{setspace}
 \RequirePackage[nofancy]{svninfo}
+\RequirePackage{verbatimbox}
 
 \RequirePackage{xspace}
 \xspaceaddexceptions{"}
+
+% new table cell types
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
 % thesis color scheme
 \RequirePackage[table]{xcolor}
@@ -240,7 +247,7 @@
 \RequirePackage[flushmargin,hang,bottom]{footmisc}
 
 % BibLaTeX: A modern BibTeX approach.
-\RequirePackage[citestyle=alphabetic-verb,bibstyle=alphabetic,maxnames=100,backend=biber]{biblatex}
+\RequirePackage[citestyle=alphabetic-verb,bibstyle=alphabetic,maxnames=100,backend=biber,block=ragged]{biblatex}
 \defbibheading{bibliography}[\bibname]{%
   \section{#1}\label{sec:bibliography}%
 }

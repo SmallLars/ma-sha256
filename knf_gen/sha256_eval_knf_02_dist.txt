@@ -1,0 +1,375 @@
+CPUNUM: 8
+  Lösung für 8 Bits gefunden zum Zeitpunkt 00:00:15
+  Ausgabe: 778d130e 11359e78 ce6411ef e6d5847a 895a3d0c decf96bf 39d49d6d 5fed1892
+  Eingabe: 5c50d74f 08347bdd 1e66a13a d0037f05 35912fcb 81febf3c ff22bc77 4c2f9cc6
+           e072d636 1fe1bbc5 c606ebed a750028f fb27c3a8 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 8 Bits gefunden zum Zeitpunkt 00:00:12
+  Ausgabe: cc1b150e 9194d283 5b09dcb6 0cd73f27 f979f3a0 263e118e 4eb82d05 efe94a3b
+  Eingabe: d0efb8fe 1fdc4bed 6f8ae9f9 b4770261 1e63fa77 a83242df 7d8312a4 739edcdd
+           1231cfdd 74609a01 d38fd506 7e052528 0cc47930 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 8 Bits gefunden zum Zeitpunkt 00:00:16
+  Ausgabe: b47d6f0e 2ae85c32 af25bd62 b42f95e4 d8ba2139 063a57d4 1bdaf5e4 48e0b956
+  Eingabe: e54fdd80 59329eaf 687e0cb1 be672967 40c52b58 15362b30 5f0d338b 0d16e2d9
+           fdef2615 d19f4234 3f1b4758 0c515376 837f28cb 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 8 Bits gefunden zum Zeitpunkt 00:00:11
+  Ausgabe: 8c253a0e ed7bb43f f3ad8548 c0330bf9 b45ebebb c35a3978 ad5ec565 74412ce9
+  Eingabe: 6147ae2f 46d37f65 ba28c771 00adf6fb bf4b2304 e6e8aedf 1f6b8697 2e283c22
+           37b31fef 920e2897 48621ae3 aa89e098 a7429916 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 8 Bits gefunden zum Zeitpunkt 00:00:12
+  Ausgabe: bb9e6b0e 66952db3 665bc4a1 f2851db2 344a5cce 6840ec31 91407e43 60327d17
+  Eingabe: 936e3139 3b32df4e a21cfc1d d269994a b4b684d9 ee9af9a1 26ae930f e2d3b71f
+           faff5420 c3a90e6e 20128e63 f85745e9 61c63c52 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 9 Bits gefunden zum Zeitpunkt 00:00:11
+  Ausgabe: e03db50e 7586564f 37f3b249 4e1bfd42 90a700af 1a1051e0 98cce608 2862d85d
+  Eingabe: 140899ac 194f2425 3deb5bf0 abc0b0a6 033754c5 943c3372 81789777 bf8a83f7
+           cf8193cd dd6d82fd 0e127ae8 ac84eff9 404329a1 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 9 Bits gefunden zum Zeitpunkt 00:00:13
+  Ausgabe: d583f50e 80819290 da974cfa de06cfb7 48a52e5f 3937b3cd 1970b80d c7474ffe
+  Eingabe: 7169fa39 f0175ebc e8bac023 5e176f5a 4fdc56de 2b9c65db e730a0dd 24c5e8b6
+           8abe26b5 509f4507 1a30ab30 6d1fb777 ad50cfa9 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 9 Bits gefunden zum Zeitpunkt 00:00:15
+  Ausgabe: 1210130e 3f973278 c9333adc 40e3e7d8 223ff883 69454803 e43e3685 5a489144
+  Eingabe: d9bf80e7 3d605137 3e2c5120 f1d37cd0 3cc8f94d c657c5c5 414f3264 fbdc9a2c
+           e82ac4b7 9dbaa67d 894c1860 1b121d78 d8fb6a1e 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 9 Bits gefunden zum Zeitpunkt 00:00:10
+  Ausgabe: c220090e 1bfda30a e14d08d4 7120ecd7 c618904c c68851e2 9404949a cdd94166
+  Eingabe: d9dc8c1a 170c35c6 def8e1ea d380f329 a7b31b69 0a9f99f6 78e487c8 7fc7931b
+           82bf3e44 7107c51e 19359a7c bf276d07 ce93947f 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 9 Bits gefunden zum Zeitpunkt 00:00:11
+  Ausgabe: 59a8a50e 1a16c6dc ee57c31b d524b1cc 8f0bead6 1451dbd8 4c930400 91420f9e
+  Eingabe: 62835acd 22bd3cca 17e3695f 697a9bfe 460ef655 d224be3a 68eb732e a3ec4635
+           99049744 3c8cc94e 45fbc9d5 af005b73 31c72586 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 10 Bits gefunden zum Zeitpunkt 00:00:08
+  Ausgabe: 39d5cb0e 684120dc 89f874a1 e8def02a c91d4fa9 f5ad92a1 e2383633 8c02827a
+  Eingabe: 283c3c4c 1dc14036 a522138a 503ab207 463fb446 b5667ede 8beab7b8 46274dd5
+           7a6010c9 98489e5f 564ffb1e 6aee596c fe219b67 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 10 Bits gefunden zum Zeitpunkt 00:00:08
+  Ausgabe: 39d5cb0e 684120dc 89f874a1 e8def02a c91d4fa9 f5ad92a1 e2383633 8c02827a
+  Eingabe: 283c3c4c 1dc14036 a522138a 503ab207 463fb446 b5667ede 8beab7b8 46274dd5
+           7a6010c9 98489e5f 564ffb1e 6aee596c fe219b67 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 10 Bits gefunden zum Zeitpunkt 00:00:08
+  Ausgabe: 39d5cb0e 684120dc 89f874a1 e8def02a c91d4fa9 f5ad92a1 e2383633 8c02827a
+  Eingabe: 283c3c4c 1dc14036 a522138a 503ab207 463fb446 b5667ede 8beab7b8 46274dd5
+           7a6010c9 98489e5f 564ffb1e 6aee596c fe219b67 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 10 Bits gefunden zum Zeitpunkt 00:00:08
+  Ausgabe: 39d5cb0e 684120dc 89f874a1 e8def02a c91d4fa9 f5ad92a1 e2383633 8c02827a
+  Eingabe: 283c3c4c 1dc14036 a522138a 503ab207 463fb446 b5667ede 8beab7b8 46274dd5
+           7a6010c9 98489e5f 564ffb1e 6aee596c fe219b67 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 10 Bits gefunden zum Zeitpunkt 00:00:08
+  Ausgabe: 39d5cb0e 684120dc 89f874a1 e8def02a c91d4fa9 f5ad92a1 e2383633 8c02827a
+  Eingabe: 283c3c4c 1dc14036 a522138a 503ab207 463fb446 b5667ede 8beab7b8 46274dd5
+           7a6010c9 98489e5f 564ffb1e 6aee596c fe219b67 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 11 Bits gefunden zum Zeitpunkt 00:00:23
+  Ausgabe: afd33f0e 07302903 61d217cd d3b13b78 705d4516 1663dfb5 3a9744c8 8fd69dc9
+  Eingabe: 232ded0f 8e7b56d0 181fe032 23dea538 4d38828c d98a90c6 4b91f031 5f909979
+           c0d21f69 8832d3e9 b982a771 3b152677 2047e7ad 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 11 Bits gefunden zum Zeitpunkt 00:00:24
+  Ausgabe: aae4470e d42cdc5c 7abbee2a e1687b02 97851c73 a7ad6251 85b4749c 78a84548
+  Eingabe: 96d9d073 08320023 815e67e6 0822f839 54d5b477 db956021 ada42a04 c797579e
+           16150251 8f8a6845 27b219fc 831bf33a b72e6305 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 11 Bits gefunden zum Zeitpunkt 00:00:59
+  Ausgabe: e6e7170e ede1c628 ddb1cd23 75c66346 b112dc90 2163b4f0 777a4ead 711ce5b8
+  Eingabe: 7eca1fa2 edbe430b eae2f4b3 1b58047d ed795e6b b9daf286 50f31c4e 0b431fa2
+           ac418b85 3d477fd3 ea3966f8 558292c2 47a4a943 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 11 Bits gefunden zum Zeitpunkt 00:00:53
+  Ausgabe: 3271f70e ae5d1fd5 7006ac9b f8835c21 a74a36e5 f84f8b53 cb2994dc adb7f484
+  Eingabe: 58b88d89 0452f6cb 8ea26a87 321abaea 07d683f7 281a2281 a0d53ee0 78ffaea3
+           1951d0b0 175329f2 010c7dd4 bb026608 42cb883f 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 11 Bits gefunden zum Zeitpunkt 00:00:17
+  Ausgabe: e01a7f0e b6c66f75 db3e3b17 c1a1f3c8 19a1c74b bdc9a746 9621ae1a a970a3c7
+  Eingabe: f9223b6b 49ac147c 31224580 e87ab800 b95e00c3 0411d203 da81f555 34ba394e
+           1b004e72 97717980 9ebb53bb ca180f3b 821d08a2 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 12 Bits gefunden zum Zeitpunkt 00:01:32
+  Ausgabe: 2874ef0e 6ec1f489 593a39b7 9fe4eea9 10ee0ddd 3fad6b10 8a094b98 d62b096b
+  Eingabe: d988bf14 2e16e82b 0994d9ad 7e0e4025 4f93a796 770aa9fe 77f53ee8 e5a6730d
+           a6e68e97 441bc9dd 841d2455 0a4498d5 5446f473 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 12 Bits gefunden zum Zeitpunkt 00:00:58
+  Ausgabe: ae38cf0e 3101735f 4e4295b9 632afbfe 1f5582df a4dbbc5c bca36822 bde728f7
+  Eingabe: 018f8565 5c17d538 aba3ca5b 8155efa6 f6ca565c 5ea104ed 449c5810 e856f0de
+           c2c47739 9005002e edd3c0a8 fba1bbda 496b58dc 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 12 Bits gefunden zum Zeitpunkt 00:00:36
+  Ausgabe: 2fc6af0e 0b016613 016f57f3 240d9191 6d4679bb 51540196 cc3bf55f 2d8b29af
+  Eingabe: cdceb896 058259a8 19b26f9f bfbf192c 7131136c 2169d0fb c051bfc1 eae9a2ef
+           54f5c39e 73550cbe 2578b041 99451dea 3a540ec4 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 12 Bits gefunden zum Zeitpunkt 00:01:57
+  Ausgabe: f4fb2f0e e4a0dd22 d5d3b6e4 9da03f14 37c37325 cce6c0d8 a5d4e76d b9453c4f
+  Eingabe: 117e3df7 2391104d da93bb57 25e830d6 da6b3a18 e1f66ab9 f9014f3b e74358e8
+           f020f932 fa81637e 154544f7 6a04ff38 21eaa9a1 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 12 Bits gefunden zum Zeitpunkt 00:01:03
+  Ausgabe: 7d6daf0e 961b3861 b1f83e74 704208f3 f7799aab 665a6f6c d6c58b5c 4a34a772
+  Eingabe: 4163578f 05e295da dc7ec7b6 3b5b146e 72ae0134 9e635baf 6adde0c5 c1799585
+           43c410d2 6dcb2f67 31735c1f b4d69cb0 d7a9df01 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 13 Bits gefunden zum Zeitpunkt 00:01:04
+  Ausgabe: e034df0e 0158702c e0f48976 0041ffaf 1498dd65 338965df 019b8410 4df053db
+  Eingabe: f58f977c b09401fc cc501be3 f3ab5656 cc6b26c1 30e717eb d180b331 5e85a63d
+           dbb4c768 452b0bf1 0863aa54 e5c6b6ed b255c458 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 13 Bits gefunden zum Zeitpunkt 00:01:33
+  Ausgabe: 3b799f0e e7efe05b 3a10c848 801dd5f1 3f979d12 720081a8 37eab5e3 1fc90fd8
+  Eingabe: 5c4b25dc 50d0e34d 211c6743 f0a3815c 839877f7 be372b6a fdecb9d6 675c09e2
+           24b59640 398c6cb3 92a0c9c6 ae8662c7 52bf7984 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 13 Bits gefunden zum Zeitpunkt 00:00:36
+  Ausgabe: e9731f0e 99574b06 8cd327dc 6442dfb9 2ae1306d 3dab2b5c 654b3418 de60f133
+  Eingabe: 626698e2 a5a2633b 89ed0a96 bc9f8bdf a04400ab c59d2228 938f90c6 41b8cd69
+           bbe11f5d eb991026 4b3ea9cc 57d51245 9007d201 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 13 Bits gefunden zum Zeitpunkt 00:00:37
+  Ausgabe: e9731f0e 99574b06 8cd327dc 6442dfb9 2ae1306d 3dab2b5c 654b3418 de60f133
+  Eingabe: 626698e2 a5a2633b 89ed0a96 bc9f8bdf a04400ab c59d2228 938f90c6 41b8cd69
+           bbe11f5d eb991026 4b3ea9cc 57d51245 9007d201 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 13 Bits gefunden zum Zeitpunkt 00:00:11
+  Ausgabe: c53b5f0e 810cdbb9 e0f3a1d2 772e9c1d a4c46f07 c7e73735 1a586bae f45d0647
+  Eingabe: eda26e51 174c2b81 68943188 b169c491 8396deb3 19112140 77ef053f 038e9665
+           1216b36c 856020ad 5dc1cf8e 5a4c1b12 2185d1ac 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 14 Bits gefunden zum Zeitpunkt 00:02:07
+  Ausgabe: cf2a9f0e 87909810 d07f5251 30247dad 195c90fe a62d7772 281d9adc 8906b985
+  Eingabe: 39852f18 44731609 5e0fabfe b88983d8 ebc8e55d 096dd3be cbef6fc6 02ec8b08
+           fa2fee49 64d1067d 2d160bda 608f9171 355c1206 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 14 Bits gefunden zum Zeitpunkt 00:03:32
+  Ausgabe: 34a29f0e 21d27207 a046430c bef311b3 ad0fe54d b6220d02 99627eff a9df9ae3
+  Eingabe: 4e2b9ed5 2621a790 94b6f612 6a9ad33a 1c5f0359 a821defc 0832cb75 e70493e7
+           67072a68 6467e2f6 4ebf426d 30c66c89 64001350 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 14 Bits gefunden zum Zeitpunkt 00:01:01
+  Ausgabe: 79bcdf0e b8574d43 d08543dd 7fd8d203 10e45896 69ea10aa e3ae346c 342133ce
+  Eingabe: 44b80d59 5e92abde f45aae58 c3ee57e4 3442062f 05f5e14e d143e98c 15b4377d
+           09f76961 f68f5238 1c548aa7 0a8f7987 3a02fe06 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 14 Bits gefunden zum Zeitpunkt 00:01:31
+  Ausgabe: 3f6b5f0e 49700095 3dde41db 15768ae9 0a7e71a1 9805b213 213d0bca 7e58acb1
+  Eingabe: 305807ca 17d96990 f32cff37 22244821 ce8abceb 3bb533b5 7e397f73 194bb91c
+           e7dbe15f 733f5c3d b63c5d56 63281cb2 3afe0a4c 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 14 Bits gefunden zum Zeitpunkt 00:01:10
+  Ausgabe: 739b5f0e 1a0d38e2 3644d485 997b743a e2e6a4b0 3007db4b 5c93e7e9 ecdd8c79
+  Eingabe: 8ae311f5 5da06b0a 01040721 86358afe 1d042272 7243e5d9 b4b94063 5ad37905
+           31ce7653 5e15127e 545274e1 212f86b3 dfddc67d 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 15 Bits gefunden zum Zeitpunkt 00:01:08
+  Ausgabe: d7e41f0e fc448e1d a15c5260 11af8dab cff1dab4 1cf2451a 7040747c c436f7b7
+  Eingabe: 4794bc17 33316986 1eb99a8e ce76b61e 8e69b284 51b5f93c 923f8201 b5e897aa
+           37d424fb 780b813b c8ec9ecd f81c52c2 46892c37 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 15 Bits gefunden zum Zeitpunkt 00:03:30
+  Ausgabe: 0ead9f0e 8d2fc306 ba088d26 af22f457 ce6da32f 5f0372fc 928a7c39 f512a80f
+  Eingabe: ffa0d1b8 62d9b850 b81729a4 a16c8033 78ff8c40 806e708e 8d8a2c5a 4ce95e59
+           64cd1c2c 402092fc 08266250 75986292 a2a34aa2 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 15 Bits gefunden zum Zeitpunkt 00:01:08
+  Ausgabe: d7e41f0e fc448e1d a15c5260 11af8dab cff1dab4 1cf2451a 7040747c c436f7b7
+  Eingabe: 4794bc17 33316986 1eb99a8e ce76b61e 8e69b284 51b5f93c 923f8201 b5e897aa
+           37d424fb 780b813b c8ec9ecd f81c52c2 46892c37 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 15 Bits gefunden zum Zeitpunkt 00:04:16
+  Ausgabe: 1eb69f0e 97db0644 f78fec5e c29524fe a2149c71 81c9cf90 96cbe3d7 b4029da9
+  Eingabe: 23bb3809 b5f9fe13 32cd9b84 7ba7a454 6e017335 0a943350 717615b0 467f9db8
+           4a3ab278 237bf61e 5adaa3aa 4ed3c739 e8c8a775 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 15 Bits gefunden zum Zeitpunkt 00:01:08
+  Ausgabe: d7e41f0e fc448e1d a15c5260 11af8dab cff1dab4 1cf2451a 7040747c c436f7b7
+  Eingabe: 4794bc17 33316986 1eb99a8e ce76b61e 8e69b284 51b5f93c 923f8201 b5e897aa
+           37d424fb 780b813b c8ec9ecd f81c52c2 46892c37 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 16 Bits gefunden zum Zeitpunkt 00:01:04
+  Ausgabe: effb1f0e 54dfec58 3f9d2579 afa23cce 3952450c 1a32f5a9 3f65cd91 7af186f7
+  Eingabe: fa7e9b82 4bf5d284 4dff40c9 5dfae22a df871a90 6ca143a2 833d3b69 97cd91fa
+           11afc336 b2025635 8d13fdb4 e3db5783 18d37fdb 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 16 Bits gefunden zum Zeitpunkt 00:04:23
+  Ausgabe: f4e01f0e 4ec7dd69 9446acff d7f5f6c8 a41cd285 45f484bd 3e02e3ef 351a669d
+  Eingabe: 8f9c6620 b4c95fdc 06989542 a4f6406c c1f1dcb3 e5b046cc 00fde932 849eaa64
+           43466e64 786405ef a8c3fe02 9b517d09 52875745 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 16 Bits gefunden zum Zeitpunkt 00:00:58
+  Ausgabe: 517b1f0e 124dded3 12e073f9 d9386e0c b94ba9aa 6e46ef7b 61d318a7 1297b27c
+  Eingabe: a70a4bd6 8a10302a c95fdb3a 030434d7 1f70e903 6aefb94d 0acc8b14 faa736fe
+           ade21227 d35da48c 40d6e694 c2a569a5 ddf94bf1 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 16 Bits gefunden zum Zeitpunkt 00:00:47
+  Ausgabe: 4d501f0e 8a09195d d90fac4e ddcdf165 52b62c29 33d66f24 9e08e8b2 25e7098e
+  Eingabe: 048da662 7bd5bc08 7cadd5f9 815558b2 66890089 13f14b6e 059a0825 e1f1956e
+           6647ff74 aae358a3 fb5806d3 1b96b5d5 64de44a4 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 16 Bits gefunden zum Zeitpunkt 00:00:47
+  Ausgabe: 4d501f0e 8a09195d d90fac4e ddcdf165 52b62c29 33d66f24 9e08e8b2 25e7098e
+  Eingabe: 048da662 7bd5bc08 7cadd5f9 815558b2 66890089 13f14b6e 059a0825 e1f1956e
+           6647ff74 aae358a3 fb5806d3 1b96b5d5 64de44a4 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 17 Bits gefunden zum Zeitpunkt 00:22:38
+  Ausgabe: 35c31f0e 328774a1 e45d7001 c35f9529 7fa33c90 1d3d7155 44bb9cc0 b066daba
+  Eingabe: 0523c354 2849a790 2b25bb1e 698f63d8 6932e8d5 2dcfdcbf ab0a672d e1bf2018
+           f9451280 f9d01e82 080e619b 79a47b3a 894dc031 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 17 Bits gefunden zum Zeitpunkt 00:01:43
+  Ausgabe: 51fb1f0e 18e2046a 8557ee08 dceaffcf 65a7c03b 4c6d757d 06d237f3 2e068ee9
+  Eingabe: d03d8e7a 7a142cec 7c00451b 281f14cf 5af005c4 c7c3d77a 49169608 22b2c06f
+           8f7718e6 13324955 18575790 6a459b9e 977167b3 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 17 Bits gefunden zum Zeitpunkt 00:00:15
+  Ausgabe: aea91f0e 7c89883f 145840ec 6cda8fd0 de27caf5 8f0363dd eccf3a3b 77835ef1
+  Eingabe: 8822af92 21a245c5 59ffd89e 98e2cf6e 86112f96 c36ae7dc 2a149122 eee4a12c
+           b47a7e73 f2fa598e 22522cce 68392941 efca7f3b 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 17 Bits gefunden zum Zeitpunkt 00:12:56
+  Ausgabe: 83371f0e 4dcb45d1 43c1e731 1728f0bd 55754109 da043c38 df91def5 d4c172d4
+  Eingabe: e8e2c228 0a63759c 36c0b7e5 92c5e10a a793b88e 8d1144cc ae2f41c2 cd3e9c7a
+           8b06176c f14c9761 55698eb3 95e98dc8 1800f3cd 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 17 Bits gefunden zum Zeitpunkt 00:46:16
+  Ausgabe: a16f1f0e 165a0a8d 7c7e252c 59411a79 c1d4eb3b 6adcb23b eaa271ed 3badeaad
+  Eingabe: 4fd98717 5c4920b9 b675fe1c 3e238461 fdc00ef1 9445cca5 faef316f c6321c64
+           61cb8d56 60393f50 f0734acf 1d76ec4b 8accdfb0 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 18 Bits gefunden zum Zeitpunkt 00:17:09
+  Ausgabe: 49bf1f0e 4565a3fe d29389f2 e7a33227 0ffa323e 89c8c449 fc0c4169 0cd5444c
+  Eingabe: 4023b12b 4900e7bd e0ed88a5 0406bfc3 ee4ae3d0 64a6898f 0d2473ff ddb239f5
+           30b9add6 eb7f1d99 7fc0f9f6 ce79f322 5e0264ac 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 18 Bits gefunden zum Zeitpunkt 00:03:17
+  Ausgabe: 81af1f0e b3dfd8a7 d64a0eae 2608fd57 b4f7b41b faab9165 a834c5e9 f27a77d2
+  Eingabe: 1f9ee4f8 b50f52aa a7515023 c2412d57 57470667 058fb0be a9a8da2b 280330fc
+           26caa59e 7bcba21c d1d720e2 4f5d0515 16946ee2 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 18 Bits gefunden zum Zeitpunkt 01:09:19
+  Ausgabe: 279f1f0e f42cbd0c 0521532b c2a8bada 30c8690b d803c170 15b57f31 1e5f2145
+  Eingabe: ad55b868 09ee1c14 054d8954 081c259c 0400bd01 afe7998f d93de8c8 e663b561
+           74539d50 c48029d8 2a37b883 9803b6d0 e8314e94 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 18 Bits gefunden zum Zeitpunkt 01:12:24
+  Ausgabe: 276f1f0e d510ef91 563f2554 bebe88ab e7f6bfe8 beeb337a 7a0404a1 af219fec
+  Eingabe: 8eb0eef8 c7080a3d 74a49f5c d410f0ec 3759bc87 2b4e2a5e dd76ecee 17529bb1
+           0a20b839 01dec9a6 7c25469f 8b7c9d43 ef31091f 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 18 Bits gefunden zum Zeitpunkt 01:54:30
+  Ausgabe: 01971f0e f88f6612 09a08bc9 ce909bdc 1da978c9 eea473e0 d6b44d90 82f4f5c3
+  Eingabe: cc649527 200c0a25 83dbf710 7f054591 23f3e071 50bd0bb2 900597ec c3eaa74b
+           fde292fa 51bc7d5d 8b2c5be2 6e9f8fff 74c598da 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 19 Bits gefunden zum Zeitpunkt 01:20:19
+  Ausgabe: 22db1f0e 3f6f52ed ca77da74 8cda05a6 8aa1885d 59e87ed6 16a66265 a1ded06a
+  Eingabe: 2c96b6d4 bf3a5fc3 accc2978 db59a7c4 25be2620 3a4663ec 614c6788 c08d2707
+           b2049128 1b460416 d235a668 062b35a9 3fbbaeae 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 19 Bits gefunden zum Zeitpunkt 01:03:58
+  Ausgabe: 0e6b1f0e 938a632a 72896fec 29150c2b a000dbd6 ee4161b8 1202e1af 04597eec
+  Eingabe: fcd9336a 497d4a5c 9da7e52e 8c4a2c6d 720c1810 5bbfc054 ff11146d 92d5de85
+           54e056f1 930d706b 25838b71 695fe878 177ca0d4 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 19 Bits gefunden zum Zeitpunkt 00:07:00
+  Ausgabe: 79531f0e 7ae0c471 de63445e 7ff1d3ee d371cb78 518b3131 bf440d8f 24f1cd7a
+  Eingabe: 3ed6537b 6f1d469a 1fa4c993 2036ae49 4f62dda6 7cce0bf6 397085f2 e32ee4af
+           a4eac509 588ec2ec 784fa220 8e8645cf 932a58d0 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 19 Bits gefunden zum Zeitpunkt 02:02:00
+  Ausgabe: 15b31f0e 9804598c 53395cae 787d6953 e1609816 ac228cbb 67b9d890 b902168f
+  Eingabe: 1c99cc13 a185b3d6 c3d5d5ad 3d582b8b 965cd5d2 c8f567bd c61b0741 8245880b
+           dbf0584e 96001efd 26ffea71 21fc8385 40392036 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 19 Bits gefunden zum Zeitpunkt 03:13:18
+  Ausgabe: 105b1f0e 467ce347 49fb240d cc1ecc04 977d9118 41c29987 58d6c76f bc76a3ce
+  Eingabe: 18fba133 ca6a3501 750b03c2 1578266f 29bfdcf0 cef9e78e d952544f ac74edc1
+           c14357d2 606a9f01 00000004 10000001 84028001 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 20 Bits gefunden zum Zeitpunkt 05:48:01
+  Ausgabe: f1a31f0e 81a803be a3bc0ff0 4ed7c2c2 6970d5fe 1d43214a 90859fcf d66dee54
+  Eingabe: b684b215 3a071c13 487ceb14 592d43e6 c3671993 5fc2fb65 6a21d35e e5262698
+           3213efc8 1aea9c59 b7cbf52c a12ece3c c72ac789 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 20 Bits gefunden zum Zeitpunkt 04:36:54
+  Ausgabe: 8db31f0e b731e4d6 618d5398 fc5cf784 a8eac5cc 1a8407c8 b8258d5a c34f7a6e
+  Eingabe: ecb28cb7 45333a83 e9ff2d0b 95d992e1 0f68c001 67371fbf 15604402 1f924bfa
+           07269d78 4bc610a4 ae4b3b33 d09e9a6b 1ccff1a9 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 20 Bits gefunden zum Zeitpunkt 00:52:41
+  Ausgabe: 25f31f0e d727f1a7 873bcf83 896fd584 73501a50 d6d1aba3 87fb3b4f f748452f
+  Eingabe: 74b2e44b 756cf3d6 57e42a56 4660ee13 3af9c422 ee2967a9 127bfc40 88bdd24d
+           1e8719a9 2f0060b3 67ec0195 0cefd57a 93368d34 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 20 Bits gefunden zum Zeitpunkt 00:30:03
+  Ausgabe: 92231f0e fee3d8b4 d552fb52 089b0e35 3191b460 6583fc29 de265d5b 7c60133b
+  Eingabe: a69d93de d2cb2445 a5438579 c460e516 89c33afc ad2c4bfa ad4a10ec 3610200c
+           0d362196 8074e5b0 25d43ccc 925e603b c0600267 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 20 Bits gefunden zum Zeitpunkt 00:47:43
+  Ausgabe: a8031f0e ee7d997e db97e191 259c81f1 e2650aa4 26d6f66a 8d3c62d4 06c41253
+  Eingabe: c1ba584b 31359545 e7247a95 9a5857d2 1ffba81a ec72acd0 309f9541 5387aa3c
+           f0c657b4 b7fccfe0 683a9f78 a4f66cf9 043027b2 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 21 Bits gefunden zum Zeitpunkt 02:27:43
+  Ausgabe: 57b31f0e 33e86f90 c6cf6169 fe0934b9 a6886fd2 31edbf42 c9bb4db5 290688d6
+  Eingabe: 51e13921 8e89abc5 7a8b6731 d4db8ed2 a791897a 9b9f2814 99ee811b 74c39f09
+           0fe0a086 830080fb 074a5c6c fb4bbba7 ca32e5d0 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 21 Bits gefunden zum Zeitpunkt 19:42:35
+  Ausgabe: 2f131f0e 713dd56a 8abf573b b3e70f66 0dd53700 2d29b6e0 ab1a35c1 2f2458e7
+  Eingabe: 84504930 80a3b80f a3be3171 10cc0fd5 23107ee1 30036a4d b219b8a4 9b4095ff
+           f45c9309 64e98898 f6236150 270d7566 32b57332 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 21 Bits gefunden zum Zeitpunkt 03:25:15
+  Ausgabe: eab31f0e c1cf575f 15a08693 cfd1792e f09e26af a52e778e 00857d09 5b8fb2a2
+  Eingabe: b854d09b 00fc5c8a 0361910d a8f0de72 ea392906 3308015e 8c528262 72c8ad40
+           a76387d1 4f0e48f7 90c834d9 7fe2b63c b84fcc0d 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 21 Bits gefunden zum Zeitpunkt 00:03:33
+  Ausgabe: 3b731f0e 42dd6cb6 81194655 95757af7 a29c8641 cbc870a1 b84c84a6 fb392fc2
+  Eingabe: 3a0c2a77 33c9faee 50929b11 a5460f95 3c2544d0 eb68e431 72d4bb2b 09c00460
+           f4cd8c05 c0a3ad2b 9e8c0ee2 3e230094 61ee60a5 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 21 Bits gefunden zum Zeitpunkt 27:03:38
+  Ausgabe: 98731f0e 76f750a5 b831177b a89f08d3 0c98f216 f672357e 324aab6d 9cf24c56
+  Eingabe: 56f0306e 96d4a58a 742a5b52 efc3aa4e 7dbc6df4 3f09716e 313de7d2 7b1964ac
+           2bef7d8d af114fe3 3bcdd7e1 11e423fd 13ebb196 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 22 Bits gefunden zum Zeitpunkt 34:52:51
+  Ausgabe: 9bd31f0e 8a83d33e 120df1bc 327be567 fe714226 b81be6ed 7767c73e 6a0fb712
+  Eingabe: e4cecbf2 536335e9 6e2e6a1d 80c243ed 6663e0f2 15b45f95 0eb14ffc 8f1df401
+           e01a0029 06004001 00000002 88030889 01008083 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 22 Bits gefunden zum Zeitpunkt 04:14:24
+  Ausgabe: 9a531f0e d52025cd 147a1146 75d213a7 95b20227 56218f61 4427dd32 1b7b5891
+  Eingabe: c268592a 51fb4a00 0b0c92f3 0708771c 5acf80f7 4bd6d455 966e05ff be73e400
+           6e83ca2e ab383826 49161875 6c161467 e66d0c0d 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 22 Bits gefunden zum Zeitpunkt 32:42:51
+  Ausgabe: 97931f0e 734446b2 e1e45858 a73de429 95996930 58e962af 5da8b3b5 2eed70eb
+  Eingabe: df394db0 5b9f17cc 74f43e8d 4ad670ca 60fe00e6 cf297035 dc0e3fd8 7e670dea
+           7e5a9449 3305baaa 6f976701 b774072f 898c4129 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 22 Bits gefunden zum Zeitpunkt 03:22:21
+  Ausgabe: 93131f0e d551226d 8ede9e0e 89c91f0b 326ec3d8 f57fa4a8 e18b2768 a12c464c
+  Eingabe: 1692d323 cac94b05 209314ba 78a90fb9 150a6721 9e3348d6 96e2ffbc 72209930
+           3f651c62 b2e5d7e4 7ee0696c 2cb93925 bd6ef797 80000000 00000000 000001a0
+CPUNUM: 8
+  Lösung für 22 Bits gefunden zum Zeitpunkt 00:30:49
+  Ausgabe: 50131f0e 5958789a f59c9965 c103befb a6d59d32 c61cfba0 6db95562 7a077cfb
+  Eingabe: efa80b55 c34fdbd9 ac80f101 bcaca8b4 245ad57c 46d847c1 e69344c1 a9068479
+           f901b002 b33ee093 9183afc7 00bfcba1 598800d5 80000000 00000000 000001a0

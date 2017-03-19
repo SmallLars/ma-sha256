@@ -1,9 +1,20 @@
-\section{Sat-Solver}
+\section{SAT-Solver}
 \label{sec:satsolver}
 
-\TODO{erledigen}
+SAT-Solver dienen dazu, ein Erfüllbarkeitsproblem der Aussagenlogik zu lösen. Als Eingabe wird eine Formel in konjunktiver Normalform genutzt.
+Ist die Formel erfüllbar, liefert ein SAT-Solver dafür ein Beispiel. Da die Laufzeit exponentiell zur Anzahl der Variablen ist, gelingt
+es jedoch nicht immer eine Lösung zu finden oder die Unerfüllbarkeit zu belegen. Relevant für diese Arbeit ist, dass ein SAT-Solver bei einem
+Lösungsversuch Konfliktklauseln sammelt. Diese ergeben sich aus einem Versuch mehrere Variablen zu belegen der sich als ungültig herausstellt.
+Konfliktklauseln ergänzen die ursprüngliche konjunktive Normalform. Anstatt diese zu verwerfen, werden sie in dieser Arbeit exportiert, gefiltert
+und in weitere Lösungsversuche eingebracht um den Lösungsprozess zu beschleunigen.
 
-versucht erfüllbarkeitsproblem zu lösen\\
-falls erfüllbar: beispiel verfügbar\\
-~\\
-cryptominisat: kann xor-klauseln
+Beachtet werden muss dabei, dass die Konfliktklauseln sich auf eine spezifische Lösung beziehen. Soll ein SAT-Solver zum Beispiel zwei Summanden
+einer Summe finden, wird er mit den Konfliktklauseln eines erfolgreichen Lösungsversuchs immer wieder zum gleichen Ergebnis kommen, obwohl es
+unter Umständen viele weitere Lösungen gibt, da diese durch die Konfliktklauseln ausgeschlossen werden. Vermeiden lässt sich dieses Verhalten,
+wenn ausschließlich die Logik (in diesem Fall die Addition) als Eingabe dient. Spezifische Werte wie der Summand können als Annahmen (Assumptions)
+in den Lösungsprozess aufgenommen werden. Konfliktklauseln die durch diese Annahmen entstehen werden separat behandelt und bei Programmende verworfen.
+
+In dieser Arbeit wird CryptoMiniSat in der Version 4.5.3 verwendet. CryptoMiniSat bietet den Vorteil auch Klauseln einlesen zu können, deren Literale
+durch den XOR-Operator verknüpft sind. Dies ermöglicht eine kompaktere Repräsentation der Eingabe, da eine XOR-Klausel mit $n$ Literalen $2^{n-1}$
+normale Klauseln repräsentiert. Ein weiterer Vorteil von CryptoMiniSat ist, dass die ursprüngliche konjunktive Normalform während eines Lösungsversuchs
+optimiert wird. Diese optimierte Form kann als irredundante Klauselmenge genau wie die Konfliktklauseln (redundante Klauselmenge) exportiert werden.

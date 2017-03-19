@@ -14,10 +14,6 @@ class Collector {
 
         virtual void newModul(unsigned level, const char* name, Modul* modul);
         virtual void create(bool xOR, const std::vector<CMSat::Lit>& vars);
-    protected:
-        std::vector< std::vector<CMSat::Lit> > convertXOR(const std::vector<CMSat::Lit>& vars);
-    private:
-
 };
 
 #endif //__COLLECTOR_H__
