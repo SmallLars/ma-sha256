@@ -4,21 +4,21 @@ Hash-Algorithmen zeichnen sich dadurch aus, dass die Berechnung eines \glos{hash
 Verwendet werden sie in vielen sicherheitskritischen Umgebungen, in denen der \glos{hash} als eine Art Fingerabdruck
 von Daten genutzt wird, um eine Manipulation auszuschließen. Dazu gehört auch die digitale Währung "`Bitcoin"' (siehe Abschnitt
 \ref{sec:bitcoin}), in der sich durch "`Mining"' Geld verdienen lässt. Mining bedeutet in diesem Fall so lange Fingerabdrücke
-zu erzeugen, bis ein für das System passender Fingerabdruck dabei herauskommt. Eine Umkehrung der Berechnung würde diesen
-Prozess wesentlich einfacher machen.
+zu erzeugen, bis ein für das System passender Fingerabdruck dabei herauskommt. Eine effiziente Umkehrung der Berechnung würde
+diesen Prozess wesentlich einfacher machen.
 
 An diesem Punkt rücken SAT-Solver (siehe Abschnitt \ref{sec:satsolver}) in den Fokus. Diese versuchen eine Lösung für ein
 Problem zu finden, ohne dass dabei die Richtung der Berechnung eine Rolle spielt. Das allgemeine Problem ist in diesem Fall
 die Beschreibung eines Hash-Algorithmus, wobei auf die Vorgabe einer Eingabe und Ausgabe verzichtet wird. Ohne diese Vorgabe
 kann der SAT-Solver eine beliebige Lösung generieren, die dem Problem entspricht. Im Fall eines Hash-Algorithmus ist die Lösung
 eine Eingabe und der dazu passende Fingerabdruck. Wird zusätzlich der Fingerabdruck vorgegeben, versucht der SAT-Solver dafür
-eine gütige Eingabe zu finden.
+eine gültige Eingabe zu finden.
 
 Andere Arbeiten zu diesem Thema (siehe Abschnitt Abschnitt \ref{sec:otherwork}) haben bereits einen Versuch unternommen,
 Hash-Berechnungen auf diesem Weg umzukehren. Diese Arbeiten beschränken sich jedoch darauf, eine mehr oder weniger optimierte
 Eingabe für SAT-Solver zu erzeugen und diese mit verschiedenen SAT-Solvern zu testen. Im besten Fall werden außerdem noch
 einige Versuche zu unternommen, die optimalen Einstellungen spezifischer SAT-Solver zu ermitteln.
 
-An diesem Punkt setzt die Arbeit an und geht einen Schritt weiter. Während eines Lösungsversuch erwerben SAT-Solver zusätzliches
-Wissen über das gestellte Problem. Im Allgemeinen wird dieses Wissen bei Programmende verworfen. In diesem Fall wird das Wissen
+An diesem Punkt setzt diese Arbeit an und geht einen Schritt weiter. Während eines Lösungsversuchs erwerben SAT-Solver zusätzliches
+Wissen über das gestellte Problem. Im Allgemeinen wird dieses Wissen bei Programmende verworfen. In dieser Arbeit wird das erworbene Wissen
 analysiert, verallgemeinert und von Anfang an in weitere Lösungsversuche integriert, in der Hoffnung diese dadurch zu beschleunigen.

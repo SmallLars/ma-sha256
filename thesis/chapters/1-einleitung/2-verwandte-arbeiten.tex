@@ -2,15 +2,15 @@
 \label{sec:otherwork}
 
 Vegard Nossum beschäftigt sich in seiner Masterarbeit \cite{vegard:1} mit SHA1 und MiniSat.
-Seinen dafür geschrieben Programmcode hat er auf GitHub \cite{vegard:2} veröffentlicht.
-Hauptbestandteil seiner Masterarbeit ist die Erzeugung unterschiedliche Repräsentation von SHA1 für MiniSat
-um diese auf ihre Performance zu vergleichen. Außerdem versucht er die richtigen Parameter für
-MiniSat zu finden, die den Lösungsprozess beschleunigen. Interessant ist sein Ansatz am Ende seiner
+Seinen dafür geschriebenen Programmcode hat er auf GitHub \cite{vegard:2} veröffentlicht.
+Hauptbestandteil seiner Masterarbeit ist die Erzeugung unterschiedlicher Repräsentationen von SHA1 für
+MiniSat um diese auf ihre Performance zu vergleichen. Außerdem versucht er die richtigen Parameter für
+MiniSat zu finden, die den Lösungsprozess beschleunigen. Interessant ist sein Ansatz, am Ende seiner
 Masterarbeit gelernte Klauseln zu sammeln und für weitere Lösungsversuche einzusetzen. Problematisch
 ist dabei sein Vorgehen, für SHA1 allgemeingültige Klauseln anhand einer Statistik zu ermitteln.
 Allgemeingültige Klauseln ermittelt er durch 100 Versuche, bei denen er den SAT-Solver "`clasp"'
 jeweils 300 Sekunden nach Eingaben für unterschiedliche Hashwerte suchen lässt. Wird eine Klausel
-in 90 fällen gelernt, gilt sie als allgemeingültig. Weitere Tests mit diesen zusätzlichen Klauseln
+in 90 Fällen gelernt, gilt sie als allgemeingültig. Weitere Tests mit diesen zusätzlichen Klauseln
 beschleunigen den Lösungsprozess laut seiner Aussage nicht.
 
 Martin Maurer baut in seinem Projekt auf GitHub \cite{capiman} auf der Masterarbeit von Vegard Nossum auf.
@@ -20,7 +20,7 @@ Bitcoin-Blocks dienen soll. In seinen Versuchen kommt er zu dem Schluss, dass "`
 um damit sinnvolle Dinge zu erledigen"'. Er stellt auch fest, dass die Version mit "`Tseitin-Addierern"'
 schneller ist, als die Version mit Addierern die durch Espresso generiert wurden.
 
-Einen anderen Versuch unternimmt Jonathan Heusser in seinem Artikel \cite{jona:1}. Sein Fokus liegt dabei
+Einen anderen Versuch unternimmt Jonathan Heusser in seinem Blog \cite{jona:1}. Sein Fokus liegt dabei
 auf der Lösung eines Bitcoin-Blocks mit unterschiedlichen SAT-Solvern. Im Gegensatz zu Vegard Nossum und
 Martin Maurer erzeugt er sich die Eingabe für den SAT-Solver jedoch mit Hilfe eines Modelcheckers aus
 C-Programmcode. Im Anschluss führt er Versuche mit unterschiedlichen SAT-Solvern durch und vergleicht die
