@@ -9,9 +9,25 @@
 
 \clearpage
 
-Im Folgenden werden die Ordner der CD, sowie deren Inhalte, in der obersten Ebene beschrieben. \TODO{erledigen}
+Im Folgenden werden die Ordner der CD, sowie deren Inhalte, in der obersten Ebene beschrieben.
 
 \begin{itemize}
   \setlength{\itemsep}{0.5cm}
-  \item \textbf{Ordner}: Beschreibung \newline Beschreibung.
+  \item \textbf{cnf\_gen}: Programme zur Erzeugung der konjunktiven Normalform und zur Analyse der von CryptoMiniSat gefundenen Klauseln.
+                          Durch einen Aufruf von "`make"' werden sowohl CryptoMiniSat als auch alle anderen Programme kompiliert.
+                          CryptoMiniSat ist Voraussetzung für die in den anderen Ordnern enthaltenen Evaluationen.
+  \item \textbf{espresso}: Heuristic Logic Minimizer der Berkeley Universität (siehe Abschnitt \ref{sec:espresso}).
+                           Durch einen Aufruf von "`make"' wird Espresso kompiliert und einen Berechnung der
+                           konjunktiven Normalformen für die im Ordner enthaltenen Gleichungen durchgeführt.
+  \item \textbf{eval\_capiman}: Konjunktive Normalform von Martin Maurer für den Vergleich in der Evaluation.
+  \item \textbf{eval\_cbmc}: Model Checker für C und C++ Programme (siehe Abschnitt \ref{sec:cbmc}) mit dem eine konjunktive
+                             Normalform aus einem C Programm erzeugt wird, um diese in der Evaluation zu vergleichen.  
+  \item \textbf{eval\_initial}: Evaluation der in dieser Arbeit erstellen konjunktiven Normalform mit einer Initialwertberechnung (siehe Abschnitt \ref{sec:initialwertberechnung}).
+  \item \textbf{eval\_miter}: Evaluation der in dieser Arbeit erstellen konjunktiven Normalform mit einer Kollisionsberechnung (siehe Abschnitt \ref{sec:kollisionsberechnung}).
+  \item \textbf{eval\_thesis}: Evaluation der in dieser Arbeit erstellen konjunktiven Normalform mit einer Urbildberechnung (siehe Abschnitt \ref{sec:urbildberechnung}) für
+                               den direkten Vergleich mit \acr{cbmc} und der Arbeit von Martin Maurer.
+  \item \textbf{graphics}: Allgemeine Grafiken für die Verwendung in der Arbeit und der Präsentation.
+  \item \textbf{presentation}: Folien für die Präsentation bei der Vorstellung und Verteidigung der Arbeit.
+  \item \textbf{source}: In dieser Arbeit verwendete Programme und Dokumente.
+  \item \textbf{thesis}: Quellcode dieses Dokuments der durch Eingabe von "`rake"' kompiliert werden kann.
 \end{itemize}
