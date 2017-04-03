@@ -1,17 +1,17 @@
 \section{Addierer}
 \label{sec:grundlagen_add}
 
-Die Addition ist eine surjektive Abbildung. Die Berechnung der Summe von zwei Zahlen ist eindeutig und einfach. Die Umkehrung ist jedoch nicht eindeutig,
-da sich die Summe einer n-Bit Zahl aus n unterschiedlichen Kombinationen von Summanden bilden lässt. Wird die Assoziativität der Addition berücksichtigt,
-sind es nur n/$2$ Kombinationen, was für diese Arbeit jedoch keine Rolle spielt. Durch diese Eigenschaft eignet sich die Addition gut für die Verwendung
+Die modulare Addition ist eine surjektive Abbildung. Die Berechnung der Summe von zwei Zahlen ist eindeutig. Die Umkehrung ist jedoch nicht eindeutig,
+da sich die Summe einer n-Bit Zahl aus $2^{\text{n}}$ unterschiedlichen Kombinationen von Summanden bilden lässt. Wird die Assoziativität der Addition berücksichtigt,
+sind es nur $2^{\text{n}}/2$ Kombinationen, was für diese Arbeit jedoch keine Rolle spielt. Durch diese Eigenschaft eignet sich die Addition gut für die Verwendung
 in Verschlüsselungs- oder Hash-Algorithmen, da einem Angreifer mit Kenntnis der Summe keine Kenntnisse über die Summanden vorliegen.
 
 Die modulare 32-Bit Addition ist die am häufigsten verwendete Operation in der Kompressionsfunktion von \glos{sha256} (Kapitel \ref{chp:sha256}).
 Im Gegensatz zu den anderen verwendeten Operationen ist die Addition nicht direkt durch grundlegende binäre Operationen wie AND, OR und XOR definiert.
-Die Realisierung bleibt dem Programmierer/Konstrukteur überlassen. Um eine Auswahl zu treffen, werden einige Konstruktionen kurz erläutert.
+Die Art der Realisierung mit Hilfe der binären Operationen bleibt dem Programmierer überlassen. Um eine Auswahl zu treffen, werden einige Konstruktionen kurz erläutert.
 \begin{description}
-  \item[Der Carry-Ripple Addierer] realisiert die Addition mit Hilfe der Schulmethode. Jede Stelle der Binärzahl wird einzeln addiert wobei der Übertrag bei der nächsten
-                                   Addition berücksichtigt wird. Durch dieses Vorgehen ist eine Parallelisierung der einzelnen Additionen nicht möglich, da jede
+  \item[Der Carry-Ripple Addierer] realisiert die Addition ähnlich der schriftlichen Addition. Jede Stelle der Binärzahl wird einzeln addiert wobei der Übertrag bei der
+                                   nächsten Addition berücksichtigt wird. Durch dieses Vorgehen ist eine Parallelisierung der einzelnen Additionen nicht möglich, da jede
                                    Addition vom Übertrag der vorhergehenden Addition abhängig ist.
   \item[Der Conditional-Sum Addierer] verwendet genau wie der Carry-Ripple Addierer Überträge. Jedoch werden alle Teilsummen zwei Mal berechnet. Einmal mit der Annahme,
                                       dass ein Übertrag vorliegt und einmal ohne. Dadurch können die einzelnen Additionen parallel durchgeführt werden. Abschließend
@@ -23,8 +23,8 @@ Die Realisierung bleibt dem Programmierer/Konstrukteur überlassen. Um eine Ausw
 \end{description}
 Interessant sind die unterschiedlichen Konstruktionen besonders für die Umsetzung in Hardware. Dort kann eine Beschleunigung der Berechnung durch Parallelisierung
 ausgenutzt werden. Während in der Hardware Parallelisierung bedeutet, eine Berechnung mehrfach auf dem Chip unterzubringen, müssen bei einer Realisierung in Software
-entsprechend viele Recheneinheiten vorhanden sein. Da es in dieser Arbeit darum geht Additionen in Software zu berechnen, wird wird der Carry-Ripple Addierer verwendet.
-Durch die explizite Berechnung und Berücksichtigung der Überträge bietet dieser auch die Möglichkeit Aussagen über einzelne Überträge zu machen. Gelingt es, den Wert $0$
+entsprechend viele Recheneinheiten vorhanden sein. Da es in dieser Arbeit darum geht, Additionen in Software zu berechnen, wird der Carry-Ripple Addierer verwendet.
+Durch die explizite Berechnung und Berücksichtigung der Überträge bietet dieser auch die Möglichkeit Aussagen über einzelne Überträge zu machen. Gelingt es den Wert $0$
 eines Übertrags festzulegen, lässt sich daraus folgern, dass die Bits der Summanden vor dem Übertrag keine Auswirkungen auf die Bits der Summe nach dem Übertrag mehr haben.
 Die Propagierung eines möglichen Übertrags ist unterbrochen. Das Problem, die Summanden einer Addition zu finden, wird dadurch in zwei kleinere Probleme zerlegt, bei der
 die Summanden von zwei Additionen kleinerer Bitbreite gefunden werden müssen.
@@ -40,7 +40,7 @@ berechnet wird. Der Halbaddierer ist in Abbildung \ref{fig:halfadder} dargestell
 \end{figure}
 \footnotetext{Auf Basis von MovGP0, CC BY-SA 2.0 de, \url{https://commons.wikimedia.org/w/index.php?curid=22912775}}
 
-Um Unterschied zum Halbaddierer berücksichtigt der Volladdierer einen eingehenden Übertrag (c). Es werden ingesamt drei Bits summiert, wobei in einem ersten Schritt
+Im Unterschied zum Halbaddierer berücksichtigt der Volladdierer einen eingehenden Übertrag (c). Es werden insgesamt drei Bits summiert, wobei in einem ersten Schritt
 die beiden Summanden (a, b) durch einen Halbaddierer addiert werden. Führt diese Addition schon zu einem Übertrag, ist dieser im Volladdierer ebenfalls geben (o).
 Die Summe des ersten Halbaddierers wird im Anschluss durch den zweiten Halbaddierer mit dem eingehenden Übertrag (c) addiert. Ist ein Übertrag gegeben und die
 Summe $1$, liegt ebenfalls ein Übertrag im Volladdierer vor (o). Die Summe des zweiten Halbaddierers bildet auch die Summe des Volladdierers (s). Der Volladdierer
