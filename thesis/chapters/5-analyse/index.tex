@@ -31,7 +31,8 @@ Beachtet werden muss auch, dass der \glos{hash} nicht direkt mit in die konjunkt
 und das Padding, was vorgegeben wird um die Eingabelänge zu definieren. Eine direkt Kodierung würde dazu führen, dass erworbenes Wissen
 sich auf diese Werte bezieht und somit nur für diesen Fall gültig ist. Um das zu vermeiden werden alle Werte als "`Annahmen"' (Assumptions)
 an CryptoMiniSat übergeben. Das führt dazu, dass die Werte zwar für diesen Lösungsversuch gelten, jedoch nicht als allgemeingültig betrachtet
-werden. Klauseln die auf diesem Wissen basieren, werden separat behandelt und nach dem Lösungsversuch verworfen.
+werden. Klauseln die auf diesem Wissen basieren, werden separat behandelt und nach dem Lösungsversuch verworfen (in Anlehnung an
+"`Incremental Satisfiability"' \cite[Kapitel 6]{shtrichman}).
 
 Ebenfalls berücksichtigt werden muss die Extraktion der gelernten Klauseln aus CryptoMiniSat. Die internen Datenstrukturen sind nicht dafür
 geeignet, die Klauseln während eines laufenden Lösungsversuchs zu extrahieren. Eine Extraktion kann nur erfolgen, wenn CryptoMiniSat eine

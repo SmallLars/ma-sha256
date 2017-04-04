@@ -13,8 +13,8 @@ Ein Hash-Algorithmus sollte die drei folgenden Eigenschaften erfüllen um als si
                          Häufig wird diese Eigenschaft genutzt, um Passwörter in einer Benutzerdatenbank abzulegen.
                          Bei einer Authentifikation des Benutzers kann der \glos{hash} durch Eingabe des Passworts neu berechnet und mit dem 
                          hinterlegten \glos{hash} verglichen werden, ohne dass ein Angreifer durch einen Datenbankzugriff das Passwort stehlen kann.
-  \item[Urbildresistenz 2 / Schwache Kollisionsresistenz]
-                         Bei der Urbildresistenz 2 soll es nahezu unmöglich sein, zu einer gegebenen Eingabe eine weitere Eingabe zu berechnen,
+  \item[Schwache Kollisionsresistenz]
+                         Bei der schwachen Kollisionsresistenz soll es nahezu unmöglich sein, zu einer gegebenen Eingabe eine weitere Eingabe zu berechnen,
                          die auf den selben \glos{hash} abgebildet wird. Im Gegensatz zur Urbildresistenz ist bei dieser Eigenschaft eine gültige
                          Eingabe bekannt die einem Angreifer Informationen liefern könnte.
   \item[Starke Kollisionsresistenz]
@@ -27,7 +27,7 @@ Ein Hash-Algorithmus sollte die drei folgenden Eigenschaften erfüllen um als si
 \end{description}
 
 In dieser Arbeit wird \glos{sha256} betrachtet. Nach SHA-$0$ und SHA-$1$ gehört dieser zur dritten Generation, zu der auch SHA-$224$, SHA-$384$ und SHA-$512$ gehören.
-Genau wie SHA-$224$ werden maximale Eingaben von $ 2^{64} - 1$ Bit unterstützt, was $ 2^{61} - 1 $ Byte (vergleiche 1 \acr{gib} = $ 1^{30} $ Byte) entspricht.
+Genau wie SHA-$224$ werden maximale Eingaben von $ 2^{64} - 1$ Bit unterstützt, was $ 2^{61} - 1 $ Byte (vergleiche 1 \acr{gib} = $ 2^{30} $ Byte) entspricht.
 Der berechnete Fingerabdruck ist gemäß dem Namen 256 Bit lang.
 
 Erstmal veröffentlicht wurde \glos{sha256} vom \acr{nist} im August 2002 \cite{nist1802}. Die aktuellste Version wurde im August 2015 veröffentlicht \cite{nist1804}.

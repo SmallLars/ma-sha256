@@ -7,7 +7,8 @@ Analyse in die Klauselmenge aufgenommen werden, sind die alten langen Klauseln �
 genutzt. Dieses bekommt als Eingabe alle bekannten Klauseln und überprüft diese auf kürzere Klauseln. Die naive Variante hat eine quadratische
 Laufzeit im Bezug zur Eingabegröße, da zu jeder Klausel alle weiteren überprüft werden müssen. Um die Laufzeit zu reduzieren wird eine Lookup-Tabelle
 genutzt, in der zu jedem Literal die Klauseln hinterlegt sind, die das Literal enthalten. So werden zu jeder Klausel nur noch die Klauseln überprüft,
-die mindestens ein gemeinsames Literal haben. In der Praxis reduziert sich die Laufzeit bei zwei Millionen Klausel dadurch von einer Woche auf fünf Minuten.
+die mindestens ein gemeinsames Literal haben. Dieses Vorgehen entspricht dem Watchlist-Prinzip, das auch im SAT-Solver "`zChaff"' \cite{zmmm} Verwendung
+findet. In der Praxis reduziert sich die Laufzeit bei zwei Millionen Klausel dadurch von einer Woche auf fünf Minuten.
 
 Die als überflüssig erkannten Klauseln werden in eine separate Datei ausgegeben und genau wie neue Klauseln einem Modul zugeordnet. Dadurch können
 diese Klauseln in den Modulen erkannt und entfernt werden. Zu Dokumentationszwecken werden die Klauseln nur auskommentiert. Eine Ausnahme bildet
