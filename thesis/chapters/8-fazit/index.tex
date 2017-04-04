@@ -1,6 +1,9 @@
 \chapter{Fazit}
 \label{chp:fazit}
 
+Ziel der Arbeit war es, das vom SAT-Solver erworbene Wissen einer Analyse zu unterziehen und ausgewählte Teile in weitere Lösungsversuche
+einzubringen um den Lösungsprozess zu beschleunigen. Dafür war es notwendig ein Framework für die Analyse und Erzeugung der konjunktive Normalform zu erstellen.
+
 In Kapitel \ref{chp:knf} konnte im Vergleich zu \acr{cbmc} und der Arbeit von Martin Maurer eine deutlich kompaktere konjunktive Normalform erzeugt werden.
 Das dafür erstellte Framework wurde frühzeitig veröffentlicht und von Jens Trillmann genutzt um den Verschlüsselungs-Algorithmus \acr{des} in eine
 konjunktive Normalform zu überführen \cite{trillmann}. Wird ein Klartext (64 Bit) vorgegeben und werden vom Geheimtext 48 Bit festgelegt, ist CryptoMiniSat
@@ -46,7 +49,8 @@ Nur bei der Verwendung von XOR-Klauseln konnte der Lösungsprozess damit beschle
 
 Die Evaluation in Kapitel \ref{chp:evaluation} hat gezeigt, dass es in dieser Arbeit gelungen eine konjunktive Normalform zu erzeugen, die schneller
 ist als die von Martin Maurer und die mit \acr{cbmc} mithalten kann. Das Ergebnis ist jedoch kein Vergleich zu dem, was sich durch reines Probieren
-realisieren lässt. Interessant bleibt dieser Ansatz trotzdem, da weitere Klauseln den Lösungsprozess noch weiter beschleunigen können.
+realisieren lässt. Ein praktisch relevanter Angriff auf \glos{sha256} oder Bitcoin ist somit nicht möglich. Interessant bleibt dieser Ansatz trotzdem,
+da weitere Klauseln den Lösungsprozess zukünftig noch weiter beschleunigen können.
 
 Im Gegensatz zu spezifischen Angriff auf \glos{sha256} lässt sich durch diesen Ansatz jedes neue Wissen problemlos integrieren und nutzen.
 Die Suche nach weiteren Klauseln könnte auch durch eine große Gemeinschaft erfolgen. Zukünftig wäre ein Internetauftritt denkbar, durch den

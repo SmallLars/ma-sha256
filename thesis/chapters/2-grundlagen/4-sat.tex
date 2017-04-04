@@ -3,10 +3,8 @@
 
 SAT-Solver dienen dazu, ein Erfüllbarkeitsproblem der Aussagenlogik zu lösen. Als Eingabe wird eine Formel in konjunktiver Normalform genutzt.
 Ist die Formel erfüllbar, liefert ein SAT-Solver dafür ein Beispiel. Da die Laufzeit im schlechtesten Fall exponentiell zur Anzahl der Variablen
-ist, gelingt es jedoch nicht immer eine Lösung zu finden oder die Unerfüllbarkeit zu belegen.
-\TODO{Kurze Erläuterung der Funktionsweise}
-Relevant für diese Arbeit ist, dass ein SAT-Solver bei einem
-Lösungsversuch Konfliktklauseln sammelt. Diese ergeben sich aus einem Versuch mehrere Variablen zu belegen der sich als ungültig herausstellt.
+ist, gelingt es jedoch nicht immer eine Lösung zu finden oder die Unerfüllbarkeit zu belegen. Relevant für diese Arbeit ist, dass ein SAT-Solver
+bei einem Lösungsversuch Konfliktklauseln sammelt. Diese ergeben sich aus einem Versuch mehrere Variablen zu belegen der sich als ungültig herausstellt.
 Konfliktklauseln ergänzen die ursprüngliche konjunktive Normalform. Anstatt diese zu verwerfen, werden sie in dieser Arbeit exportiert, gefiltert
 und in weitere Lösungsversuche eingebracht um den Lösungsprozess zu beschleunigen.
 
