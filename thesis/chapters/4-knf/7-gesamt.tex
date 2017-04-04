@@ -25,12 +25,12 @@ Analyse dieser Rekonvergenzen ist besonders interessant und wird durch die beide
 \end{figure}
 
 Ein weiteres Modul ist Bestandteil der Erweiterung der Eingabe und in Abbildung \ref{fig:sha256M} auf der rechten Seite
-dargestellt. Bei der Erweiterung der Eingabe werden vier Werte Addiert, wobei zwei davon zunächst durch die $ \sigma $-Funktionen
+dargestellt. Bei der Erweiterung der Eingabe werden vier Werte addiert, wobei zwei davon zunächst durch die $ \sigma $-Funktionen
 transformiert werden. Da es keine Rolle spielt, in welcher Reihenfolge die Addition durchgeführt wird, werden diese
 beiden zunächst in einem eigenen Modul addiert. Da jedes Eingabebit der $ \sigma $-Funktionen Einfluss auf bis zu
 drei Ausgabebits hat, könnten sich möglicherweise Rückschlüsse auf die jeweils anderen Eingabebits ziehen lassen.
 Mit Hilfe dieses Moduls und weiteren Additionen, wird schließlich ein Modul (Prepare) für die vollständige Erweiterung der Eingabe
-(siehe Abbildung \ref{fig:sha256prep}) erstellt. Die verbleibenden beiden Werte werden zunächst Addiert, um das Ergebnis
+(siehe Abbildung \ref{fig:sha256prep}) erstellt. Die verbleibenden beiden Werte werden zunächst addiert, um das Ergebnis
 dann mit dem Ergebnis des Moduls zu addieren.
 
 Die beiden erstgenannten Module werden ebenfalls zusammen mit weiteren Additionen genutzt, um ein Modul (ShaCore) für die vollständige

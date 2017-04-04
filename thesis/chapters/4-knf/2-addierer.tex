@@ -2,7 +2,7 @@
 \label{sec:knf:addierer}
 
 Grundlage für die modulare 32-Bit Addition sind der Halbaddierer, der Volladdierer und der Mod-2 Addierer (siehe Abschnitt \ref{sec:grundlagen_add}).
-Wie auch für die Gatter im Abschnitt vorher wird für den Halbaddierer eine boolsche Gleichungen erstellt (siehe Abbildung \ref{fig:halfadder_eqn}).
+Wie auch für die Gatter im Abschnitt vorher wird für den Halbaddierer eine Boolesche Gleichung erstellt (siehe Abbildung \ref{fig:halfadder_eqn}).
 Diese entspricht genau den Gattern in Abbildung \ref{fig:halfadder}.
 \begin{figure}[!h]
   \centering
@@ -52,8 +52,8 @@ Bleiben noch die beiden XOR-Gatter die jeweils zu einer XOR-Klausel oder vier no
 Klauseln 17 (oder 9 + 2 XOR).
 
 Bei der Verwendung von eqntott und Espresso zeigt sich, dass es kompaktere Lösungen gibt, die ohne zusätzliche Literale weniger Klauseln benötigen.
-Die boolsche Gleichung für den Volladdierer ist in Abbildung \ref{fig:fulladder_qen} dargestellt. Wie auch bei dem Halbaddierer werden zwei mögliche
-Lösungen generiert. Während in der ersten Lösung die vollständige boolsche Gleichung genutzt wird, fallen in der zweiten Lösung die blau markierten
+Die Boolesche Gleichung für den Volladdierer ist in Abbildung \ref{fig:fulladder_qen} dargestellt. Wie auch bei dem Halbaddierer werden zwei mögliche
+Lösungen generiert. Während in der ersten Lösung die vollständige Boolesche Gleichung genutzt wird, fallen in der zweiten Lösung die blau markierten
 Teile weg, um die XOR-Operationen manuell zu berücksichtigen. \clearpage
 \begin{figure}[!h]
   \centering

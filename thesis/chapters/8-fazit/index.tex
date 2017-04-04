@@ -13,7 +13,7 @@ effektiv war die Zuordnung der Klauseln zu einzelnen Modulen. Wissen was an eine
 anderen Stellen, an denen das Modul verwendet wird, genutzt werden. Kapitel \ref{chp:bewertung} hat gezeigt, dass sich gerade diese modulspezifischen
 Klauseln besonders positiv auf die Dauer des Lösungsprozesses auswirken. Eine Ausnahme bilden dabei zusätzliche Klauseln für den 32 Bit Addierer. Diese
 bremsen den Lösungsprozess im Gegensatz zu zusätzlichen Klauseln für die Halb- und Volladdierer eher aus. Vom 32 Bit Addierer abgesehen scheint somit
-nicht die minimale Klauselmenge am schnellsten zum Ziel zu führen, sondern die Menge aller Klauseln ohne Dont-Care Literale. Das ermöglicht einem
+nicht die minimale Klauselmenge am schnellsten zum Ziel zu führen, sondern die Menge aller Klauseln ohne Don't-Care Literale. Das ermöglicht einem
 SAT-Solver an jeder Stelle eine direkte Propagation von Werten ohne den Umweg über weitere Klauseln. Beachtet werden muss jedoch auch, dass der
 Lösungsprozess gerade bei einem Hash-Algorithmus wie \glos{sha256} eher auf Probieren basiert, da zumindest bei dem aktuellen Stand vergleichsweise
 wenig Wissen erworben und genutzt werden kann. Das macht die effiziente Propagation von Werten um so wichtiger. Die modulspezifischen Klauseln

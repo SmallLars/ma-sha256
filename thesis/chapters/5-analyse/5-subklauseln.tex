@@ -2,7 +2,7 @@
 \label{sec:ana:subclauses}
 
 Durch die mehrfache iterative Anwendung der Methodik aus den letzten Abschnitten, kommt es zu einer kontinuierlichen Erweiterung der Klauselmenge.
-Dazu zählt auch, dass Dont-Care Literale in Klauseln identifiziert und entfernt werden. Wenn die neuen kürzeren Versionen dieser Klauseln durch die
+Dazu zählt auch, dass Don't-Care Literale in Klauseln identifiziert und entfernt werden. Wenn die neuen kürzeren Versionen dieser Klauseln durch die
 Analyse in die Klauselmenge aufgenommen werden, sind die alten langen Klauseln überflüssig. Um diese zu erkennen wird das Programm "`clausesorter"'
 genutzt. Dieses bekommt als Eingabe alle bekannten Klauseln und überprüft diese auf kürzere Klauseln. Die naive Variante hat eine quadratische
 Laufzeit im Bezug zur Eingabegröße, da zu jeder Klausel alle weiteren überprüft werden müssen. Um die Laufzeit zu reduzieren wird eine Lookup-Tabelle

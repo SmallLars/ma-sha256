@@ -8,7 +8,7 @@ so dass ein C-Programm automatisch übersetzt werden kann. Dabei gehen jedoch je
 so dass es nicht möglich ist, erworbenes Wissen über Literale einzelnen Berechnungen zuzuordnen. Ausgehend von der Addition, die in der Kompressionsfunktion von
 \glos{sha256} am häufigsten verwendet wird, ist es somit nicht möglich, erworbenes Wissen darüber zuzuordnen und auf alle weiteren Additionen zu übertragen.
 Außerdem ist es nicht möglich Einfluss auf die Anzahl und Verwendung der Literale zu nehmen. Für einen Addierer liegt die Entscheidung somit bei \acr{cbmc},
-wie dieser realisiert wird und ob und wie viele zusätzliche Literale verwendet werden. Das eine Extrem wäre die Verwendung eines Carry-Ripple-Addieres, dessen einzelne
+wie dieser realisiert wird und ob und wie viele zusätzliche Literale verwendet werden. Das eine Extrem wäre die Verwendung eines Carry-Ripple-Addierers, dessen einzelne
 Volladdierer in Gatter zerlegt werden, die dann einzeln in die konjunktive Normalform überführt werden. Das führt zu vergleichsweise vielen Literalen mit wenig
 kurzen Klauseln. Das andere Extrem wäre der Versuch, eine konjunktive Normalform zu erzeugen, die ausschließlich Literale für die Summanden und die Summe erzeugt.
 Dabei entstehen jedoch vergleichsweise viele lange Klauseln.
@@ -42,13 +42,13 @@ Funktionen bereit, die ein konkreter Collector implementieren kann.
 Die für die Analyse notwendigen konkreten Collectoren werden in Kapitel \ref{chp:analyse} erläutert. Jedes Modul wird zunächst in seiner Normalform implementiert.
 Normalform bedeutet in diesem Fall, dass das Modul aufeinander folgende Literale beginnend mit $0$ nutzt, um die konjunktive Normalform zu erzeugen.
 Dabei kommen zunächst die Eingänge, im Anschluss mögliche zusätzliche Literale und schließlich der Ausgang. Über Funktionen in der Basisklasse kann
-das Modul bei der Verwendung konfiguriert werden. Jeder Eingang setzt sich aus ein oder mehreren aufeinander folgend Literalen zusammen. Für jeden Eingang
+das Modul bei der Verwendung konfiguriert werden. Jeder Eingang setzt sich aus ein oder mehreren aufeinander folgenden Literalen zusammen. Für jeden Eingang
 kann das Literal mit dem der Eingang beginnt gesetzt werden. Für zusätzliche Literale und den Ausgang kann ebenfalls das Literal gesetzt werden mit dem begonnen wird.
 
 Als Hilfsmittel für die Generierung der Klauseln wird die Klasse ClauseCreator genutzt. Die Verwendung ist in einem Beispiel in Abbildung \ref{fig:clausecreator} dargestellt.
 Initialisiert wird der ClauseCreator durch die Übergabe des Collectors, an den die Klauseln übergeben werden sollen. Im Anschluss werden die Nummern der Literale gesetzt.
-Dadurch ist es möglich mit diesen Literalen beliebig viele Klauseln zu erzeugen, wobei nur noch die Polarität angegeben werden muss. 0 führt zu einer Negation während
-das Makro CC\_DC ein Dont-Care signalisiert und das Literal in der Klausel unterdrückt wird.
+Dadurch ist es möglich mit diesen Literalen beliebig viele Klauseln zu erzeugen, wobei nur noch die Polarität angegeben werden muss. $0$ führt zu einer Negation während
+das Makro CC\_DC ein Don't-Care signalisiert und das Literal in der Klausel unterdrückt wird.
 \begin{figure}[!h]
   \centering
   \begin{minipage}[c]{7.5cm}
@@ -81,7 +81,7 @@ Problem wenn der Linker mehrere Objekt-Dateien zusammenführt, da MinUnit mehrfa
 der Programmcode von MinUnit in eine Header- und eine Quelltext-Datei aufgeteilt.
 
 Für die Erzeugung einer potentiell minimalen konjunktiven Normalform wird im ersten Schritt das Programm eqntott verwendet. Mit Hilfe von eqntott
-ist es möglich, boolsche Gleichungen in eine Wahrheitstabelle zu überführen. Da das Eingabeformat weder den XOR- noch den Gleichheits-Operator unterstützt,
+ist es möglich, Boolesche Gleichungen in eine Wahrheitstabelle zu überführen. Da das Eingabeformat weder den XOR- noch den Gleichheits-Operator unterstützt,
 müssen diese beiden Operatoren in der Eingabedatei selbst definiert werden. Ein binärer XOR-Operator entspricht dabei einem negierten Gleichheits-Operator.
 Die Definitionen in Abbildung \ref{fig:gatter_equations_head} werden bei allen Berechnungen in den nächsten Abschnitten verwendet.
 \begin{figure}[!h]
@@ -96,9 +96,9 @@ Die Definitionen in Abbildung \ref{fig:gatter_equations_head} werden bei allen B
   \label{fig:gatter_equations_head}
 \end{figure}
 
-Die ermittelte Wahrheitstabelle kann jedoch nicht direkt in eine konjunktive Normalform überführt werden. Sie enthält alle Einträge die die boolsche Gleichung erfüllen
-und ist mit großer Wahrscheinlichkeit nicht minimal. Für die konjunktive Normalform werden alle Einträge benötigt, die die boolsche Gleichung nicht erfüllen. Um diese zu
-generieren wäre es möglich, die boolsche Gleichung entsprechend anzupassen. Am Beispiel eines 4-Bit-Addierers zeigt sich jedoch, dass das Ergebnis wesentlich größer sein kann.
+Die ermittelte Wahrheitstabelle kann jedoch nicht direkt in eine konjunktive Normalform überführt werden. Sie enthält alle Einträge die die Boolesche Gleichung erfüllen
+und ist mit großer Wahrscheinlichkeit nicht minimal. Für die konjunktive Normalform werden alle Einträge benötigt, die die Boolesche Gleichung nicht erfüllen. Um diese zu
+generieren wäre es möglich, die Boolesche Gleichung entsprechend anzupassen. Am Beispiel eines 4-Bit-Addierers zeigt sich jedoch, dass das Ergebnis wesentlich größer sein kann.
 Ein 4-Bit-Addierer hat $2^4$ mögliche Ergebnisse. Jedes dieser Ergebnisse lässt sich aus $2^4$ unterschiedlichen Summanden gewinnen. Es gibt somit $(2^4)^2 = 256$
 erfüllende Belegungen. Im Gegensatz dazu stehen bei jedem möglichen Ergebnis $2^4 \cdot (2^4-1)$ mögliche Kombinationen von Summanden die nicht zum Ergebnis führen.
 Die nicht erfüllenden Belegungen belaufen sich somit auf $(2^4)^2 \cdot ((2^4)-1) = 3840$. Da diese Wahrheitstabelle nur als Zwischenergebnis und Eingabe für

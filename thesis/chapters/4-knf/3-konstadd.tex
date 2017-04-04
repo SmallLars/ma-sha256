@@ -4,7 +4,7 @@
 Für die Addition der Rundenkonstanten wird eine Addition konstruiert, die Literale für die Konstanten vermeidet.
 Da die Konstanten bekannt sind, können der Halbaddierer, der Volladdierer und der Mod-2 Addierer entsprechend reduziert werden.
 Abbildung \ref{fig:adder_reduced} zeigt die reduzierten Varianten. In der ersten Zeile der Tabelle sind die Varianten dargestellt,
-die genutzt werden, falls das eigehende Bit (b) der Konstante den Wert $0$ hat. Entsprechend sind in der zweiten Zeile die Varianten für ein
+die genutzt werden, falls das eingehende Bit (b) der Konstante den Wert $0$ hat. Entsprechend sind in der zweiten Zeile die Varianten für ein
 Bit (b) mit dem Wert $1$ dargestellt.
 \begin{figure}[!h]
   \centering
@@ -39,7 +39,7 @@ Lösungen generiert, um eine optimale Lösung sowohl mit, als auch ohne XOR-Unte
 einbezogen, falls der Übertrag und die Summe in Abhängigkeit von den selben Literalen berechnet werden. Im anderen Fall lässt sich die optimale Lösung
 direkt durch die Verwendung der Gatter generieren.
 
-Die Summe und der Übertrag bei einem Halbaddierer mit eingehendem Bit (b) = $1$ werden beide in Abhängigkeit des Eingangs (a) berechnet. Die boolsche
+Die Summe und der Übertrag bei einem Halbaddierer mit eingehendem Bit (b) = $1$ werden beide in Abhängigkeit des Eingangs (a) berechnet. Die Boolesche
 Gleichung in Abbildung \ref{fig:halfadder1_qen} wird deshalb genutzt um eine optimale konjunktive Normaform zu berechnen. Für den anderen Fall ergibt
 sich die optimale Lösung direkt aus der Anwendung der Gatter. \clearpage
 \begin{figure}[!h]
@@ -114,7 +114,7 @@ Klauseln sind.
 \end{figure}
 
 Ein Volladdierer mit eingehendem Bit (b) = 0 entspricht exakt einem Halbaddierer. Die konjunktive Normalform wird für diesen Fall direkt übernommen.
-Im anderen Fall dient die boolsche Gleichung in Abbildung \ref{fig:fulladder1_qen} zur Ermittlung der konjunktiven Normalform.
+Im anderen Fall dient die Boolesche Gleichung in Abbildung \ref{fig:fulladder1_qen} zur Ermittlung der konjunktiven Normalform.
 \begin{figure}[!h]
   \centering
   \begin{lstlisting}[]

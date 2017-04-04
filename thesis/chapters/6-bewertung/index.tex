@@ -13,7 +13,7 @@ Server mit folgenden Eigenschaften durchgeführt:
 \end{itemize}
 
 Wie auch für die Ermittlung der Klauseln in Kapitel \ref{chp:analyse} wird eine Urbildberechnung (siehe Abschnitt \ref{sec:urbildberechnung})
-für die Bewertung herangezogen. Eine annähernd sinnvolle Zeitmessung ist erst möglich, wenn mindestens neun Bits des \glos{hash} vorgegeben werden.
+für die Bewertung herangezogen. Eine annähernd sinnvolle Zeitmessung ist erst möglich, wenn mindestens neun Bits des \glos{hash}{s} vorgegeben werden.
 Die obere Grenze liegt bei 22 Bits, bei denen die genutzte Hardware noch zuverlässig zu einer Lösung kommt. Da CryptoMiniSat in der Standardkonfiguration
 mit acht Threads während des Lösungsprozesses Werte rät, kann es zufällig zu schnellen Lösungen kommen. Um ein aussagekräftiges Ergebnis
 zu bekommen, werden für neun bis 22 Bit jeweils fünf Versuche durchgeführt. Betrachtet wird auch jeweils eine Version mit und ohne XOR-Klauseln.
@@ -24,7 +24,7 @@ durchgeführt wurden. Die linke Y-Achse repräsentiert die Dauer in Sekunden. Da
 wächst, ist die Y-Achse logarithmisch skaliert. Die grünen Balken zeigen, in welchem Bereich die Ergebnisse der fünf Versuche liegen, wobei
 der blaue Punkt das arithmetische Mittel darstellt. Die rechte Y-Achse stellt die Anzahl der unterschiedlichen Ergebnisse dar, die durch die
 roten Punkte markiert werden. Dieser gibt somit einen Hinweis, wie viel Raten und somit Zufall bei der Lösung im Spiel war. Kommt CryptoMiniSat
-bei allen fünf Versuchen zum selben Ergebnis, haben die Heuristiken gut Funktioniert und es musste wenig geraten werden. Das spiegelt sich auch
+bei allen fünf Versuchen zum selben Ergebnis, haben die Heuristiken gut funktioniert und es musste wenig geraten werden. Das spiegelt sich auch
 darin wieder, dass die Dauer der fünf Versuche sich wenig unterscheidet.
 \begin{figure}[!h]
   \centering
