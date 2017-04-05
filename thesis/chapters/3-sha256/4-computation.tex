@@ -8,6 +8,13 @@ Teil unter Verwendung des ersten Teils verschlüsselt wird \cite[311]{crypto1}. 
 als auch E bis G. A' wird mit Hilfe von A bis C berechnet, während E' mit Hilfe von E bis G berechnet wird.
 Als Schlüssel fließen D, H und I mit ein.
 
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.4]{images/sha256core}
+  \caption{Schematische Darstellung einer \glos{sha256}-Runde}
+  \label{fig:sha256core}
+\end{figure}
+
 Initialisiert werden A bis H in der ersten Runde der ersten Kompression mit 8 Konstanten. Für die Konstanten mit 32 Bit Breite wurden laut
 Standard \cite[10]{nist1804} die Quadratwurzel der ersten 8 Primzahlen herangezogen. Die ersten 32 Bit der Dezimalstellen jeder Quadratwurzel
 ergeben die jeweilige Konstante. Mit Blick auf das Feistel-Netzwerk lassen sich diese Konstanten mit dem Klartext vergleichen, der mit der
@@ -16,10 +23,3 @@ Eingabe als Schlüssel zum Geheimtext entwickelt wird.
 Enthalten ist in Abbildung \ref{fig:sha256core} auch die Addition der Rundenkonstante (K+). Für die Rundenkonstanten wurden laut Standard
 \cite[10]{nist1804} die Kubikwurzel der ersten 64 Primzahlen herangezogen. Die ersten 32 Bit der Dezimalstellen jeder Kubikwurzel ergeben
 die jeweilige Konstante. Die Addition der Konstanten bewirkt, dass der Einfluss der Eingabe sich in jeder Runde unterschiedlich auswirkt.
-
-\begin{figure}[!h]
-  \centering
-  \includegraphics[scale=0.4]{images/sha256core}
-  \caption{Schematische Darstellung einer \glos{sha256}-Runde}
-  \label{fig:sha256core}
-\end{figure}

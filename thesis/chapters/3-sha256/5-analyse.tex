@@ -76,8 +76,8 @@ an die Eingabe gestellt werden braucht.
 \subsection{Kollisionsberechnung}
 \label{sec:kollisionsberechnung}
 Im Gegensatz zu den Berechnungen in den beiden vorigen Abschnitten hat die Kollisionsberechnung keine praktische Anwendung, da keine Anforderung an
-den \glos{hash} gestellt sind. Ziel ist es lediglich 2 beliebige Eingaben zu finden, die zu einem gleichen \glos{hash} führen. Mit Hilfe eines SAT-Solvers
-(siehe Abschnitt \ref{sec:satsolver}) lässt dich dieses Problem einfach formulieren. Dazu werden 2 Instanzen des Hash-Algorithmus in den SAT-Solver eingefügt
-und in einer Miter-Schaltung \cite{mitergraph} verknüpft. In dieser Schaltung werden die Ausgänge (Hahes) gleichgesetzt und ein Unterschied in mindestens
+den \glos{hash} gestellt sind. Ziel ist es lediglich zwei beliebige Eingaben zu finden, die zu einem gleichen \glos{hash} führen. Mit Hilfe eines SAT-Solvers
+(siehe Abschnitt \ref{sec:satsolver}) lässt sich dieses Problem einfach formulieren. Dazu werden zwei Instanzen des Hash-Algorithmus in den SAT-Solver eingefügt
+und in einer Miter-Schaltung \cite{mitergraph} verknüpft. In dieser Schaltung werden die Ausgänge (\glospl{hash}) gleichgesetzt und ein Unterschied in mindestens
 einem Eingabebit gefordert. So kann der SAT-Solver nach einer Lösung suchen ohne dass ein \glos{hash} vorgegeben wurde. Das Geburtstagsparadoxon findet somit
 praktische Anwendung.

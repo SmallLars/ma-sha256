@@ -99,7 +99,8 @@ zeigt die Klausel für den XOR-Operator mit zwei und drei Eingängen.
 Abschließend wird noch ein Operator für die Negation (NOT) benötigt. Um daraus einen Gleichheits-Operator (EQ) zu machen reicht es aus, das Ergebnisliteral r zu invertieren.
 Realisiert wird die Negation durch eine XOR-Klausel mit zwei Literalen (siehe Abbildung \ref{fig:gatter_not_cnf}). Diese wird nur dann zu $1$ evaluiert, wenn
 a und r unterschiedlich sind, was genau der Negation entspricht. Falls XOR-Klauseln nicht unterstützt werden, lässt sich die Negation mit zwei Klauseln à zwei
-Literalen realisieren, wie ebenfalls in der Abbildung dargestellt. Auch diese konjunktive Normalform deckt sich mit der Angabe auf Wikipedia \cite{wiki:tseitin}.
+Literalen realisieren, wie ebenfalls in der Abbildung dargestellt. Auch diese konjunktive Normalform deckt sich mit der Angabe in
+"`Digitaltechnik - Eine praxisnahe Einführung"' \cite[164]{digitaltechnik}.
 \begin{figure}[!h]
   \centering
   \begin{minipage}[l]{1cm}
