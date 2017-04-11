@@ -1,18 +1,18 @@
 \section{Vorgehensweise}
 
 Als Hash-Algorithmus wird \glos{sha256} (siehe Kapitel \ref{chp:sha256}) ausgewählt. Dieser wird bei Bitcoin eingesetzt
-und zeichnet sich dadurch aus, dass er einen Fingerabdruck in 64 ähnlichen Schritten berechnet. Wissen das über einen Schritt
+und zeichnet sich dadurch aus, dass er einen Fingerabdruck in 64 ähnlichen Schritten berechnet. Wissen, das über einen Schritt
 erworben wird, kann so unter Umständen für die anderen 63 Schritte übernommen werden. Außerdem haben Martin Maurer und Jonathan
 Heusser \glos{sha256} in ihren Arbeiten verwendet, so dass abschließend ein Vergleich der Ergebnisse erfolgen kann. Der von Vegard Nossum
 verwendete Hash-Algorithmus SHA1 berechnet einen Fingerabdruck in 80 Schritten, wobei vier unterschiedliche Schritte jeweils 20 Mal
 zum Einsatz kommen.
 
 Verwendet wird in dieser Arbeit ausschließlich der SAT-Solver CryptoMiniSat. Dieser zeichnet sich dadurch aus, dass er nicht nur
-eine konjunktive Normalform als Eingabe akzeptiert, sondern auch in der Lage ist Klauseln im XOR-Format zu verarbeiten. Eine Klausel
+eine konjunktive Normalform als Eingabe akzeptiert, sondern auch in der Lage ist, Klauseln im XOR-Format zu verarbeiten. Eine Klausel
 ist dabei eine Verknüpfung von Werten mit dem OR-Operator. Klauseln im XOR-Format verwenden den XOR-Operator. Dies ermöglicht
 eine kompaktere Repräsentation der Eingabe und beschleunigt bei richtiger Verwendung den Lösungsprozess des SAT-Solvers.
 Außerdem sammelt CryptoMiniSat nicht nur zusätzliches Wissen, sondern versucht auch die eingegebene konjunktive Normalform zu
-optimieren. Sowohl die optimierte Eingabe, als auch das zusätzliche Wissen lassen sich jederzeit einfach abrufen und analysieren.
+optimieren. Sowohl die optimierte Eingabe als auch das zusätzliche Wissen lassen sich jederzeit einfach abrufen und analysieren.
 
 Um eine Analyse der Daten durchzuführen, die CryptoMiniSat während eines Lösungsversuchs sammelt, reicht es nicht aus \glos{sha256}
 in eine konjunktive Normalform zu überführen und an CryptoMiniSat zu übergeben. Dieser Ansatz wird von Martin Maurer und Jonathan
@@ -26,10 +26,10 @@ verglichen wird, um diese Basis zu überprüfen und im Zweifelsfall noch weiter 
 Mit der erstellten konjunktiven Normalform werden iterativ mehrere Lösungsversuche durchgeführt. Die dafür verwendeten
 Daten werden separat als "`Annahmen"' an CryptoMiniSat übergeben. Das ermöglicht eine Trennung zwischen dem Wissen, was
 auf den Daten basiert, und dem Wissen was ausschließlich auf der konjunktiven Normalform basiert. Nur Letzteres ist für
-diese Arbeit relevant, da dieses Wissen für \glos{sha256} im Allgemeinen gilt. Für die Auswertung dieses Wissens werden einige
+diese Arbeit relevant, weil dieses Wissen für \glos{sha256} im Allgemeinen gilt. Für die Auswertung dieses Wissens werden einige
 Hilfsprogramme erstellt, die potentiell interessante Klauseln filtern und, basierend auf den gesammelten Informationen,
 sortieren. Diese zusätzlichen Klauseln werden im Anschluss darauf geprüft, ob sie den Lösungsprozess beschleunigen.
 
 Abschließend wird die konjunktive Normalform inklusive der zusätzlichen Klauseln mit der Performance der Implementierungen
-von Martin Maurer und Jonathan Heusser verglichen. Außerdem wird überprüft, ob die Berechnung schnell genug erfolgt um
+von Martin Maurer und Jonathan Heusser verglichen. Außerdem wird überprüft, ob die Berechnung schnell genug erfolgt, um
 praktisch relevante Angriffe auf \glos{sha256} und Bitcoin durchzuführen.

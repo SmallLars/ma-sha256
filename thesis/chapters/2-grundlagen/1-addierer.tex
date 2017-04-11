@@ -2,22 +2,22 @@
 \label{sec:grundlagen_add}
 
 Die modulare Addition ist eine surjektive Abbildung. Die Berechnung der Summe von zwei Zahlen ist eindeutig. Die Umkehrung ist jedoch nicht eindeutig,
-da sich die Summe einer n-Bit Zahl aus $2^{\text{n}}$ unterschiedlichen Kombinationen von Summanden bilden lässt. Wird die Assoziativität der Addition berücksichtigt,
+weil sich die Summe einer n-Bit Zahl aus $2^{\text{n}}$ unterschiedlichen Kombinationen von Summanden bilden lässt. Wird die Assoziativität der Addition berücksichtigt,
 sind es nur $2^{\text{n}}/2$ Kombinationen, was für diese Arbeit jedoch keine Rolle spielt. Durch diese Eigenschaft eignet sich die Addition gut für die Verwendung
-in Verschlüsselungs- oder Hash-Algorithmen, da einem Angreifer mit Kenntnis der Summe keine Kenntnisse über die Summanden vorliegen.
+in Verschlüsselungs- oder Hash-Algorithmen, weil einem Angreifer mit Kenntnis der Summe keine Kenntnisse über die Summanden vorliegen.
 
 Die modulare 32-Bit Addition ist die am häufigsten verwendete Operation in der Kompressionsfunktion von \glos{sha256} (Kapitel \ref{chp:sha256}).
 Im Gegensatz zu den anderen verwendeten Operationen ist die Addition nicht direkt durch grundlegende binäre Operationen wie AND, OR und XOR definiert.
 Die Art der Realisierung mit Hilfe der binären Operationen bleibt dem Programmierer überlassen. Um eine Auswahl zu treffen, werden einige Konstruktionen kurz erläutert.
 \begin{description}
   \item[Der Carry-Ripple Addierer] realisiert die Addition ähnlich der schriftlichen Addition. Jede Stelle der Binärzahl wird einzeln addiert wobei der Übertrag bei der
-                                   nächsten Addition berücksichtigt wird. Durch dieses Vorgehen ist eine Parallelisierung der einzelnen Additionen nicht möglich, da jede
+                                   nächsten Addition berücksichtigt wird. Durch dieses Vorgehen ist eine Parallelisierung der einzelnen Additionen nicht möglich, weil jede
                                    Addition vom Übertrag der vorhergehenden Addition abhängig ist.
   \item[Der Conditional-Sum Addierer] verwendet genau wie der Carry-Ripple Addierer Überträge. Jedoch werden alle Teilsummen zwei Mal berechnet. Einmal mit der Annahme,
                                       dass ein Übertrag vorliegt und einmal ohne. Dadurch können die einzelnen Additionen parallel durchgeführt werden. Abschließend
                                       werden die Teilsummen mit den jeweils korrekten Annahmen zusammengeführt.
-  \item[Der Carry-Lookahead Addierer] vermeidet die Abhängigkeit vom Übertrag indem die vorhergehenden Stellen direkt betrachtet werden. Liegt in jeder vorhergehenden
-                                      Stelle der Summanden eine $1$ vor (XOR) kann ein generierter Übertrag bis zur aktuellen Addition propagiert werden. Generiert wird
+  \item[Der Carry-Lookahead Addierer] vermeidet die Abhängigkeit vom Übertrag, indem die vorhergehenden Stellen direkt betrachtet werden. Liegt in jeder vorhergehenden
+                                      Stelle der Summanden eine $1$ vor (XOR), kann ein generierter Übertrag bis zur aktuellen Addition propagiert werden. Generiert wird
                                       ein Übertrag entweder durch eine direkte Eingabe oder das Vorliegen von zwei $1$en (AND) an einer Stelle der Summanden. Die Betrachtung
                                       der vorhergehenden Stellen und die einzelnen Additionen können dabei parallel durchgeführt werden.
 \end{description}
@@ -30,7 +30,7 @@ Die Propagierung eines möglichen Übertrags ist unterbrochen. Das Problem, die 
 die Summanden von zwei Additionen kleinerer Bitbreite gefunden werden müssen.
 
 Ein allgemeiner n-Bit Carry-Ripple Addierer setzt sich aus n Volladdierern zusammen, die jeweils wieder zwei Halbaddierer verwenden. Ein Halbaddierer summiert zwei
-Bits (a, b) und gibt die Summe (s) und den Übertrag (o) aus. Die Summe wird dabei durch den XOR-Operator berechnet während der Übertrag durch den AND-Operator
+Bits (a, b) und gibt die Summe (s) und den Übertrag (o) aus. Die Summe wird dabei durch den XOR-Operator berechnet, während der Übertrag durch den AND-Operator
 berechnet wird. Der Halbaddierer ist in Abbildung \ref{fig:halfadder} dargestellt.
 \begin{figure}[!h]
   \centering
@@ -74,7 +74,7 @@ Diese Konstruktion ist in in Abbildung \ref{fig:carryrippleadder32} dargestellt.
 \footnotetext{Auf Basis von Mik81, CC0, \url{https://commons.wikimedia.org/w/index.php?curid=3393072}}
 
 Der Mod2-Addierer ist in Abbildung \ref{fig:lastadder} dargestellt und ergibt sich aus einem Volladdierer, indem die für den Übertrag notwendigen
-Operatoren entfernt werden. Es verbleiben 2 XOR-Operatoren die die Summe (s) berechnen.
+Operatoren entfernt werden. Es verbleiben 2 XOR-Operatoren, die die Summe (s) berechnen.
 \begin{figure}[!h]
   \centering
   \includegraphics[scale=1]{images/lastadder}

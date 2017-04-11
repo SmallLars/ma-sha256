@@ -3,13 +3,13 @@
 
 Am 01. November 2008 veröffentlichte "`Satoshi Nakamoto"' über eine Kryptographie-Mailingliste \cite{bitcoinmailinglist} ein Paper \cite{bitcoinpaper},
 in dem er Bitcoin als digitale Währung vorstellte. Obwohl bis heute nicht bekannt ist, wer sich hinter diesem Namen verbirgt, hat sich Bitcoin seit der
-Lösung des ersten "`Blocks"' am 03. Januar 2009 \cite{bitcoinblock0} weit verbreitet. Die Lösung eines Blocks ist der einzige Aspekt der für
-diese Arbeit eine Rolle spielt und wird im folgenden erläutert.
+Lösung des ersten "`Blocks"' am 03. Januar 2009 \cite{bitcoinblock0} weit verbreitet. Die Lösung eines Blocks ist der einzige Aspekt, der für
+diese Arbeit eine Rolle spielt und wird im Folgenden erläutert.
 
 Bitcoin basiert auf einer Kette von Blöcken (Blockchain). Ein Block dient dazu, Transaktionen zwischen Benutzern zu bestätigen, die seit der Lösung
 des letzten Blocks durchgeführt wurden. Da auch der letzte Block in die Lösung mit einbezogen wird, wird die gesamte Kette erneut bestätigt.
 Für die Lösung eines Blocks wird die Hash-Funktion \glos{sha256} (siehe Kapitel \ref{chp:sha256}) genutzt. Neben dem letzten Block, den aktuellen Transaktionen
-und einigen weiteren Daten fließt insbesondere eine Nonce als Eingabe in die Hash-Funktion ein die frei gewählt werden kann um den Block zu lösen. Gelöst ist ein
+und einigen weiteren Daten fließt insbesondere eine Nonce als Eingabe in die Hash-Funktion ein, die frei gewählt werden kann, um den Block zu lösen. Gelöst ist ein
 Block dann, wenn durch die Wahl der Nonce und zweimaliger Anwendung von \glos{sha256} ein \glos{hash} erzeugt wird, der mit entsprechend vielen Nullen beginnt
 (siehe Abbildung \ref{fig:bitcoin}). Je mehr Nullen gefordert sind, desto schwieriger wird diese Aufgabe.
 
@@ -20,7 +20,7 @@ Block dann, wenn durch die Wahl der Nonce und zweimaliger Anwendung von \glos{sh
   \label{fig:bitcoin}
 \end{figure}
 
-Da eine Hash-Funktion eine Einwegfunktion ist, kann eine gültige Nonce nur durch ausprobieren aller möglichen Werte gefunden werden. Als Motivation
+Da eine Hash-Funktion eine Einwegfunktion ist, kann eine gültige Nonce nur durch Ausprobieren aller möglichen Werte gefunden werden. Als Motivation
 für diesen Prozess Rechenleistung zu investieren, werden derzeit 12 Bitcoins an den Benutzer ausgeschüttet, der als erster eine gültige Nonce liefert.
 
 

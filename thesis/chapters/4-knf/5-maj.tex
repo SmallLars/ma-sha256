@@ -3,10 +3,10 @@
 
 Die Majority-Funktion ist ähnlich aufgebaut wie die Choose-Funktion und enthält ein AND-Gatter mehr. Für die auf den Gattern basierte Lösung sind somit drei zusätzliche
 Literale notwendig. Anstatt vier werden sieben Literale benötigt. Für die AND-Gatter werden jeweils drei Klauseln benötigt. Für die XOR- bzw. OR-Funktion wird jeweils
-ein Gatter mit drei Eingängen herangezogen um zumindest hier ein zusätzliches Literals zu vermeiden. Das XOR-Gatter benötigt eine XOR-Klausel oder acht normale Klauseln
+ein Gatter mit drei Eingängen herangezogen, um zumindest hier ein zusätzliches Literals zu vermeiden. Das XOR-Gatter benötigt eine XOR-Klausel oder acht normale Klauseln,
 während das OR-Gatter vier Klauseln benötigt. Je nach Realisierung ergeben sich damit siebzehn, dreizehn oder zehn Klauseln.
 
-Gegenübergestellt wird die Lösung von eqntott und Espresso die sich aus der Booleschen Gleichung in Abbildung \ref{fig:majority_eqn} ergibt.
+Gegenübergestellt wird die Lösung von eqntott und Espresso, die sich aus der Booleschen Gleichung in Abbildung \ref{fig:majority_eqn} ergibt.
 \begin{figure}[!h]
   \centering
   \begin{lstlisting}[]
@@ -21,7 +21,7 @@ Gegenübergestellt wird die Lösung von eqntott und Espresso die sich aus der Bo
 \end{figure}
 
 Die ermittelte konjunktive Normalform ist in Abbildung \ref{fig:majority_cnf} aufgeführt.
-Sechs Klauseln reichen aus um die Majority-Funktion zu beschreiben.
+Sechs Klauseln reichen aus, um die Majority-Funktion zu beschreiben.
 \begin{figure}[!h]
   \centering
   \begin{minipage}[l]{2cm}
@@ -38,7 +38,7 @@ Sechs Klauseln reichen aus um die Majority-Funktion zu beschreiben.
 
 In Tabelle \ref{fig:majority_literalclausecount} sind die unterschiedlichen Lösungen gegenübergestellt.
 Genau wie die Choose-Funktion wird die Majority-Funktion bitweise auf einer 32 Bit breiten Binärzahl angewendet. Jedes Bit der Eingabe wird dabei nur einmal genutzt.
-Die einzelnen Berechnungen sind somit unabhängig wodurch sich die Gesamtanzahl der Literale und Klauseln aus der Multiplikation mit 32 ergibt.
+Die einzelnen Berechnungen sind somit unabhängig, wodurch sich die Gesamtanzahl der Literale und Klauseln aus der Multiplikation mit 32 ergibt.
 \begin{table}[!h]
   \centering
   \begin{tabular}{l|r|r}

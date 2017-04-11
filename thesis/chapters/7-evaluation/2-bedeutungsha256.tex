@@ -3,12 +3,12 @@
 Die Versuche aus Kapitel \ref{chp:bewertung} und Abschnitt \ref{sec:vergleich} zeigen, dass sich innerhalb eines Tages
 ein Urbild für einen \glos{hash} berechnen lässt, der je nach Implementierung mit 18 bis 20 festgelegten Bits beginnt. Das ist jedoch
 kein Vergleich zum Ergebnis, das sich durch reines Probieren erzielen lässt. In der Testumgebung können 720.000 \glospl{hash} pro Sekunde
-berechnet werden. Damit ist es möglich innerhalb eines Tages ein Urbild für einen \glos{hash} mit bis zu 35 festgelegten Bits zu finden.
+berechnet werden. Damit ist es möglich, innerhalb eines Tages ein Urbild für einen \glos{hash} mit bis zu 35 festgelegten Bits zu finden.
 
 \subsection{Initialwertberechnung}
-Abschnitt \ref{sec:initialwertberechnung} beschreibt den Sinn einer Initialwertberechnung. Diese wird im folgenden separat
-betrachtet, da die Erweiterung der Eingabe (siehe Abschnitt \ref{sec:sha256:erweiterung}) vollständig berechnet werden kann
-und somit durch einen SAT-Solver nicht mehr betrachtet werden braucht. Das Problem reduziert sich damit auf die Berechnung
+Abschnitt \ref{sec:initialwertberechnung} beschreibt den Sinn einer Initialwertberechnung. Diese wird im Folgenden separat
+betrachtet, weil die Erweiterung der Eingabe (siehe Abschnitt \ref{sec:sha256:erweiterung}) vollständig berechnet werden kann
+und somit durch einen SAT-Solver nicht mehr betrachtet zu werden braucht. Das Problem reduziert sich damit auf die Berechnung
 der 64 Runden. Abbildung \ref{fig:eval_initial} zeigt das Ergebnis dieses Versuchs im Vergleich zur Urbildberechnung.
 \begin{figure}[!h]
   \centering

@@ -2,8 +2,8 @@
 \label{sec:sha256:runde}
 
 Die Rundenfunktion ist in Abbildung \ref{fig:sha256core} dargestellt und ähnelt der eines doppelten Feistel-Netzwerks.
-Es kommen sowohl die modulare 32-Bit Addition, die Choose- und Majority-Funktion, wie auch die beiden $\Sigma$-Funktionen zum Einsatz.
-Bei einem Feistel-Netzwerk wird im allgemeinen ein Teil der Eingabe direkt in die Ausgabe kopiert während der andere
+Es kommen sowohl die modulare 32-Bit Addition, die Choose- und Majority-Funktion, als auch die beiden $\Sigma$-Funktionen zum Einsatz.
+Bei einem Feistel-Netzwerk wird im allgemeinen ein Teil der Eingabe direkt in die Ausgabe kopiert, während der andere
 Teil unter Verwendung des ersten Teils verschlüsselt wird \cite[311]{crypto1}. Direkt kopiert werden sowohl A bis C
 als auch E bis G. A' wird mit Hilfe von A bis C berechnet, während E' mit Hilfe von E bis G berechnet wird.
 Als Schlüssel fließen D, H und I mit ein.
@@ -22,4 +22,4 @@ Eingabe als Schlüssel zum Geheimtext entwickelt wird.
 
 Enthalten ist in Abbildung \ref{fig:sha256core} auch die Addition der Rundenkonstante (K+). Für die Rundenkonstanten wurden laut Standard
 \cite[10]{nist1804} die Kubikwurzel der ersten 64 Primzahlen herangezogen. Die ersten 32 Bit der Dezimalstellen jeder Kubikwurzel ergeben
-die jeweilige Konstante. Die Addition der Konstanten bewirkt, dass der Einfluss der Eingabe sich in jeder Runde unterschiedlich auswirkt.
+die jeweilige Konstante. Die Addition der Konstanten bewirkt, dass sich der Einfluss der Eingabe in jeder Runde unterschiedlich auswirkt.

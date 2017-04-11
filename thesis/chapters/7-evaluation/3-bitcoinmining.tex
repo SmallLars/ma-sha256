@@ -1,10 +1,10 @@
 \section{Bedeutung für das Bitcoin-Mining}
 
 Jonathan Heusser führt in seinem Artikel \cite{jona:1} zwei Versuche mit unterschiedlichen SAT-Solvern durch.
-Diese ließen sich für einen direkten Vergleich leider nicht reproduzieren, da die vom ihm genutzte konjunktive
+Diese ließen sich für einen direkten Vergleich leider nicht reproduzieren, weil die vom ihm genutzte konjunktive
 Normalform unterschiedlich zu der ist, die sich mit \acr{cbmc} aus seinem C-Programmcode erstellen lässt.
 Außerdem gibt er in seinen Versuchen eine feste Anzahl führender Nullen für den \glos{hash} vor und variiert die
-Anzahl der Stellen der Nonce die noch berechnet werden müssen um die Schwierigkeit zu verändern. Das eignet
+Anzahl der Stellen der Nonce, die noch berechnet werden müssen, um die Schwierigkeit zu verändern. Das eignet
 sich zwar für den Vergleich unterschiedlicher SAT-Solver, ermöglicht jedoch keine direkte Aussage dazu, ob
 sich dieses Vorgehen dafür eignet aktuelle Bitcoin-Blöcke zu lösen.
 
@@ -32,9 +32,9 @@ durchgeführten Versuche.
 Für jede Anzahl der geforderten Nullen wurden jeweils fünf Versuche durchgeführt, die durch eine Zeile in Tabelle \ref{fig:bitcoinzeros}
 repräsentiert werden. Es hat sich gezeigt, dass CryptoMiniSat innerhalb jeder Versuchsreihe jeweils die selbe Nonce ermittelt hat
 und die Dauer nur wenig variierte. Die angegebene Dauer ist der arithmetische Mittelwert. Die letzte Spalte enthält die Anzahl der
-führenden Nullen die tatsächlich erreicht wurden. Da ein SAT-Solver die nicht festgelegten Stellen frei belegen kann, ist es möglich,
+führenden Nullen, die tatsächlich erreicht wurden. Da ein SAT-Solver die nicht festgelegten Stellen frei belegen kann, ist es möglich,
 dass das Ergebnis mehr führende Nullen hat als gefordert. Dies ist jedoch zufällig und nur zur Vollständigkeit mit aufgeführt.
-In annähernd zehn Minuten ist es somit möglich eine Nonce für einen \glos{hash} mit bis zu 13 führenden Nullen zu ermitteln.
+In annähernd zehn Minuten ist es somit möglich, eine Nonce für einen \glos{hash} mit bis zu 13 führenden Nullen zu ermitteln.
 
 Da die aktuellen Blöcke einen \glos{hash} mit mindestens 68 führenden Nullen erfordern, zeigt dieser Versuch, dass SAT-Solving sich
 derzeit nicht für den Einsatz in Bitcoin-Minern eignet. Betrachtet werden muss auch, dass in der Testumgebung 720.000 \glospl{hash} pro Sekunde

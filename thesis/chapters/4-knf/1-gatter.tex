@@ -2,7 +2,7 @@
 \label{sec:knf:gatter}
 
 Grundlage für die Tseitin-Transformation (siehe Abschnitt \ref{sec:knf}) sollen in dieser Arbeit die Operatoren AND, OR und XOR bilden. Verwendet werden sie jedoch
-nur, falls sie in einem Modul eine direkte Beziehung zwischen Eingangs- und Ausgang-Literalen definieren, da sonst zusätzliche Literale eingefügt werden müssen.
+nur, falls sie in einem Modul eine direkte Beziehung zwischen Eingangs- und Ausgang-Literalen definieren, weil sonst zusätzliche Literale eingefügt werden müssen.
 Die Boolesche Gleichungen für die drei Operatoren sind in Abbildung \ref{fig:gatter_equations} dargestellt. a und b werden als Literale für die Eingänge verwendet
 und r steht für den Ausgang (das Resultat).
 
@@ -96,7 +96,7 @@ zeigt die Klausel für den XOR-Operator mit zwei und drei Eingängen.
   \label{fig:gatter_cnf_xor}
 \end{figure}
 
-Abschließend wird noch ein Operator für die Negation (NOT) benötigt. Um daraus einen Gleichheits-Operator (EQ) zu machen reicht es aus, das Ergebnisliteral r zu invertieren.
+Abschließend wird noch ein Operator für die Negation (NOT) benötigt. Um daraus einen Gleichheits-Operator (EQ) zu machen, reicht es aus, das Ergebnisliteral r zu invertieren.
 Realisiert wird die Negation durch eine XOR-Klausel mit zwei Literalen (siehe Abbildung \ref{fig:gatter_not_cnf}). Diese wird nur dann zu $1$ evaluiert, wenn
 a und r unterschiedlich sind, was genau der Negation entspricht. Falls XOR-Klauseln nicht unterstützt werden, lässt sich die Negation mit zwei Klauseln à zwei
 Literalen realisieren, wie ebenfalls in der Abbildung dargestellt. Auch diese konjunktive Normalform deckt sich mit der Angabe in

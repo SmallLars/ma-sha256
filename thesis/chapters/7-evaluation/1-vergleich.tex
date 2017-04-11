@@ -5,8 +5,8 @@ Um einen fairen Vergleich zu ermöglichen, werden alle Implementierungen unter g
 getestet. Genau wie in Kapitel \ref{chp:bewertung} wird eine Urbildberechnung (siehe Abschnitt \ref{sec:urbildberechnung})
 für den Vergleich herangezogen. Die Tests erfolgen jedoch nur von neun bis 21 Bit da die Laufzeit mit einem Thread länger
 ist und eine Berechnung für 22 Bit nicht in angemessener Zeit abgeschlossen werden konnte. Außerdem ist pro Bit nur ein
-Versuch notwendig, da das Verhalten deterministisch und die Laufzeit somit sehr ähnlich ist. Abbildung \ref{fig:eval_final}
-zeigt das Ergebnis des Vergleichs. Zur besseren Übersicht sind die einzelnen Punkte im Diagramm durch Linien verbunden auch
+Versuch notwendig, weil das Verhalten deterministisch und die Laufzeit somit sehr ähnlich ist. Abbildung \ref{fig:eval_final}
+zeigt das Ergebnis des Vergleichs. Zur besseren Übersicht sind die einzelnen Punkte im Diagramm durch Linien verbunden, auch
 wenn es dazwischen praktisch keine weiteren Messungen gibt.
 \begin{figure}[!h]
   \centering
@@ -18,10 +18,10 @@ wenn es dazwischen praktisch keine weiteren Messungen gibt.
 Oberflächlich betrachtet hat die in dieser Arbeit erstellte Implementierung mit einer Gesamtdauer von 105 Stunden am besten abgeschnitten.
 Die Implementierung von \acr{cbmc} benötigte 344 Stunden. Dieser große Unterschied ergibt sich jedoch ausschließlich aus dem
 letzten Test mit 21 Bit. Wird der gesamte Verlauf mit einbezogen, weisen beide Implementierungen ein ähnliches Verhalten auf. Die
-Implementierung dieser Arbeit kann an drei Stellen (13, 17 und 20 Bit) vergleichsweise schnell eine Lösung finden während \acr{cbmc} dies
+Implementierung dieser Arbeit kann an drei Stellen (13, 17 und 20 Bit) vergleichsweise schnell eine Lösung finden, während \acr{cbmc} dies
 an zwei Stellen (10 und 20 Bit) gelingt. Die Tseitin-Variante von Martin Maurer verhält sich bis 15 Bit ebenfalls ähnlich, benötigt danach
 aber wesentlich mehr Rechenzeit. Erst nach über 700 Stunden konnten die Berechnungen abgeschlossen werden.
 Anders verhält sich die Espresso-Variante. Diese benötigt zunächst länger, verhält sich aber ab 16 Bit wieder ähnlich
 zur Implementierung dieser Arbeit und \acr{cbmc}. Damit bestätigt sich die Aussage von Martin Maurer, dass in seinen Tests die Tseitin-Variante
-schneller war, da er nur Versuche mit einem wenig eingeschränkten Lösungsraum durchgeführt hat. Für die schwierigen Probleme
+schneller war, weil er nur Versuche mit einem wenig eingeschränkten Lösungsraum durchgeführt hat. Für die schwierigen Probleme
 setzt sich jedoch die Espresso-Variante durch. Für die Tests benötigte diese insgesamt 300 Stunden.

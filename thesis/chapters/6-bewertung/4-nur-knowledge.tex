@@ -2,14 +2,14 @@
 \label{sec:test_knowledge}
 
 In Abschnitt \ref{sec:ana:rundenfunktion} (Abbildung \ref{eq:calcD}) wurde zusätzliches Wissen über die Rundenfunktion ermittelt/beschrieben.
-Für einen SAT-Solver mag dieses Wissen redundant sein und überflüssig erscheinen, da ein SAT-Solver nicht zwischen Vorwärts- und Rückwärts-Rechnen
+Für einen SAT-Solver mag dieses Wissen redundant sein und überflüssig erscheinen, weil ein SAT-Solver nicht zwischen Vorwärts- und Rückwärts-Rechnen
 unterscheidet. Jedoch werden durch dieses Wissen bestehende Module noch einmal anders verknüpft, was einem SAT-Solver die Möglichkeit bieten könnte,
 einen alternativen Pfad zu nutzen und weitere Zusammenhänge zwischen Modulen zu erkennen. Nach dem selben Prinzip wäre es auch möglich, die Addition
-von mehreren Summanden in unterschiedlicher Reihenfolge zusätzlich einzufügen. Der Fokus liegt jedoch darauf, nur festzustellen ob sich das
+von mehreren Summanden in unterschiedlicher Reihenfolge zusätzlich einzufügen. Der Fokus liegt jedoch darauf, nur festzustellen, ob sich das
 zusätzliche Wissen überhaupt auswirkt, weshalb auf die zusätzlichen Addierer verzichtet wird.
 
-Ein Unterschied zu den vorhergehenden Tests ist, dass bei diesem Test nicht nur zusätzliche Klauseln notwendig sind sondern auch weitere Literale
-benötigt werden. Außerdem wird ein zusätzliches Modul für die Subtraktion genutzt, welches bisher nicht näher beschrieben wurde, da es nach dem selben
+Ein Unterschied zu den vorhergehenden Tests ist, dass bei diesem Test nicht nur zusätzliche Klauseln notwendig sind, sondern auch weitere Literale
+benötigt werden. Außerdem wird ein zusätzliches Modul für die Subtraktion genutzt, welches bisher nicht näher beschrieben wurde, weil es nach dem selben
 Prinzip wie ein Addierer aufgebaut ist.
 
 Die Ergebnisse sind in Abbildung \ref{fig:data_know} dargestellt. Während sich bei den vorhergehenden Tests die Laufzeit generell verkürzt oder

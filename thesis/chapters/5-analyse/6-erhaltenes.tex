@@ -72,7 +72,7 @@ Klauseln bei einer XOR-Unterstützung an. Der zweite Werte gibt die Anzahl der z
 \end{table}
 
 Der Mod-2 Addierer verwendet, genau wie die $\Sigma$-Funktionen, ausschließlich den XOR-Operator. Weitere Klauseln waren darin deshalb nicht zu erwarten und
-wurden auch nicht gefunden. Bei den $\sigma$-Funktionen konnten weitere Klauseln gefunden werden da bei diesen, im Gegensatz zu den $\Sigma$-Funktionen, der
+wurden auch nicht gefunden. Bei den $\sigma$-Funktionen konnten weitere Klauseln gefunden werden, weil bei diesen, im Gegensatz zu den $\Sigma$-Funktionen, der
 Shift-Operator verwendet wird, durch den einige Bits verworfen werden. Das zeigt sich auch bei der Addition der Ergebnisse der $\sigma$-Funktionen, wo ebenfalls
 einige Klauseln gefunden werden konnten.
 
@@ -110,7 +110,7 @@ auf Bitbreite und Runden ermittelt.
 
 Wie in Abschnitt \ref{sec:ana:subclauses} erwähnt sind von diesen Klauseln einige überflüssig, weil bereits Don't-Care Literale identifiziert wurden
 und kürzere Klauseln vorhanden sind. Tabelle \ref{fig:additional_clauses_clean} zeigt die Anzahl der sinnvollen Klauseln. 8425 Klauseln haben sich
-als überflüssig herausgestellt womit 21306 sinnvolle Klauseln verbleiben.
+als überflüssig herausgestellt, womit 21306 sinnvolle Klauseln verbleiben.
 \begin{table}[!h]
   \centering
   \begin{tabular}{r|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}|R{1.5cm}}
@@ -133,5 +133,5 @@ als überflüssig herausgestellt womit 21306 sinnvolle Klauseln verbleiben.
 \end{table}
 
 Anzumerken ist, dass die Ermittlung von Klauseln mit positiver Distanz nicht abgeschlossen ist. Die bisher erhaltenen Klauseln werden in Kapitel 6
-genutzt um zu prüfen ob sie den Lösungsprozess beschleunigen. Dabei wird sich zeigen ob es sinnvoll ist die Suche nach weiteren Klauseln zukünftig
+genutzt, um zu prüfen ob sie den Lösungsprozess beschleunigen. Dabei wird sich zeigen, ob es sinnvoll ist die Suche nach weiteren Klauseln zukünftig
 voranzutreiben.

@@ -3,7 +3,7 @@
 
 Da die Entscheidung, ob eine XOR-Unterstützung vorliegt, beim Kompilieren getroffen werden muss, werden die bekannten Klauseln
 mit dem Programm "`dimacsprinter"' nach jedem Lösungsversuch und der darauf folgenden Analyse in zwei Dateien im DIMACS-Format
-ausgegeben. Die eine Datei enthält dabei die Klauselmenge ohne XOR-Unterstützung während die andere Datei die Klauselmenge für
+ausgegeben. Die eine Datei enthält dabei die Klauselmenge ohne XOR-Unterstützung, während die andere Datei die Klauselmenge für
 eine XOR-Unterstützung enthält. Das Programm "`clausecollector"' liest beide Dateien beim Start ein und führt die Klauselmengen
 zusammen. Da CryptoMiniSat XOR-Klauseln akzeptiert, diese jedoch intern in normale Klauseln umrechnet, enthalten auch die
 extrahierten Klauseln keine XOR-Klauseln. Der Parser für das DIMACS-Format konvertiert deshalb ebenfalls XOR-Klauseln in normale
@@ -11,6 +11,6 @@ Klauseln.
 
 Abgelegt werden die bekannten Klauseln in einem "`set"'. Diese Datenstruktur ermöglicht die Suche nach einer Klausel in logarithmischer
 Zeit im Bezug zur Anzahl der darin enthaltenen Klauseln. So kann effizient geprüft werden, ob eine extrahierte Klausel schon bekannt ist.
-Neue Klauseln aus der irredundanten und der redundanten Klauselmenge werden ebenfalls jeweils in einem "`set"' gesammelt wodurch die
+Neue Klauseln aus der irredundanten und der redundanten Klauselmenge werden ebenfalls jeweils in einem "`set"' gesammelt, wodurch die
 Klauselmenge automatisch sortiert wird und doppelte Klauseln wegfallen. Abschließend werden die neuen Klauseln aus der irredundanten und
 der redundanten Klauselmenge jeweils in eine DIMACS-Datei zur weiteren Analyse geschrieben.
