@@ -55,3 +55,4 @@ Lösung mit 19 Bits gefunden. Durchlauf 4/5.
 Lösung mit 19 Bits gefunden. Durchlauf 5/5.
 Lösung mit 20 Bits gefunden. Durchlauf 1/5.
 Lösung mit 21 Bits gefunden. Durchlauf 1/5.
+Lösung mit 22 Bits gefunden. Durchlauf 1/5.

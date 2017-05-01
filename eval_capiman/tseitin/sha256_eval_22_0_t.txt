@@ -1,0 +1,6 @@
+ERROR while executing clause DB cleaning MySQL prepared statement
+Error from mysql: Lost connection to MySQL server during query
+
+real	74180m1.744s
+user	73922m11.278s
+sys	6m41.743s
