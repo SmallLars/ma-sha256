@@ -1,3 +1,5 @@
+#!/bin/sh
+
 find . -name "*.svg" -exec rsvg-convert -f pdf -o {}.pdf {} \;
 find . -name "*.pdf" -exec sh -c 'mv "$1" "${1%.svg.pdf}.pdf"' _ {} \;
-mv *.pdf ../praesi/
+mv *.pdf ../presentation/

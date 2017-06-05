@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="46cm" height="28cm" viewBox="30 20 912 560" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="263" y="21" width="77.15" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="263" y="21" width="77.15" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="301.575" y="40">Sha256</text>
+    <rect style="fill: #ffffff" x="263" y="49" width="77.15" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="263" y="49" width="77.15" height="8"/>
+    <rect style="fill: #ffffff" x="263" y="57" width="77.15" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="263" y="57" width="77.15" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="691" y="125" width="106.45" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="691" y="125" width="106.45" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="744.225" y="144">ShaCoreEx</text>
+    <rect style="fill: #ffffff" x="691" y="153" width="106.45" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="691" y="153" width="106.45" height="8"/>
+    <rect style="fill: #ffffff" x="691" y="161" width="106.45" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="691" y="161" width="106.45" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="124.5" y="237.5" width="81.5" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="124.5" y="237.5" width="81.5" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="165.25" y="256.5">Prepare</text>
+    <rect style="fill: #ffffff" x="124.5" y="265.5" width="81.5" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="124.5" y="265.5" width="81.5" height="8"/>
+    <rect style="fill: #ffffff" x="124.5" y="273.5" width="81.5" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="124.5" y="273.5" width="81.5" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="434.825" y="237.5" width="85.2" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="434.825" y="237.5" width="85.2" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="477.425" y="256.5">ShaCore</text>
+    <rect style="fill: #ffffff" x="434.825" y="265.5" width="85.2" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="434.825" y="265.5" width="85.2" height="8"/>
+    <rect style="fill: #ffffff" x="434.825" y="273.5" width="85.2" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="434.825" y="273.5" width="85.2" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="844" y="465.5" width="96.6" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="844" y="465.5" width="96.6" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="892.3" y="484.5">ConstAdd</text>
+    <rect style="fill: #ffffff" x="844" y="493.5" width="96.6" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="844" y="493.5" width="96.6" height="8"/>
+    <rect style="fill: #ffffff" x="844" y="501.5" width="96.6" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="844" y="501.5" width="96.6" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="278.926" y="465.5" width="45.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="278.926" y="465.5" width="45.3" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="301.576" y="484.5">Add</text>
+    <rect style="fill: #ffffff" x="278.926" y="493.5" width="45.3" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="278.926" y="493.5" width="45.3" height="8"/>
+    <rect style="fill: #ffffff" x="278.926" y="501.5" width="45.3" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="278.926" y="501.5" width="45.3" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="423" y="352" width="108.85" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="423" y="352" width="108.85" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="477.425" y="371">Add_B0Maj</text>
+    <rect style="fill: #ffffff" x="423" y="380" width="108.85" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="423" y="380" width="108.85" height="8"/>
+    <rect style="fill: #ffffff" x="423" y="388" width="108.85" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="423" y="388" width="108.85" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="656" y="352" width="99.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="656" y="352" width="99.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="705.9" y="371">Add_B1Ch</text>
+    <rect style="fill: #ffffff" x="656" y="380" width="99.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="656" y="380" width="99.8" height="8"/>
+    <rect style="fill: #ffffff" x="656" y="388" width="99.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="656" y="388" width="99.8" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="79" y="352" width="91.25" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="79" y="352" width="91.25" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="124.625" y="371">Add_Ssig</text>
+    <rect style="fill: #ffffff" x="79" y="380" width="91.25" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="79" y="380" width="91.25" height="8"/>
+    <rect style="fill: #ffffff" x="79" y="388" width="91.25" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="79" y="388" width="91.25" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="31" y="465.5" width="59.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="31" y="465.5" width="59.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="60.55" y="484.5">Ssig0</text>
+    <rect style="fill: #ffffff" x="31" y="493.5" width="59.1" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="31" y="493.5" width="59.1" height="8"/>
+    <rect style="fill: #ffffff" x="31" y="501.5" width="59.1" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="31" y="501.5" width="59.1" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="155.036" y="465.5" width="59.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="155.036" y="465.5" width="59.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="184.586" y="484.5">Ssig1</text>
+    <rect style="fill: #ffffff" x="155.036" y="493.5" width="59.1" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="155.036" y="493.5" width="59.1" height="8"/>
+    <rect style="fill: #ffffff" x="155.036" y="501.5" width="59.1" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="155.036" y="501.5" width="59.1" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="389.308" y="465.5" width="59.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="389.308" y="465.5" width="59.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="419.208" y="484.5">Bsig0</text>
+    <rect style="fill: #ffffff" x="389.308" y="493.5" width="59.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="389.308" y="493.5" width="59.8" height="8"/>
+    <rect style="fill: #ffffff" x="389.308" y="501.5" width="59.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="389.308" y="501.5" width="59.8" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="621.178" y="465.5" width="59.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="621.178" y="465.5" width="59.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="651.078" y="484.5">Bsig1</text>
+    <rect style="fill: #ffffff" x="621.178" y="493.5" width="59.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="621.178" y="493.5" width="59.8" height="8"/>
+    <rect style="fill: #ffffff" x="621.178" y="501.5" width="59.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="621.178" y="501.5" width="59.8" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="745.914" y="465.5" width="33.15" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="745.914" y="465.5" width="33.15" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="762.489" y="484.5">Ch</text>
+    <rect style="fill: #ffffff" x="745.914" y="493.5" width="33.15" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="745.914" y="493.5" width="33.15" height="8"/>
+    <rect style="fill: #ffffff" x="745.914" y="501.5" width="33.15" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="745.914" y="501.5" width="33.15" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="514.042" y="465.5" width="42.2" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="514.042" y="465.5" width="42.2" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="535.142" y="484.5">Maj</text>
+    <rect style="fill: #ffffff" x="514.042" y="493.5" width="42.2" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="514.042" y="493.5" width="42.2" height="8"/>
+    <rect style="fill: #ffffff" x="514.042" y="501.5" width="42.2" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="514.042" y="501.5" width="42.2" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="124.5,281.5 124.5,318 124.625,318 124.625,344.292 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="119.625,331.644 124.625,347.644 129.625,331.644 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="79,396 79,426.247 60.55,426.247 60.55,457.789 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="55.55,445.142 60.55,461.142 65.55,445.142 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="170.25,396 170.25,426.247 184.586,426.247 184.586,457.789 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="179.586,445.142 184.586,461.142 189.586,445.142 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="340.15,65 340.15,91 744.225,91 744.225,118.295 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="739.225,105.647 744.225,121.647 749.225,105.647 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="691,169 691,205 477.425,205 477.425,230.795 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="472.425,218.147 477.425,234.147 482.425,218.147 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="797.45,169 797.45,205 892.3,205 892.3,457.811 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="887.3,445.163 892.3,461.163 897.3,445.163 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="520.025,281.5 520.025,318 705.9,318 705.9,344.292 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="700.9,331.644 705.9,347.644 710.9,331.644 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="477.425,281.5 477.425,318 477.425,318 477.425,344.292 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="472.425,331.644 477.425,347.644 482.425,331.644 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="124.625,396.992 124.625,543 278.926,543 278.926,516.205 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="283.926,528.853 278.926,512.853 273.926,528.853 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="705.9,396.637 705.9,564 301.576,564 301.576,517.066 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="306.576,529.713 301.576,513.713 296.576,529.713 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="423,396 423,426.247 419.208,426.247 419.208,457.789 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="414.208,445.142 419.208,461.142 424.208,445.142 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="531.85,396 531.85,426.247 535.142,426.247 535.142,457.789 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="530.142,445.142 535.142,461.142 540.142,445.142 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="656,396 656,426.247 651.078,426.247 651.078,457.789 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="646.078,445.142 651.078,461.142 656.078,445.142 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="755.8,396 755.8,426.247 762.489,426.247 762.489,457.789 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="757.489,445.142 762.489,461.142 767.489,445.142 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="206,281.5 206,317 278.926,317 278.926,458.795 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="273.926,446.147 278.926,462.147 283.926,446.147 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="301.575,66.0056 301.575,261.753 301.576,261.753 301.576,458.795 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="296.576,446.147 301.576,462.147 306.576,446.147 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="434.825,281.5 434.825,317 324.226,317 324.226,458.795 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="319.226,446.147 324.226,462.147 329.226,446.147 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="263,65 263,91 165.25,91 165.25,230.795 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="160.25,218.147 165.25,234.147 170.25,218.147 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="477.425,396 477.425,543 324.226,543 324.226,516.205 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="329.226,528.853 324.226,512.853 319.226,528.853 "/>
+  </g>
+</svg>
