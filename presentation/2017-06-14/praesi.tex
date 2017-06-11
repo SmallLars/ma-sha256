@@ -14,7 +14,7 @@
  
 \title[Analyse von SHA256 mit Hilfe von CryptoMiniSat]{Kolloquium zur Masterarbeit:\newline Analyse von SHA256 mit Hilfe von CryptoMiniSat}
 \author{Lars Schmertmann}
-\date{\vspace*{-1cm}\newline\today\newline\newline Begutachtung durch:\newline Prof. Dr. Rolf Drechsler und Dr.-Ing. Olaf Bergmann\newline \newline Betreuung durch die AG Rechnerarchitektur:\newline Dr. Stephan Eggersglüß und Dr. Daniel Große}
+\date{\vspace*{-1cm}\newline 14. Juni 2017\newline\newline Begutachtung durch:\newline Prof. Dr. Rolf Drechsler und Dr.-Ing. Olaf Bergmann\newline \newline Betreuung durch die AG Rechnerarchitektur:\newline Dr. Stephan Eggersglüß und Dr. Daniel Große}
  
 \begin{document}
 \maketitle
@@ -31,18 +31,18 @@
     \begin{frame}{Motivation}
       \begin{itemize}
         \setlength{\itemsep}{12pt}
-        \item Richtungsunabhängig
+        \item Urbildresistenz vs. SAT-Solver
         \item Flexibel, beliebige Vorgaben möglich
         \begin{itemize}
           \item Bitcoin sehr stark eingeschränkt - kleiner Lösungsraum
         \end{itemize}
         \item Andere Masterarbeiten konzentrieren sich auf SAT-Solver
-        \item GitHub-Projekt: SatCoin - (CBMC)
         \item Masterarbeit zum Thema SHA1/SAT-Solver
         \begin{itemize}
           \item Universität Oslo - Vegard Nossum - November 2012
         \end{itemize}
-        \item Martin Maurer
+        \item GitHub-Projekt von Martin Maurer: SHA256
+        \item GitHub-Projekt von Jonathan Heusser: SatCoin - (CBMC)
       \end{itemize}
     \end{frame}
   \subsection{Hasheigenschaften}
@@ -152,11 +152,11 @@
       \begin{itemize}
         \setlength{\itemsep}{12pt}
         \item Versucht zu ermitteln, ob eine aussagenlogische Formel erfüllbar ist
+        \item Falls erfüllbar, liefert der SAT-Solver ein Beispiel
         \item Lösbar in exponentieller Zeit bezüglich der Anzahl Variablen
         \begin{itemize}
           \item NP vollständig
         \end{itemize}
-        \item Falls erfüllbar, liefert der SAT-Solver ein Beispiel
         \item Enthält u.a. Heuristiken und Lernverfahren
         \begin{itemize}
          \item Generiert Wissen
@@ -199,13 +199,13 @@
     \begin{frame}{XOR}
       Die Klauselmenge für ein XOR wächst exponentiell. Beispiel:\\
       ~\\
-      $n = 3$:~~~~$ a \Leftrightarrow b \veebar c$\\
+      $n = 2$:~~~~$ a \Leftrightarrow b \veebar c$\\
       ~\\
       4 Klauseln mit jeweils 3 Literalen
       ~\\
       $ (\neg a \vee \neg b \vee \neg c) \wedge (\neg a \vee b \vee c) \wedge (a \vee \neg b \vee c) \wedge (a \vee b \vee \neg c) $\\
       ~\\
-      Allgemein: $ 2^{n - 1} $ Klauseln mit jeweils $ n $ Literalen\\
+      Allgemein: $ 2^{n} $ Klauseln mit jeweils $ n + 1 $ Literalen\\
       ~\\
       CryptoMiniSat akzeptiert auch XOR-Klauseln: $ (\neg a \veebar b \veebar c)$\\
     \end{frame}
@@ -267,6 +267,9 @@
   \begin{frame}{Modulhierarchie}
      \includegraphics[scale=0.2]{module}
   \end{frame}
+  \begin{frame}{Module mit Rekonvergenzen}
+     \includegraphics[scale=0.4]{sha256coreM}
+  \end{frame}  
   \begin{frame}{Vergleich mit CBMC und Martin Maurer}
     \begin{multicols}{2}
       \begin{itemize}
@@ -354,6 +357,7 @@
     \begin{frame}{Erhaltene Klauseln}
       \begin{itemize}
         \item Die meisten Klauseln kommen aus den Addierern: Lassen sich durch Carry-Look-Ahead-Addiere unterschiedlicher Bitbreite in mehreren Ebenen beschreiben
+        \pause
         \item Klauseln über Distanz:\newline
         \begin{tabular}{rrrr}
           Distanz & Gesamt & Redundant & Verbleibend\\
