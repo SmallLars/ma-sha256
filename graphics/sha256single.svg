@@ -13,7 +13,7 @@
 
     <g id="struktur">
       <rect x="25" y="0" width="400" height="50" style="fill:lightgreen;stroke-width:2;stroke:black" />
-      <text x="225" y="32" text-anchor="middle" style="font-family: Arial; font-size: 20px;">Konstanten</text>
+      <text x="225" y="32" text-anchor="middle" style="font-family: Arial; font-size: 20px;">Initialwert</text>
 
       <line x1="225" y1="50" x2="225" y2="75" style="stroke:black;stroke-width:2" />
       <use xlink:href="#pfeil" transform="translate(225, 62) rotate(90)"/>

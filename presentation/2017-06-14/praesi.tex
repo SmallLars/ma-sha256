@@ -27,21 +27,26 @@
 \frame{ \begin{multicols}{2} \tableofcontents \end{multicols} }
 
 \section{Einleitung}
+  \begin{frame}{}
+    \begin{center}
+      \Huge Einleitung
+    \end{center}
+  \end{frame}
   \subsection{Motivation}
     \begin{frame}{Motivation}
       \begin{itemize}
         \setlength{\itemsep}{12pt}
-        \item Urbildresistenz vs. SAT-Solver
+        \item Einwegfunktion vs. SAT-Solver
         \item Flexibel, beliebige Vorgaben möglich
         \begin{itemize}
           \item Bitcoin sehr stark eingeschränkt - kleiner Lösungsraum
         \end{itemize}
-        \item Andere Masterarbeiten konzentrieren sich auf SAT-Solver
+        \item Andere Arbeiten konzentrieren sich auf SAT-Solver
         \item Masterarbeit zum Thema SHA1/SAT-Solver
         \begin{itemize}
           \item Universität Oslo - Vegard Nossum - November 2012
         \end{itemize}
-        \item GitHub-Projekt von Martin Maurer: SHA256
+        \item GitHub-Projekt von Martin Maurer: SHA256 / Bitcoin
         \item GitHub-Projekt von Jonathan Heusser: SatCoin - (CBMC)
       \end{itemize}
     \end{frame}
@@ -95,6 +100,7 @@
     \begin{frame}{SHA256 / Funktionen}
       \begin{itemize}
       \setlength{\itemsep}{20pt}
+      \item Addierer
       \item Erweiterung
         \begin{itemize}
           \setlength{\itemsep}{10pt}
@@ -185,9 +191,9 @@
       \begin{tabular}{ccc|cp{1cm}ccc|cp{1cm}l}
         a & b & r & c & & a & b & r & c\\
         \cline{1-4}\cline{6-9}
-        1 & 1 & 0 & 0 & & 1 & 1 & 0 & 0 & & $ (\neg a \vee \neg b \vee c) $\\
-        1 & 0 & 1 & 0 & & X & 0 & 1 & 0 & & $ (b \vee \neg c) $\\
-        0 & 1 & 1 & 0 & & 0 & X & 1 & 0 & & $ (a \vee \neg c) $\\
+        1 & 1 & 0 & 0 & & 1 & 1 & 0 & 0 & & $ (\neg a \vee \neg b \vee r) $\\
+        1 & 0 & 1 & 0 & & X & 0 & 1 & 0 & & $ (b \vee \neg r) $\\
+        0 & 1 & 1 & 0 & & 0 & X & 1 & 0 & & $ (a \vee \neg r) $\\
         0 & 0 & 1 & 0 \\
         \cline{1-4}
         1 & 1 & 1 & 1 \\
@@ -382,7 +388,7 @@
   \subsection{Bewertung der erhaltenen Klauseln}
     \begin{frame}{Bewertung der erhaltene Klauseln}
       \begin{tabular}{l|rr|rr}
-	Klauselmenge    & \multicolumn{2}{c|}{mit XOR} & \multicolumn{2}{c}{ohne XOR} \\
+	Klauselmenge    & \multicolumn{2}{c|}{ohne XOR} & \multicolumn{2}{c}{mit XOR} \\
 	\hline
 	Original        &  194:27 & 100\% &   169:24 & 100\% \\
 	\hline
@@ -398,16 +404,15 @@
     \begin{frame}{Vergleich mit CBMC und Martin Maurer}
       \includegraphics[scale=0.4]{eval_final}
     \end{frame}
-  \subsection{Bedeutung für SHA256}
-    \begin{frame}{Initialwertberechnung}
+  \subsection{Bedeutung für die Praxis}
+    \begin{frame}{SHA256 - Initialwertberechnung}
       \includegraphics[scale=0.4]{eval_initial}
     \end{frame}
-    \begin{frame}{Kollisionsberechnung}
+    \begin{frame}{SHA256 - Kollisionsberechnung}
       \includegraphics[scale=0.4]{eval_kollision}
     \end{frame}
-  \subsection{Bedeutung für Bitcoin}
-    \begin{frame}{Bedeutung für Bitcoin}
-      \begin{tabular}{rr|rr}
+    \begin{frame}{Bitcoin}
+      \begin{tabular}{r|r|r}
         Geforderte Nullen & Dauer in Minuten & Erhaltene Nullen \\
         \hline
          9 &  0:43 &  9 \\
@@ -417,6 +422,23 @@
         13 & 10:39 & 16
       \end{tabular}
     \end{frame}
+  \subsection{Fazit \& Ausblick}
+    \begin{frame}{Fazit \& Ausblick}
+      \begin{itemize}
+        \setlength{\itemsep}{12pt}
+        \item Lösungsprozess konnte beschleunigt werden
+        \pause
+        \item Beschleunigung jedoch nicht praxisrelevant
+        \pause
+        \item Suche nach Wissen ist nicht abgeschlossen
+        \pause
+        \item Verallgemeinerung von Klauseln erfolgreich
+        \pause
+        \item Projekt ähnlich zu SETI@home denkbar
+        \pause
+        \item Projekt ähnlich zu WolframAlpha denkbar
+      \end{itemize}
+    \end{frame}    
 
 \begin{frame}{}
   \begin{center}
