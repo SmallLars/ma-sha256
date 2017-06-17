@@ -2,8 +2,8 @@
 \label{sec:knf:gatter}
 
 Grundlage für die Tseitin-Transformation (siehe Abschnitt \ref{sec:knf}) sollen in dieser Arbeit die Operatoren AND, OR und XOR bilden. Verwendet werden sie jedoch
-nur, falls sie in einem Modul eine direkte Beziehung zwischen Eingangs- und Ausgang-Literalen definieren, da sonst zusätzliche Literale eingefügt werden müssen.
-Die boolsche Gleichungen für die drei Operatoren sind in Abbildung \ref{fig:gatter_equations} dargestellt. a und b werden als Literale für die Eingänge verwendet
+nur, falls sie in einem Modul eine direkte Beziehung zwischen Eingangs- und Ausgang-Literalen definieren, weil sonst zusätzliche Literale eingefügt werden müssen.
+Die Boolesche Gleichungen für die drei Operatoren sind in Abbildung \ref{fig:gatter_equations} dargestellt. a und b werden als Literale für die Eingänge verwendet
 und r steht für den Ausgang (das Resultat).
 
 \begin{figure}[!h]
@@ -39,8 +39,8 @@ und r steht für den Ausgang (das Resultat).
   \label{fig:gatter_equations}
 \end{figure}
 
-Nach der Verwendung von eqntott und Espresso ergeben sich aus den boolenschen Gleichungen die konjunktiven Normalformen in Abbildung \ref{fig:gatter_cnf}.
-Diese decken sich mit den Angaben auf Wikipedia \cite{wiki:tseitin}. Für die Negation der Operatoren reicht es aus, das Ergebnisliteral r zu invertieren.
+Nach der Verwendung von eqntott und Espresso ergeben sich aus den Booleschen Gleichungen die konjunktiven Normalformen in Abbildung \ref{fig:gatter_cnf}.
+Diese decken sich mit den Angaben aus "`Digitaltechnik - Eine praxisnahe Einführung"' \cite[164]{digitaltechnik}. Für die Negation der Operatoren reicht es aus, das Ergebnisliteral r zu invertieren.
 
 \begin{figure}[!h]
   \centering
@@ -69,7 +69,7 @@ Diese decken sich mit den Angaben auf Wikipedia \cite{wiki:tseitin}. Für die Ne
   \label{fig:gatter_cnf}
 \end{figure}
 
-Während es bei den Operatoren AND und OR gelungen ist, Dont-Care Literale zu identifizieren und für eine Vereinfachung zu nutzen, ist dies bei dem XOR-Operator
+Während es bei den Operatoren AND und OR gelungen ist, Don't-Care Literale zu identifizieren und für eine Vereinfachung zu nutzen, ist dies bei dem XOR-Operator
 nicht möglich. Jede einzelne Änderung eines beliebigen Eingangsliterals führt zu einer Änderung des Ausgangssignals. Genau die Hälfte der möglichen Belegungen
 ist somit nicht erfüllbar und muss in die konjunktive Normalform mit aufgenommen werden. Allgemein gilt, dass bei einem XOR mit n Eingängen $ 2^{n} $ Klauseln
 mit jeweils $ (n + 1) $ Literalen notwendig sind. Die Klauselmenge wächst exponentiell im Bezug zur Anzahl der Eingänge.
@@ -96,10 +96,11 @@ zeigt die Klausel für den XOR-Operator mit zwei und drei Eingängen.
   \label{fig:gatter_cnf_xor}
 \end{figure}
 
-Abschließend wird noch ein Operator für die Negation (NOT) benötigt. Um daraus einen Gleichheits-Operator (EQ) zu machen reicht es aus, das Ergebnisliteral r zu invertieren.
+Abschließend wird noch ein Operator für die Negation (NOT) benötigt. Um daraus einen Gleichheits-Operator (EQ) zu machen, reicht es aus, das Ergebnisliteral r zu invertieren.
 Realisiert wird die Negation durch eine XOR-Klausel mit zwei Literalen (siehe Abbildung \ref{fig:gatter_not_cnf}). Diese wird nur dann zu $1$ evaluiert, wenn
 a und r unterschiedlich sind, was genau der Negation entspricht. Falls XOR-Klauseln nicht unterstützt werden, lässt sich die Negation mit zwei Klauseln à zwei
-Literalen realisieren, wie ebenfalls in der Abbildung dargestellt. Auch diese konjunktive Normalform deckt sich mit der Angabe auf Wikipedia \cite{wiki:tseitin}.
+Literalen realisieren, wie ebenfalls in der Abbildung dargestellt. Auch diese konjunktive Normalform deckt sich mit der Angabe in
+"`Digitaltechnik - Eine praxisnahe Einführung"' \cite[164]{digitaltechnik}.
 \begin{figure}[!h]
   \centering
   \begin{minipage}[l]{1cm}

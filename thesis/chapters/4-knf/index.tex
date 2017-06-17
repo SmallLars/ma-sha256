@@ -3,38 +3,38 @@
 
 Der einfachste Weg eine konjunktive Normalform zu erzeugen, die erfüllbarkeitsäquivalent zu \glos{sha256} ist, führt vermutlich über die Verwendung vom \acr{cbmc}
 (siehe Abschnitt \ref{sec:cbmc}). \acr{cbmc} erzeugt zur Verifikation von Aussagen über C-Programmcode eine konjunktive Normalform und übergibt diese direkt
-an einen SAT-Solver (siehe Abschnitt \ref{sec:satsolver}). Es besteht jedoch auch die Möglichkeit die generierte konjunktive Normalform im DIMACS-Format auszugeben,
+an einen SAT-Solver (siehe Abschnitt \ref{sec:satsolver}). Es besteht jedoch auch die Möglichkeit, die generierte konjunktive Normalform im DIMACS-Format auszugeben,
 so dass ein C-Programm automatisch übersetzt werden kann. Dabei gehen jedoch jegliche Informationen über den Aufbau und die Bedeutung einzelner Literale verloren,
 so dass es nicht möglich ist, erworbenes Wissen über Literale einzelnen Berechnungen zuzuordnen. Ausgehend von der Addition, die in der Kompressionsfunktion von
 \glos{sha256} am häufigsten verwendet wird, ist es somit nicht möglich, erworbenes Wissen darüber zuzuordnen und auf alle weiteren Additionen zu übertragen.
-Außerdem ist es nicht möglich Einfluss auf die Anzahl und Verwendung der Literale zu nehmen. Für einen Addierer liegt die Entscheidung somit bei \acr{cbmc},
-wie dieser realisiert wird und ob und wie viele zusätzliche Literale verwendet werden. Das eine Extrem wäre die Verwendung eines Carry-Ripple-Addieres, dessen einzelne
+Außerdem ist es nicht möglich, Einfluss auf die Anzahl und Verwendung der Literale zu nehmen. Für einen Addierer liegt die Entscheidung somit bei \acr{cbmc},
+wie dieser realisiert wird und ob und wie viele zusätzliche Literale verwendet werden. Das eine Extrem wäre die Verwendung eines Carry-Ripple-Addierers, dessen einzelne
 Volladdierer in Gatter zerlegt werden, die dann einzeln in die konjunktive Normalform überführt werden. Das führt zu vergleichsweise vielen Literalen mit wenig
 kurzen Klauseln. Das andere Extrem wäre der Versuch, eine konjunktive Normalform zu erzeugen, die ausschließlich Literale für die Summanden und die Summe erzeugt.
 Dabei entstehen jedoch vergleichsweise viele lange Klauseln.
 
-Um sowohl Kontrolle über die Erzeugung der konjunktiven Normalform zu bekommen als auch Informationen zu sammeln um eine Analyse zu ermöglichen, wird ein Programm
-erstellt, dass das Entwurfsmuster "`Besucher"' \cite[301]{visitor} verwendet. Besucher sind dabei Instanzen von Klassen, die unterschiedlichste Aufgaben erfüllen können.
+Um sowohl Kontrolle über die Erzeugung der konjunktiven Normalform zu bekommen als auch Informationen zu sammeln, um eine Analyse zu ermöglichen, wird ein Programm
+erstellt, das das Entwurfsmuster "`Besucher"' \cite[301]{visitor} verwendet. Besucher sind dabei Instanzen von Klassen, die unterschiedlichste Aufgaben erfüllen können.
 Eine Aufgabe kann es dabei sein, die konjunktive Normalform zu erzeugen während eine andere Aufgabe das Zählen von Literalen und Klauseln sein kann.
 Besucht wird dabei eine Struktur, deren Objekte das Verhalten von \glos{sha256} beschreiben. Die Objekte der Struktur werden im Folgenden als Modul bezeichnet.
 Ein Modul kann sowohl die vollständige Kompressionsfunktion von \glos{sha256} sein, als auch ein kleiner Baustein wie ein Halbaddierer. Dabei kann ein Modul
-auch andere Module verwenden. Es zeigt sich, dass acht grundlegende Module ausreichen um \glos{sha256} vollständig zu beschreiben. Diese werden in den Abschnitten
+auch andere Module verwenden. Es zeigt sich, dass acht grundlegende Module ausreichen, um \glos{sha256} vollständig zu beschreiben. Diese werden in den Abschnitten
 \ref{sec:knf:addierer} bis \ref{sec:knf:sig} erläutert. Alle weiteren Module setzen sich aus diesen zusammen und werden in Abschnitt \ref{sec:knf:module} erläutert.
 
 Alle notwendigen allgemeinen Funktionen für ein Modul sind in einer Basisklasse hinterlegt, von der jedes konkrete Modul erben muss. Ein konkretes Modul wird
 dadurch realisiert, dass die bis dato rein virtuelle Funktion create(Collector* collector) implementiert wird. Über diese Funktion wird der Besucher in das Modul
-übergeben, dessen Basisklasse im Folgenden Collector genannt wird, da dieser Informationen über die besuchten Module sammelt. Der Collector stellt zwei virtuelle
+übergeben, dessen Basisklasse im Folgenden Collector genannt wird, weil dieser Informationen über die besuchten Module sammelt. Der Collector stellt zwei virtuelle
 Funktionen bereit, die ein konkreter Collector implementieren kann.
 \begin{description}
   \item[newModul(unsigned level, const char* name, Modul* modul)] muss von jedem Modul aufgerufen werden und dient der Registrierung im Collector.
        Übergeben wird dabei ein selbstgewähltes Level und ein eindeutiger Name. Das Level muss dabei immer höher sein, als alle Level der im Modul
-       benutzen Module, so dass Module eines Levels keine gemeinsamen Literale verwenden. Der Name dient als Identifizierung um eine mehrfache
+       benutzen Module, so dass Module eines Levels keine gemeinsamen Literale verwenden. Der Name dient als Identifizierung, um eine mehrfache
        Verwendung eines Moduls zu erkennen und gelerntes Wissen zuordnen zu können. Als weiterer Parameter wird noch ein Pointer auf das Modul
        selbst übergeben, so dass der Collector bei Bedarf weitere Informationen abrufen kann.
   \item[create(bool xOR, const std::vector<CMSat::Lit>\& vars)] kann von einem Modul mehrfach aufgerufen werden, um Klauseln zu generieren.
        Im Fall von \glos{sha256} wird diese Funktion nur von den acht grundlegenden Modulen aufgerufen. Alle weiteren Module setzen sich aus
        diesen zusammen und reichen den Collector lediglich weiter. Der erste Paramter gibt an, ob es sich um eine normale Klausel handelt,
-       deren Literale durch ein OR verknüpft sind, oder ob es sich um eine Klausel handelt deren Literale durch ein XOR verknüpft sind.
+       deren Literale durch ein OR verknüpft sind, oder ob es sich um eine Klausel handelt, deren Literale durch ein XOR verknüpft sind.
        Ein SAT-Solver wie CryptoMiniSat kann XOR-Klauseln direkt verarbeiten. Für SAT-Solver ohne Unterstützung der XOR-Klauseln ist eine
        Transformation in OR-Klauseln einfach möglich. Eine Transformation in die andere Richtung würde das Sammeln und Analysieren der
        OR-Klauseln erfordern und wäre dadurch wesentlich aufwendiger.
@@ -42,13 +42,13 @@ Funktionen bereit, die ein konkreter Collector implementieren kann.
 Die für die Analyse notwendigen konkreten Collectoren werden in Kapitel \ref{chp:analyse} erläutert. Jedes Modul wird zunächst in seiner Normalform implementiert.
 Normalform bedeutet in diesem Fall, dass das Modul aufeinander folgende Literale beginnend mit $0$ nutzt, um die konjunktive Normalform zu erzeugen.
 Dabei kommen zunächst die Eingänge, im Anschluss mögliche zusätzliche Literale und schließlich der Ausgang. Über Funktionen in der Basisklasse kann
-das Modul bei der Verwendung konfiguriert werden. Jeder Eingang setzt sich aus ein oder mehreren aufeinander folgend Literalen zusammen. Für jeden Eingang
+das Modul bei der Verwendung konfiguriert werden. Jeder Eingang setzt sich aus ein oder mehreren aufeinander folgenden Literalen zusammen. Für jeden Eingang
 kann das Literal mit dem der Eingang beginnt gesetzt werden. Für zusätzliche Literale und den Ausgang kann ebenfalls das Literal gesetzt werden mit dem begonnen wird.
 
 Als Hilfsmittel für die Generierung der Klauseln wird die Klasse ClauseCreator genutzt. Die Verwendung ist in einem Beispiel in Abbildung \ref{fig:clausecreator} dargestellt.
-Initialisiert wird der ClauseCreator durch die Übergabe des Collectors, an den die Klauseln übergeben werden sollen. Im Anschluss werden die Nummern der Literale gesetzt.
-Dadurch ist es möglich mit diesen Literalen beliebig viele Klauseln zu erzeugen, wobei nur noch die Polarität angegeben werden muss. 0 führt zu einer Negation während
-das Makro CC\_DC ein Dont-Care signalisiert und das Literal in der Klausel unterdrückt wird.
+Initialisiert wird der ClauseCreator durch die Übergabe des Collectors an den die Klauseln übergeben werden sollen. Im Anschluss werden die Nummern der Literale gesetzt.
+Dadurch ist es möglich, mit diesen Literalen beliebig viele Klauseln zu erzeugen, wobei nur noch die Polarität angegeben werden muss. $0$ führt zu einer Negation während
+das Makro CC\_DC ein Don't-Care signalisiert und das Literal in der Klausel unterdrückt wird.
 \begin{figure}[!h]
   \centering
   \begin{minipage}[c]{7.5cm}
@@ -77,11 +77,11 @@ das Makro CC\_DC ein Dont-Care signalisiert und das Literal in der Klausel unter
 Um die Funktion aller Module sicherzustellen, werden diese mit MinUnit \cite{minunit} getestet. MinUnit ist eine minimale Testumgebung und
 wurde ursprünglich für den Test von C-Programmen entwickelt. Da es unter der MIT-Lizenz veröffentlicht wurde kann es ohne Einschränkungen
 direkt in den Programmcode eingebunden und angepasst werden. Ausgeliefert wird MinUnit in einer einzigen Header-Datei. Das führt zu einem
-Problem wenn der Linker mehrere Objekt-Dateien zusammenführt, da MinUnit mehrfach eingebunden wurde. Um dieses Problem zu vermeiden, wird
+Problem wenn der Linker mehrere Objekt-Dateien zusammenführt, weil MinUnit mehrfach eingebunden wurde. Um dieses Problem zu vermeiden, wird
 der Programmcode von MinUnit in eine Header- und eine Quelltext-Datei aufgeteilt.
 
 Für die Erzeugung einer potentiell minimalen konjunktiven Normalform wird im ersten Schritt das Programm eqntott verwendet. Mit Hilfe von eqntott
-ist es möglich, boolsche Gleichungen in eine Wahrheitstabelle zu überführen. Da das Eingabeformat weder den XOR- noch den Gleichheits-Operator unterstützt,
+ist es möglich, Boolesche Gleichungen in eine Wahrheitstabelle zu überführen. Da das Eingabeformat weder den XOR- noch den Gleichheits-Operator unterstützt,
 müssen diese beiden Operatoren in der Eingabedatei selbst definiert werden. Ein binärer XOR-Operator entspricht dabei einem negierten Gleichheits-Operator.
 Die Definitionen in Abbildung \ref{fig:gatter_equations_head} werden bei allen Berechnungen in den nächsten Abschnitten verwendet.
 \begin{figure}[!h]
@@ -96,15 +96,15 @@ Die Definitionen in Abbildung \ref{fig:gatter_equations_head} werden bei allen B
   \label{fig:gatter_equations_head}
 \end{figure}
 
-Die ermittelte Wahrheitstabelle kann jedoch nicht direkt in eine konjunktive Normalform überführt werden. Sie enthält alle Einträge die die boolsche Gleichung erfüllen
-und ist mit großer Wahrscheinlichkeit nicht minimal. Für die konjunktive Normalform werden alle Einträge benötigt, die die boolsche Gleichung nicht erfüllen. Um diese zu
-generieren wäre es möglich, die boolsche Gleichung entsprechend anzupassen. Am Beispiel eines 4-Bit-Addierers zeigt sich jedoch, dass das Ergebnis wesentlich größer sein kann.
+Die ermittelte Wahrheitstabelle kann jedoch nicht direkt in eine konjunktive Normalform überführt werden. Sie enthält alle Einträge, die die Boolesche Gleichung erfüllen
+und ist mit großer Wahrscheinlichkeit nicht minimal. Für die konjunktive Normalform werden alle Einträge benötigt, die die Boolesche Gleichung nicht erfüllen. Um diese zu
+generieren, wäre es möglich, die Boolesche Gleichung entsprechend anzupassen. Am Beispiel eines 4-Bit-Addierers zeigt sich jedoch, dass das Ergebnis wesentlich größer sein kann.
 Ein 4-Bit-Addierer hat $2^4$ mögliche Ergebnisse. Jedes dieser Ergebnisse lässt sich aus $2^4$ unterschiedlichen Summanden gewinnen. Es gibt somit $(2^4)^2 = 256$
-erfüllende Belegungen. Im Gegensatz dazu stehen bei jedem möglichen Ergebnis $2^4 \cdot (2^4-1)$ mögliche Kombinationen von Summanden die nicht zum Ergebnis führen.
+erfüllende Belegungen. Im Gegensatz dazu stehen bei jedem möglichen Ergebnis $2^4 \cdot (2^4-1)$ mögliche Kombinationen von Summanden, die nicht zum Ergebnis führen.
 Die nicht erfüllenden Belegungen belaufen sich somit auf $(2^4)^2 \cdot ((2^4)-1) = 3840$. Da diese Wahrheitstabelle nur als Zwischenergebnis und Eingabe für
 Espresso (siehe Abschnitt \ref{sec:espresso}) verwendet werden soll, werden deshalb die erfüllenden Belegungen generiert.
 
-Die Wahrheitstabelle wird im zweiten Schritt an Espresso übergeben. Nachdem Espresso die Wahrheitstabelle eingelesen hat führt der Parameter -epos dazu,
+Die Wahrheitstabelle wird im zweiten Schritt an Espresso übergeben. Nachdem Espresso die Wahrheitstabelle eingelesen hat, führt der Parameter -epos dazu,
 dass die erfüllenden Belegungen in nicht-erfüllende überführt werden. Diese Belegungen werden von Espresso minimiert. Durch den Parameter -Dexact wird
 eine minimale Anzahl an Belegungen garantiert. Das führt jedoch nur bei Problemen mit wenig Variablen zu einer Lösung, hat sich in den vorliegenden
 Fällen aber bewährt.

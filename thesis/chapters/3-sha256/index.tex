@@ -1,44 +1,44 @@
 \chapter{SHA-256}
 \label{chp:sha256}
 
-Secure Hash Algorithm (SHA) steht als Oberbegriff für eine Reihe von Algorithmen die vom \acr{nist} seit 1993 standardisiert wurden.
+Secure Hash Algorithm (SHA) steht als Oberbegriff für eine Reihe von Algorithmen, die vom \acr{nist} seit 1993 standardisiert wurden.
 Diese Algorithmen dienen zur Erzeugung von Daten konstanter Länge aus Daten variabler Länge.
-Das Ergebnis kann als ein Fingerabdruck der Eingabedaten betrachtet werden und wird im folgenden als \glos{hash} bezeichnet.
+Das Ergebnis kann als ein Fingerabdruck der Eingabedaten betrachtet werden und wird im Folgenden als \glos{hash} bezeichnet.
 Sowohl die maximal mögliche Eingabelänge als auch die Länge des Fingerabdrucks variieren dabei von Algorithmus zu Algorithmus.
 
-Ein Hash-Algorithmus sollte die drei folgenden Eigenschaften erfüllen um als sicher zu gelten \cite{crypto1}.
+Ein Hash-Algorithmus sollte die drei folgenden Eigenschaften erfüllen, um als sicher zu gelten \cite{crypto1}.
 \begin{description}
   \item[Urbildresistenz] Die Urbildresistenz eines Hash-Algorithmus ist dann gegeben, wenn es sich um eine Einwegfunktion handelt.
                          Zu einem gegebenen \glos{hash} soll es nahezu unmöglich sein, eine gültige Eingabe zu berechnen.
                          Häufig wird diese Eigenschaft genutzt, um Passwörter in einer Benutzerdatenbank abzulegen.
                          Bei einer Authentifikation des Benutzers kann der \glos{hash} durch Eingabe des Passworts neu berechnet und mit dem 
                          hinterlegten \glos{hash} verglichen werden, ohne dass ein Angreifer durch einen Datenbankzugriff das Passwort stehlen kann.
-  \item[Urbildresistenz 2 / Schwache Kollisionsresistenz]
-                         Bei der Urbildresistenz 2 soll es nahezu unmöglich sein, zu einer gegebenen Eingabe eine weitere Eingabe zu berechnen,
+  \item[Schwache Kollisionsresistenz]
+                         Bei der schwachen Kollisionsresistenz soll es nahezu unmöglich sein, zu einer gegebenen Eingabe eine weitere Eingabe zu berechnen,
                          die auf den selben \glos{hash} abgebildet wird. Im Gegensatz zur Urbildresistenz ist bei dieser Eigenschaft eine gültige
-                         Eingabe bekannt die einem Angreifer Informationen liefern könnte.
+                         Eingabe bekannt, die einem Angreifer Informationen liefern könnte.
   \item[Starke Kollisionsresistenz]
                          Während bei der Urbildresistenz ein \glos{hash} vorgegeben ist, kann dieser bei der starken Kollisionsresistenz frei gewählt werden.
-                         Die starke Kollisionsresistenz ist somit schwerer zu realisieren, da durch die freie Wahl des \glos{hash} das \glos{geburtstagsparadoxon}
+                         Die starke Kollisionsresistenz ist somit schwerer zu realisieren, weil durch die freie Wahl des \glos{hash}{s} das \glos{geburtstagsparadoxon}
                          angewendet werden kann. Dabei geht es darum, dass die Wahrscheinlichkeit zwei Personen mit einem gleichen Geburtstag in einem Raum
                          zu finden, wesentlich höher ist, als zu einem gegebenen Geburtstag eine weitere Person zu finden. Konkret bedeutet das, dass
                          bei einem sicheren Hash-Algorithmus mit einer Länge von 256 Bit nur ungefähr $ 2^{128} $ anstatt $ 2^{256} $ Eingaben geprüft werden
-                         müssen um eine Kollision zu finden.                         
+                         müssen, um eine Kollision zu finden.                         
 \end{description}
 
 In dieser Arbeit wird \glos{sha256} betrachtet. Nach SHA-$0$ und SHA-$1$ gehört dieser zur dritten Generation, zu der auch SHA-$224$, SHA-$384$ und SHA-$512$ gehören.
-Genau wie SHA-$224$ werden maximale Eingaben von $ 2^{64} - 1$ Bit unterstützt, was $ 2^{61} - 1 $ Byte (vergleiche 1 \acr{gib} = $ 1^{30} $ Byte) entspricht.
+Genau wie SHA-$224$ werden maximale Eingaben von $ 2^{64} - 1$ Bit unterstützt, was $ 2^{61} - 1 $ Byte (vergleiche 1 \acr{gib} = $ 2^{30} $ Byte) entspricht.
 Der berechnete Fingerabdruck ist gemäß dem Namen 256 Bit lang.
 
 Erstmal veröffentlicht wurde \glos{sha256} vom \acr{nist} im August 2002 \cite{nist1802}. Die aktuellste Version wurde im August 2015 veröffentlicht \cite{nist1804}.
 Begleitet wurden die Veröffentlichungen des \acr{nist} von der \acr{ietf}. Mit den \acr{rfc} 3174 \cite{rfc3174}, 4634 \cite{rfc4634} und 6234 \cite{rfc6234}
 verfolgt die \acr{ietf} das Ziel, den Quellcode zur Berechnung der Hash-Algorithmen der Internet-Gemeinde auf eine einfache Art und Weise zur Verfügung zu stellen.
 
-Die Kompressionsfunktion von \glos{sha256} besteht aus mehreren Teilen die in den folgenden Abschnitten im Detail erläutert werden. Eine Übersicht ist in Abbildung
+Die Kompressionsfunktion von \glos{sha256} besteht aus mehreren Teilen, die in den folgenden Abschnitten im Detail erläutert werden. Eine Übersicht ist in Abbildung
 \ref{fig:sha256single} dargestellt. Die Abbildung zeigt die Berechnung durch die Kompressionsfunktion bei einer Eingabe bis zu 447 Bit. Am Anfang stehen acht
-32 Bit breite Konstanten die durch die Kompressionsfunktion in 64 Runden (siehe Abschnitt \ref{sec:sha256:runde}) unter Berücksichtigung der Eingabe zum \glos{hash}
+32 Bit breite Konstanten, die durch die Kompressionsfunktion in 64 Runden (siehe Abschnitt \ref{sec:sha256:runde}) unter Berücksichtigung der Eingabe zum \glos{hash}
 entwickelt werden. Die Eingabe wird dafür mit Hilfe des Paddings (siehe Abschnitt \ref{sec:sha256:padding}) auf 512 Bit erweitert. 512 Bit entsprechen sechzehn
-32 Bit Blöcken, die direkt in den ersten 16 Runden verwendet werden. Für die verbleibenden 48 Runden werden jeweils 4 vorhergehende 32 Bit Blöcke genutzt um die
+32 Bit Blöcken, die direkt in den ersten 16 Runden verwendet werden. Für die verbleibenden 48 Runden werden jeweils 4 vorhergehende 32 Bit Blöcke genutzt, um die
 Eingabe zu erweitern (siehe Abschnitt \ref{sec:sha256:erweiterung}). Um eine Cryptoanalyse zu erschweren, wird in jeder Runde eine andere Konstante auf die
 jeweilige Eingabe addiert, so dass der Einfluss der jeweiligen Eingabe auf die Entwicklung der Konstanten ein anderer ist. Abschließend werden die acht Konstanten
 noch einmal auf das Ergebnis addiert.

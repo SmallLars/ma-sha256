@@ -2,10 +2,10 @@
 \label{sec:ana:module}
 
 Nach dem Aussortieren der schon bekannten Klauseln werden die neuen Klauseln den einzelnen Modulen zugeordnet. Durch die hierarchische Anordnung
-muss beachtet werden, dass eine Klausel mehreren Modulen zugeordnet werden kann. Sinnvoll ist es jedoch, die Klausel nur dem Modul zuzuordnen
+muss beachtet werden, dass eine Klausel mehreren Modulen zugeordnet werden kann. Sinnvoll ist es jedoch, die Klausel nur dem Modul zuzuordnen,
 das in der Hierarchie möglichst weit unten steht. Wird eine Klausel für einen Addierer gefunden, kann diese Klausel so zukünftig für alle Addierer
 genutzt werden, während sie im Modul für die vollständige Kompressionsfunktion nur für den einen speziellen Addierer gelten würde. Um diese
-Zuordnung zu realisieren erhält jedes Modul ein Level. Im hierarchischen Aufbau muss das Level eines Moduls dabei höher sein, als das höchste Level
+Zuordnung zu realisieren, erhält jedes Modul ein Level. Im hierarchischen Aufbau muss das Level eines Moduls dabei höher sein als das höchste Level
 der verwendeten Module. Die vergebenen Level sind in Abbildung \ref{fig:sha256_module_level} dargestellt.
 \begin{figure}[!h]
   \centering
@@ -18,8 +18,8 @@ Die Level werden nicht fortlaufend nummeriert, um bei Bedarf weitere Module/Leve
 
 Anhand der Level können die Module sortiert werden, so dass die Prüfung, ob eine Klausel zum Modul gehört, bei den Modulen mit dem niedrigsten Level beginnen kann.
 Eine Klausel gehört dann zu einem Modul, wenn alle Literale der Klausel im Modul verwendet werden. Dabei kann es sich um Eingänge, zusätzliche Literale oder Ausgänge
-handeln. Ein Sonderfall ist eine Klausel die ausschließlich aus Eingangsliteralen oder ausschließlich aus Ausgangsliteralen besteht. Die Ausgangsliterale eines Moduls
-sind im allgemeinen die Eingangsliterale eines anderen Moduls wodurch die Zuordnung bei gleichem Level unklar ist. Klauseln dieser Art wurden bei der Analyse jedoch
+handeln. Ein Sonderfall ist eine Klausel, die ausschließlich aus Eingangsliteralen oder ausschließlich aus Ausgangsliteralen besteht. Die Ausgangsliterale eines Moduls
+sind im Allgemeinen die Eingangsliterale eines anderen Moduls, wodurch die Zuordnung bei gleichem Level unklar ist. Klauseln dieser Art wurden bei der Analyse jedoch
 nicht gefunden. 
 
 Für die Zuordnung der Klauseln wird zunächst ein Collector mit dem Namen "`ModulDB"' implementiert. Die ModulDB überschreibt nur die Methode newModul des Collectors,
@@ -29,25 +29,25 @@ der eine beliebige Klausel zur Zuordnung übergeben werden kann. Wird ein passen
 
 Das Programm "`modulchecker"' nutzt schließlich die ModulDB für die Zuordnung. Zunächst wird ein Objekt der Kompressionsfunktion erzeugt, in das die ModulDB als
 Besucher übergeben wird. Danach werden die im vorigen Abschnitt erstellten DIMACS-Dateien eingelesen und jede Klausel einem Modul zugeordnet. Die Zuordnung wird
-in diesem Fall immer gelingen, da spätestens die Kompressionsfunktion alle Literale umfasst.
+in diesem Fall immer gelingen, weil spätestens die Kompressionsfunktion alle Literale umfasst.
 
-Da die Module in ihrer Normalform implementiert werden (siehe Kapitel \ref{chp:knf}) kann eine zugeordnete Klausel noch nicht direkt genutzt werden.
+Da die Module in ihrer Normalform implementiert werden (siehe Kapitel \ref{chp:knf}), kann eine zugeordnete Klausel noch nicht direkt genutzt werden.
 Die verwendeten Literale in der Kompressionsfunktion sind andere als die des Moduls in der Normalform. Wird eine Klausel zugeordnet, erfolgt deshalb
 direkt im Anschluss die Normalisierung der Klausel. Diese wird auf Basis der im Modul verwendeten Literale durchgeführt. Da diese in der richtigen
 Reihenfolge vorliegen, können in der Klausel vorkommende Literale darin erkannt und anhand des Index in das Literal der Normalform überführt werden.
 
 Nach der Normalisierung werden die Klauseln für jedes Modul in einem eigenen "`set"' gesammelt. Wie in Abschnitt \ref{sec:ana:rem_double} erfolgt
-dadurch eine automatische Aussortierung doppelter Klauseln. Diese ist erneut notwendig, da Module mehrfach an verschiedenen Stellen verwendet werden.
-Klauseln die vorher unterschiedlich sind werden durch die Normalisierung zu gleichen Klauseln, wenn das gleiche Wissen über ein Modul an mehreren
+dadurch eine automatische Aussortierung doppelter Klauseln. Diese ist erneut notwendig, weil Module mehrfach an verschiedenen Stellen verwendet werden.
+Klauseln, die vorher unterschiedlich sind, werden durch die Normalisierung zu gleichen Klauseln, wenn das gleiche Wissen über ein Modul an mehreren
 Stellen erworben wurde.
 
-Abschließend werden die neuen Klauseln jedes Moduls in eine eigene DIMACS-Datei geschrieben. Bevor diese Klauseln in die Module integriert werden können ist
+Abschließend werden die neuen Klauseln jedes Moduls in eine eigene DIMACS-Datei geschrieben. Bevor diese Klauseln in die Module integriert werden können, ist
 es notwendig die Gültigkeit zu überprüfen. Ungültig kann eine Klausel dann sein, wenn sie sich aus dem Kontext, in dem das Modul verwendet wurde, ergibt.
 In diesem Fall ist es notwendig, die Klausel auf ein Modul höheren Levels zu übertragen. Die Gültigkeitsprüfung wird mit dem Programm "`clausechecker"'
 durchgeführt. Dabei werden die bekannten Klauseln des Moduls an CryptoMiniSat übergeben. Jede (neue) Klausel lässt sich als nicht erfüllbare Belegung
 interpretieren und wird deshalb als Annahme bei einem Lösungsversuch übergeben. Gelingt es CryptoMiniSat nicht, eine Lösung zu finden, ist die Gültigkeit
 der Klausel bestätigt. In dieser Arbeit haben sich jedoch alle überprüften Klauseln als gültig herausgestellt und brauchen nicht auf ein Modul höheren
-Levels übertragen werden.
+Levels übertragen zu werden.
 
 Nur ein kleiner Teil (< 5\%) der neuen Klauseln lässt sich einem Modul unterhalb des Levels 30 zuordnen. Der Großteil ergibt sich aus dem Zusammenspiel
 der Erweiterung der Eingabe und der Rundenfunktion und wird somit dem Modul für die Kompressionsfunktion zugeordnet. Der Versuch alle diese Klauseln

@@ -5,7 +5,7 @@ Um für jede der 64 Runden einen 32 Bit Eingabewert berücksichtigen zu können,
 Dabei kommen sowohl die modulare 32-Bit Addition als auch die beiden $\sigma$-Funktionen zum Einsatz.
 Für die ersten 16 Runden wird die Eingabe direkt übernommen. Für alle weiteren Runden werden vier vorhergehende Eingaben zur Berechnung
 gemäß Abbildung \ref{fig:sha256prep} herangezogen. Das führt dazu, dass die Eingabe einer Runde nicht nur bis zu vier nachfolgenden
-Runden beeinflusst, sondern auch Auswirkungen auf weitere Runden hat, da diese wiederum in nachfolgenden Runden verwendet wird.
+Runden beeinflusst, sondern auch Auswirkungen auf weitere Runden hat, weil diese wiederum in nachfolgenden Runden verwendet wird.
 
 \begin{figure}[!h]
   \centering

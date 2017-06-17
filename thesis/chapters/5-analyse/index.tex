@@ -5,17 +5,17 @@ Die im letzten Kapitel erstellte konjunktive Normalform wird in diesem Kapitel f
 Analyse bedeutet in diesem Fall, Lösungsversuche mit CryptoMiniSat durchzuführen. CryptoMiniSat sammelt dabei zusätzliches Wissen
 in Form von Konfliktklauseln. Außerdem können durch die Optimierung der ursprünglichen konjunktiven Normalform weitere Klauseln
 generiert werden. Sowohl die Konfliktklauseln als auch die aus der Optimierung entstandenen Klauseln sollen in diesem Kapitel
-analysiert werden um die Module aus dem vorhergehenden Kapitel mit weiterem Wissen anzureichern und weitere Lösungsversuche zu
+analysiert werden, um die Module aus dem vorhergehenden Kapitel mit weiterem Wissen anzureichern und weitere Lösungsversuche zu
 beschleunigen. Das Vorgehen ist dabei iterativ. Nach einem Lösungsversuch werden mutmaßlich wertvolle Klauseln identifiziert
 und in die Module aufgenommen, um mit diesem zusätzlichen Wissen einen weiteren Lösungsversuch zu starten.
 
 Als Lösungsversuch wird die Urbildberechnung (siehe Abschnitt \ref{sec:urbildberechnung}) herangezogen. Die Initialwertberechnung
-(siehe Abschnitt \ref{sec:initialwertberechnung}) eignet sich nicht, da die Eingabe bekannt ist und somit die Erweiterung der Eingabe
+(siehe Abschnitt \ref{sec:initialwertberechnung}) eignet sich nicht, weil die Eingabe bekannt ist und somit die Erweiterung der Eingabe
 vollständig berechnet werden kann. Dadurch ist dieser Teil bereits gelöst und wird im Lösungsversuch nicht berücksichtigt. Das führt
 dazu, dass kein Wissen über die Erweiterung der Eingabe erworben werden kann. Für die Urbildberechnung wird der \glos{hash} aus Abbildung
 \ref{fig:ruby-sha256} herangezogen. Dieser wurde aus der Eingabe "`Das ist eine Eingabe aus der ein \glos{hash} erstellt wird."' mit Hilfe
 der interaktiven Rubykonsole berechnet und dient unter anderem auch als Testfall für die Kompressionsfunktion. Ziel des Lösungsversuchs
-ist es, eine Eingabe mit 52 Byte Länge zu finden. Dies könnte auch die Eingabe sein, die benutzt wurde um den \glos{hash} zu berechnen.
+ist es, eine Eingabe mit 52 Byte Länge zu finden. Dies könnte auch die Eingabe sein, die benutzt wurde, um den \glos{hash} zu berechnen.
 \begin{figure}[!h]
   \centering
   \begin{lstlisting}[]
@@ -28,14 +28,15 @@ ist es, eine Eingabe mit 52 Byte Länge zu finden. Dies könnte auch die Eingabe
 \end{figure}
 
 Beachtet werden muss auch, dass der \glos{hash} nicht direkt mit in die konjunktive Normalform kodiert wird. Gleiches gilt für die \glospl{initialwert}
-und das Padding, was vorgegeben wird um die Eingabelänge zu definieren. Eine direkt Kodierung würde dazu führen, dass erworbenes Wissen
-sich auf diese Werte bezieht und somit nur für diesen Fall gültig ist. Um das zu vermeiden werden alle Werte als "`Annahmen"' (Assumptions)
+und das Padding, das vorgegeben wird, um die Eingabelänge zu definieren. Eine direkt Kodierung würde dazu führen, dass erworbenes Wissen
+sich auf diese Werte bezieht und somit nur für diesen Fall gültig ist. Um das zu vermeiden, werden alle Werte als "`Annahmen"' (Assumptions)
 an CryptoMiniSat übergeben. Das führt dazu, dass die Werte zwar für diesen Lösungsversuch gelten, jedoch nicht als allgemeingültig betrachtet
-werden. Klauseln die auf diesem Wissen basieren, werden separat behandelt und nach dem Lösungsversuch verworfen.
+werden. Klauseln, die auf diesem Wissen basieren, werden separat behandelt und nach dem Lösungsversuch verworfen (in Anlehnung an
+"`Incremental Satisfiability"' \cite[Kapitel 6]{shtrichman}).
 
 Ebenfalls berücksichtigt werden muss die Extraktion der gelernten Klauseln aus CryptoMiniSat. Die internen Datenstrukturen sind nicht dafür
 geeignet, die Klauseln während eines laufenden Lösungsversuchs zu extrahieren. Eine Extraktion kann nur erfolgen, wenn CryptoMiniSat eine
-Lösung gefunden hat wobei die Lösung auch sein kann, dass es keine Lösung gibt. Wie zu erwarten ist, kommt CryptoMiniSat aber bei vollständiger
+Lösung gefunden hat, wobei die Lösung auch sein kann, dass es keine Lösung gibt. Wie zu erwarten ist, kommt CryptoMiniSat aber bei vollständiger
 Vorgabe des \glos{hash} zeitnah zu keiner Lösung. Deshalb wird ein iterativer Ansatz verfolgt. Die \glospl{initialwert} und das Padding werden immer vollständig vorgeben,
 während die Vorgabe des \glos{hash} bitweise erweitert wird. Nach jeder Lösung werden dabei die Klauseln extrahiert. Es werden so lange Bits des \glos{hash}
 ergänzt, bis keine Lösung mehr gefunden wird. Im Allgemeinen zeigt sich dies dadurch, dass CryptoMiniSat aufgrund eines vollen Hauptspeichers
@@ -50,7 +51,7 @@ alle Klauseln gesammelt und schon bekannte Klauseln aussortiert. In Abschnitt \r
 zuzuordnen und diese zu normalisieren. Gelingt die Zuordnung zu einem Modul nicht, wird in Abschnitt \ref{sec:ana:distance} eine Distanzmetrik
 genutzt, um die Klauseln zu bewerten und mutmaßlich wertvolle Klauseln zu identifizieren. Die Verallgemeinerung von Klauseln über die Breite von
 32 Bit und die 64 Runden von \glos{sha256} wird in Abschnitt \ref{sec:ana:generalize} betrachtet. Durch die Iterationen, die jeweils gelerntes Wissen mit
-einbeziehen, kann es dazu kommen, dass Dont-Care Literale identifiziert werden und zur Verkürzung von Klauseln führen. Diese Entwicklung wird in
+einbeziehen, kann es dazu kommen, dass Don't-Care Literale identifiziert werden und zur Verkürzung von Klauseln führen. Diese Entwicklung wird in
 Abschnitt \ref{sec:ana:subclauses} betrachtet. Abschließend wird das gelernte Wissen in Abschnitt \ref{sec:ana:acquired} zusammengefasst.
 
 \input{chapters/5-analyse/1-bekanntes.tex}

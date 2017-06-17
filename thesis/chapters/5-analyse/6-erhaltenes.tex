@@ -4,8 +4,7 @@
 Nach der mehrfachen iterativen Anwendung der Methodik aus den letzten Abschnitten, wird die Analyse beendet. Bei den letzten Iterationen konnten
 keine weiteren Klauseln sinnvoller Länge für die Module gefunden werden. Anders ist die Situation bei Klauseln aus der Kompressionsfunktion mit
 positiver Distanz. Nach wie vor werden Klauseln generiert, die bei gleicher Distanz tendenziell kürzer werden. Da aber bisher nicht bekannt ist,
-ob diese Klauseln den Lösungsprozess tatsächlich beschleunigen, wird die Analyse beendet. Basierend auf der Bewertung der Klauseln in Kapitel
-\ref{chp:bewertung} wird sich zeigen, ob die Fortsetzung der Suche nach Klauseln mit großer Distanz sinnvoll ist.
+ob diese Klauseln den Lösungsprozess tatsächlich beschleunigen, wird die Analyse beendet.
 
 Tabelle \ref{fig:additional_clauses_add} zeigt zunächst die erhaltenen Klauseln für die zusätzlichen Komponenten des Addierers.
 Die Halb- und Mod-X-Addierer sind jeweils einmal enthalten, während die Volladdierer mit zwei bis vier Bit 29 bis 27 Mal enthalten sind.
@@ -34,13 +33,14 @@ Dadurch ergeben sich für den Addierer selbst insgesamt die zusätzlichen Klause
   \caption{Erworbene Klauseln im Addierer}
   \label{fig:additional_clauses_add}
 \end{table}
+
 Erkennen lässt sich, dass die Länge der Klauseln mit der Ebene der Komponenten zunehmen. Gleichzeitig nimmt die Anzahl der erhaltenen Klauseln ab.
 Das lässt sich dadurch erklären, dass bspw. ein 3-Bit Volladdierer auf den Literalen arbeitet, auf denen bereits zwei 2-Bit Volladdierer und drei
 Volladdierer vorhanden sind. Damit ist ein Großteil des Verhaltens bereits definiert und es werden nur zusätzliche Klauseln benötigt, die bisher
 fehlendes Verhalten definieren.
 
-Tabelle \ref{fig:additional_clauses_mod} zeigt, wie viele Klausel mit welcher Anzahl Literale in den essentiellen Modulen gefunden werden konnten.
-Dazu gehören sowohl normale Klauseln als auch XOR-Klausen. Sind in einer Zelle zwei Werte aufgeführt, gibt der erste Wert die Anzahl der zusätzlichen
+Tabelle \ref{fig:additional_clauses_mod} zeigt, wie viele Klauseln mit welcher Anzahl Literale in den essentiellen Modulen gefunden werden konnten.
+Dazu gehören sowohl normale Klauseln als auch XOR-Klauseln. Sind in einer Zelle zwei Werte aufgeführt, gibt der erste Wert die Anzahl der zusätzlichen
 Klauseln bei einer XOR-Unterstützung an. Der zweite Werte gibt die Anzahl der zusätzlichen Klauseln ohne XOR-Unterstützung wieder.
 \begin{table}[!h]
   \centering
@@ -62,16 +62,17 @@ Klauseln bei einer XOR-Unterstützung an. Der zweite Werte gibt die Anzahl der z
     Choose               &   &    64 &         &          &     &    \\
     Majority             &   &       &         &          &     &    \\
     Add\_Ssig            &   &       &       8 &          &     &    \\
-    Add\_B$0$Maj           &   &       &         &          &     &    \\
-    Add\_B$1$Ch            &   &       &     244 &      122 &     &    \\
+    Add\_B$0$Maj         &   &       &         &          &     &    \\
+    Add\_B$1$Ch          &   &       &     244 &      122 &     &    \\
     Prepare              & 2 &     8 &      68 &          &     &    \\
     ShaCore              & 3 &    32 & 81 - 95 &        1 &     &    \\
   \end{tabular}
   \caption{Erworbene Klauseln in den Modulen}
   \label{fig:additional_clauses_mod}
 \end{table}
+
 Der Mod-2 Addierer verwendet, genau wie die $\Sigma$-Funktionen, ausschließlich den XOR-Operator. Weitere Klauseln waren darin deshalb nicht zu erwarten und
-wurden auch nicht gefunden. Bei den $\sigma$-Funktionen konnten weitere Klauseln gefunden werden da bei diesen, im Gegensatz zu den $\Sigma$-Funktionen, der
+wurden auch nicht gefunden. Bei den $\sigma$-Funktionen konnten weitere Klauseln gefunden werden, weil bei diesen, im Gegensatz zu den $\Sigma$-Funktionen, der
 Shift-Operator verwendet wird, durch den einige Bits verworfen werden. Das zeigt sich auch bei der Addition der Ergebnisse der $\sigma$-Funktionen, wo ebenfalls
 einige Klauseln gefunden werden konnten.
 
@@ -107,9 +108,9 @@ auf Bitbreite und Runden ermittelt.
   \label{fig:additional_clauses}
 \end{table}
 
-Wie in Abschnitt \ref{sec:ana:subclauses} erwähnt sind von diesen Klausel einige überflüssig, weil bereits Dont-Care Literale identifiziert wurden
-und kürze Klauseln vorhanden sind. Tabelle \ref{fig:additional_clauses_clean} zeigt die Anzahl der sinnvollen Klauseln. 8425 Klauseln haben sich
-als überflüssig herausgestellt womit 21306 sinnvolle Klauseln verbleiben.
+Wie in Abschnitt \ref{sec:ana:subclauses} erwähnt sind von diesen Klauseln einige überflüssig, weil bereits Don't-Care Literale identifiziert wurden
+und kürzere Klauseln vorhanden sind. Tabelle \ref{fig:additional_clauses_clean} zeigt die Anzahl der sinnvollen Klauseln. 8425 Klauseln haben sich
+als überflüssig herausgestellt, womit 21306 sinnvolle Klauseln verbleiben.
 \begin{table}[!h]
   \centering
   \begin{tabular}{r|R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}R{1.5cm}|R{1.5cm}}
@@ -132,5 +133,5 @@ als überflüssig herausgestellt womit 21306 sinnvolle Klauseln verbleiben.
 \end{table}
 
 Anzumerken ist, dass die Ermittlung von Klauseln mit positiver Distanz nicht abgeschlossen ist. Die bisher erhaltenen Klauseln werden in Kapitel 6
-genutzt um zu prüfen ob sie den Lösungsprozess beschleunigen. Dabei wird sich zeigen ob es sinnvoll ist die Suche nach weiteren Klauseln zukünftig
+genutzt, um zu prüfen ob sie den Lösungsprozess beschleunigen. Dabei wird sich zeigen, ob es sinnvoll ist die Suche nach weiteren Klauseln zukünftig
 voranzutreiben.

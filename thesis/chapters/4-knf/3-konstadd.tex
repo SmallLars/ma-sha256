@@ -4,7 +4,7 @@
 Für die Addition der Rundenkonstanten wird eine Addition konstruiert, die Literale für die Konstanten vermeidet.
 Da die Konstanten bekannt sind, können der Halbaddierer, der Volladdierer und der Mod-2 Addierer entsprechend reduziert werden.
 Abbildung \ref{fig:adder_reduced} zeigt die reduzierten Varianten. In der ersten Zeile der Tabelle sind die Varianten dargestellt,
-die genutzt werden, falls das eigehende Bit (b) der Konstante den Wert $0$ hat. Entsprechend sind in der zweiten Zeile die Varianten für ein
+die genutzt werden, falls das eingehende Bit (b) der Konstante den Wert $0$ hat. Entsprechend sind in der zweiten Zeile die Varianten für ein
 Bit (b) mit dem Wert $1$ dargestellt.
 \begin{figure}[!h]
   \centering
@@ -22,13 +22,13 @@ Bit (b) mit dem Wert $1$ dargestellt.
 \end{figure}
 \footnotetext{Jeweils auf Basis von MovGP0, CC BY-SA 2.0 de, \url{https://commons.wikimedia.org/w/index.php?curid=22912775}}
 
-Ein Halbaddierer der zwei Bits addiert und am Eingang (b) den Wert $0$ erhält, gibt den Wert des Eingangs (a) direkt an die Summe (s) weiter.
+Ein Halbaddierer, der zwei Bits addiert und am Eingang (b) den Wert $0$ erhält, gibt den Wert des Eingangs (a) direkt an die Summe (s) weiter.
 Der Übertrag (o) kann dabei niemals $1$ werden. Hat der Eingang (b) den Wert $1$, liegt immer genau dann ein Übertrag (o) vor, wenn am Eingang (a)
 der Wert $1$ anliegt. Die Summe (s) hat jedoch nur den Wert $1$, falls der Wert $0$ am Eingang (a) anliegt. Der Eingang (a) muss invertiert werden.
 
-Der Volladdierer addiert drei Bits. Liegt dabei an einem beliebigen Eingang ein Bit mit dem Wert $0$ an, brauchen nur noch zwei Bits addiert werden.
+Der Volladdierer addiert drei Bits. Liegt dabei an einem beliebigen Eingang ein Bit mit dem Wert $0$ an, brauchen nur noch zwei Bits addiert zu werden.
 Der Volladdierer kann auf einen Halbaddierer reduziert werden. Liegt am Eingang (b) der Wert $1$ an, ist für einen Übertrag nur noch Vorraussetzung,
-das Eingang (a) oder Übertrag (c) den Wert $1$ haben. Für die Summe (s) liegt durch den Eingang (b) schon ein $1$-Bit vor. Die Summe (s) ist nur dann
+dass Eingang (a) oder Übertrag (c) den Wert $1$ haben. Für die Summe (s) liegt durch den Eingang (b) schon ein $1$-Bit vor. Die Summe (s) ist nur dann
 $1$, wenn der Eingang(a) und der Übertrag (c) gleich sind, was sich durch den inversen XOR-Operator beschreiben lässt.
 
 Die Mod-2 Addierer werden, wie schon in Abschnitt \ref{sec:grundlagen_add} durchgeführt, aus den Volladdierern erzeugt, indem die für den Übertrag
@@ -39,7 +39,7 @@ Lösungen generiert, um eine optimale Lösung sowohl mit, als auch ohne XOR-Unte
 einbezogen, falls der Übertrag und die Summe in Abhängigkeit von den selben Literalen berechnet werden. Im anderen Fall lässt sich die optimale Lösung
 direkt durch die Verwendung der Gatter generieren.
 
-Die Summe und der Übertrag bei einem Halbaddierer mit eingehendem Bit (b) = $1$ werden beide in Abhängigkeit des Eingangs (a) berechnet. Die boolsche
+Die Summe und der Übertrag bei einem Halbaddierer mit eingehendem Bit (b) = $1$ werden beide in Abhängigkeit des Eingangs (a) berechnet. Die Boolesche
 Gleichung in Abbildung \ref{fig:halfadder1_qen} wird deshalb genutzt um eine optimale konjunktive Normaform zu berechnen. Für den anderen Fall ergibt
 sich die optimale Lösung direkt aus der Anwendung der Gatter. \clearpage
 \begin{figure}[!h]
@@ -57,7 +57,7 @@ sich die optimale Lösung direkt aus der Anwendung der Gatter. \clearpage
 
 Abbildung \ref{fig:red_halfadder_cnf} zeigt die ermittelten konjunktiven Normalformen. Unabhängig von dem eigehenden Bit (b) sind bei der Unterstützung
 von XOR-Klauseln zwei Klauseln notwendig, während es im anderen Fall drei Klauseln sind. Bei Verwendung der Gatter sind die Klauseln entsprechend beschriftet.
-Eine Umwandlung der XOR-Klauseln in normale Klauseln führt für den Fall des eigenenden Bits (b) = 0 ebenfalls zu drei Klauseln während es im anderen Fall vier
+Eine Umwandlung der XOR-Klauseln in normale Klauseln führt für den Fall des eingehenden Bits (b) = 0 ebenfalls zu drei Klauseln, während es im anderen Fall vier
 Klauseln sind.
 \begin{figure}[!h]
   \centering
@@ -114,7 +114,7 @@ Klauseln sind.
 \end{figure}
 
 Ein Volladdierer mit eingehendem Bit (b) = 0 entspricht exakt einem Halbaddierer. Die konjunktive Normalform wird für diesen Fall direkt übernommen.
-Im anderen Fall dient die boolsche Gleichung in Abbildung \ref{fig:fulladder1_qen} zur Ermittlung der konjunktiven Normalform.
+Im anderen Fall dient die Boolesche Gleichung in Abbildung \ref{fig:fulladder1_qen} zur Ermittlung der konjunktiven Normalform.
 \begin{figure}[!h]
   \centering
   \begin{lstlisting}[]
@@ -129,7 +129,7 @@ Im anderen Fall dient die boolsche Gleichung in Abbildung \ref{fig:fulladder1_qe
 \end{figure}
 
 Die konjunktiven Normalformen für den Volladdierer sind in Abbildung \ref{fig:red_halfadder_cnf} aufgeführt. Wie auch bei dem Halbaddierer ist die Anzahl
-der Klauseln unabhängig von dem eigehenden Bit (b). Bei einer Unterstützung von XOR-Klauseln sind vier Klauseln notwendig während es ohne Unterstützung
+der Klauseln unabhängig von dem eigehenden Bit (b). Bei einer Unterstützung von XOR-Klauseln sind vier Klauseln notwendig, während es ohne Unterstützung
 sechs Klauseln sind. Eine Umwandlung der XOR-Klauseln führt in beiden Fällen zu einer Klauselanzahl von sieben.
 \begin{figure}[!h]
   \centering
@@ -189,9 +189,9 @@ sechs Klauseln sind. Eine Umwandlung der XOR-Klauseln führt in beiden Fällen z
   \label{fig:red_fulladder_cnf}
 \end{figure}
 
-Für den Mod-2 Addierer brauchen eqntott und Espresso nicht herangezogen werden. Dieser berechnet die Summe direkt durch den XOR-Operator.
+Für den Mod-2 Addierer brauchen eqntott und Espresso nicht herangezogen zu werden. Dieser berechnet die Summe direkt durch den XOR-Operator.
 Abbildung \ref{fig:red_lastadder_cnf} zeigt die konjunktiven Normalformen für den Mod-2 Addierer. Auch hier hat das eingehende Bit (b)
-keinen Einfluss auf die Anzahl der Klauseln. Mit Unterstützung von XOR-Klauseln ist eine einzelne Klausel ausreichend während ohne
+keinen Einfluss auf die Anzahl der Klauseln. Mit Unterstützung von XOR-Klauseln ist eine einzelne Klausel ausreichend, während ohne
 Unterstützung vier Klauseln benötigt werden.
 \begin{figure}[!h]
   \centering
@@ -249,7 +249,7 @@ Unterstützung vier Klauseln benötigt werden.
 
 Wie auch für den Addierer im vorhergehenden Abschnitt sind in Tabelle \ref{fig:red_add_literalclausecount} noch mal alle Ergebnisse aufgelistet.
 Die Daten der gatterbasierten Lösungen entsprechen in diesem Fall den Daten der XOR-basierten Lösungen mit und ohne Unterstützung von XOR-Klauseln,
-da sich alle Überträge und Summen mit Hilfe einer Operation direkt aus den Eingangswerten ergeben. Zusätzliche Literale sind nicht notwendig.
+weil sich alle Überträge und Summen mit Hilfe einer Operation direkt aus den Eingangswerten ergeben. Zusätzliche Literale sind nicht notwendig.
 \begin{table}[!h]
   \centering
   \begin{tabular}{l|rrr|r}
@@ -268,4 +268,4 @@ da sich alle Überträge und Summen mit Hilfe einer Operation direkt aus den Ein
 \end{table}
 
 Für die Addition von Konstanten ist es ebenfalls sinnvoll zwei Lösungen zu implementieren. Bei der Unterstützung von XOR-Klauseln wird die gatterbasierte
-Lösung verwendet während im anderen Fall die Lösung von eqntott und Espresso verwendet wird.
+Lösung verwendet, während im anderen Fall die Lösung von eqntott und Espresso verwendet wird.

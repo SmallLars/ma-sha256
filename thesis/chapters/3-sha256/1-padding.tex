@@ -2,8 +2,8 @@
 \label{sec:sha256:padding}
 
 Um die Eingabe auf ein Vielfaches von 512 Bit zu erweitern, wird das Padding benötigt. Dabei wird ein einzelnes Bit mit dem Wert "`$1$"' an die Eingabe der Länge L gehängt.
-Dann folgen K "`$0$"'en und abschließend ein 64 Bit Block der die Länge L in binärer Repräsentation enthält. K ergibt sich dabei durch die Formel ( L + K ) mod 512 = 447.
-Hier zeigt sich, dass bei einem K von 0 die Eingabe 447 Bit lang werden kann, bevor die Kompressionsfunktion weiteres Mal ausgeführt werden muss, da ein zweiter 512 Bit Block
+Dann folgen K "`$0$"'en und abschließend ein 64 Bit Block, der die Länge L in binärer Repräsentation enthält. K ergibt sich dabei durch die Formel ( L + K ) mod 512 = 447.
+Hier zeigt sich, dass bei einem K von 0 die Eingabe 447 Bit lang werden kann, bevor die Kompressionsfunktion weiteres Mal ausgeführt werden muss, weil ein zweiter 512 Bit Block
 erzeugt wird.
 
 \begin{figure}[!h]

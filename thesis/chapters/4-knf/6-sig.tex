@@ -6,9 +6,9 @@ Während bisher mehrere Eingaben verrechnet wurden, wird bei den Sigma-Funktione
 einzelne Bits Verwendung in bis zu drei unterschiedlichen Ausgabebits finden. Da jedes Ausgabebit direkt durch ein XOR-Gatter aus den
 Eingabebits berechnet wird, sind keine zusätzlichen Literale notwendig. Aus 32 Eingabebits und 32 Ausgabebits ergeben sich 64 Literale.
 
-Bei Verwendung der XOR-Klauseln reicht eine Klausel für jedes Ausgabebit aus, unabhängig davon ob das Ausgabebit aus zwei oder drei
-Eingangsbits berechnet wird. Anders ist es bei fehlender XOR-Unterstützung. Ein XOR mit drei Eingängen benötigt acht Klauseln während
-ein XOR mit zwei Eingängen vier Klauseln benötigt. Bei den $ \Sigma $-Funktionen kommt dieser Unterschied nicht zum tragen, da generell
+Bei Verwendung der XOR-Klauseln reicht eine Klausel für jedes Ausgabebit aus, unabhängig davon, ob das Ausgabebit aus zwei oder drei
+Eingangsbits berechnet wird. Anders ist es bei fehlender XOR-Unterstützung. Ein XOR mit drei Eingängen benötigt acht Klauseln, während
+ein XOR mit zwei Eingängen vier Klauseln benötigt. Bei den $ \Sigma $-Funktionen kommt dieser Unterschied nicht zum Tragen, weil generell
 drei Eingabebits für jedes Ausgabebit herangezogen werden. Es ergeben sich 256 Klauseln. Anders verhält es sich bei den $ \sigma $-Funktionen.
 Durch die Verschiebung nach rechts werden 3 bzw. 10 Eingangsbits nur zwei mal berücksichtigt. Die entstehende $0$ hat keinen Einfluss auf das
 Ergebnis einer XOR-Operation und kann ignoriert werden. Es ergeben sich deshalb nur 244 bzw. 216 Klauseln. Eine Übersicht ist in Tabelle
@@ -30,4 +30,4 @@ Ergebnis einer XOR-Operation und kann ignoriert werden. Es ergeben sich deshalb 
   \label{fig:sigma_literalclausecount}
 \end{table}
 
-Wie auch für den Addierer, führt der Versuch die vier Funktionen als Wahrheitstabelle auszugeben und mit Espresso zu optimieren zu keinem Ergebnis.
+Wie auch für den Addierer, führt der Versuch, die vier Funktionen als Wahrheitstabelle auszugeben und mit Espresso zu optimieren, zu keinem Ergebnis.

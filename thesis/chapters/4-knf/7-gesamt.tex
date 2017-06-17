@@ -3,7 +3,7 @@
 
 Die acht grundlegenden Module aus den vorhergehenden Abschnitten werden in diesem Abschnitt genutzt,
 um hierarchisch die vollständige Kompressionsfunktion von \glos{sha256} zu erzeugen. Eine einfache Lösung wäre es,
-jeweils ein Modul für die Rundenfunktion und für die Erweiterung der Eingabe zu Erstellen. Diese werden
+jeweils ein Modul für die Rundenfunktion und für die Erweiterung der Eingabe zu erstellen. Diese werden
 im Modul für die Kompressionsfunktion dann 64 bzw. 48 mal eingebunden. Das löst zwar die Generierung der konjunktiven
 Normalform, ist jedoch für eine Analyse unter Umständen zu grob. Sollte es gelingen, Wissen mit CryptoMiniSat zu erwerben,
 und einzelnen Modulen zuzuordnen, müsste eine weitere Zuordnung innerhalb des Moduls per Hand erfolgen.
@@ -25,30 +25,30 @@ Analyse dieser Rekonvergenzen ist besonders interessant und wird durch die beide
 \end{figure}
 
 Ein weiteres Modul ist Bestandteil der Erweiterung der Eingabe und in Abbildung \ref{fig:sha256M} auf der rechten Seite
-dargestellt. Bei der Erweiterung der Eingabe werden vier Werte Addiert, wobei zwei davon zunächst durch die $ \sigma $-Funktionen
+dargestellt. Bei der Erweiterung der Eingabe werden vier Werte addiert, wobei zwei davon zunächst durch die $ \sigma $-Funktionen
 transformiert werden. Da es keine Rolle spielt, in welcher Reihenfolge die Addition durchgeführt wird, werden diese
 beiden zunächst in einem eigenen Modul addiert. Da jedes Eingabebit der $ \sigma $-Funktionen Einfluss auf bis zu
 drei Ausgabebits hat, könnten sich möglicherweise Rückschlüsse auf die jeweils anderen Eingabebits ziehen lassen.
 Mit Hilfe dieses Moduls und weiteren Additionen, wird schließlich ein Modul (Prepare) für die vollständige Erweiterung der Eingabe
-(siehe Abbildung \ref{fig:sha256prep}) erstellt. Die verbleibenden beiden Werte werden zunächst Addiert, um das Ergebnis
+(siehe Abbildung \ref{fig:sha256prep}) erstellt. Die verbleibenden beiden Werte werden zunächst addiert, um das Ergebnis
 dann mit dem Ergebnis des Moduls zu addieren.
 
 Die beiden erstgenannten Module werden ebenfalls zusammen mit weiteren Additionen genutzt, um ein Modul (ShaCore) für die vollständige
 Rundenfunktion (siehe Abbildung \ref{fig:sha256core}) zu realisieren. Außen vor bleibt dabei die Addition der Konstante.
-Dadurch kann erworbenes Wissen auf alle 64 Runden angewendet werden, da es sich jedes Mal um das gleiche Modul handelt.
-Eingefügt wird in dieses Modul auch eine weitere Addition und eine Subtraktion um das Wissen aus Abschnitt \ref{sec:ana:rundenfunktion}
+Dadurch kann erworbenes Wissen auf alle 64 Runden angewendet werden, weil es sich jedes Mal um das gleiche Modul handelt.
+Eingefügt wird in dieses Modul auch eine weitere Addition und eine Subtraktion, um das Wissen aus Abschnitt \ref{sec:ana:rundenfunktion}
 mit einzubringen. Da dafür zusätzliche Literale notwendig sind, wird dieses Wissen zunächst außen vor gelassen und nur in Kapitel
 \ref{chp:bewertung} einer Bewertung unterzogen. Dadurch ist ein besserer Vergleich mit anderen Implementierungen möglich und
 die Analyse in Kapitel \ref{chp:analyse} bezieht sich auf die ursprünglichen Literale und Klauseln, so dass dieses zusätzliche
 Wissen je nach Bedarf eingebracht oder außen vor gelassen werden kann.
 
 In einem weiteren Modul (ShaCoreEx) wird schließlich die Rundenfunktion mit der Addition der Konstante zusammengeführt.
-Erworbenes Wissen, was auf der Konstante basiert, kann dadurch in diesem Modul gesammelt werden, falls es sich in einem
+Erworbenes Wissen, das auf der Konstante basiert, kann dadurch in diesem Modul gesammelt werden, falls es sich in einem
 zweiten Schritt als allgemeingültig erweist.
 
 Abschließend werden die genannten Module in einem Modul (Sha$256$) für die vollständige Rundenfunktion genutzt. Zusätzlich erfolgt in
 diesem Modul auch die Addition der anfänglich genutzten Konstanten auf das Ergebnis (siehe Abbildung \ref{fig:sha256single}).
-Abbildung \ref{fig:sha256_module} zeigt den hierarchischen Aufbaue der Module.
+Abbildung \ref{fig:sha256_module} zeigt den hierarchischen Aufbau der Module.
 \begin{figure}[!h]
   \centering
   \includegraphics[scale=0.265]{images/module}

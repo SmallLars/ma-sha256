@@ -2,7 +2,7 @@
 \label{sec:knf:addierer}
 
 Grundlage für die modulare 32-Bit Addition sind der Halbaddierer, der Volladdierer und der Mod-2 Addierer (siehe Abschnitt \ref{sec:grundlagen_add}).
-Wie auch für die Gatter im Abschnitt vorher wird für den Halbaddierer eine boolsche Gleichungen erstellt (siehe Abbildung \ref{fig:halfadder_eqn}).
+Wie auch für die Gatter im Abschnitt vorher wird für den Halbaddierer eine Boolesche Gleichung erstellt (siehe Abbildung \ref{fig:halfadder_eqn}).
 Diese entspricht genau den Gattern in Abbildung \ref{fig:halfadder}.
 \begin{figure}[!h]
   \centering
@@ -17,7 +17,7 @@ Diese entspricht genau den Gattern in Abbildung \ref{fig:halfadder}.
   \label{fig:halfadder_eqn}
 \end{figure}
 
-Nach der Verwendung von eqntott und Espresso ergibt sich aus der boolenschen Gleichung die konjunktive Normalform in Abbildung \ref{fig:halfadder_cnf} (linke Seite).
+Nach der Verwendung von eqntott und Espresso ergibt sich aus der Booleschen Gleichung die konjunktive Normalform in Abbildung \ref{fig:halfadder_cnf} (linke Seite).
 eqntott und Espresso unterstützen jedoch keine XOR-Klauseln, weshalb ein manueller Versuch unternommen wird, diesen Vorteil zu nutzen. Das Ergebnis ist in Abbildung
 \ref{fig:halfadder_cnf} (rechte Seite) dargestellt und besteht aus dem AND- und dem XOR-Gatter. Die Klauselmenge kann so von sechs auf vier Klauseln reduziert werden.
 Diese Lösung bietet sich jedoch nur an, wenn die XOR-Klausel auch direkt verwendet werden kann. Wird sie in normale Klauseln umgewandelt, stehen im Ergebnis sieben
@@ -48,12 +48,12 @@ Klauseln. Das ist eine mehr als in der Lösung von Espresso.
 
 Im Volladdierer (siehe Abbildung \ref{fig:fulladder}) gibt es keine Gatter, die eine direkte Beziehung zwischen Eingangs- und Ausgangs-Literalen definieren.
 Für die direkte Realisierung mit Hilfe der Gatter müssten 3 weitere Literale eingefügt werden. Für zwei AND- und ein OR-Gatter ergeben sich neun Klauseln (jeweils drei).
-Bleiben noch die beiden XOR-Gatter die jeweils zu einer XOR-Klausel oder vier normalen Klauseln führen. Die Anzahl der Literale beträgt somit insgesamt 8 und die Anzahl der
+Bleiben noch die beiden XOR-Gatter, die jeweils zu einer XOR-Klausel oder vier normalen Klauseln führen. Die Anzahl der Literale beträgt somit insgesamt 8 und die Anzahl der
 Klauseln 17 (oder 9 + 2 XOR).
 
 Bei der Verwendung von eqntott und Espresso zeigt sich, dass es kompaktere Lösungen gibt, die ohne zusätzliche Literale weniger Klauseln benötigen.
-Die boolsche Gleichung für den Volladdierer ist in Abbildung \ref{fig:fulladder_qen} dargestellt. Wie auch bei dem Halbaddierer werden zwei mögliche
-Lösungen generiert. Während in der ersten Lösung die vollständige boolsche Gleichung genutzt wird, fallen in der zweiten Lösung die blau markierten
+Die Boolesche Gleichung für den Volladdierer ist in Abbildung \ref{fig:fulladder_qen} dargestellt. Wie auch bei dem Halbaddierer werden zwei mögliche
+Lösungen generiert. Während in der ersten Lösung die vollständige Boolesche Gleichung genutzt wird, fallen in der zweiten Lösung die blau markierten
 Teile weg, um die XOR-Operationen manuell zu berücksichtigen. \clearpage
 \begin{figure}[!h]
   \centering
@@ -69,7 +69,7 @@ Teile weg, um die XOR-Operationen manuell zu berücksichtigen. \clearpage
   \label{fig:fulladder_qen}
 \end{figure}
 
-Es ergeben sich die konjunktiven Normalformen in Abbildung \ref{fig:fulladder_cnf}. Der eingehende Übertrag wird als c bezeichnet während der
+Es ergeben sich die konjunktiven Normalformen in Abbildung \ref{fig:fulladder_cnf}. Der eingehende Übertrag wird als c bezeichnet, während der
 berechnete Übertrag o genannt wird. Die Anzahl der Klauseln beläuft sich auf zehn, wobei durch die XOR-Unterstützung
 eine Reduktion auf 7 Klauseln möglich ist. Die Umwandlung der XOR-Klausel in normale Klauseln würde zu einer Menge von 14 Klauseln führen.
 \begin{figure}[!h]
@@ -104,9 +104,9 @@ eine Reduktion auf 7 Klauseln möglich ist. Die Umwandlung der XOR-Klausel in no
   \label{fig:fulladder_cnf}
 \end{figure}
 
-Der Mod-2 Addierer braucht keiner weiteren Analyse unterzogen werden, da er ausschließlich aus XOR-Gattern besteht.
+Der Mod-2 Addierer braucht keiner weiteren Analyse unterzogen zu werden, weil er ausschließlich aus XOR-Gattern besteht.
 Die konjuktive Normalform ist in Abbildung \ref{fig:lastadder_cnf} dargestellt. Es werden entweder acht normale Klauseln
-oder eine XOR-Klausel benötigt. Eine Lösung mit zwei einzelnen XOR-Gattern würde keine Vorteile bringen, da sie ein
+oder eine XOR-Klausel benötigt. Eine Lösung mit zwei einzelnen XOR-Gattern würde keine Vorteile bringen, weil sie ein
 zusätzliches Literal benötigt und die Klauselanzahl nicht verringert.
 \begin{figure}[!h]
   \centering
@@ -139,7 +139,7 @@ zusätzliches Literal benötigt und die Klauselanzahl nicht verringert.
 In Tabelle \ref{fig:add_literalclausecount} sind noch mal alle Ergebnisse aufgelistet. Die erste Zahl steht jeweils für die Anzahl der Literale
 und die zweite Zahl für die Anzahl der Klauseln. In der letzten Spalte sind die Werte für einen modularen 32-Bit Addierer aufgelistet.
 Die Anzahl der Klauseln ergibt sich aus einem Halbaddierer, 30 Volladdierern und einem Mod-2 Addierer. Die Anzahl der Literale wird zunächst
-auf die gleiche Weise berechnet. Es müssen jedoch noch 31 Literale abgezogen werden, da die Literale für die Überträge doppelt berechnet wurden.
+auf die gleiche Weise berechnet. Es müssen jedoch noch 31 Literale abgezogen werden, weil die Literale für die Überträge doppelt berechnet wurden.
 \begin{table}[!h]
   \centering
   \begin{tabular}{l|rrr|r}
@@ -159,11 +159,11 @@ auf die gleiche Weise berechnet. Es müssen jedoch noch 31 Literale abgezogen we
 
 Es zeigt sich, dass die Verwendung von eqntott und Espresso, im Vergleich zur Verwendung der Gatter, zu einer kompakteren konjunktiven Normalform führt.
 Durch die Verwendung von XOR-Klauseln, lässt sich die Klauselmenge weiter reduzieren. Dies sollte jedoch nicht die Basis für eine Nutzung ohne XOR-Unterstützung
-sein, da in diesem Fall die Klauselmenge größer ist, als die Klauselmenge der von eqntott und Espresso berechneten Version. Es werden daher beide Versionen
+sein, weil in diesem Fall die Klauselmenge größer ist, als die Klauselmenge der von eqntott und Espresso berechneten Version. Es werden daher beide Versionen
 implementiert, so dass sich je nach Anwendungsfall die bessere Version nutzen lässt.
 
 Ein Anwendungsfall ohne XOR-Unterstützung ist die Generierung von Wahrheitstabellen. Die Komponenten des modularen 32-Bit Addierers wurden bisher einzeln
 erzeugt und zusammengefügt. Die kompakte Repräsentation ermöglicht es, den 32-Bit Addierer vollständig in einer Wahrheitstabelle darzustellen.
 Die Wahrheitstabelle hat dabei 127 Spalten mit 314 Zeilen. Diese Wahrheitstabelle dient wieder als Eingabe für Espresso, um weitere Optimierungen zu
 ermöglichen, die sich aus dem Zusammenhang der einzelnen Komponenten ergeben könnten. Es stellt sich aber heraus, dass Espresso mit 127 Literalen
-überfordert ist, und auch nach mehr als 24 Stunden zu keiner Lösung kommt.
+überfordert ist und auch nach mehr als 24 Stunden zu keiner Lösung kommt.

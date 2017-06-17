@@ -1,10 +1,9 @@
-cbmc/cbmc/*
+eval_cbmc/cbmc/*
 espresso/espresso/*
 knf_gen/cryptominisat/*
 knf_gen/cryptominisat4-4.2.0/*
 knf_gen/cryptominisat4-4.4.0/*
 knf_gen/cryptominisat4-4.5.3/*
-eclipse/*
 *.o
 *.log
 *.dimacs

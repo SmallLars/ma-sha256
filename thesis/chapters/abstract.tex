@@ -1,7 +1,10 @@
 \section*{\abstractname}
 
-In diese Arbeit wird eine konjunktive Normalform für den Hash-Algorithmus \glos{sha256} erstellt und für
-die Analyse mit CryptoMiniSat genutzt. Die Analyse erfolgt iterativ. Nach einem Lösungsversuch werden
-gelernte Klauseln extrahiert und den betreffenden Bereichen von \glos{sha256} zugeordnet um sie im nächsten
-Lösungsversuch direkt mit zu verwenden. Es zeigt sich, dass dadurch der Lösungsprozess beschleunigt
-werden kann, ein praktisch relevanter Angriff jedoch nicht möglich ist.
+Ziel dieser Arbeit ist es, mit Hilfe von CryptoMiniSat Wissen über den Hash-Algorithmus \glos{sha256}
+zu erwerben, um dieses Wissen in weitere Lösungsversuche einzubringen und damit den Lösungsprozess zu
+beschleunigen. Dafür wird eine konjunktive Normalform erstellt und für die Analyse mit CryptoMiniSat genutzt.
+Die Analyse erfolgt iterativ. Nach einem Lösungsversuch werden gelernte Klauseln extrahiert und den
+betreffenden Bereichen von \glos{sha256} zugeordnet. Diese Klauseln werden in weitere Lösungsversuche direkt
+mit eingebunden. Es zeigt sich, dass dadurch der Lösungsprozess beschleunigt werden kann. Ein praktisch
+relevanter Angriff ist damit jedoch nicht möglich. Auch die Berechnung eines Bitcoin-Blocks lässt sich
+damit nicht ausreichend schnell durchführen.

@@ -1,35 +1,38 @@
 \chapter{Fazit}
 \label{chp:fazit}
 
+Ziel der Arbeit war es, das vom SAT-Solver erworbene Wissen einer Analyse zu unterziehen und ausgewählte Teile in weitere Lösungsversuche
+einzubringen, um den Lösungsprozess zu beschleunigen. Dafür war es notwendig, ein Framework für die Analyse und Erzeugung der konjunktive Normalform zu erstellen.
+
 In Kapitel \ref{chp:knf} konnte im Vergleich zu \acr{cbmc} und der Arbeit von Martin Maurer eine deutlich kompaktere konjunktive Normalform erzeugt werden.
-Das dafür erstellte Framework wurde frühzeitig veröffentlicht und von Jens Trillmann genutzt um den Verschlüsselungs-Algorithmus \acr{des} in eine
+Das dafür erstellte Framework wurde frühzeitig veröffentlicht und von Jens Trillmann genutzt, um den Verschlüsselungs-Algorithmus \acr{des} in eine
 konjunktive Normalform zu überführen \cite{trillmann}. Wird ein Klartext (64 Bit) vorgegeben und werden vom Geheimtext 48 Bit festgelegt, ist CryptoMiniSat
 in der Lage innerhalb von 24 Stunden einen gültigen Schlüssel für \acr{des} zu finden. Das Framework und die konjunktive Normalform dürfen deshalb als
 Erfolg betrachtet werden.
 
 Basierend auf den Lösungsversuchen mit der konjunktiven Normalform aus Kapitel \ref{chp:knf} konnten in Kapitel \ref{chp:analyse} zusätzliche Klauseln
 unterschiedlichster Art generiert werden. Auch hier hat sich das Framework bewährt und eine Zuordnung der Klauseln ermöglicht. Besonders einfach und
-effektiv war die Zuordnung der Klauseln zu einzelnen Modulen. Wissen was an einer Stelle über ein Modul erworben wurde, konnte so automatisch an allen
+effektiv war die Zuordnung der Klauseln zu einzelnen Modulen. Wissen, das an einer Stelle über ein Modul erworben wurde, konnte so automatisch an allen
 anderen Stellen, an denen das Modul verwendet wird, genutzt werden. Kapitel \ref{chp:bewertung} hat gezeigt, dass sich gerade diese modulspezifischen
 Klauseln besonders positiv auf die Dauer des Lösungsprozesses auswirken. Eine Ausnahme bilden dabei zusätzliche Klauseln für den 32 Bit Addierer. Diese
 bremsen den Lösungsprozess im Gegensatz zu zusätzlichen Klauseln für die Halb- und Volladdierer eher aus. Vom 32 Bit Addierer abgesehen scheint somit
-nicht die minimale Klauselmenge am schnellsten zum Ziel zu führen, sondern die Menge aller Klauseln ohne Dont-Care Literale. Das ermöglicht einem
+nicht die minimale Klauselmenge am schnellsten zum Ziel zu führen, sondern die Menge aller Klauseln ohne Don't-Care Literale. Das ermöglicht einem
 SAT-Solver an jeder Stelle eine direkte Propagation von Werten ohne den Umweg über weitere Klauseln. Beachtet werden muss jedoch auch, dass der
-Lösungsprozess gerade bei einem Hash-Algorithmus wie \glos{sha256} eher auf Probieren basiert, da zumindest bei dem aktuellen Stand vergleichsweise
+Lösungsprozess gerade bei einem Hash-Algorithmus wie \glos{sha256} eher auf Probieren basiert, weil zumindest bei dem aktuellen Stand vergleichsweise
 wenig Wissen erworben und genutzt werden kann. Das macht die effiziente Propagation von Werten um so wichtiger. Die modulspezifischen Klauseln
-beschleunigen am Ende zwar den Lösungsprozess, lassen aber keine weiteren Optimierungen zu, da diese Klauselmenge mehr oder weniger endlich ist.
+beschleunigen am Ende zwar den Lösungsprozess, lassen aber keine weiteren Optimierungen zu, weil diese Klauselmenge mehr oder weniger endlich ist.
 
-Diesbezüglich sind modulübergreifende Klauseln wesentlich interessanter, da die Suche danach in dieser Arbeit nicht abgeschlossen wurde und noch
-Potenzial vorhanden ist. Die Distanzmetrik hat sich bewährt, da die Dauer des Lösungsprozesses mit vergleichsweise wenig zusätzlichen Klauseln um
+Diesbezüglich sind modulübergreifende Klauseln wesentlich interessanter, weil die Suche danach in dieser Arbeit nicht abgeschlossen wurde und noch
+Potenzial vorhanden ist. Die Distanzmetrik hat sich bewährt, weil die Dauer des Lösungsprozesses mit vergleichsweise wenig zusätzlichen Klauseln um
 20\% reduziert werden konnte. Damit ist es zumindest geglückt, einen Teil der Klauseln herauszufiltern, die den Lösungsprozess tatsächlich
 beschleunigen. Zur Ermittlung der Distanz wurde in dieser Arbeit ein Graph herangezogen, dessen Knoten auf den grundlegenden Module basieren.
 Dafür wäre ein allgemeinerer Ansatz denkbar, der einen Graphen anhand der Literale und Klauseln erzeugt, um darauf eine Distanz zu ermitteln.
-Dieser Graph wird jedoch wesentlich umfangreicher und hätte es in dieser Arbeit erschwert die gefundenen Klauseln zu verallgemeinern, da
+Dieser Graph wird jedoch wesentlich umfangreicher und hätte es in dieser Arbeit erschwert die gefundenen Klauseln zu verallgemeinern, weil
 der Zusammenhang zwischen den einzelnen Bits eines 32 Bit breiten Zwischenergebnisses verloren geht.
 
 Diese Verallgemeinerung von modulübergreifenden Klauseln hat sich in dieser Arbeit ebenfalls bewährt. Vielfach konnten Klauseln mit positiver
 Distanz auf bis zu 700 weitere Stellen übertragen werden, wobei CryptoMiniSat davon nur 10 bis 50 selbst gefunden hat. Das zeigt, dass es
-durchaus sinnvoll sein kann einen SAT-Solver mit externem Wissen zu unterstützen. Während in dieser Arbeit gerade bei der Verallgemeinerung
+durchaus sinnvoll sein kann, einen SAT-Solver mit externem Wissen zu unterstützen. Während in dieser Arbeit gerade bei der Verallgemeinerung
 noch viele Schritte von Hand durchgeführt wurden, kann es zukünftig interessant sein diesen Prozess vollständig zu automatisieren. Eine
 erworbene Klausel mit positiver Distanz könnte so direkt verallgemeinert und in den Lösungsprozess integriert werden. Beachtet werden muss
 dabei jedoch, dass alle durch Verallgemeinerung erzeugten Klauseln noch einer Gültigkeitsprüfung unterzogen werden müssen, was nebenläufig in
@@ -41,15 +44,14 @@ Addierern ohne internes Carry-Bit Literale einzusparen. Nur dadurch kann die Ver
 
 Zusätzliche Klauseln wurden des Weiteren nicht nur durch CryptoMiniSat sondern auch durch zusätzliches Wissen und weitere Module manuell erzeugt.
 Ein Unterschied ist hierbei, dass neben weiteren Klauseln auch weitere Literale für zusätzliche Zwischenergebnisse benötigt werden.
-Diese können unter Umständen helfen, weitere Zusammenhänge zu erkennen. Die Bewertung war jedoch nicht eindeutig, und der Nutzen ist zweifelhaft.
+Diese können unter Umständen helfen, weitere Zusammenhänge zu erkennen. Die Bewertung war jedoch nicht eindeutig und der Nutzen ist zweifelhaft.
 Nur bei der Verwendung von XOR-Klauseln konnte der Lösungsprozess damit beschleunigt werden.
 
-Die Evaluation in Kapitel \ref{chp:evaluation} hat gezeigt, dass es in dieser Arbeit gelungen eine konjunktive Normalform zu erzeugen, die schneller
+Die Evaluation in Kapitel \ref{chp:evaluation} hat gezeigt, dass es in dieser Arbeit gelungen ist, eine konjunktive Normalform zu erzeugen, die schneller
 ist als die von Martin Maurer und die mit \acr{cbmc} mithalten kann. Das Ergebnis ist jedoch kein Vergleich zu dem, was sich durch reines Probieren
-realisieren lässt. Interessant bleibt dieser Ansatz trotzdem, da weitere Klauseln den Lösungsprozess noch weiter beschleunigen können.
+realisieren lässt. Ein praktisch relevanter Angriff auf \glos{sha256} oder Bitcoin ist somit nicht möglich. Interessant bleibt dieser Ansatz trotzdem,
+weil weitere Klauseln den Lösungsprozess zukünftig noch weiter beschleunigen können.
 
 Im Gegensatz zu spezifischen Angriff auf \glos{sha256} lässt sich durch diesen Ansatz jedes neue Wissen problemlos integrieren und nutzen.
 Die Suche nach weiteren Klauseln könnte auch durch eine große Gemeinschaft erfolgen. Zukünftig wäre ein Internetauftritt denkbar, durch den
 alle Klauseln gesammelt und der Allgemeinheit zur Verfügung gestellt werden.
-
-\TODO{Datumsangaben in der Literaturliste aktualisieren}

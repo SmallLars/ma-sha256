@@ -1,15 +1,15 @@
 \section{Espresso}
 \label{sec:espresso}
 
-Espresso ist ein Heuristic Logic Minimizer der Berkeley Universität von 1989. Verwendet wird in dieser
+Espresso ist ein heuristischer Logikminimierer der Berkeley Universität von 1989. Verwendet wird in dieser
 Arbeit eine moderne Version von 2012 \cite{espressobin}. Als Eingabe dienen Wahrheitstabellen wie sie
 unter anderem mit "`eqntott"' (siehe Abschnitt \ref{sec:knf}) generiert werden. Die Ausgabe ist eine
 Wahrheitstabelle in minimierter Form.
 
 Als Parameter werden "`-Dexact"' und "`-epos"' verwendet. -Dexact garantiert eine minimale Anzahl von
-Einträgen in der Wahrheitstabelle, und somit von Klauseln in der konjunktiven Normalform. Die Laufzeit
+Einträgen in der Wahrheitstabelle und somit von Klauseln in der konjunktiven Normalform. Die Laufzeit
 ist dabei exponentiell im Bezug zur Anzahl der Variablen. Da Espresso in dieser Arbeit nur für
 Wahrheitstabellen mit bis zu 14 Variablen verwendet wird, sind Lösungen noch innerhalb eines Tages möglich.
--epos ist notwendig, um die Menge der wahren (On-Set) und falschen Zeilen (Off-Set) der Wahrheitstabelle
+-epos ist notwendig, um die Menge der wahren (On-Set) und nicht-wahren Zeilen (Off-Set) der Wahrheitstabelle
 zu invertieren. Ohne die Angabe des Parameters minimiert Espresso die Menge der wahren Zeilen. Benötigt
-wird für die konjunktive Normalform jedoch eine minimale Menge der falschen Zeilen.
+wird für die konjunktive Normalform jedoch eine minimale Menge der nicht-wahren Zeilen.
